@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jutsus | NYDo Wiki</title>
+
+    <!-- CSS general de tu página -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- CSS exclusivo de esta página -->
+    <link rel="stylesheet" href="jutsus.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR -->
+    <header class="topbar">
+        <button class="menu-btn" id="menuBtn"
+                aria-label="Abrir menú" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+
+        <div class="brand-description">
+            <strong>WIKI OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+    </header>
+
+    <!-- FONDO DEL MENÚ -->
+    <div class="page-overlay" id="pageOverlay"></div>
+
+    <!-- MENÚ LATERAL -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html#inicio" class="sidebar-logo">
+                <span class="brand-symbol">木</span>
+                <span class="brand-name">NYDo</span>
+            </a>
+
+            <button class="close-btn" id="closeBtn"
+                    aria-label="Cerrar menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="navigation">
+            <a href="index.html#inicio" class="nav-link">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </a>
+
+            <a href="jutsus.html" class="nav-link active">
+                <i class="fa-solid fa-hand-sparkles"></i>
+                <span>Jutsus</span>
+            </a>
+
+            <a href="index.html#dojutsus" class="nav-link">
+                <i class="fa-solid fa-eye"></i>
+                <span>Dojutsus</span>
+            </a>
+
+
+        
+
+            <div class="nav-divider"></div>
+
+            <a href="index.html#guia" class="nav-link">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Guía del Mod</span>
+            </a>
+
+            <a href="index.html#descargas" class="nav-link">
+                <i class="fa-solid fa-download"></i>
+                <span>Descargas</span>
+            </a>
+
+            <a href="index.html#sobre" class="nav-link">
+                <i class="fa-regular fa-circle-question"></i>
+                <span>Sobre el Mod</span>
+            </a>
+
+            <a href="index.html#contacto" class="nav-link">
+                <i class="fa-regular fa-envelope"></i>
+                <span>Contacto</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-symbol">木</div>
+            <p>
+                "El conocimiento<br>
+                es el primer paso<br>
+                del camino shinobi"
+            </p>
+            <span>— NYDo</span>
+        </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="jutsu-page">
+
+        <section class="jutsu-banner">
+            <div class="banner-content">
+                <span class="jutsu-eyebrow">
+                    <i class="fa-solid fa-book-open"></i>
+                    ENCICLOPEDIA SHINOBI
+                </span>
+
+                <h1>LOS <span>JUTSUS</span></h1>
+
+                <p>
+                    Descubre las artes ninja, las técnicas de combate,
+                    el control del chakra y los poderes del mundo de Naruto.
+                </p>
+
+                <a href="#categorias" class="jutsu-main-btn">
+                    Explorar categorías
+                    <i class="fa-solid fa-arrow-down"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- NAVEGACIÓN DE CATEGORÍAS -->
+        <section class="jutsu-categories" id="categorias">
+            <div class="jutsu-section-title">
+                <span>CLASIFICACIÓN NINJA</span>
+                <h2>Artes y técnicas</h2>
+                <p>Selecciona una categoría para conocer sus características.</p>
+            </div>
+
+            <nav class="category-nav">
+                <a href="#ninjutsu">Ninjutsu</a>
+                <a href="#taijutsu">Taijutsu</a>
+                <a href="#genjutsu">Genjutsu</a>
+                <a href="#senjutsu">Senjutsu</a>
+                <a href="#kenjutsu">Kenjutsu</a>
+                <a href="#fuinjutsu">Fūinjutsu</a>
+            </nav>
+
+            <!-- NINJUTSU -->
+            <article class="jutsu-panel" id="ninjutsu">
+                <div class="panel-heading">
+                    <div class="panel-icon red-icon">
+                        <i class="fa-solid fa-fire-flame-curved"></i>
+                    </div>
+                    <div>
+                        <span class="panel-number">01 / ARTE NINJA</span>
+                        <h2>Ninjutsu</h2>
+                        <p>Manipulación del chakra para realizar técnicas.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    El ninjutsu comprende técnicas que utilizan el chakra
+                    para producir diferentes efectos, como ataques elementales,
+                    transformaciones, técnicas de apoyo, curación y otras
+                    habilidades especiales.
+                </p>
+
+                <h3 class="subheading">Las cinco naturalezas básicas</h3>
+                
+                <div class="element-grid">
+                    
+    <a href="katon.html" class="element-card fire">
+        <span class="element-symbol">火</span>
+        <h3>Katon</h3>
+        <span class="element-name">Elemento Fuego</span>
+        <p>Permite generar y controlar técnicas basadas en el fuego.</p>
+    </a>
+
+    <a href="futon.html" class="element-card wind">
+        <span class="element-symbol">風</span>
+        <h3>Fūton</h3>
+        <span class="element-name">Elemento Viento</span>
+        <p>Utiliza el viento para cortar, impulsar y potenciar ataques.</p>
+    </a>
+
+    <a href="raiton.html" class="element-card lightning">
+        <span class="element-symbol">雷</span>
+        <h3>Raiton</h3>
+        <span class="element-name">Elemento Rayo</span>
+        <p>Concentra chakra eléctrico en ataques rápidos y penetrantes.</p>
+    </a>
+
+    <a href="doton.html" class="element-card earth">
+        <span class="element-symbol">土</span>
+        <h3>Doton</h3>
+        <span class="element-name">Elemento Tierra</span>
+        <p>Permite manipular la tierra para crear defensas y ataques.</p>
+    </a>
+
+    <a href="suiton.html" class="element-card water">
+        <span class="element-symbol">水</span>
+        <h3>Suiton</h3>
+        <span class="element-name">Elemento Agua</span>
+        <p>Permite crear y controlar agua en diferentes formas.</p>
+    </a>
+</div>
+
+                <h3 class="subheading">Ninjutsu médico</h3>
+
+                <div class="info-card medical-card">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <div>
+                        <h3>Iryō Ninjutsu</h3>
+                        <p>
+                            Es la rama del ninjutsu dedicada a la medicina.
+                            Utiliza un control preciso del chakra para tratar
+                            heridas, curar lesiones y apoyar a otros ninjas.
+                            Su uso requiere conocimientos médicos y gran precisión.
+                        </p>
+                        <span class="tag">Curación y apoyo</span>
+                    </div>
+                </div>
+
+                <h3 class="subheading">Otras transformaciones elementales</h3>
+
+                <p class="small-description">
+                    Además de las cinco naturalezas básicas, existen
+                    transformaciones avanzadas que combinan naturalezas
+                    o presentan propiedades especiales.
+                </p>
+
+                <div class="advanced-elements">
+                    <div><span class="dot wood"></span><strong>Mokuton</strong><small>Madera</small></div>
+                    <div><span class="dot ice"></span><strong>Hyōton</strong><small>Hielo</small></div>
+                    <div><span class="dot lava"></span><strong>Yōton</strong><small>Lava</small></div>
+                    <div><span class="dot storm"></span><strong>Ranton</strong><small>Tormenta</small></div>
+                    <div><span class="dot boil"></span><strong>Futton</strong><small>Ebullición</small></div>
+                    <div><span class="dot magnet"></span><strong>Jiton</strong><small>Magnetismo</small></div>
+                    <div><span class="dot scorch"></span><strong>Shakuton</strong><small>Calor abrasador</small></div>
+                    <div><span class="dot explosion"></span><strong>Bakuton</strong><small>Explosión</small></div>
+                    <div><span class="dot dust"></span><strong>Jinton</strong><small>Polvo</small></div>
+                </div>
+
+                <p class="note">
+                    Nota: algunas transformaciones avanzadas son kekkei genkai
+                    o kekkei tōta; no todos los ninjas pueden aprenderlas.
+                    Esta lista incluye ejemplos y no es exhaustiva.
+                </p>
+            </article>
+
+            <!-- TAIJUTSU -->
+            <article class="jutsu-panel" id="taijutsu">
+                <div class="panel-heading">
+                    <div class="panel-icon orange-icon">
+                        <i class="fa-solid fa-hand-fist"></i>
+                    </div>
+                    <div>
+                        <span class="panel-number">02 / COMBATE FÍSICO</span>
+                        <h2>Taijutsu</h2>
+                        <p>El arte de combatir con el cuerpo.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    El taijutsu consiste en luchar utilizando golpes, patadas,
+                    bloqueos, movimientos y técnicas corporales. Se enfoca en
+                    la fuerza, la velocidad, la resistencia y el dominio físico.
+                    Aunque algunas técnicas pueden combinarse con chakra,
+                    no dependen necesariamente de complejos sellos manuales.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="info-card">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h3>Velocidad</h3>
+                        <p>Movimientos rápidos para atacar y esquivar.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <h3>Defensa</h3>
+                        <p>Bloqueos, evasiones y control de la distancia.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-dumbbell"></i>
+                        <h3>Fuerza física</h3>
+                        <p>Potencia, resistencia y control corporal.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- GENJUTSU -->
+            <article class="jutsu-panel" id="genjutsu">
+                <div class="panel-heading">
+                    <div class="panel-icon purple-icon">
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
+                    <div>
+                        <span class="panel-number">03 / PERCEPCIÓN</span>
+                        <h2>Genjutsu</h2>
+                        <p>El arte de las ilusiones.</p>
+                    </div>
+                </div>
+
+                <div class="definition-box">
+                    <span class="definition-label">¿QUÉ ES EL GENJUTSU?</span>
+                    <p>
+                        El genjutsu es una técnica ilusoria que altera la
+                        percepción de los sentidos del objetivo mediante
+                        la manipulación de su chakra. Puede hacer que una
+                        persona vea, escuche o sienta cosas que no están
+                        ocurriendo realmente, afectando su interpretación
+                        de la realidad.
+                    </p>
+                </div>
+            </article>
+
+            <!-- SENJUTSU -->
+            <article class="jutsu-panel" id="senjutsu">
+                <div class="panel-heading">
+                    <div class="panel-icon green-icon">
+                        <i class="fa-solid fa-leaf"></i>
+                    </div>
+                    <div>
+                        <span class="panel-number">04 / ENERGÍA NATURAL</span>
+                        <h2>Senjutsu</h2>
+                        <p>El poder de la naturaleza.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    El senjutsu es el arte de aprovechar la energía natural
+                    del entorno y combinarla con la energía física y espiritual
+                    para producir chakra senjutsu. Su dominio permite entrar
+                    en un Modo Sabio, aumentando las capacidades del usuario.
+                    Sin embargo, absorber demasiada energía natural sin
+                    control puede tener consecuencias peligrosas.
+                </p>
+
+                <h3 class="subheading">Modos sabios conocidos</h3>
+
+                <div class="sage-grid">
+                    <div class="sage-card">
+                        <div class="sage-symbol">仙</div>
+                        <h3>Modo Sabio de los Sapos</h3>
+                        <p>
+                            Se aprende mediante el entrenamiento relacionado
+                            con los sapos del Monte Myōboku. Permite utilizar
+                            energía natural y mejorar las capacidades de combate.
+                        </p>
+                    </div>
+
+                    <div class="sage-card">
+                        <div class="sage-symbol">蛇</div>
+                        <h3>Modo Sabio de las Serpientes</h3>
+                        <p>
+                            Está relacionado con la energía natural y las
+                            serpientes de la Cueva Ryūchi. Kabuto es uno de
+                            sus usuarios más conocidos.
+                        </p>
+                    </div>
+
+                    <div class="sage-card">
+                        <div class="sage-symbol">六</div>
+                        <h3>Modo Sabio de los Seis Caminos</h3>
+                        <p>
+                            Es un poder especial asociado a Hagoromo Ōtsutsuki
+                            y a las capacidades extraordinarias que recibió Naruto.
+                        </p>
+                    </div>
+
+                    <div class="sage-card">
+                        <div class="sage-symbol">森</div>
+                        <h3>Otras formas de senjutsu</h3>
+                        <p>
+                            Existen usuarios y formas particulares de utilizar
+                            energía natural. No todos los modos especiales
+                            son equivalentes ni funcionan de la misma manera.
+                        </p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- KENJUTSU -->
+            <article class="jutsu-panel" id="kenjutsu">
+                <div class="panel-heading">
+                    <div class="panel-icon silver-icon">
+                        <i class="fa-solid fa-khanda"></i>
+                    </div>
+                    <div>
+                        <span class="panel-number">05 / ARTE DE LA ESPADA</span>
+                        <h2>Kenjutsu</h2>
+                        <p>Combate con espadas y armas de filo.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    El kenjutsu es el arte de luchar utilizando espadas.
+                    Comprende técnicas de corte, estocadas, bloqueos,
+                    desplazamientos y estrategias para enfrentarse a un
+                    adversario armado. Algunos shinobi también combinan
+                    el manejo de la espada con chakra para aumentar
+                    el alcance o las propiedades de sus ataques.
+                </p>
+
+                <div class="definition-box">
+                    <span class="definition-label">OBJETIVO</span>
+                    <p>
+                        Dominar el arma, controlar la distancia, aprovechar
+                        las aperturas del rival y combinar precisión,
+                        velocidad y defensa durante el combate.
+                    </p>
+                </div>
+            </article>
+
+            <!-- FUINJUTSU -->
+            <article class="jutsu-panel" id="fuinjutsu">
+                <div class="panel-heading">
+                    <div class="panel-icon gold-icon">
+                        <i class="fa-solid fa-stamp"></i>
+                    </div>
+                    <div>
+                        <span class="panel-number">06 / TÉCNICAS DE SELLADO</span>
+                        <h2>Fūinjutsu</h2>
+                        <p>Sellar, contener y restringir poderes.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    El fūinjutsu es el conjunto de técnicas que permiten
+                    sellar objetos, chakra, seres o determinadas habilidades.
+                    Sus efectos dependen del sello empleado: puede servir
+                    para contener algo, limitar el movimiento de un objetivo
+                    o mantener una entidad encerrada.
+                </p>
+
+                <h3 class="subheading">Técnicas y habilidades destacadas</h3>
+
+                <div class="sealing-list">
+                    <div class="sealing-card">
+                        <div class="sealing-icon">
+                            <i class="fa-solid fa-location-crosshairs"></i>
+                        </div>
+                        <div>
+                            <span class="tag">Minato Namikaze</span>
+                            <h3>Hiraishin no Jutsu</h3>
+                            <p>
+                                Técnica de desplazamiento espacio-temporal
+                                que permite a Minato trasladarse instantáneamente
+                                a una ubicación marcada previamente. Utiliza
+                                fórmulas de marcado especiales, relacionadas
+                                con el sellado, aunque técnicamente se clasifica
+                                como ninjutsu espacio-temporal.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="sealing-card">
+                        <div class="sealing-icon">
+                            <i class="fa-solid fa-skull"></i>
+                        </div>
+                        <div>
+                            <span class="tag">Sellado prohibido</span>
+                            <h3>Shiki Fūjin</h3>
+                            <p>
+                                El Sello Consumidor del Demonio de la Muerte
+                                invoca al Shinigami para sellar el alma del
+                                objetivo. Es una técnica peligrosa que también
+                                implica un alto precio para quien la utiliza.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="sealing-card">
+                        <div class="sealing-icon">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <div>
+                            <span class="tag">Contención</span>
+                            <h3>Sellos de restricción</h3>
+                            <p>
+                                Se utilizan para contener chakra, restringir
+                                capacidades o mantener sellados determinados
+                                objetos y seres, según las propiedades de
+                                cada técnica.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="note">
+                    Nota: el Hiraishin aparece aquí por su relación con
+                    las marcas de sellado, pero su clasificación principal
+                    es ninjutsu espacio-temporal.
+                </p>
+            </article>
+
+        </section>
+
+        <footer class="jutsu-footer">
+            <a href="index.html" class="brand-name">NYDo</a>
+            <p>El conocimiento de las artes shinobi comienza aquí.</p>
+            <a href="#categorias">Volver al inicio ↑</a>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

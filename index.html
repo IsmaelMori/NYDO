@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYDo Wiki | Naruto Minecraft</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Iconos -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR -->
+    <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menú"
+                aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+
+        <div class="brand-description">
+            <strong>WIKI OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+    </header>
+
+    <!-- CAPA OSCURA -->
+    <div class="page-overlay" id="pageOverlay"></div>
+
+    <!-- MENÚ LATERAL IZQUIERDO -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#inicio" class="sidebar-logo">
+                <span class="brand-symbol">木</span>
+                <span class="brand-name">NYDo</span>
+            </a>
+
+            <button class="close-btn" id="closeBtn"
+                    aria-label="Cerrar menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="navigation">
+            <a href="#inicio" class="nav-link active">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </a>
+
+            <a href="jutsus.html" class="nav-link">
+                <i class="fa-solid fa-hand-sparkles"></i>
+                <span>Jutsus</span>
+            </a>
+
+            <a href="#dojutsus" class="nav-link">
+                <i class="fa-solid fa-eye"></i>
+                <span>Dojutsus</span>
+            </a>
+
+            
+
+            <div class="nav-divider"></div>
+
+            <a href="#guia" class="nav-link">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Guía del Mod</span>
+            </a>
+
+            <a href="#descargas" class="nav-link">
+                <i class="fa-solid fa-download"></i>
+                <span>Descargas</span>
+            </a>
+
+            <a href="#sobre" class="nav-link">
+                <i class="fa-regular fa-circle-question"></i>
+                <span>Sobre el Mod</span>
+            </a>
+
+            <a href="#contacto" class="nav-link">
+                <i class="fa-regular fa-envelope"></i>
+                <span>Contacto</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-symbol">木</div>
+            <p>
+                "No es solo un mod...<br>
+                es una nueva forma de<br>
+                vivir Naruto en Minecraft"
+            </p>
+            <span>— NYDo</span>
+        </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <section class="hero" id="inicio">
+            <div class="hero-content">
+
+                <div class="hero-logo">
+                    <span class="hero-symbol">木</span>
+                    <h1>NYDo</h1>
+                    <div class="logo-underline"></div>
+                    <h2>WIKI</h2>
+                </div>
+
+                <p class="hero-subtitle">
+                    El mod de Naruto para Minecraft
+                </p>
+
+                <p class="hero-description">
+                    Bienvenido a la wiki oficial de <strong>NYDo</strong>,
+                    un mod que lleva el mundo de Naruto a Minecraft.
+                    Aquí encontrarás información sobre jutsus, dojutsus,
+                    taijutsu, elementos y mucho más.
+                </p>
+
+                <a href="jutsus.html" class="explore-btn">
+                    <span class="button-symbol">木</span>
+                    <span>Explorar la Wiki</span>
+                    <i class="fa-solid fa-chevron-right"></i>
+                </a>
+            </div>
+
+           
+        </section>
+
+        <!-- SECCIONES DE LA WIKI -->
+        
+
+      
+
+        
+
+        <footer class="site-footer">
+            <span class="brand-name">NYDo</span>
+            <p>Wiki del mod de Naruto para Minecraft.</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,688 @@
+
+/* ==================================
+   PÁGINA DE JUTSUS - NYDo WIKI
+================================== */
+
+.jutsu-page {
+    background: #080b12;
+    min-height: 100vh;
+}
+
+/* PORTADA */
+
+.jutsu-banner {
+    min-height: 390px;
+    padding: 125px 25px 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    isolation: isolate;
+    background:
+        radial-gradient(ellipse at 15% 50%,
+            rgba(0, 100, 255, 0.18), transparent 40%),
+        radial-gradient(ellipse at 85% 50%,
+            rgba(229, 9, 32, 0.17), transparent 40%),
+        linear-gradient(135deg, #0b101b, #080b12 60%, #16090e);
+    border-bottom: 1px solid rgba(229, 9, 32, 0.35);
+}
+
+.jutsu-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: repeating-linear-gradient(
+        120deg,
+        transparent 0 65px,
+        rgba(255, 255, 255, 0.015) 66px 67px,
+        transparent 68px 120px
+    );
+}
+
+.banner-content {
+    max-width: 800px;
+}
+
+.jutsu-eyebrow,
+.jutsu-section-title > span {
+    color: #ed263b;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.jutsu-eyebrow i {
+    margin-right: 7px;
+}
+
+.banner-content h1 {
+    margin: 22px 0 18px;
+    color: #f4f5fa;
+    font-size: clamp(40px, 7vw, 76px);
+    font-weight: 900;
+    letter-spacing: -2px;
+}
+
+.banner-content h1 span {
+    color: #e50920;
+    text-shadow: 0 0 35px rgba(229, 9, 32, 0.2);
+}
+
+.banner-content > p {
+    max-width: 620px;
+    margin: 0 auto 27px;
+    color: #aeb7c8;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.jutsu-main-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    padding: 13px 23px;
+    border: 1px solid #e50920;
+    border-radius: 5px;
+    background: rgba(229, 9, 32, 0.08);
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.25s;
+}
+
+.jutsu-main-btn:hover {
+    background: #e50920;
+    box-shadow: 0 0 25px rgba(229, 9, 32, 0.2);
+    transform: translateY(-3px);
+}
+
+/* CATEGORÍAS */
+
+.jutsu-categories {
+    max-width: 1250px;
+    margin: auto;
+    padding: 75px 30px;
+}
+
+.jutsu-section-title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.jutsu-section-title h2 {
+    margin: 12px 0;
+    font-size: clamp(27px, 4vw, 39px);
+    font-weight: 800;
+}
+
+.jutsu-section-title p {
+    color: #a5adbd;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.category-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 48px;
+}
+
+.category-nav a {
+    padding: 11px 17px;
+    border: 1px solid #282e3b;
+    border-radius: 4px;
+    background: #0e121c;
+    color: #c8ceda;
+    font-size: 12px;
+    font-weight: 700;
+    transition: 0.25s;
+}
+
+.category-nav a:hover {
+    color: white;
+    border-color: #e50920;
+    background: #a90819;
+}
+
+/* PANELES PRINCIPALES */
+
+.jutsu-panel {
+    margin-bottom: 35px;
+    padding: 35px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 9px;
+    background:
+        radial-gradient(ellipse at top right,
+            rgba(255, 255, 255, 0.025), transparent 45%),
+        linear-gradient(145deg, #101521, #0a0d14);
+    scroll-margin-top: 85px;
+}
+
+.panel-heading {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.panel-icon {
+    width: 65px;
+    height: 65px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    font-size: 27px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.red-icon {
+    color: #ff4053;
+    border: 1px solid rgba(255, 64, 83, 0.3);
+}
+
+.orange-icon {
+    color: #ff9c50;
+    border: 1px solid rgba(255, 156, 80, 0.3);
+}
+
+.purple-icon {
+    color: #b58aff;
+    border: 1px solid rgba(181, 138, 255, 0.3);
+}
+
+.green-icon {
+    color: #6ce6a0;
+    border: 1px solid rgba(108, 230, 160, 0.3);
+}
+
+.silver-icon {
+    color: #d8e1f0;
+    border: 1px solid rgba(216, 225, 240, 0.3);
+}
+
+.gold-icon {
+    color: #eac66d;
+    border: 1px solid rgba(234, 198, 109, 0.3);
+}
+
+.panel-number {
+    display: block;
+    margin-bottom: 6px;
+    color: #ed263b;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.panel-heading h2 {
+    margin-bottom: 5px;
+    font-size: clamp(25px, 4vw, 34px);
+    font-weight: 800;
+}
+
+.panel-heading p {
+    color: #a5adbd;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.panel-description {
+    margin: 25px 0;
+    color: #c2cad8;
+    font-size: 14px;
+    line-height: 1.95;
+}
+
+.subheading {
+    margin: 30px 0 17px;
+    padding-left: 13px;
+    border-left: 3px solid #e50920;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.small-description {
+    margin-bottom: 20px;
+    color: #a5adbd;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* CINCO ELEMENTOS */
+
+.element-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.element-card {
+    min-width: 0;
+    padding: 22px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 6px;
+    background: #0b0f18;
+    transition: transform 0.25s, border-color 0.25s;
+}
+
+.element-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--element-color);
+}
+
+.element-symbol {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--element-color);
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.element-card h3 {
+    margin-bottom: 5px;
+    font-size: 17px;
+}
+
+.element-name {
+    display: block;
+    color: var(--element-color);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.element-card p {
+    margin-top: 14px;
+    color: #9fa9ba;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.fire {
+    --element-color: #ff625e;
+}
+
+.wind {
+    --element-color: #80dba2;
+}
+
+.lightning {
+    --element-color: #f1d35e;
+}
+
+.earth {
+    --element-color: #d6a477;
+}
+
+.water {
+    --element-color: #65baff;
+}
+
+/* NINJUTSU MÉDICO */
+
+.info-card {
+    padding: 23px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 7px;
+    background: #0c111a;
+}
+
+.medical-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-left: 3px solid #60d99b;
+}
+
+.info-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 6px;
+    background: rgba(96, 217, 155, 0.09);
+    color: #60d99b;
+    font-size: 23px;
+}
+
+.info-card h3 {
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.info-card p {
+    color: #aeb7c8;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+.tag {
+    display: inline-block;
+    margin-top: 13px;
+    padding: 6px 9px;
+    border: 1px solid rgba(96, 217, 155, 0.25);
+    border-radius: 3px;
+    color: #76e2aa;
+    background: rgba(96, 217, 155, 0.06);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* TRANSFORMACIONES AVANZADAS */
+
+.advanced-elements {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.advanced-elements > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 4px;
+    background: #0c1018;
+}
+
+.advanced-elements strong {
+    font-size: 12px;
+}
+
+.advanced-elements small {
+    margin-left: auto;
+    color: #8d98aa;
+    font-size: 10px;
+    text-align: right;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.wood { background: #50b86c; }
+.ice { background: #80dfff; }
+.lava { background: #ff653c; }
+.storm { background: #7f9cff; }
+.boil { background: #f1a6c9; }
+.magnet { background: #d98aff; }
+.scorch { background: #ffb14f; }
+.explosion { background: #fa4545; }
+.dust { background: #d1c7a3; }
+
+.note {
+    margin-top: 20px;
+    color: #8f9aab;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+/* DEFINICIONES */
+
+.definition-box {
+    margin-top: 25px;
+    padding: 28px;
+    border-left: 3px solid #a77aff;
+    border-radius: 0 6px 6px 0;
+    background: rgba(167, 122, 255, 0.055);
+}
+
+.definition-label {
+    color: #bd9bff;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.definition-box p {
+    margin-top: 15px;
+    color: #d0d4df;
+    font-size: 14px;
+    line-height: 2;
+}
+
+/* TAIJUTSU */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.feature-grid .info-card > i {
+    display: block;
+    margin-bottom: 17px;
+    color: #ff9c50;
+    font-size: 25px;
+}
+
+/* SENJUTSU */
+
+.sage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.sage-card {
+    padding: 23px;
+    border: 1px solid rgba(108, 230, 160, 0.14);
+    border-radius: 7px;
+    background: linear-gradient(145deg, #101b1a, #0b1016);
+    transition: border-color 0.25s, transform 0.25s;
+}
+
+.sage-card:hover {
+    border-color: #53bc82;
+    transform: translateY(-3px);
+}
+
+.sage-symbol {
+    margin-bottom: 15px;
+    color: #6ce6a0;
+    font-size: 32px;
+    font-weight: 900;
+}
+
+.sage-card h3 {
+    margin-bottom: 12px;
+    font-size: 16px;
+}
+
+.sage-card p {
+    color: #aab8b7;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+/* FUINJUTSU */
+
+.sealing-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sealing-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 23px;
+    border: 1px solid rgba(234, 198, 109, 0.15);
+    border-radius: 7px;
+    background: linear-gradient(110deg, #17150f, #0c1017);
+    transition: border-color 0.25s;
+}
+
+.sealing-card:hover {
+    border-color: rgba(234, 198, 109, 0.5);
+}
+
+.sealing-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(234, 198, 109, 0.2);
+    border-radius: 6px;
+    color: #eac66d;
+    background: rgba(234, 198, 109, 0.06);
+    font-size: 21px;
+}
+
+.sealing-card .tag {
+    margin: 0 0 12px;
+    color: #eac66d;
+    border-color: rgba(234, 198, 109, 0.25);
+    background: rgba(234, 198, 109, 0.06);
+}
+
+.sealing-card h3 {
+    margin-bottom: 10px;
+    font-size: 17px;
+}
+
+.sealing-card p {
+    color: #b6becc;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+/* PIE DE PÁGINA */
+
+.jutsu-footer {
+    padding: 35px 20px;
+    text-align: center;
+    border-top: 1px solid rgba(229, 9, 32, 0.2);
+    background: #05070b;
+}
+
+.jutsu-footer .brand-name {
+    display: inline-block;
+    font-size: 30px;
+}
+
+.jutsu-footer p {
+    margin: 12px 0;
+    color: #939daf;
+    font-size: 12px;
+}
+
+.jutsu-footer > a:last-child {
+    color: #ed5363;
+    font-size: 12px;
+}
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+    .element-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .advanced-elements {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* MÓVIL */
+
+@media (max-width: 600px) {
+    .jutsu-banner {
+        min-height: 340px;
+        padding: 100px 20px 55px;
+    }
+
+    .banner-content > p {
+        font-size: 13px;
+    }
+
+    .jutsu-categories {
+        padding: 55px 14px;
+    }
+
+    .category-nav {
+        gap: 7px;
+        margin-bottom: 30px;
+    }
+
+    .category-nav a {
+        padding: 10px 11px;
+        font-size: 11px;
+    }
+
+    .jutsu-panel {
+        padding: 21px 16px;
+        margin-bottom: 20px;
+    }
+
+    .panel-heading {
+        gap: 13px;
+    }
+
+    .panel-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 21px;
+    }
+
+    .panel-heading p {
+        font-size: 11px;
+    }
+
+    .panel-description {
+        font-size: 13px;
+    }
+
+    .element-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .element-card {
+        padding: 18px 12px;
+    }
+
+    .element-card p {
+        font-size: 11px;
+    }
+
+    .advanced-elements {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-grid,
+    .sage-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .medical-card,
+    .sealing-card {
+        gap: 13px;
+        padding: 17px;
+    }
+
+    .info-icon,
+    .sealing-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .definition-box {
+        padding: 20px;
+    }
+
+    .definition-box p {
+        font-size: 13px;
+    }
+}
