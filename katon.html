@@ -174,89 +174,6 @@
             background: rgba(255, 82, 64, 0.15);
         }
 
-        /* OVERLAY & SIDEBAR */
-        .page-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
-            z-index: 1050;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .page-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -320px;
-            width: 300px;
-            height: 100vh;
-            background: #0b0f17;
-            border-right: 1px solid var(--fire-color);
-            z-index: 1100;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-        }
-
-        .sidebar.active {
-            left: 0;
-            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.9);
-        }
-
-        .sidebar-header {
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .close-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 22px;
-            cursor: pointer;
-        }
-
-        .close-btn:hover {
-            color: var(--fire-color);
-        }
-
-        .navigation {
-            padding: 20px 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 12px 16px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            border-radius: 6px;
-            transition: all 0.25s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            background: rgba(255, 82, 64, 0.12);
-            color: white;
-            border-left: 3px solid var(--fire-color);
-        }
-
         /* MAIN CONTAINER */
         .katon-main {
             margin-top: 70px;
@@ -342,6 +259,7 @@
             margin-bottom: 60px;
             position: relative;
             overflow: hidden;
+            scroll-margin-top: 100px; /* Para que al subir con smooth scroll no lo tape el topbar */
         }
 
         .featured-jutsu-card::before {
@@ -481,95 +399,7 @@
             border: none;
         }
 
-        .video-placeholder {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-        }
-
-        .video-placeholder i {
-            font-size: 50px;
-            color: var(--fire-color);
-            margin-bottom: 15px;
-            opacity: 0.8;
-        }
-
-        /* VIDEO INPUT & CONTROLS */
-        .video-controls-panel {
-            background: #0d121d;
-            padding: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .file-upload-btn {
-            background: linear-gradient(135deg, #ff5240, #c41225);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(255, 82, 64, 0.3);
-        }
-
-        .file-upload-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px var(--fire-glow);
-        }
-
-        .file-upload-btn input[type="file"] {
-            display: none;
-        }
-
-        .url-input-box {
-            display: flex;
-            gap: 8px;
-            flex-grow: 1;
-            max-width: 450px;
-        }
-
-        .url-input-box input {
-            width: 100%;
-            background: #060910;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 6px;
-            padding: 9px 14px;
-            color: white;
-            font-size: 13px;
-            outline: none;
-        }
-
-        .url-input-box input:focus {
-            border-color: var(--fire-color);
-        }
-
-        .url-input-box button {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: white;
-            padding: 9px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .url-input-box button:hover {
-            background: var(--fire-color);
-            border-color: var(--fire-color);
-        }
-
-        /* OTHER KATON JUTSUS */
+        /* OTRAS TÉCNICAS KATON */
         .other-jutsus-section {
             margin-top: 70px;
         }
@@ -597,6 +427,7 @@
             padding: 24px;
             transition: all 0.3s ease;
             position: relative;
+            cursor: pointer;
         }
 
         .jutsu-card:hover {
@@ -654,13 +485,6 @@
             .jutsu-header {
                 flex-direction: column;
             }
-            .video-controls-panel {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .url-input-box {
-                max-width: 100%;
-            }
         }
     </style>
 </head>
@@ -669,8 +493,6 @@
     <!-- TOPBAR -->
     <header class="topbar">
         <div class="topbar-left">
-            
-
             <a href="index.html" class="brand">
                 <span class="brand-symbol">火</span>
                 <span class="brand-name">NYDo</span>
@@ -688,9 +510,6 @@
         </a>
     </header>
 
-    <!-- OVERLAY & SIDEBAR -->
-    
-
     <main class="katon-main">
 
         <!-- HERO KATON -->
@@ -705,20 +524,20 @@
 
         <div class="content-container">
 
-            <!-- SECCIÓN PRINCIPAL: BOLA DE FUEGO -->
-            <article class="featured-jutsu-card" id="gokakyu">
+            <!-- SECCIÓN PRINCIPAL: JUTSU ACTIVO (HERO CANTON) -->
+            <article class="featured-jutsu-card" id="heroJutsuCard">
                 <div class="jutsu-header">
                     <div class="jutsu-header-title">
-                        <span>KATON: GŌKAKYŪ NO JUTSU</span>
-                        <h2>Jutsu Gran Bola de Fuego</h2>
+                        <span id="heroJutsuSub">KATON: GŌKAKYŪ NO JUTSU</span>
+                        <h2 id="heroJutsuTitle">Jutsu Gran Bola de Fuego</h2>
                     </div>
-                    <div class="jutsu-badge">
+                    <div class="jutsu-badge" id="heroJutsuRank">
                         <i class="fa-solid fa-fire-flame-simple"></i>
                         Técnica Rango C
                     </div>
                 </div>
 
-                <p class="jutsu-description">
+                <p class="jutsu-description" id="heroJutsuDesc">
                     Es la técnica insignia del Clan Uchiha y el Ninjutsu Katon más representativo. El usuario acumula una gran cantidad de chakra en la garganta y exhala una esfera masiva de fuego que avanza en línea recta destruyendo a los enemigos a su paso. En el mod NYDo de Minecraft, la bola de fuego se lanza como un proyectil explosivo que crea llamas temporales en el impacto.
                 </p>
 
@@ -727,26 +546,24 @@
                     <div class="stat-card">
                         <i class="fa-solid fa-bolt stat-icon"></i>
                         <span class="stat-label">Costo de Chakra</span>
-                        <span class="stat-value">120 pts</span>
+                        <span class="stat-value" id="statChakra">120 pts</span>
                     </div>
 
                     <div class="stat-card">
                         <i class="fa-solid fa-burst stat-icon"></i>
                         <span class="stat-label">Daño Impacto</span>
-                        <span class="stat-value">18 HP (9 Corazones)</span>
+                        <span class="stat-value" id="statDamage">18 HP (9 Corazones)</span>
                     </div>
 
                     <div class="stat-card">
                         <i class="fa-solid fa-clock stat-icon"></i>
                         <span class="stat-label">Cooldown</span>
-                        <span class="stat-value">8 Segundos</span>
+                        <span class="stat-value" id="statCooldown">8 Segundos</span>
                     </div>
-
-                
                 </div>
 
-                <!-- ÁREA DE VIDEO E INTERACTIVIDAD (SUBIDA / URL) -->
-                <div id="demonstracion">
+                <!-- ÁREA DE VIDEO -->
+                <div>
                     <h3 class="video-section-title">
                         <i class="fa-solid fa-circle-play" style="color: var(--fire-color);"></i>
                         Demostración en Video del Jutsu (Gameplay NYDo Mod)
@@ -755,12 +572,10 @@
                     <div class="video-wrapper">
                         <div class="video-container" id="videoContainer">
                             <video controls autoplay loop style="width:100%; height:100%;">
-                                <source src="vid/fuego.mp4" type="video/mp4">
+                                <source src="vid/fuego.mp4" type="video/mp4" id="videoSource">
                                 Tu navegador no soporta la reproducción de video HTML5.
                             </video>
                         </div>
-
-                        
                     </div>
                 </div>
             </article>
@@ -772,21 +587,68 @@
                 </div>
 
                 <div class="jutsus-grid">
-                    <div class="jutsu-card">
+                    <!-- Tarjeta 1: Bola de Fuego (Principal por defecto) -->
+                    <div class="jutsu-card" onclick="cambiarHeroJutsu({
+                        sub: 'KATON: GŌKAKYŪ NO JUTSU',
+                        title: 'Jutsu Gran Bola de Fuego',
+                        rank: 'Técnica Rango C',
+                        desc: 'Es la técnica insignia del Clan Uchiha y el Ninjutsu Katon más representativo. El usuario acumula una gran cantidad de chakra en la garganta y exhala una esfera masiva de fuego que avanza en línea recta destruyendo a los enemigos a su paso.',
+                        chakra: '120 pts',
+                        damage: '18 HP (9 Corazones)',
+                        cooldown: '8 Segundos',
+                        video: 'vid/fuego.mp4'
+                    })">
+                        <h3>Gran Bola de Fuego</h3>
+                        <span class="japanese-name">Gōkakyū no Jutsu</span>
+                        <p>Esfera masiva de fuego que avanza en línea recta destruyendo a los enemigos a su paso.</p>
+                        <span class="badge-mini">Chakra: 120 pts</span>
+                    </div>
+
+                    <!-- Tarjeta 2: Llamas del Fénix -->
+                    <div class="jutsu-card" onclick="cambiarHeroJutsu({
+                        sub: 'KATON: HŌSENKA NO JUTSU',
+                        title: 'Llamas del Fénix',
+                        rank: 'Técnica Rango C',
+                        desc: 'Dispara múltiples bolas de fuego pequeñas de forma consecutiva que pueden teledirigirse ligeramente hacia los mobs cercanos, ideal para abrumar enemigos múltiples en el mod.',
+                        chakra: '90 pts',
+                        damage: '12 HP (6 Corazones)',
+                        cooldown: '5 Segundos',
+                        video: 'vid/fenix.mp4'
+                    })">
                         <h3>Llamas del Fénix</h3>
                         <span class="japanese-name">Hōsenka no Jutsu</span>
                         <p>Dispara múltiples bolas de fuego pequeñas de forma consecutiva que pueden teledirigirse ligeramente hacia los mobs cercanos.</p>
                         <span class="badge-mini">Chakra: 90 pts</span>
                     </div>
 
-                    <div class="jutsu-card">
+                    <!-- Tarjeta 3: Fuego del Dragón -->
+                    <div class="jutsu-card" onclick="cambiarHeroJutsu({
+                        sub: 'KATON: RYUUKA NO JUTSU',
+                        title: 'Fuego del Dragón',
+                        rank: 'Técnica Rango B',
+                        desc: 'Lanza una llamarada concentrada a lo largo de un hito o cuerda que abrasa en línea recta con gran precisión y alta penetración de armadura en Minecraft.',
+                        chakra: '140 pts',
+                        damage: '22 HP (11 Corazones)',
+                        cooldown: '10 Segundos',
+                        video: 'vid/dragon.mp4'
+                    })">
                         <h3>Fuego del Dragón</h3>
                         <span class="japanese-name">Ryuuka no Jutsu</span>
                         <p>Lanza una llamarada concentrada a lo largo de un hito o cuerda que abrasa en línea recta con gran precisión.</p>
                         <span class="badge-mini">Chakra: 140 pts</span>
                     </div>
 
-                    <div class="jutsu-card">
+                    <!-- Tarjeta 4: Gran Destrucción de Fuego -->
+                    <div class="jutsu-card" onclick="cambiarHeroJutsu({
+                        sub: 'KATON: GŌKA MEKKYAKU',
+                        title: 'Gran Destrucción de Fuego',
+                        rank: 'Técnica Rango S',
+                        desc: 'Técnica suprema de Madara Uchiha. Crea un muro gigante de fuego de más de 20 bloques de ancho que arrasa con todo a su paso en el mapa de Minecraft.',
+                        chakra: '350 pts',
+                        damage: '40 HP (20 Corazones)',
+                        cooldown: '25 Segundos',
+                        video: 'vid/destruccion.mp4'
+                    })">
                         <h3>Gran Destrucción de Fuego</h3>
                         <span class="japanese-name">Gōka Mekkyaku</span>
                         <p>Técnica suprema de Madara Uchiha. Crea un muro gigante de fuego de más de 20 bloques de ancho en el mapa de Minecraft.</p>
@@ -807,61 +669,32 @@
         <p>Sección Oficial del Elemento Katon — Mod de Naruto para Minecraft</p>
     </footer>
 
-    <!-- SCRIPT INTERACTIVO -->
+    <!-- SCRIPT PARA CAMBIAR INFORMACIÓN Y VIDEO DINÁMICAMENTE -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.getElementById('menuBtn');
-            const closeBtn = document.getElementById('closeBtn');
-            const sidebar = document.getElementById('sidebar');
-            const pageOverlay = document.getElementById('pageOverlay');
+        function cambiarHeroJutsu(data) {
+            // Actualizar textos
+            document.getElementById('heroJutsuSub').textContent = data.sub;
+            document.getElementById('heroJutsuTitle').textContent = data.title;
+            document.getElementById('heroJutsuRank').innerHTML = `<i class="fa-solid fa-fire-flame-simple"></i> ${data.rank}`;
+            document.getElementById('heroJutsuDesc').textContent = data.desc;
+            
+            // Actualizar estadísticas
+            document.getElementById('statChakra').textContent = data.chakra;
+            document.getElementById('statDamage').textContent = data.damage;
+            document.getElementById('statCooldown').textContent = data.cooldown;
 
-            const videoFileInput = document.getElementById('videoFileInput');
-            const videoUrlInput = document.getElementById('videoUrlInput');
-            const loadUrlBtn = document.getElementById('loadUrlBtn');
+            // Actualizar Video
             const videoContainer = document.getElementById('videoContainer');
+            videoContainer.innerHTML = `
+                <video controls autoplay loop style="width:100%; height:100%;">
+                    <source src="${data.video}" type="video/mp4">
+                    Tu navegador no soporta la reproducción de video HTML5.
+                </video>
+            `;
 
-            // TOGGLE SIDEBAR
-            function openSidebar() {
-                sidebar.classList.add('active');
-                pageOverlay.classList.add('active');
-            }
-
-            function closeSidebar() {
-                sidebar.classList.remove('active');
-                pageOverlay.classList.remove('active');
-            }
-
-            menuBtn.addEventListener('click', openSidebar);
-            closeBtn.addEventListener('click', closeSidebar);
-            pageOverlay.addEventListener('click', closeSidebar);
-
-            // FUNCIÓN PARA CARGAR VIDEO EN EL PLAYER
-            function displayVideo(src) {
-                videoContainer.innerHTML = `
-                    <video controls autoplay loop style="width:100%; height:100%;">
-                        <source src="${src}" type="video/mp4">
-                        Tu navegador no soporta la reproducción de video HTML5.
-                    </video>
-                `;
-            }
-
-            // SUBIR VIDEO DESDE ARCHIVO LOCAL
-            videoFileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const videoURL = URL.createObjectURL(file);
-                    displayVideo(videoURL);
-                }
-            });
-
-            // CARGAR VIDEO DESDE URL
-            loadUrlBtn.addEventListener('click', () => {
-                const url = videoUrlInput.value.trim();
-                if (url) {
-                    displayVideo(url);
-                }
-            });
-        });
+            // Subir suavemente hacia la tarjeta principal para mostrar la técnica seleccionada
+            document.getElementById('heroJutsuCard').scrollIntoView({ behavior: 'smooth' });
+        }
     </script>
 </body>
 </html>
