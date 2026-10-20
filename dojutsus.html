@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojutsus Oculares | NYDo Wiki</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jutsus.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header class="topbar">
+        <button class="menu-btn" id="menuBtn"
+                aria-label="Abrir menú" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+
+        <div class="brand-description">
+            <strong>WIKI NO OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+    </header>
+
+    <div class="page-overlay" id="pageOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html#inicio" class="sidebar-logo">
+                <span class="brand-symbol">木</span>
+                <span class="brand-name">NYDo</span>
+            </a>
+
+            <button class="close-btn" id="closeBtn" aria-label="Cerrar menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="navigation">
+            <a href="index.html#inicio" class="nav-link">
+                <i class="fa-solid fa-house"></i><span>Inicio</span>
+            </a>
+            <a href="jutsus.html" class="nav-link">
+                <i class="fa-solid fa-hand-sparkles"></i><span>Jutsus</span>
+            </a>
+            <a href="dojutsus.html" class="nav-link active">
+                <i class="fa-solid fa-eye"></i><span>Dojutsus</span>
+            </a>
+
+            <div class="nav-divider"></div>
+
+            <a href="guia.html" class="nav-link">
+                <i class="fa-solid fa-book-open"></i><span>Guía del Mod</span>
+            </a>
+            <a href="index.html#descargas" class="nav-link">
+                <i class="fa-solid fa-download"></i><span>Descargas</span>
+            </a>
+            <a href="index.html#sobre" class="nav-link">
+                <i class="fa-regular fa-circle-question"></i><span>Sobre el Mod</span>
+            </a>
+            <a href="index.html#contacto" class="nav-link">
+                <i class="fa-regular fa-envelope"></i><span>Contacto</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-symbol">木</div>
+            <p>"El conocimiento<br>es el primer paso<br>del camino shinobi"</p>
+            <span>— NYDo</span>
+        </div>
+    </aside>
+
+    <main class="jutsu-page">
+
+        <!-- BANNER DE INICIO -->
+        <section class="jutsu-banner" id="inicio">
+            <div class="banner-content">
+                <span class="jutsu-eyebrow">
+                    <i class="fa-solid fa-eye"></i>
+                    TÉCNICAS OCULARES
+                </span>
+
+                <h1>DŌJUTSUS <span>OCULARES</span></h1>
+
+                <p>
+                    Descubre los tres grandes Dōjutsus y sus evoluciones en el mod NYDo para Minecraft.
+                    Aprende cómo despertarlos, evolucionarlos y dominar sus poderes dentro del juego.
+                </p>
+
+                <a href="#categorias" class="jutsu-main-btn">
+                    Explorar Ojos Oculares
+                </a>
+            </div>
+        </section>
+
+        <!-- NAVEGACIÓN Y SECCIONES DE DŌJUTSUS -->
+        <section class="jutsu-categories" id="categorias">
+            <div class="jutsu-section-title">
+                <span>KEKKEI GENKAI OCULAR</span>
+                <h2>Tres Grandes Dōjutsus</h2>
+                <p>Selecciona un dōjutsu para consultar sus requerimientos y evoluciones.</p>
+            </div>
+
+            <nav class="category-nav">
+                <a href="#byakugan">Byakugan</a>
+                <a href="#sharingan">Sharingan</a>
+                <a href="#mangekyo">Mangekyō Sharingan</a>
+                <a href="#eternal">Mangekyō Eterno</a>
+                <a href="#rinnegan">Rinnegan</a>
+            </nav>
+
+            <!-- 1. BYAKUGAN -->
+            <article class="jutsu-panel" id="byakugan">
+                <div class="panel-heading">
+                    <div class="panel-icon silver-icon"><i class="fa-solid fa-eye"></i></div>
+                    <div>
+                        <span class="panel-number">01 / OJOS BLANCOS</span>
+                        <h2>Byakugan</h2>
+                        <p>Visión de 360 grados y percepción del sistema de chakra.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    El Byakugan es el Kekkei Genkai del clan Hyūga. Concede una visión casi perfecta de 360°, la capacidad de ver a través de objetos sólidos y revelar los puntos de chakra (Tenketsu) de los enemigos en Minecraft.
+                </p>
+
+                <div class="feature-grid">
+                    <div class="info-card">
+                        <i class="fa-solid fa-expand"></i>
+                        <h3>Visión Rayos X</h3>
+                        <p>Permite ver entidades y bloques a través de paredes y estructuras.</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-bullseye"></i>
+                        <h3>Puntos de Chakra</h3>
+                        <p>Resalta los Tenketsu del oponente para ataques con Jūken (Puño Suave).</p>
+                    </div>
+                    <div class="info-card">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <h3>Defensa Casi Absoluta</h3>
+                        <p>Elimina puntos ciegos durante los enfrentamientos contra mobs y jugadores.</p>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 2. SHARINGAN -->
+            <article class="jutsu-panel" id="sharingan">
+                <div class="panel-heading">
+                    <div class="panel-icon red-icon"><i class="fa-solid fa-eye"></i></div>
+                    <div>
+                        <span class="panel-number">02 / OJOS COPIADORES</span>
+                        <h2>Sharingan</h2>
+                        <p>El ojo de la percepción y la anticipación del Clan Uchiha.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    El Sharingan se despierta mediante la experiencia en combate. Otorga mayor velocidad de reacción, capacidad para anticipar movimientos enemigos y ejecutar Genjutsus básicos.
+                </p>
+
+                <div class="definition-box">
+                    <span class="definition-label">ETAPAS DE DESARROLLO (TOMOES)</span>
+                    <p>
+                        A medida que obtienes puntos de experiencia o enfrentas combates intensos, tu Sharingan evolucionará progresivamente de <strong>1 Tomoe</strong> a <strong>3 Tomoes</strong>, aumentando la velocidad de predicción y reduciendo el consumo de chakra.
+                    </p>
+                </div>
+            </article>
+
+            <!-- 3. MANGEKYO SHARINGAN -->
+            <article class="jutsu-panel" id="mangekyo">
+                <div class="panel-heading">
+                    <div class="panel-icon red-icon"><i class="fa-solid fa-biohazard"></i></div>
+                    <div>
+                        <span class="panel-number">03 / EVOLUCIÓN TRÁGICA</span>
+                        <h2>Mangekyō Sharingan</h2>
+                        <p>Técnicas devastadoras a cambio de un gran dolor.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    Una forma avanzada del Sharingan que otorga habilidades divinas como Susanoo, Amaterasu o Kamui. Sin embargo, su uso prolongado deteriora progresivamente la vista del shinobi en el mod.
+                </p>
+
+                <h3 class="subheading">Variantes de Mangekyō en el Mod</h3>
+                <p class="small-description">
+                    En el inventario del mod existen múltiples patrones oculares únicos inspirados en ninjas legendarios (Sasuke, Itachi, Madara, Obito, Kakashi, Shisui, etc.):
+                </p>
+
+                <!-- GALERÍA DE MODELOS DE OJOS/MANGEKYO (IMÁGENES DEL INVENTARIO) -->
+                <div class="mangekyo-gallery">
+                    <div class="eye-item">
+                        <img src="img/sasuke.svg" alt="Mangekyo Sasuke">
+                        <span>Mangekyō Sasuke</span>
+                    </div>
+                    <div class="eye-item">
+                        <img src="img/itachi.png" alt="Mangekyo Itachi">
+                        <span>Mangekyō Itachi</span>
+                    </div>
+                    <div class="eye-item">
+                        <img src="img/madara.svg" alt="Mangekyo Madara">
+                        <span>Mangekyō Madara</span>
+                    </div>
+                    <div class="eye-item">
+                        <img src="img/obito.svg" alt="Mangekyo Kamui">
+                        <span>Mangekyō Obito</span>
+                    </div>
+                    <div class="eye-item">
+                        <img src="img/shisui.svg" alt="Mangekyo Shisui">
+                        <span>Mangekyō Shisui</span>
+                    </div>
+                    <div class="eye-item">
+                        <img src="img/indra.svg" alt="Mangekyo Eterno">
+                        <span>Mangekyo Indra</span>
+                    </div>
+                </div>
+
+                <h3 class="subheading">Pasos requeridos para obtener el Mangekyō Sharingan</h3>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-image">
+                            <img src="img/lobo.webp" alt="Domesticar Lobo en Minecraft">
+                            <span class="step-badge">Paso 01</span>
+                        </div>
+                        <div class="step-content">
+                            <h3><i class="fa-solid fa-bone"></i> Domesticar un Lobo</h3>
+                            <p>Encuentra un lobo salvaje en los bosques de Minecraft y entrégale huesos hasta lograr domesticarlo y convertirlo en tu fiel compañero.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-image">
+                            <img src="img/NameTag.webp" alt="Etiqueta de Nombre en Yunque">
+                            <span class="step-badge">Paso 02</span>
+                        </div>
+                        <div class="step-content">
+                            <h3><i class="fa-solid fa-tag"></i> Asignar Nombre con Etiqueta</h3>
+                            <p>Usa un yunque para renombrar una etiqueta de nombre (Name Tag) y haz clic derecho sobre tu lobo domesticado para vincularlo emocionalmente.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-card highlight-step">
+                        <div class="step-image">
+                            <img src="img/perdida.jpeg" alt="Muerte del Lobo y Despertar">
+                            <span class="step-badge alert">Paso 03</span>
+                        </div>
+                        <div class="step-content">
+                            <h3><i class="fa-solid fa-heart-crack"></i> Presenciar su Muerte</h3>
+                            <p>Tu lobo nombrado debe morir justo frente a ti en combate o por cualquier causa. El severo trauma emocional activará el Mangekyō Sharingan en tu personaje.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 4. ETERNAL MANGEKYO SHARINGAN -->
+            <article class="jutsu-panel" id="eternal">
+                <div class="panel-heading">
+                    <div class="panel-icon purple-icon"><i class="fa-solid fa-infinity"></i></div>
+                    <div>
+                        <span class="panel-number">04 / LUZ ETERNA</span>
+                        <h2>Mangekyō Sharingan Eterno</h2>
+                        <p>Poder ilimitado sin pérdida de visión.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    Al trasplantar los ojos de un familiar cercano que posea el Mangekyō Sharingan, la ceguera provocada por el uso del Mangekyō desaparece por completo, permitiendo el uso infinito de Susanoo y habilidades exclusivas sin desgaste visual.
+                </p>
+
+                <div class="info-card">
+                    <i class="fa-solid fa-eye"></i>
+                    <h3>Trasplante Ocular</h3>
+                    <p>Fusiona tu Mangekyō Sharingan con otro conjunto de Mangekyō en el altar/interfaz de crafteo ninja para obtener la visión eterna.</p>
+                </div>
+            </article>
+
+            <!-- 5. RINNEGAN -->
+            <article class="jutsu-panel" id="rinnegan">
+                <div class="panel-heading">
+                    <div class="panel-icon purple-icon"><i class="fa-solid fa-circle-dot"></i></div>
+                    <div>
+                        <span class="panel-number">05 / EL OJO SOBERANO</span>
+                        <h2>Rinnegan</h2>
+                        <p>El dōjutsu más sublime que gobierna la vida y la muerte.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    Considerado el ojo de la creación y la destrucción. El Rinnegan otorga acceso a las seis transformaciones elementales del chakra y al uso de las habilidades de los Seis Caminos (Shinra Tensei, Banshō Ten'in, Chibaku Tensei e Invocaciones del Gedō Mazo).
+                </p>
+
+                <h3 class="subheading">Habilidades de los Seis Caminos</h3>
+
+                <div class="advanced-elements">
+                    <div><span class="dot storm"></span><strong>Deva</strong><small>Atracción/Repulsión</small></div>
+                    <div><span class="dot wood"></span><strong>Asura</strong><small>Armamento Mecánico</small></div>
+                    <div><span class="dot lava"></span><strong>Human</strong><small>Extracción de Almas</small></div>
+                    <div><span class="dot boil"></span><strong>Animal</strong><small>Invocaciones Múltiples</small></div>
+                    <div><span class="dot magnet"></span><strong>Preta</strong><small>Absorción de Chakra</small></div>
+                    <div><span class="dot dust"></span><strong>Naraka</strong><small>Rey del Infierno</small></div>
+                </div>
+
+                <p class="note">
+                    Nota: Para despertar el Rinnegan en NYDo, se requiere combinar el ADN / Chakra del Clan Senju y Uchiha junto con un Mangekyō Sharingan Eterno activo.
+                </p>
+            </article>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="jutsu-footer">
+            <a href="index.html" class="brand-name">NYDo</a>
+            <p>El conocimiento de los Dōjutsus legendarios comienza aquí.</p>
+            <a href="#categorias">Volver al inicio ↑</a>
+        </footer>
+
+    </main>
+
+    <script src="script.js"></script>
+
+    <!-- GUÍA TRANSPARENTE SOBRE LA PÁGINA -->
+    <div id="guiaNube" style="display:none;">
+        <div id="guiaMensaje">
+            <span id="guiaNumero">GUÍA DE DŌJUTSUS</span>
+            <h3 id="guiaTitulo">¡Hola, shinobi!</h3>
+            <p id="guiaTexto">
+                Explora las artes oculares y descubre cómo despertar los ojos legendarios.
+            </p>
+
+            <div class="guiaAcciones">
+                <button id="guiaSaltar" type="button">Saltar</button>
+                <button id="guiaSiguiente" type="button">Siguiente ➜</button>
+            </div>
+        </div>
+        <div id="guiaFlecha"></div>
+    </div>
+
+    <!-- ESTILOS ADICIONALES PARA LAS IMÁGENES Y PASOS DEL MANGEKYO -->
+    <style>
+        /* Galería de ojos/Mangekyō */
+        .mangekyo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 15px;
+            margin: 20px 0 30px;
+        }
+
+        .eye-item {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(231, 182, 109, 0.3);
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .eye-item:hover {
+            transform: translateY(-4px);
+            border-color: #e7b66d;
+        }
+
+        .eye-item img {
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+            border-radius: 50%;
+            margin-bottom: 8px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .eye-item span {
+            display: block;
+            font-size: 11px;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        /* Rejilla de Pasos con Imágenes */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .step-card {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .step-card.highlight-step {
+            border-color: rgba(239, 68, 68, 0.5);
+            background: rgba(30, 10, 10, 0.8);
+        }
+
+        .step-image {
+            position: relative;
+            width: 100%;
+            height: 160px;
+            background: #000;
+        }
+
+        .step-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .step-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #e7b66d;
+            color: #0f172a;
+            font-weight: bold;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .step-badge.alert {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .step-content {
+            padding: 18px;
+            flex-grow: 1;
+        }
+
+        .step-content h3 {
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-content h3 i {
+            color: #e7b66d;
+        }
+
+        .highlight-step .step-content h3 i {
+            color: #ef4444;
+        }
+
+        .step-content p {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Guía transparente */
+        #guiaNube {
+            position: absolute;
+            z-index: 99999;
+            width: 290px;
+            max-width: calc(100vw - 30px);
+            pointer-events: none;
+            transition: top .35s ease, left .35s ease;
+        }
+
+        #guiaMensaje {
+            position: relative;
+            padding: 20px;
+            color: #fff;
+            background: rgba(15, 23, 42, .91);
+            border: 1px solid rgba(231, 182, 109, .8);
+            border-radius: 22px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+            backdrop-filter: blur(7px);
+            pointer-events: auto;
+            animation: guiaEntrada .3s ease;
+        }
+
+        #guiaNumero {
+            color: #e7b66d;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        #guiaTitulo {
+            margin: 10px 0;
+            color: #fff;
+            font-size: 21px;
+        }
+
+        #guiaTexto {
+            margin: 0;
+            color: #e2e8f0;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .guiaAcciones {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 17px;
+        }
+
+        .guiaAcciones button {
+            padding: 9px 13px;
+            border: 0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        #guiaSaltar {
+            color: #cbd5e1;
+            background: transparent;
+        }
+
+        #guiaSiguiente {
+            color: #111827;
+            background: #e7b66d;
+            font-weight: bold;
+        }
+
+        #guiaFlecha {
+            position: absolute;
+            width: 17px;
+            height: 17px;
+            background: rgba(15, 23, 42, .91);
+            border-top: 1px solid rgba(231, 182, 109, .8);
+            border-left: 1px solid rgba(231, 182, 109, .8);
+            transform: rotate(45deg);
+            display: none;
+            pointer-events: none;
+        }
+
+        .guia-destacada {
+            position: relative;
+            z-index: 99998 !important;
+            outline: 2px solid #e7b66d !important;
+            outline-offset: 5px;
+            border-radius: 8px;
+            scroll-margin-top: 100px;
+        }
+
+        @keyframes guiaEntrada {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+            #guiaNube { width: 260px; }
+        }
+    </style>
+
+    <script>
+    (() => {
+        const guia = document.getElementById("guiaNube");
+        const titulo = document.getElementById("guiaTitulo");
+        const texto = document.getElementById("guiaTexto");
+        const numero = document.getElementById("guiaNumero");
+        const siguiente = document.getElementById("guiaSiguiente");
+        const saltar = document.getElementById("guiaSaltar");
+        const flecha = document.getElementById("guiaFlecha");
+
+        const CLAVE_GUIA = "NYDo_dojutsus_guia_mostrada";
+
+        const pasos = [
+            {
+                nombre: "BIENVENIDO A NYDo",
+                titulo: "¡Guía de Dōjutsus! 👁️",
+                texto: "Te enseñaré las artes oculares disponibles en el mod. Haz clic en Siguiente.",
+                selector: null
+            },
+            {
+                nombre: "01 / OJOS BLANCOS",
+                titulo: "Byakugan ⚪",
+                texto: "Conoce la visión de 360 grados y la detección del sistema de chakra de tus objetivos.",
+                selector: "#byakugan"
+            },
+            {
+                nombre: "02 / OJOS COPIADORES",
+                titulo: "Sharingan 🔴",
+                texto: "Aprende cómo evoluciona por tomoes y sus capacidades de anticipación.",
+                selector: "#sharingan"
+            },
+            {
+                nombre: "03 / EVOLUCIÓN TRÁGICA",
+                titulo: "Mangekyō Sharingan 💥",
+                texto: "Consulta los pasos exactos para desatar este poder: domesticar un lobo, nombrarlo y presenciar su destino.",
+                selector: "#mangekyo"
+            },
+            {
+                nombre: "04 / LUZ ETERNA",
+                titulo: "Mangekyō Eterno ♾️",
+                texto: "Descubre cómo deshacerte de la ceguera para usar Susanoo sin restricciones.",
+                selector: "#eternal"
+            },
+            {
+                nombre: "05 / EL OJO SOBERANO",
+                titulo: "Rinnegan 🟣",
+                texto: "Explora el poder divino de los Seis Caminos y los requisitos para obtenerlo.",
+                selector: "#rinnegan"
+            },
+            {
+                nombre: "RECORRIDO COMPLETADO",
+                titulo: "¡Dominio Ocular Listo!",
+                texto: "Ya conoces todos los Dōjutsus del mod. ¡Disfruta explorando la wiki!",
+                selector: null
+            }
+        ];
+
+        let indice = 0;
+        let elementoAnterior = null;
+        let temporizadorPosicion = null;
+
+        function quitarDestacado() {
+            if (elementoAnterior) {
+                elementoAnterior.classList.remove("guia-destacada");
+                elementoAnterior = null;
+            }
+        }
+
+        function posicionar(elemento) {
+            if (!elemento || guia.style.display === "none") return;
+
+            const rect = elemento.getBoundingClientRect();
+            const ancho = guia.offsetWidth;
+            const alto = guia.offsetHeight;
+            const margen = 15;
+
+            let izquierda = rect.left + window.scrollX;
+            let arriba = rect.bottom + window.scrollY + 18;
+
+            if (rect.bottom + alto + 30 > window.innerHeight) {
+                arriba = rect.top + window.scrollY - alto - 18;
+            }
+
+            izquierda = Math.max(
+                window.scrollX + margen,
+                Math.min(
+                    izquierda,
+                    window.scrollX + window.innerWidth - ancho - margen
+                )
+            );
+
+            arriba = Math.max(window.scrollY + margen, arriba);
+
+            guia.style.position = "absolute";
+            guia.style.transform = "none";
+            guia.style.left = izquierda + "px";
+            guia.style.top = arriba + "px";
+
+            flecha.style.display = "block";
+
+            const centroFlecha =
+                rect.left + rect.width / 2 + window.scrollX - izquierda - 8;
+
+            flecha.style.left = Math.max(
+                15,
+                Math.min(centroFlecha, ancho - 32)
+            ) + "px";
+
+            if (arriba > rect.bottom + window.scrollY) {
+                flecha.style.top = (alto - 8) + "px";
+                flecha.style.transform = "rotate(225deg)";
+            } else {
+                flecha.style.top = "-8px";
+                flecha.style.transform = "rotate(45deg)";
+            }
+        }
+
+        function mostrarPaso() {
+            quitarDestacado();
+
+            const paso = pasos[indice];
+
+            titulo.textContent = paso.titulo;
+            texto.textContent = paso.texto;
+            numero.textContent = paso.nombre;
+
+            siguiente.textContent =
+                indice === pasos.length - 1 ? "Terminar ✓" : "Siguiente ➜";
+
+            guia.style.display = "block";
+            flecha.style.display = "none";
+
+            if (paso.selector) {
+                const elemento = document.querySelector(paso.selector);
+
+                if (elemento) {
+                    elementoAnterior = elemento;
+                    elemento.classList.add("guia-destacada");
+
+                    elemento.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                    clearTimeout(temporizadorPosicion);
+
+                    temporizadorPosicion = setTimeout(() => {
+                        if (
+                            guia.style.display !== "none" &&
+                            elementoAnterior === elemento
+                        ) {
+                            posicionar(elemento);
+                        }
+                    }, 450);
+                }
+            } else {
+                guia.style.position = "fixed";
+                guia.style.left = "50%";
+                guia.style.top = "50%";
+                guia.style.transform = "translate(-50%, -50%)";
+            }
+        }
+
+        function finalizarGuia() {
+            try {
+                sessionStorage.setItem(CLAVE_GUIA, "true");
+            } catch (error) {}
+
+            clearTimeout(temporizadorPosicion);
+            quitarDestacado();
+
+            guia.style.display = "none";
+            flecha.style.display = "none";
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        siguiente.addEventListener("click", () => {
+            if (indice < pasos.length - 1) {
+                indice++;
+                mostrarPaso();
+            } else {
+                finalizarGuia();
+            }
+        });
+
+        saltar.addEventListener("click", finalizarGuia);
+
+        window.addEventListener("resize", () => {
+            const paso = pasos[indice];
+
+            if (guia.style.display !== "none" && paso.selector) {
+                const elemento = document.querySelector(paso.selector);
+                if (elemento) posicionar(elemento);
+            }
+        });
+
+        let guiaYaMostrada = false;
+        try {
+            guiaYaMostrada = sessionStorage.getItem(CLAVE_GUIA) === "true";
+        } catch (error) {
+            guiaYaMostrada = false;
+        }
+
+        if (!guiaYaMostrada) {
+            mostrarPaso();
+        }
+    })();
+    </script>
+</body>
+</html>
