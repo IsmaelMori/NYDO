@@ -30,7 +30,7 @@
         </a>
 
         <div class="brand-description">
-            <strong>WIKI OFICIAL</strong>
+            <strong>WIKI NO OFICIAL</strong>
             <span>Mod de Naruto para Minecraft</span>
         </div>
     </header>
@@ -73,7 +73,7 @@
 
             <div class="nav-divider"></div>
 
-            <a href="index.html#guia" class="nav-link">
+            <a href="guia.html" class="nav-link">
                 <i class="fa-solid fa-book-open"></i>
                 <span>Guía del Mod</span>
             </a>
@@ -115,16 +115,16 @@
                     ENCICLOPEDIA SHINOBI
                 </span>
 
-                <h1>LOS <span>JUTSUS</span></h1>
+                <h1>GUIA <span>PRINCIPIANTES</span></h1>
 
                 <p>
                     Descubre las artes ninja, las técnicas de combate,
                     el control del chakra y los poderes del mundo de Naruto.
                 </p>
 
-                <a href="#categorias" class="jutsu-main-btn">
-                    Explorar categorías
-                    <i class="fa-solid fa-arrow-down"></i>
+                <a href="guia.html" class="jutsu-main-btn">
+                    Explorar la guia para principiantes 
+                    
                 </a>
             </div>
         </section>
@@ -508,5 +508,323 @@
     </main>
 
     <script src="script.js"></script>
+    
+<!-- GUÍA TRANSPARENTE SOBRE LA PÁGINA -->
+<div id="guiaNube" style="display:none;">
+    <div id="guiaMensaje">
+        <span id="guiaNumero">BIENVENIDO A NYDo</span>
+        <h3 id="guiaTitulo">¡Hola, shinobi!</h3>
+        <p id="guiaTexto">
+            Explora las artes ninja y descubre las técnicas del mundo de Naruto.
+        </p>
+
+        <div class="guiaAcciones">
+            <button id="guiaSaltar" type="button">Saltar</button>
+            <button id="guiaSiguiente" type="button">Siguiente ➜</button>
+        </div>
+    </div>
+    <div id="guiaFlecha"></div>
+</div>
+
+<style>
+    #guiaNube {
+        position: absolute;
+        z-index: 99999;
+        width: 290px;
+        max-width: calc(100vw - 30px);
+        pointer-events: none;
+        transition: top .35s ease, left .35s ease;
+    }
+
+    #guiaMensaje {
+        position: relative;
+        padding: 20px;
+        color: #fff;
+        background: rgba(15, 23, 42, .91);
+        border: 1px solid rgba(231, 182, 109, .8);
+        border-radius: 22px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+        backdrop-filter: blur(7px);
+        pointer-events: auto;
+        animation: guiaEntrada .3s ease;
+    }
+
+    #guiaNumero {
+        color: #e7b66d;
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: 1.5px;
+    }
+
+    #guiaTitulo {
+        margin: 10px 0;
+        color: #fff;
+        font-size: 21px;
+    }
+
+    #guiaTexto {
+        margin: 0;
+        color: #e2e8f0;
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .guiaAcciones {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-top: 17px;
+    }
+
+    .guiaAcciones button {
+        padding: 9px 13px;
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    #guiaSaltar {
+        color: #cbd5e1;
+        background: transparent;
+    }
+
+    #guiaSiguiente {
+        color: #111827;
+        background: #e7b66d;
+        font-weight: bold;
+    }
+
+    #guiaFlecha {
+        position: absolute;
+        width: 17px;
+        height: 17px;
+        background: rgba(15, 23, 42, .91);
+        border-top: 1px solid rgba(231, 182, 109, .8);
+        border-left: 1px solid rgba(231, 182, 109, .8);
+        transform: rotate(45deg);
+        display: none;
+    }
+
+    .guia-destacada {
+        position: relative;
+        z-index: 99998 !important;
+        outline: 2px solid #e7b66d !important;
+        outline-offset: 5px;
+        border-radius: 8px;
+        scroll-margin-top: 100px;
+    }
+
+    @keyframes guiaEntrada {
+        from {
+            opacity: 0;
+            transform: translateY(8px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 480px) {
+        #guiaNube {
+            width: 260px;
+        }
+    }
+</style>
+
+<script>
+(() => {
+    const guia = document.getElementById("guiaNube");
+    const titulo = document.getElementById("guiaTitulo");
+    const texto = document.getElementById("guiaTexto");
+    const numero = document.getElementById("guiaNumero");
+    const siguiente = document.getElementById("guiaSiguiente");
+    const saltar = document.getElementById("guiaSaltar");
+    const flecha = document.getElementById("guiaFlecha");
+
+    const pasos = [
+        {
+            nombre: "BIENVENIDO A NYDo",
+            titulo: "¡Hola, shinobi! 🍃",
+            texto: "Te mostraré las secciones de esta enciclopedia. Pulsa Siguiente para comenzar.",
+            selector: null
+        },
+        {
+            nombre: "01 / ARTE NINJA",
+            titulo: "Ninjutsu 🔥",
+            texto: "Aquí encontrarás los cinco elementos básicos, el ninjutsu médico y las transformaciones elementales.",
+            selector: "#ninjutsu"
+        },
+        {
+            nombre: "02 / COMBATE FÍSICO",
+            titulo: "Taijutsu 👊",
+            texto: "Descubre el combate cuerpo a cuerpo, la velocidad, la defensa y la fuerza física.",
+            selector: "#taijutsu"
+        },
+        {
+            nombre: "03 / PERCEPCIÓN",
+            titulo: "Genjutsu 👁️",
+            texto: "Conoce las técnicas ilusorias que alteran los sentidos y la percepción del objetivo.",
+            selector: "#genjutsu"
+        },
+        {
+            nombre: "04 / ENERGÍA NATURAL",
+            titulo: "Senjutsu 🍃",
+            texto: "Aprende qué es la energía natural y explora los diferentes modos sabios.",
+            selector: "#senjutsu"
+        },
+        {
+            nombre: "05 / ARTE DE LA ESPADA",
+            titulo: "Kenjutsu ⚔️",
+            texto: "Descubre el manejo de espadas, los cortes, los bloqueos y las estrategias de combate.",
+            selector: "#kenjutsu"
+        },
+        {
+            nombre: "06 / TÉCNICAS DE SELLADO",
+            titulo: "Fūinjutsu 🌀",
+            texto: "Explora las técnicas para sellar objetos, contener chakra y restringir poderes.",
+            selector: "#fuinjutsu"
+        },
+        {
+            nombre: "RECORRIDO COMPLETADO",
+            titulo: "¡Ya eres un shinobi explorador!",
+            texto: "Has conocido las seis categorías. Ahora puedes explorar libremente la página.",
+            selector: null
+        }
+    ];
+
+    let indice = 0;
+    let elementoAnterior = null;
+
+    function quitarDestacado() {
+        if (elementoAnterior) {
+            elementoAnterior.classList.remove("guia-destacada");
+            elementoAnterior = null;
+        }
+    }
+
+    function posicionar(elemento) {
+        const rect = elemento.getBoundingClientRect();
+        const ancho = guia.offsetWidth;
+        const alto = guia.offsetHeight;
+        const margen = 15;
+
+        let izquierda = rect.left + window.scrollX;
+        let arriba = rect.bottom + window.scrollY + 18;
+
+        // Si no hay espacio abajo, mostrar la nube arriba.
+        if (rect.bottom + alto + 30 > window.innerHeight) {
+            arriba = rect.top + window.scrollY - alto - 18;
+        }
+
+        // Mantener la nube dentro de los límites horizontales.
+        izquierda = Math.max(
+            window.scrollX + margen,
+            Math.min(
+                izquierda,
+                window.scrollX + window.innerWidth - ancho - margen
+            )
+        );
+
+        guia.style.left = izquierda + "px";
+        guia.style.top = Math.max(window.scrollY + margen, arriba) + "px";
+
+        flecha.style.display = "block";
+        flecha.style.left = Math.max(
+            15,
+            Math.min(rect.left + rect.width / 2 - izquierda + window.scrollX - 8, ancho - 32)
+        ) + "px";
+
+        flecha.style.top = arriba > rect.bottom + window.scrollY
+            ? (alto - 8) + "px"
+            : "-8px";
+
+        if (arriba > rect.bottom + window.scrollY) {
+            flecha.style.transform = "rotate(225deg)";
+        } else {
+            flecha.style.transform = "rotate(45deg)";
+        }
+    }
+
+    function mostrarPaso() {
+        quitarDestacado();
+
+        const paso = pasos[indice];
+
+        titulo.textContent = paso.titulo;
+        texto.textContent = paso.texto;
+        numero.textContent = paso.nombre;
+
+        siguiente.textContent =
+            indice === pasos.length - 1 ? "Terminar ✓" : "Siguiente ➜";
+
+        guia.style.display = "block";
+        flecha.style.display = "none";
+
+        if (paso.selector) {
+            const elemento = document.querySelector(paso.selector);
+
+            if (elemento) {
+                elementoAnterior = elemento;
+                elemento.classList.add("guia-destacada");
+
+                elemento.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+                // Esperar a que termine el desplazamiento para colocar la nube.
+                setTimeout(() => {
+                    if (guia.style.display !== "none" &&
+                        elementoAnterior === elemento) {
+                        posicionar(elemento);
+                    }
+                }, 400);
+            }
+        } else {
+            guia.style.position = "fixed";
+            guia.style.left = "50%";
+            guia.style.top = "50%";
+            guia.style.transform = "translate(-50%, -50%)";
+        }
+
+        if (paso.selector) {
+            guia.style.position = "absolute";
+            guia.style.transform = "none";
+        }
+    }
+
+    function cerrar() {
+        quitarDestacado();
+        guia.style.display = "none";
+        flecha.style.display = "none";
+    }
+
+    siguiente.addEventListener("click", () => {
+        if (indice < pasos.length - 1) {
+            indice++;
+            mostrarPaso();
+        } else {
+            cerrar();
+        }
+    });
+
+    saltar.addEventListener("click", cerrar);
+
+    window.addEventListener("resize", () => {
+        const paso = pasos[indice];
+        if (guia.style.display !== "none" && paso.selector) {
+            const elemento = document.querySelector(paso.selector);
+            if (elemento) posicionar(elemento);
+        }
+    });
+
+    // Mostrar la guía al cargar la página.
+    mostrarPaso();
+})();
+</script>
+
 </body>
 </html>
