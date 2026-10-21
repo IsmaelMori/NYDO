@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guía del Mod | NYDo Wiki</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="busqueda.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
@@ -107,6 +107,27 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
 .points-note{margin-top:16px;padding:14px;border-left:3px solid var(--g-gold);background:#17120d;color:#c7b99f;line-height:1.7;font-size:13px}
 .guia-footer{text-align:center;padding:30px 10px;color:#9f8d6b;font-size:13px}
 .guia-footer strong{display:block;color:var(--g-gold2);letter-spacing:3px;margin-bottom:8px}
+
+/* ESTILOS ESTÉTICOS PARA INTEGRAR EL BUSCADOR EN LA TOPBAR */
+.topbar { display: flex; align-items: center; gap: 15px; padding: 10px 20px; background: var(--g-panel); border-bottom: 1px solid var(--g-line); position: sticky; top: 0; z-index: 1000; }
+.wiki-search-wrap { flex: 1; max-width: 420px; margin: 0 auto; position: relative; }
+.wiki-search-box { display: flex; align-items: center; background: #130f0a; border: 1px solid #60451f; padding: 4px 12px; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); transition: border-color 0.2s, box-shadow 0.2s; }
+.wiki-search-box:focus-within { border-color: var(--g-gold); box-shadow: 0 0 0 2px rgba(214,168,79,0.15); }
+.wiki-search-icon { color: var(--g-gold); margin-right: 10px; font-size: 14px; }
+#wikiSearchInput { background: transparent; border: none; color: var(--g-text); outline: none; width: 100%; font-size: 13px; font-family: inherit; }
+#wikiSearchInput::placeholder { color: var(--g-muted); opacity: 0.8; }
+#wikiSearchClear { background: transparent; border: none; color: var(--g-muted); cursor: pointer; padding: 2px 5px; font-size: 14px; }
+#wikiSearchClear:hover { color: var(--g-gold2); }
+.wiki-search-hint { display: none; }
+.wiki-search-results { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #17120d; border: 1px solid var(--g-gold); border-radius: 6px; max-height: 320px; overflow-y: auto; z-index: 1100; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
+.wiki-search-result { display: block; padding: 11px 14px; border-bottom: 1px solid #322514; text-decoration: none; color: var(--g-text); transition: background 0.15s; }
+.wiki-search-result:last-child { border-bottom: none; }
+.wiki-search-result:hover { background: #261d13; }
+.wiki-search-result-page { display: block; font-size: 9px; color: var(--g-gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 3px; font-weight: bold; }
+.wiki-search-result-title { display: block; font-size: 13px; font-weight: bold; color: #f4dfad; }
+.wiki-search-result-description { display: block; font-size: 11px; color: var(--g-muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wiki-search-empty { padding: 14px; font-size: 12px; color: var(--g-muted); text-align: center; }
+
 @media(max-width:950px){.stat-layout{grid-template-columns:1fr 1fr}.stat-layout .radar-panel{grid-column:1/-1;grid-row:1}.step-list,.grid-3{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.guia-wrap{padding:14px 10px 45px}.grid-2,.grid-3,.step-list,.key-layout,.tab-content,.stat-layout,.point-list{grid-template-columns:1fr}.stat-layout .radar-panel{grid-column:auto;grid-row:auto}.key{min-width:48px;min-height:42px;padding:8px;font-size:12px}.key-row{gap:5px}.tab-content{padding:14px}.guia-hero{min-height:330px}.point-card-top{gap:7px}.stat-layout{gap:12px}}
 </style>
@@ -117,7 +138,38 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
   <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
   <a href="index.html#inicio" class="brand"><span class="brand-symbol">木</span><span class="brand-name">NYDo</span></a>
   <div class="brand-description"><strong>WIKI NO OFICIAL</strong><span>Mod de Naruto para Minecraft</span></div>
+
+  <!-- BUSCADOR GLOBAL INTEGRADO ESTÉTICAMENTE -->
+  <div class="wiki-search-wrap" id="wikiSearch">
+      <div class="wiki-search-box">
+          <i class="fa-solid fa-magnifying-glass wiki-search-icon"></i>
+          <input
+              type="search"
+              id="wikiSearchInput"
+              placeholder="Buscar..."
+              autocomplete="off"
+              aria-label="Buscar en toda la wiki"
+              aria-controls="wikiSearchResults"
+              aria-expanded="false"
+          >
+          <button
+              type="button"
+              id="wikiSearchClear"
+              aria-label="Limpiar búsqueda"
+              style="display:none;"
+          >
+              <i class="fa-solid fa-xmark"></i>
+          </button>
+      </div>
+      <div
+          id="wikiSearchResults"
+          class="wiki-search-results"
+          role="region"
+          aria-live="polite"
+      ></div>
+  </div>
 </header>
+<!-- ... resto del documento idéntico ... -->
 
 <div class="page-overlay" id="pageOverlay"></div>
 
@@ -128,6 +180,10 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
   </div>
   <nav class="navigation">
     <a href="index.html#inicio" class="nav-link"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+    
+        <a href="clanes.html" class="nav-link active">
+            <i class="fa-solid fa-users"></i><span>Clanes</span>
+        </a>
     <a href="jutsus.html" class="nav-link"><i class="fa-solid fa-hand-sparkles"></i><span>Jutsus</span></a>
     <a href="dojutsus.html" class="nav-link"><i class="fa-solid fa-eye"></i><span>Dojutsus</span></a>
     <div class="nav-divider"></div>
@@ -289,6 +345,7 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
 </main>
 
 <script src="script.js"></script>
+<script src="busqueda.js"></script>
 <script>
 /* CARACTERÍSTICAS DE LAS TECLAS */
 const keyHelp = {
@@ -328,7 +385,7 @@ keyButtons.forEach(button => {
   });
 });
 
-/* /* PESTAÑAS DE LA CARTA NINJA */
+/* PESTAÑAS DE LA CARTA NINJA */
 const tabs = {
   resumen: {
     eyebrow: "PERFIL SHINOBI",
@@ -650,17 +707,6 @@ function drawRadar() {
     grid.appendChild(polygon);
   }
 
-  /*
-    Cada eje se relaciona con un atributo del simulador:
-    NIN = Ninjutsu
-    TAI = Taijutsu
-    GEN = Genjutsu
-    CHK = Control de chakra
-    VIT = Vitalidad
-    DEF = Defensa
-    AGI = Agilidad
-    MED = Medicina ninja
-  */
   const values = attributes.map(attribute => {
     return porcentajeDesarrollo(attribute.id) / 100;
   });
@@ -676,7 +722,6 @@ function drawRadar() {
 
     radarPoints.push(`${x},${y}`);
 
-    /* Etiquetas alrededor del gráfico */
     const label = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "text"
@@ -688,7 +733,6 @@ function drawRadar() {
 
     labels.appendChild(label);
 
-    /* Punto que marca el porcentaje del atributo */
     const dot = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "circle"
@@ -702,7 +746,6 @@ function drawRadar() {
     dots.appendChild(dot);
   });
 
-  /* Actualiza el área coloreada según los valores de los ocho atributos. */
   area.setAttribute("points",radarPoints.join(" "));
 }
 

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clanes Ninja | NYDo Wiki</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="busqueda.css">
+    <link rel="stylesheet" href="jutsus.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        .topbar { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            padding: 10px 20px; 
+            background: rgba(9, 10, 15, 0.95); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            backdrop-filter: blur(10px); 
+        }
+
+        /* Banner personalizado de Clanes */
+        .clan-banner-custom {
+            position: relative;
+            min-height: 480px;
+            padding: 120px 30px 85px;
+            display: flex;
+            align-items: center;
+            isolation: isolate;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(230, 57, 70, 0.4);
+        }
+
+        .clan-banner-custom .banner-bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: -2;
+        }
+
+        .clan-banner-custom .banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(9, 10, 15, 0.95) 0%,
+                rgba(9, 10, 15, 0.75) 45%,
+                rgba(9, 10, 15, 0.3) 100%
+            );
+            z-index: -1;
+        }
+
+        /* CAJA AL INICIO SOBRE COMANDOS */
+        .clan-command-intro {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(231, 182, 109, 0.4);
+            border-left: 4px solid #e7b66d;
+            border-radius: 12px;
+            padding: 18px 24px;
+            margin: 25px 0 30px;
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.6;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .clan-command-intro code {
+            background: rgba(0, 0, 0, 0.6);
+            color: #ef4444;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 13px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        /* CUADRÍCULA DE 8 PUERTAS INTERNAS */
+        .gates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .gate-card {
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 14px;
+            transition: all 0.25s ease;
+        }
+
+        .gate-card:hover {
+            border-color: #ef4444;
+            transform: translateY(-3px);
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        .gate-number {
+            font-size: 10px;
+            font-weight: 800;
+            color: #ef4444;
+            letter-spacing: 1.5px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .gate-card h3 {
+            margin: 0 0 6px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .gate-card p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* SUBSECCIONES EN TARJETAS CUADRADAS CON SVG */
+        .subsections-square-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .subsection-square-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            aspect-ratio: 1 / 1;
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 18px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subsection-square-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--sub-color, #e7b66d);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 25px var(--sub-glow, rgba(231, 182, 109, 0.25));
+        }
+
+        .subsection-svg-wrap {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 12px;
+            display: grid;
+            place-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .subsection-square-card:hover .subsection-svg-wrap {
+            transform: scale(1.1);
+        }
+
+        .subsection-svg-wrap svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--sub-color, #e7b66d);
+            filter: drop-shadow(0 0 8px var(--sub-color, #e7b66d));
+        }
+
+        .subsection-square-card h4 {
+            color: #fff;
+            font-size: 15px;
+            margin: 0 0 4px;
+            font-weight: 700;
+        }
+
+        .subsection-square-card span {
+            color: #94a3b8;
+            font-size: 11px;
+            line-height: 1.3;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER GLOBAL CON BUSCADOR -->
+<header class="nydo-header">
+    <div class="topbar nydo-topbar">
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="index.html#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+        <div class="brand-description">
+            <strong>WIKI NO OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+
+        <div class="wiki-search-wrap" id="wikiSearch">
+            <div class="wiki-search-box">
+                <i class="fa-solid fa-magnifying-glass wiki-search-icon"></i>
+                <input
+                    type="search"
+                    id="wikiSearchInput"
+                    placeholder="Buscar clanes, jutsus..."
+                    autocomplete="off"
+                    aria-label="Buscar en toda la wiki"
+                    aria-controls="wikiSearchResults"
+                    aria-expanded="false"
+                >
+                <button type="button" id="wikiSearchClear" aria-label="Limpiar búsqueda" style="display:none;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="wikiSearchResults" class="wiki-search-results" role="region" aria-live="polite"></div>
+        </div>
+    </div>
+</header>
+
+<div class="page-overlay" id="pageOverlay"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <a href="index.html#inicio" class="sidebar-logo">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+        <button class="close-btn" id="closeBtn" aria-label="Cerrar menú">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <nav class="navigation">
+        <a href="index.html#inicio" class="nav-link">
+            <i class="fa-solid fa-house"></i><span>Inicio</span>
+        </a>
+        <a href="clanes.html" class="nav-link active">
+            <i class="fa-solid fa-users"></i><span>Clanes</span>
+        </a>
+        <a href="jutsus.html" class="nav-link">
+            <i class="fa-solid fa-hand-sparkles"></i><span>Jutsus</span>
+        </a>
+        <a href="dojutsus.html" class="nav-link">
+            <i class="fa-solid fa-eye"></i><span>Dojutsus</span>
+        </a>
+
+        <div class="nav-divider"></div>
+
+        <a href="guia.html" class="nav-link">
+            <i class="fa-solid fa-book-open"></i><span>Guía del Mod</span>
+        </a>
+        <a href="index.html#descargas" class="nav-link">
+            <i class="fa-solid fa-download"></i><span>Descargas</span>
+        </a>
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="footer-symbol">木</div>
+        <p>"El linaje define tu herencia,<br>tu esfuerzo tu camino."</p>
+        <span>— NYDo</span>
+    </div>
+</aside>
+
+<main class="jutsu-page">
+
+    <!-- BANNER DE CLANES -->
+    <section class="jutsu-banner clan-banner-custom" id="inicio">
+        <img src="img/clanes.jpeg" alt="Fondo Clanes" class="banner-bg-img">
+        <div class="banner-overlay"></div>
+
+        <div class="banner-content">
+            <span class="jutsu-eyebrow">
+                <i class="fa-solid fa-dna"></i>
+                HERENCIA SHINOBI
+            </span>
+
+            <h1>CLANES Y <span>LINAJES</span></h1>
+
+            <p>
+                Explora los linajes ninja y Kekkei Genkai disponibles en el mod NYDo para Minecraft.
+                Elige tu camino, desde guerreros sin clan hasta las familias más poderosas del mundo shinobi.
+            </p>
+
+            <a href="#categorias" class="jutsu-main-btn">
+                Explorar Clanes
+            </a>
+        </div>
+    </section>
+
+    <!-- NAVEGACIÓN DE CLANES -->
+    <section class="jutsu-categories" id="categorias">
+
+        <!-- INSTRUCCIONES DE COMANDOS AL INICIO -->
+        <div class="clan-command-intro">
+            <strong>Mediante Comandos (Admin/Singleplayer):</strong> Usa el comando <code>/clan set  &lt;nombre_clan&gt; &lt;jugador&gt;</code> (ejemplo: <code>/clan set uchiha @p</code>).
+        </div>
+
+        <div class="jutsu-section-title">
+            <span>SELECCIÓN DE LINAJE</span>
+            <h2>Grandes Familias Shinobi</h2>
+            <p>Selecciona un clan para consultar sus habilidades pasivas, jutsus y evoluciones.</p>
+        </div>
+
+        <nav class="category-nav">
+            <a href="#comun">Común (Sin Clan)</a>
+            <a href="#hatake">Hatake</a>
+            <a href="#hozuki">Hōzuki</a>
+            <a href="#hyuga">Hyūga</a>
+            <a href="#kaguya">Kaguya</a>
+            <a href="#sarutobi">Sarutobi</a>
+            <a href="#uchiha">Uchiha</a>
+            <a href="#uzumaki">Uzumaki</a>
+            <a href="#yotsuki">Yotsuki</a>
+            <a href="#yuki">Yuki</a>
+        </nav>
+
+        <!-- 1. COMÚN (SIN CLAN) -->
+        <article class="jutsu-panel" id="comun">
+            <div class="panel-heading">
+                <div class="panel-icon orange-icon"><i class="fa-solid fa-person-running"></i></div>
+                <div>
+                    <span class="panel-number">LINAJE BASE</span>
+                    <h2>Común (Sin Clan)</h2>
+                    <p>Dominio del esfuerzo puro y Taijutsu extremo.</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Los ninjas sin un clan hereditario compensan la falta de Kekkei Genkai con un entrenamiento físico sobrehumano. Son los únicos capaces de liberar la limitación natural del chakra abriendo las <strong>Ocho Puertas Internas (Hachimon Tonkō)</strong>.
+            </p>
+
+            <h3 class="subheading">Las Ocho Puertas Internas</h3>
+            <div class="gates-grid">
+                <div class="gate-card">
+                    <span class="gate-number">PUERTA 1</span>
+                    <h3>Apertura (Kaimon)</h3>
+                    <p>Omote Renge (Loto Inicial)</p>
+                </div>
+                <div class="gate-card">
+                    <span class="gate-number">PUERTA 2</span>
+                    <h3>Descanso (Kyūmon)</h3>
+                    <p>Reanimación muscular</p>
+                </div>
+                <div class="gate-card">
+                    <span class="gate-number">PUERTA 3</span>
+                    <h3>Vida (Seimon)</h3>
+                    <p>Ura Renge (Loto Oculto)</p>
+                </div>
+                <div class="gate-card">
+                    <span class="gate-number">PUERTA 4</span>
+                    <h3>Dolor (Shōmon)</h3>
+                    <p>Velocidad de impacto</p>
+                </div>
+                <div class="gate-card">
+                    <span class="gate-number">PUERTA 5</span>
+                    <h3>Límite (Tōmon)</h3>
+                    <p>Fuerza sónica</p>
+                </div>
+                <div class="gate-card">
+                    <span class="gate-number">PUERTA 6</span>
+                    <h3>Visión (Keimon)</h3>
+                    <p>Asajaku (Pavo Real)</p>
+                </div>
+                <div class="gate-card">
+                    <span class="gate-number">PUERTA 7</span>
+                    <h3>Miedo (Kyōmon)</h3>
+                    <p>Hirudora (Tigre del Mediodía)</p>
+                </div>
+                <div class="gate-card">
+                    <span class="gate-number">PUERTA 8</span>
+                    <h3>Muerte (Shimon)</h3>
+                    <p>Sekizō y Yagai (Guy Nocturno)</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- 2. HATAKE -->
+        <article class="jutsu-panel" id="hatake">
+            <div class="panel-heading">
+                <div class="panel-icon silver-icon"><i class="fa-solid fa-bolt"></i></div>
+                <div>
+                    <span class="panel-number">CLAN DE LA ESPADA BLANCA</span>
+                    <h2>Clan Hatake</h2>
+                    <p>Maestros de la agilidad, Kenjutsu y el Elemento Rayo.</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Famosos por su talento táctico innato y su destreza con las armas de filo. Cuentan con una afinidad excepcional con el chakra de Elemento Rayo y velocidad de movimiento mejorada.
+            </p>
+
+            <div class="subsections-square-grid">
+                <a href="jutsus.html#kenjutsu" class="subsection-square-card" style="--sub-color: #38bdf8; --sub-glow: rgba(56, 189, 248, 0.3);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M6.7 18.7L5.3 17.3l8.6-8.6 1.4 1.4-8.6 8.6zm10.8-10.8l-1.4-1.4 1.4-1.4 1.4 1.4-1.4 1.4zm2.1-2.1l-1.4-1.4 1.4-1.4 1.4 1.4-1.4 1.4zM3 21v-2.8l10.6-10.6 2.8 2.8L5.8 21H3z"/></svg>
+                    </div>
+                    <h4>Kenjutsu</h4>
+                    <span>Arte del Sable y Espada</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- 3. HŌZUKI -->
+        <article class="jutsu-panel" id="hozuki">
+            <div class="panel-heading">
+                <div class="panel-icon green-icon"><i class="fa-solid fa-droplet"></i></div>
+                <div>
+                    <span class="panel-number">CLAN DE LA HIDRATACIÓN</span>
+                    <h2>Clan Hōzuki</h2>
+                    <p>Transformación del cuerpo en estado líquido.</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Poseen la habilidad especial de liquefactar su cuerpo a voluntad (Suika no Jutsu), volviéndose inmunes a ataques físicos y proyectiles convencionales en el juego.
+            </p>
+
+            <div class="subsections-square-grid">
+                <a href="jutsus.html#ninjutsu" class="subsection-square-card" style="--sub-color: #06b6d4; --sub-glow: rgba(6, 182, 212, 0.3);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                    </div>
+                    <h4>Suiton</h4>
+                    <span>Técnicas de Agua</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- 4. HYŪGA -->
+        <article class="jutsu-panel" id="hyuga">
+            <div class="panel-heading">
+                <div class="panel-icon silver-icon"><i class="fa-solid fa-eye"></i></div>
+                <div>
+                    <span class="panel-number">OJOS BLANCOS DE KONOHA</span>
+                    <h2>Clan Hyūga</h2>
+                    <p>Dominio de la visión 360° y el Puño Suave.</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Poseedores del Kekkei Genkai Byakugan. Su estilo de pelea se centra en interceptar el flujo de chakra del oponente golpeando sus puntos Tenketsu mediante el estilo del Puño Suave.
+            </p>
+
+            <!-- SUBSECCIONES CUADRADAS CON SVG -->
+            <div class="subsections-square-grid">
+                <a href="dojutsus.html#byakugan" class="subsection-square-card" style="--sub-color: #e2e8f0; --sub-glow: rgba(226, 232, 240, 0.3);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    </div>
+                    <h4>Byakugan</h4>
+                    <span>Dōjutsu Ocular</span>
+                </a>
+
+                <a href="jutsus.html#taijutsu" class="subsection-square-card" style="--sub-color: #a855f7; --sub-glow: rgba(168, 85, 247, 0.3);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M20.57 14.86L18 12.29l1.43-1.43a1 1 0 0 0-1.42-1.42L16.59 10.9l-1.42-1.42 1.42-1.42a1 1 0 0 0-1.42-1.42l-1.42 1.42-1.42-1.42a1 1 0 0 0-1.42 0L5.2 12.8A3 3 0 0 0 3 15c0 1.66 1.34 3 3 3h11.17l3.4 3.4a1 1 0 0 0 1.42-1.42l-1.42-5.12z"/></svg>
+                    </div>
+                    <h4>Jūken</h4>
+                    <span>Puño Suave Taijutsu</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- 5. KAGUYA -->
+        <article class="jutsu-panel" id="kaguya">
+            <div class="panel-heading">
+                <div class="panel-icon red-icon"><i class="fa-solid fa-bone"></i></div>
+                <div>
+                    <span class="panel-number">MANIPULACIÓN ÓSEA</span>
+                    <h2>Clan Kaguya</h2>
+                    <p>Huesos impregnados de chakra como armas y armadura.</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Herederos del Shikotsumyaku, la capacidad de manipular su propia estructura ósea. Pueden extraer huesos de su cuerpo para usarlos como lanzas o armaduras impenetrables.
+            </p>
+
+            <div class="subsections-square-grid">
+                <a href="jutsus.html#taijutsu" class="subsection-square-card" style="--sub-color: #f43f5e; --sub-glow: rgba(244, 63, 94, 0.3);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+                    </div>
+                    <h4>Shikotsumyaku</h4>
+                    <span>Danzas y Huesos</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- 6. SARUTOBI -->
+        <article class="jutsu-panel" id="sarutobi">
+            <div class="panel-heading">
+                <div class="panel-icon orange-icon"><i class="fa-solid fa-fire"></i></div>
+                <div>
+                    <span class="panel-number">VOLUNTAD DE FUEGO</span>
+                    <h2>Clan Sarutobi</h2>
+                    <p>Grandes reservas de chakra y dominación del Fuego y Ceniza.</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Un clan histórico de Konoha renombrado por su maestría en técnicas de Ninjutsu elemental, especialmente proyectiles de fuego y nubes explosivas de ceniza.
+            </p>
+
+            <div class="subsections-square-grid">
+                <a href="jutsus.html#ninjutsu" class="subsection-square-card" style="--sub-color: #f97316; --sub-glow: rgba(249, 115, 22, 0.3);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.2c-3.1 3.2-6 6.3-6 9.8 0 3.3 2.7 6 6 6s6-2.7 6-6c0-3.5-2.9-6.6-6-9.8zm0 13.8c-2.2 0-4-1.8-4-4 0-1.8 1.5-3.6 4-6.2 2.5 2.6 4 4.4 4 6.2 0 2.2-1.8 4-4 4z"/></svg>
+                    </div>
+                    <h4>Katon</h4>
+                    <span>Ninjutsu de Fuego</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- 7. UCHIHA -->
+        <article class="jutsu-panel" id="uchiha">
+            <div class="panel-heading">
+                <div class="panel-icon red-icon"><i class="fa-solid fa-eye"></i></div>
+                <div>
+                    <span class="panel-number">CLAN DEL SHARINGAN</span>
+                    <h2>Clan Uchiha</h2>
+                    <p>Ojos reflejantes, ilusiones y el poder del Susanoo.</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Uno de los clanes más poderosos. Poseen el Dōjutsu Sharingan y Mangekyō Sharingan, además de una afinidad natural destructiva con el Elemento Fuego (Katon).
+            </p>
+
+            <!-- SUBSECCIONES CUADRADAS CON SVG -->
+            <div class="subsections-square-grid">
+                <a href="dojutsus.html#sharingan" class="subsection-square-card" style="--sub-color: #ef4444; --sub-glow: rgba(239, 68, 68, 0.35);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 14a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/></svg>
+                    </div>
+                    <h4>Sharingan</h4>
+                    <span>Dōjutsu Ocular</span>
+                </a>
+
+                <a href="dojutsus.html#susanoo" class="subsection-square-card" style="--sub-color: #a855f7; --sub-glow: rgba(168, 85, 247, 0.35);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/></svg>
+                    </div>
+                    <h4>Susanoo 3D</h4>
+                    <span>Armadura Divina</span>
+                </a>
+
+                <a href="jutsus.html#ninjutsu" class="subsection-square-card" style="--sub-color: #f97316; --sub-glow: rgba(249, 115, 22, 0.35);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.2c-3.1 3.2-6 6.3-6 9.8 0 3.3 2.7 6 6 6s6-2.7 6-6c0-3.5-2.9-6.6-6-9.8zm0 13.8c-2.2 0-4-1.8-4-4 0-1.8 1.5-3.6 4-6.2 2.5 2.6 4 4.4 4 6.2 0 2.2-1.8 4-4 4z"/></svg>
+                    </div>
+                    <h4>Katon</h4>
+                    <span>Ninjutsu Fuego</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- 8. UZUMAKI -->
+        <article class="jutsu-panel" id="uzumaki">
+            <div class="panel-heading">
+                <div class="panel-icon gold-icon"><i class="fa-solid fa-stamp"></i></div>
+                <div>
+                    <span class="panel-number">LINAJE DE LA LONGEVIDAD</span>
+                    <h2>Clan Uzumaki</h2>
+                    <p>Chakra masivo, regeneración y maestría en Fūinjutsu.</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Originarios de Uzushiogakure. Destacan por sus inconmensurables reservas de chakra, fuerza vital excepcional y la capacidad innata de dominar sellos complejos.
+            </p>
+
+            <div class="subsections-square-grid">
+                <a href="jutsus.html#fuinjutsu" class="subsection-square-card" style="--sub-color: #eab308; --sub-glow: rgba(234, 179, 8, 0.3);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 1 0 22 12 10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </div>
+                    <h4>Fūinjutsu</h4>
+                    <span>Técnicas de Sellado</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- 9. YOTSUKI -->
+        <article class="jutsu-panel" id="yotsuki">
+            <div class="panel-heading">
+                <div class="panel-icon gold-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
+                <div>
+                    <span class="panel-number">ORGULLO DE KUMOGAKURE</span>
+                    <h2>Clan Yotsuki</h2>
+                    <p>Modo de Chakra de Elemento Rayo y fuerza bruta.</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Famosos en la Aldea de la Nube por su capacidad de envolver su cuerpo en una armadura de plasma eléctrico (Raiton no Yoroi), aumentando su velocidad y defensa a niveles sobrehumanos.
+            </p>
+
+            <div class="subsections-square-grid">
+                <a href="jutsus.html#ninjutsu" class="subsection-square-card" style="--sub-color: #a855f7; --sub-glow: rgba(168, 85, 247, 0.3);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+                    </div>
+                    <h4>Raiton Yoroi</h4>
+                    <span>Armadura Eléctrica</span>
+                </a>
+            </div>
+        </article>
+
+        <!-- 10. YUKI -->
+        <article class="jutsu-panel" id="yuki">
+            <div class="panel-heading">
+                <div class="panel-icon silver-icon"><i class="fa-solid fa-snowflake"></i></div>
+                <div>
+                    <span class="panel-number">KEKKEI GENKAI DE HIELO</span>
+                    <h2>Clan Yuki</h2>
+                    <p>Manipulación combinada de Agua y Viento (Hyōton).</p>
+                </div>
+            </div>
+
+            <p class="panel-description">
+                Poseedores del Kekkei Genkai de Hielo (Hyōton). Pueden congelar el aire a su alrededor para crear estacas heladas y los legendarios Espejos Demoníacos de Hielo.
+            </p>
+
+            <div class="subsections-square-grid">
+                <a href="jutsus.html#ninjutsu" class="subsection-square-card" style="--sub-color: #38bdf8; --sub-glow: rgba(56, 189, 248, 0.3);">
+                    <div class="subsection-svg-wrap">
+                        <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </div>
+                    <h4>Hyōton</h4>
+                    <span>Elemento Hielo</span>
+                </a>
+            </div>
+        </article>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="jutsu-footer">
+        <a href="index.html" class="brand-name">NYDo</a>
+        <p>El camino shinobi comienza con la herencia de tu clan.</p>
+        <a href="#categorias">Volver al inicio ↑</a>
+    </footer>
+
+</main>
+
+<script src="script.js"></script>
+<script src="busqueda.js"></script>
+
+</body>
+</html>

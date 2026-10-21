@@ -1,0 +1,295 @@
+/* ==========================================
+   HEADER Y BUSCADOR GLOBAL - NYDo WIKI
+   Diseño Estilizado: Alargado, Delgado y Glass
+========================================== */
+
+.nydo-header {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+/* ENCABEZADO SUPERIOR */
+.nydo-header .nydo-topbar {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+/* ÁREA DEL BUSCADOR */
+.nydo-header .nydo-search-area {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 20px;
+    box-sizing: border-box;
+    background: transparent;
+}
+
+/* CONTENEDOR MÁS LARGO HASTA 850PX */
+.nydo-header .nydo-search-container,
+.wiki-search-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 850px; /* Extensión larga horizontal */
+    min-width: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Adaptación para cuando está dentro de la topbar */
+.topbar .wiki-search-wrap,
+.nydo-topbar .wiki-search-wrap {
+    max-width: 720px;
+    flex: 1;
+}
+
+/* CAJA DE BÚSQUEDA: MAS DELGADA Y TIPO PÍLDORA (SIN CUADRADO) */
+.nydo-header .nydo-search-box,
+.wiki-search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 38px; /* Menos ancha/alta */
+    height: 38px;
+    padding: 0 16px;
+    box-sizing: border-box;
+    
+    /* Efecto Glass Sutil (Súper traslúcido sin fondo pesado) */
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(12px) saturate(160%);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    
+    /* Bordes estilo cápsula para eliminar la forma cuadrada */
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 50px !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nydo-header .nydo-search-box:focus-within,
+.wiki-search-box:focus-within {
+    background: rgba(0, 0, 0, 0.35) !important;
+    border-color: rgba(229, 9, 32, 0.6) !important;
+    box-shadow: 0 0 12px rgba(229, 9, 32, 0.25);
+}
+
+/* ICONO */
+.nydo-header .nydo-search-icon,
+.wiki-search-icon {
+    flex-shrink: 0;
+    color: #ff5265;
+    font-size: 13px;
+    filter: drop-shadow(0 0 3px rgba(255, 82, 101, 0.4));
+}
+
+/* CAMPO DE TEXTO DELGADO */
+.nydo-header #wikiSearchInput,
+#wikiSearchInput {
+    display: block;
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent !important;
+    color: #eee2c9;
+    font-family: inherit;
+    font-size: 13px;
+    box-shadow: none;
+}
+
+.nydo-header #wikiSearchInput::placeholder,
+#wikiSearchInput::placeholder {
+    color: #8d98aa;
+    opacity: 0.75;
+}
+
+.nydo-header #wikiSearchInput:focus,
+#wikiSearchInput:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+/* BOTÓN LIMPIAR */
+.nydo-header #wikiSearchClear,
+#wikiSearchClear {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #8d98aa;
+    font-size: 13px;
+    cursor: pointer;
+    box-shadow: none;
+    transition: all 0.2s ease;
+}
+
+.nydo-header #wikiSearchClear:hover,
+#wikiSearchClear:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+/* TEXTO INFORMATIVO BAJO EL BUSCADOR */
+.nydo-header .nydo-search-caption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0 0;
+    color: #a5adbd;
+    font-family: inherit;
+    font-size: 10px;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.nydo-header .nydo-search-caption i {
+    color: #ff5265;
+}
+
+/* RESULTADOS DESPLEGABLES CON EFECTO GLASS */
+.nydo-header #wikiSearchResults,
+.nydo-header .wiki-search-results,
+.wiki-search-results {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 12px;
+    right: 12px;
+    z-index: 1100;
+    max-height: 360px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 0;
+    box-sizing: border-box;
+
+    /* Menú flotante estilo Glass */
+    background: rgba(14, 18, 28, 0.88) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 14px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.nydo-header #wikiSearchResults:empty,
+.nydo-header .wiki-search-results:empty,
+.wiki-search-results:empty {
+    display: none;
+}
+
+/* ENLACES DE RESULTADOS */
+.nydo-header .wiki-search-results a,
+.nydo-header #wikiSearchResults a,
+.wiki-search-result {
+    display: block;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #eee2c9;
+    text-align: left;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.nydo-header .wiki-search-results a:last-child,
+.nydo-header #wikiSearchResults a:last-child,
+.wiki-search-result:last-child {
+    border-bottom: none;
+}
+
+.nydo-header .wiki-search-results a:hover,
+.nydo-header #wikiSearchResults a:hover,
+.wiki-search-result:hover {
+    background: rgba(229, 9, 32, 0.18) !important;
+}
+
+/* TÍTULOS Y DESCRIPCIONES EN RESULTADOS */
+.nydo-header .wiki-search-results a strong,
+.nydo-header #wikiSearchResults a strong,
+.wiki-search-result-title {
+    display: block;
+    margin-bottom: 2px;
+    color: #f4f5fa;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.nydo-header .wiki-search-results a span,
+.nydo-header #wikiSearchResults a span,
+.wiki-search-result-description {
+    display: block;
+    color: #a5adbd;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.wiki-search-result-page {
+    display: block;
+    font-size: 9px;
+    color: #ff5265;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+    font-weight: bold;
+}
+
+/* MENSAJES Y ESTADOS VACÍOS */
+.nydo-header .search-message,
+.nydo-header .wiki-search-empty,
+.nydo-header .wiki-search-loading,
+.wiki-search-empty {
+    padding: 12px;
+    color: #a5adbd;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 650px) {
+    .nydo-header .nydo-search-area {
+        padding: 6px 10px;
+    }
+
+    .nydo-header .nydo-search-box,
+    .wiki-search-box {
+        min-height: 36px;
+        height: 36px;
+        padding: 0 12px;
+    }
+
+    .nydo-header #wikiSearchInput,
+    #wikiSearchInput {
+        font-size: 12px;
+    }
+
+    .nydo-header #wikiSearchResults,
+    .nydo-header .wiki-search-results,
+    .wiki-search-results {
+        left: 0;
+        right: 0;
+        max-height: 50vh;
+    }
+}

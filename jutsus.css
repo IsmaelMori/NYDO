@@ -1,4 +1,3 @@
-
 /* ==================================
    PÁGINA DE JUTSUS - NYDo WIKI
 ================================== */
@@ -8,97 +7,205 @@
     min-height: 100vh;
 }
 
-/* PORTADA */
+/* ==================================
+   PORTADA ÉPICA - ENCICLOPEDIA
+================================== */
 
 .jutsu-banner {
-    min-height: 390px;
-    padding: 125px 25px 75px;
+    min-height: 500px;
+    padding: 120px 30px 85px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: left;
     position: relative;
     isolation: isolate;
+    overflow: hidden;
+
     background:
-        radial-gradient(ellipse at 15% 50%,
-            rgba(0, 100, 255, 0.18), transparent 40%),
-        radial-gradient(ellipse at 85% 50%,
-            rgba(229, 9, 32, 0.17), transparent 40%),
-        linear-gradient(135deg, #0b101b, #080b12 60%, #16090e);
-    border-bottom: 1px solid rgba(229, 9, 32, 0.35);
+        linear-gradient(
+            90deg,
+            rgba(5, 8, 16, 0.97) 0%,
+            rgba(5, 8, 16, 0.86) 35%,
+            rgba(5, 8, 16, 0.48) 70%,
+            rgba(5, 8, 16, 0.35) 100%
+        ),
+        linear-gradient(
+            0deg,
+            #080b12 0%,
+            transparent 35%
+        ),
+        url("img/banner.jpeg")
+        center 45% / cover no-repeat;
+
+    border-bottom: 1px solid rgba(229, 9, 32, 0.4);
 }
+
+/* Efectos decorativos */
 
 .jutsu-banner::before {
     content: "";
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: repeating-linear-gradient(
-        120deg,
-        transparent 0 65px,
-        rgba(255, 255, 255, 0.015) 66px 67px,
-        transparent 68px 120px
-    );
+
+    background:
+        radial-gradient(
+            ellipse at 78% 45%,
+            rgba(229, 9, 32, 0.22),
+            transparent 38%
+        ),
+        repeating-linear-gradient(
+            120deg,
+            transparent 0 65px,
+            rgba(255, 255, 255, 0.025) 66px 67px,
+            transparent 68px 120px
+        );
+
+    pointer-events: none;
 }
 
+.jutsu-banner::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #e50920,
+        #ff7654,
+        transparent
+    );
+
+    opacity: 0.8;
+}
+
+/* Contenido */
+
 .banner-content {
-    max-width: 800px;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 760px;
+    animation: bannerEntrada 0.8s ease both;
 }
 
 .jutsu-eyebrow,
 .jutsu-section-title > span {
-    color: #ed263b;
+    color: #ff5265;
     font-size: 11px;
     font-weight: 800;
     letter-spacing: 3px;
 }
 
+.jutsu-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 16px;
+    margin-bottom: 10px;
+
+    border: 1px solid rgba(255, 82, 101, 0.35);
+    border-radius: 30px;
+
+    background: rgba(10, 13, 22, 0.78);
+    backdrop-filter: blur(8px);
+}
+
 .jutsu-eyebrow i {
-    margin-right: 7px;
+    font-size: 15px;
 }
 
 .banner-content h1 {
-    margin: 22px 0 18px;
+    margin: 22px 0 20px;
     color: #f4f5fa;
-    font-size: clamp(40px, 7vw, 76px);
+    font-size: clamp(42px, 7vw, 82px);
     font-weight: 900;
+    line-height: 1.05;
     letter-spacing: -2px;
+    text-shadow: 0 5px 25px rgba(0, 0, 0, 0.55);
 }
 
 .banner-content h1 span {
-    color: #e50920;
-    text-shadow: 0 0 35px rgba(229, 9, 32, 0.2);
+    display: block;
+    color: #ff334b;
+    text-shadow: 0 0 35px rgba(229, 9, 32, 0.38);
 }
 
 .banner-content > p {
-    max-width: 620px;
-    margin: 0 auto 27px;
-    color: #aeb7c8;
+    max-width: 600px;
+    margin: 0 0 30px;
+    color: #d0d6e3;
     font-size: 15px;
-    line-height: 1.8;
+    line-height: 1.9;
 }
+
+/* Botón de principiantes */
 
 .jutsu-main-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 13px;
-    padding: 13px 23px;
-    border: 1px solid #e50920;
-    border-radius: 5px;
-    background: rgba(229, 9, 32, 0.08);
+    gap: 12px;
+    padding: 15px 23px;
+
+    color: #ffffff;
+    border: 1px solid #ff334b;
+    border-radius: 7px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(229, 9, 32, 0.95),
+        rgba(153, 5, 24, 0.95)
+    );
+
     font-size: 13px;
-    font-weight: 700;
-    transition: 0.25s;
+    font-weight: 800;
+    text-decoration: none;
+
+    box-shadow: 0 8px 28px rgba(229, 9, 32, 0.22);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
 }
 
 .jutsu-main-btn:hover {
-    background: #e50920;
-    box-shadow: 0 0 25px rgba(229, 9, 32, 0.2);
-    transform: translateY(-3px);
+    color: #ffffff;
+    background: linear-gradient(
+        135deg,
+        #ff4056,
+        #c90020
+    );
+
+    box-shadow: 0 12px 35px rgba(229, 9, 32, 0.38);
+    transform: translateY(-4px);
 }
 
-/* CATEGORÍAS */
+.jutsu-main-btn i {
+    font-size: 16px;
+}
+
+@keyframes bannerEntrada {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================================
+   CATEGORÍAS
+================================== */
 
 .jutsu-categories {
     max-width: 1250px;
@@ -139,6 +246,7 @@
     color: #c8ceda;
     font-size: 12px;
     font-weight: 700;
+    text-decoration: none;
     transition: 0.25s;
 }
 
@@ -148,7 +256,9 @@
     background: #a90819;
 }
 
-/* PANELES PRINCIPALES */
+/* ==================================
+   PANELES PRINCIPALES
+================================== */
 
 .jutsu-panel {
     margin-bottom: 35px;
@@ -156,8 +266,11 @@
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 9px;
     background:
-        radial-gradient(ellipse at top right,
-            rgba(255, 255, 255, 0.025), transparent 45%),
+        radial-gradient(
+            ellipse at top right,
+            rgba(255, 255, 255, 0.025),
+            transparent 45%
+        ),
         linear-gradient(145deg, #101521, #0a0d14);
     scroll-margin-top: 85px;
 }
@@ -254,7 +367,9 @@
     line-height: 1.8;
 }
 
-/* CINCO ELEMENTOS */
+/* ==================================
+   CINCO ELEMENTOS
+================================== */
 
 .element-grid {
     display: grid;
@@ -268,6 +383,7 @@
     border: 1px solid rgba(255, 255, 255, 0.09);
     border-radius: 6px;
     background: #0b0f18;
+    text-decoration: none;
     transition: transform 0.25s, border-color 0.25s;
 }
 
@@ -303,27 +419,15 @@
     line-height: 1.7;
 }
 
-.fire {
-    --element-color: #ff625e;
-}
+.fire { --element-color: #ff625e; }
+.wind { --element-color: #80dba2; }
+.lightning { --element-color: #f1d35e; }
+.earth { --element-color: #d6a477; }
+.water { --element-color: #65baff; }
 
-.wind {
-    --element-color: #80dba2;
-}
-
-.lightning {
-    --element-color: #f1d35e;
-}
-
-.earth {
-    --element-color: #d6a477;
-}
-
-.water {
-    --element-color: #65baff;
-}
-
-/* NINJUTSU MÉDICO */
+/* ==================================
+   NINJUTSU MÉDICO
+================================== */
 
 .info-card {
     padding: 23px;
@@ -374,7 +478,9 @@
     font-weight: 700;
 }
 
-/* TRANSFORMACIONES AVANZADAS */
+/* ==================================
+   TRANSFORMACIONES AVANZADAS
+================================== */
 
 .advanced-elements {
     display: grid;
@@ -427,7 +533,9 @@
     line-height: 1.8;
 }
 
-/* DEFINICIONES */
+/* ==================================
+   DEFINICIONES
+================================== */
 
 .definition-box {
     margin-top: 25px;
@@ -451,7 +559,9 @@
     line-height: 2;
 }
 
-/* TAIJUTSU */
+/* ==================================
+   TAIJUTSU
+================================== */
 
 .feature-grid {
     display: grid;
@@ -466,7 +576,9 @@
     font-size: 25px;
 }
 
-/* SENJUTSU */
+/* ==================================
+   SENJUTSU
+================================== */
 
 .sage-grid {
     display: grid;
@@ -505,7 +617,9 @@
     line-height: 1.9;
 }
 
-/* FUINJUTSU */
+/* ==================================
+   FUINJUTSU
+================================== */
 
 .sealing-list {
     display: flex;
@@ -559,7 +673,9 @@
     line-height: 1.9;
 }
 
-/* PIE DE PÁGINA */
+/* ==================================
+   PIE DE PÁGINA
+================================== */
 
 .jutsu-footer {
     padding: 35px 20px;
@@ -584,7 +700,9 @@
     font-size: 12px;
 }
 
-/* TABLET */
+/* ==================================
+   TABLET
+================================== */
 
 @media (max-width: 1000px) {
     .element-grid {
@@ -596,16 +714,35 @@
     }
 }
 
-/* MÓVIL */
+/* ==================================
+   MÓVIL
+================================== */
 
 @media (max-width: 600px) {
     .jutsu-banner {
-        min-height: 340px;
-        padding: 100px 20px 55px;
+        min-height: 430px;
+        padding: 105px 20px 65px;
+        background-position: center, center, 60% center;
+    }
+
+    .banner-content h1 {
+        font-size: clamp(38px, 11vw, 58px);
+        letter-spacing: -1px;
+    }
+
+    .jutsu-eyebrow {
+        font-size: 9px;
+        letter-spacing: 2px;
     }
 
     .banner-content > p {
         font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .jutsu-main-btn {
+        padding: 13px 16px;
+        font-size: 12px;
     }
 
     .jutsu-categories {
@@ -685,5 +822,56 @@
     .definition-box p {
         font-size: 13px;
     }
-    
 }
+
+/* Accesibilidad: reducir animaciones si se solicita */
+
+@media (prefers-reduced-motion: reduce) {
+    .banner-content {
+        animation: none;
+    }
+
+    .jutsu-main-btn,
+    .element-card,
+    .sage-card {
+        transition: none;
+    }
+}
+
+
+.jutsu-banner {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+}
+
+/* Imagen de fondo del banner */
+.jutsu-banner .banner-imagen {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: -2;
+}
+
+/* Oscurecer la imagen sin editarla */
+.jutsu-banner .banner-capa {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(8, 11, 18, 0.95),
+        rgba(8, 11, 18, 0.70),
+        rgba(8, 11, 18, 0.25)
+    );
+    z-index: -1;
+}
+
+/* Mantener el texto por encima de la imagen */
+.jutsu-banner .banner-content {
+    position: relative;
+    z-index: 1;
+}
+
