@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats Shinobi | NYDo Wiki</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="busqueda.css">
+    <link rel="stylesheet" href="jutsus.css">
+    <link rel="stylesheet" href="stats.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+
+<header class="nydo-header">
+    <div class="topbar nydo-topbar">
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="index.html#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+        <div class="brand-description">
+            <strong>WIKI NO OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+
+        <div class="wiki-search-wrap" id="wikiSearch">
+            <div class="wiki-search-box">
+                <i class="fa-solid fa-magnifying-glass wiki-search-icon"></i>
+                <input
+                    type="search"
+                    id="wikiSearchInput"
+                    placeholder="Buscar..."
+                    autocomplete="off"
+                    aria-label="Buscar en toda la wiki"
+                    aria-controls="wikiSearchResults"
+                    aria-expanded="false"
+                >
+                <button
+                    type="button"
+                    id="wikiSearchClear"
+                    aria-label="Limpiar búsqueda"
+                    style="display:none;"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div
+                id="wikiSearchResults"
+                class="wiki-search-results"
+                role="region"
+                aria-live="polite"
+            ></div>
+        </div>
+    </div>
+</header>
+
+    <div class="page-overlay" id="pageOverlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html#inicio" class="sidebar-logo">
+                <span class="brand-symbol">木</span>
+                <span class="brand-name">NYDo</span>
+            </a>
+
+            <button class="close-btn" id="closeBtn" aria-label="Cerrar menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="navigation">
+            <a href="index.html#inicio" class="nav-link">
+                <i class="fa-solid fa-house"></i><span>Inicio</span>
+            </a>
+            <a href="clanes.html" class="nav-link">
+                <i class="fa-solid fa-users"></i><span>Clanes</span>
+            </a>
+            <a href="jutsus.html" class="nav-link">
+                <i class="fa-solid fa-hand-sparkles"></i><span>Jutsus</span>
+            </a>
+            <a href="dojutsus.html" class="nav-link">
+                <i class="fa-solid fa-eye"></i><span>Dojutsus</span>
+            </a>
+            <a href="stats.html" class="nav-link active">
+                <i class="fa-solid fa-chart-simple"></i><span>Stats</span>
+            </a>
+
+            <div class="nav-divider"></div>
+
+            <a href="guia.html" class="nav-link">
+                <i class="fa-solid fa-book-open"></i><span>Guía del Mod</span>
+            </a>
+            <a href="index.html#descargas" class="nav-link">
+                <i class="fa-solid fa-download"></i><span>Descargas</span>
+            </a>
+            <a href="index.html#sobre" class="nav-link">
+                <i class="fa-regular fa-circle-question"></i><span>Sobre el Mod</span>
+            </a>
+            <a href="index.html#contacto" class="nav-link">
+                <i class="fa-regular fa-envelope"></i><span>Contacto</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-symbol">木</div>
+            <p>"El conocimiento<br>es el primer paso<br>del camino shinobi"</p>
+            <span>— NYDo</span>
+        </div>
+    </aside>
+
+    <main class="jutsu-page st-page">
+        <div class="st-orbs" aria-hidden="true"><i></i><i></i><i></i></div>
+
+        <div class="st-wrap">
+
+            <section class="st-hero st-glass">
+                <span class="st-eyebrow"><i class="fa-solid fa-chart-simple"></i> SISTEMA DE PROGRESIÓN</span>
+                <h1>Stats <span>Shinobi</span></h1>
+                <p>Reparte tus puntos entre las ramas de desarrollo (máximo 120 por rama y 240 en total) o carga la build de un personaje para ver cómo cambia tu perfil.</p>
+                <div class="st-hero-stats">
+                    <div><i class="fa-solid fa-coins"></i><strong>240</strong><small>puntos totales</small></div>
+                    <div><i class="fa-solid fa-layer-group"></i><strong>120</strong><small>máx. por rama</small></div>
+                    <div><i class="fa-solid fa-sitemap"></i><strong>8</strong><small>ramas</small></div>
+                    <div><i class="fa-solid fa-user-ninja"></i><strong>5</strong><small>builds</small></div>
+                </div>
+            </section>
+
+            <div class="st-presets-bar st-glass">
+                <span class="st-presets-label"><i class="fa-solid fa-user-ninja"></i> Cargar build</span>
+                <div class="st-presets" id="stPresets" role="group" aria-label="Builds de personajes"></div>
+            </div>
+
+            <div class="st-layout">
+                <div class="st-left">
+                    <section class="st-radar-card st-glass" aria-label="Perfil Shinobi">
+                        <div class="st-radar-head">
+                            <div class="st-head-title">
+                                <span class="st-ico"><i class="fa-solid fa-hexagon-nodes"></i></span>
+                                <div>
+                                    <strong>Perfil Shinobi</strong>
+                                    <small id="stRadarSub">100% progresión</small>
+                                </div>
+                            </div>
+                            <div class="st-radar-mode"><i class="fa-solid fa-circle-user"></i><span id="stRadarMode">Sin modo activo</span></div>
+                        </div>
+                        <svg id="stRadar" viewBox="0 0 420 440" role="img" aria-label="Gráfico radial de atributos"></svg>
+                    </section>
+
+                    <section class="st-info st-glass" id="stInfo" aria-live="polite"></section>
+                </div>
+
+                <section class="st-dev st-glass" aria-label="Desarrollo Shinobi">
+                    <div class="st-dev-head">
+                        <div class="l">
+                            <span class="st-ico"><i class="fa-solid fa-dumbbell"></i></span>
+                            <div>
+                                <strong>DESARROLLO SHINOBI</strong>
+                                <span class="st-sub"><i class="fa-solid fa-coins"></i><span id="stSpent">0 invertidos</span></span>
+                            </div>
+                        </div>
+                        <div class="r">
+                            <strong><i class="fa-solid fa-star"></i><span id="stFree">240 disponibles</span></strong>
+                            <span id="stObtained">0 / 240 invertidos</span>
+                        </div>
+                    </div>
+                    <div class="st-bar" aria-hidden="true">
+                        <div class="st-bar-fill" id="stBarFill"></div>
+                        <i style="left:12.5%"></i><i style="left:37.5%"></i><i style="left:62.5%"></i><i style="left:87.5%"></i>
+                    </div>
+                    <p class="st-rule"><i class="fa-solid fa-circle-info"></i><span>240 puntos en total; máximo 120 por rama. Mantén pulsado +1 / − para repetir · Shift + clic = ±10.</span></p>
+                    <p class="st-msg" id="stMsg"></p>
+
+                    <div class="st-cards" id="stCards"></div>
+                </section>
+            </div>
+
+            <p class="st-foot st-glass">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Naturalezas, habilidades, Kekkei Genkai y clanes basados en el anime. Los porcentajes de cada rama son valores
+                de referencia con rendimientos decrecientes: puedes ajustarlos en el objeto <code>BRANCHES</code> del script.</span>
+            </p>
+        </div>
+
+        <footer class="jutsu-footer">
+            <a href="index.html" class="brand-name">NYDo</a>
+            <p>Construye tu shinobi: reparte tus puntos y descubre tu estilo de combate.</p>
+            <a href="#inicio">Volver arriba ↑</a>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="busqueda.js"></script>
+    <script>
+    (function () {
+        // ==========================================
+        // CONFIGURACIÓN
+        // ==========================================
+        const MAX_BRANCH = 120;   // máximo por rama
+        const MAX_TOTAL = 240;    // máximo total
+        const CURVE = 1.5;        // rendimientos decrecientes
+
+        // effects: max = valor al llegar a 120 pts · sign: '+' sube / '-' reduce
+        const BRANCHES = [
+            { id: 'nin', name: 'Ninjutsu', icon: 'fa-hand-sparkles', color: '#2aa6c7', bg: '#102d3a',
+              desc: 'Potencia y ejecución de ninjutsu: daño y potencia de las técnicas compatibles, sellos y carga.',
+              effects: [
+                { label: 'sellos', icon: 'fa-hands', max: 30, sign: '-', unit: '%' },
+                { label: 'poder', icon: 'fa-burst', max: 100, sign: '+', unit: '%' },
+                { label: 'carga', icon: 'fa-hourglass-half', max: 20, sign: '-', unit: '%' } ] },
+            { id: 'tai', name: 'Taijutsu', icon: 'fa-hand-fist', color: '#e0643c', bg: '#33180f',
+              desc: 'Mejora el daño sin armas, la presión de guardia y la resistencia. El daño con armas no cambia.',
+              effects: [
+                { label: 'daño', icon: 'fa-hand-fist', max: 100, sign: '+', unit: '%' },
+                { label: 'resistencia', icon: 'fa-shield', max: 60, sign: '+', unit: '%' },
+                { label: 'guardia', icon: 'fa-shield-halved', max: 40, sign: '+', unit: '%' } ] },
+            { id: 'gen', name: 'Genjutsu', icon: 'fa-eye', color: '#a35fe0', bg: '#241438',
+              desc: 'Duelo mental: potencia genjutsu y resiste su daño y duración.',
+              effects: [
+                { label: 'poder', icon: 'fa-burst', max: 100, sign: '+', unit: '%' },
+                { label: 'genjutsu recibido', icon: 'fa-eye-slash', max: 95, sign: '-', unit: '%' } ] },
+            { id: 'chk', name: 'Control de chakra', icon: 'fa-droplet', color: '#2fbf97', bg: '#0f2e29',
+              desc: 'Autonomía: más reserva, menor coste y mejor recuperación de chakra.',
+              effects: [
+                { label: 'chakra', icon: 'fa-droplet', max: 66, sign: '+', unit: '%' },
+                { label: 'coste', icon: 'fa-coins', max: 20, sign: '-', unit: '%' },
+                { label: 'carga', icon: 'fa-hourglass-half', max: 10, sign: '-', unit: '%' },
+                { label: 'regen.', icon: 'fa-rotate', max: 40, sign: '+', unit: '%' } ] },
+            { id: 'vit', name: 'Vitalidad', icon: 'fa-heart-pulse', color: '#68b64a', bg: '#162b13',
+              desc: 'Aumenta proporcionalmente tu vida, también al subir de nivel. Absorbes golpes mayores.',
+              effects: [
+                { label: 'vida máxima', icon: 'fa-heart', max: 100, sign: '+', unit: '%' } ] },
+            { id: 'def', name: 'Defensa', icon: 'fa-shield-halved', color: '#7b97d1', bg: '#161d33',
+              desc: 'Reduce el daño físico y elemental, incluidos jutsus que ignoran armadura.',
+              effects: [
+                { label: 'daño recibido', icon: 'fa-shield-heart', max: 79, sign: '-', unit: '%' } ] },
+            { id: 'agi', name: 'Agilidad', icon: 'fa-person-running', color: '#dcb23b', bg: '#33280f',
+              desc: 'Reposicionamiento y ritmo: movimiento, velocidad de acciones y recuperación de combate.',
+              effects: [
+                { label: 'movimiento', icon: 'fa-shoe-prints', max: 23, sign: '+', unit: '%' },
+                { label: 'combate', icon: 'fa-bolt', max: 17, sign: '+', unit: '%' },
+                { label: 'recuperación', icon: 'fa-stopwatch', max: 14, sign: '-', unit: '%' } ] },
+            { id: 'med', name: 'Medicina ninja', icon: 'fa-kit-medical', color: '#3fd0bd', bg: '#0e2f2d',
+              desc: 'Especialización médica: cura aliados o a ti mismo, mejora la activación celular y la cirugía.',
+              effects: [
+                { label: 'curación', icon: 'fa-hand-holding-medical', max: 100, sign: '+', unit: '%' },
+                { label: 'cirugía', icon: 'fa-scissors', max: 26, sign: '-', unit: '%' },
+                { label: 'integridad', icon: 'fa-heart-circle-check', max: 20, sign: '+', unit: '' },
+                { label: 'absorción celular', icon: 'fa-dna', max: 40, sign: '+', unit: '%' } ] }
+        ];
+
+        // Ejes del radar (sentido horario desde arriba) y de qué ramas dependen
+        const AXES = [
+            { k: 'ATT', ang: -90, w: { nin: .45, tai: .35, gen: .20 } },
+            { k: 'DEF', ang: -30, w: { def: .60, vit: .40 } },
+            { k: 'SPD', ang: 30,  w: { agi: .80, tai: .20 } },
+            { k: 'CHK', ang: 90,  w: { chk: .75, nin: .25 } },
+            { k: 'TAI', ang: 150, w: { tai: .75, vit: .25 } },
+            { k: 'TEC', ang: 210, w: { gen: .50, nin: .25, med: .25 } }
+        ];
+
+        // Builds (cada una suma 240 y ninguna rama pasa de 120)
+        const PRESETS = {
+            equilibrada: {
+                name: 'Equilibrada', icon: 'fa-scale-balanced',
+                sub: 'Build versátil, sin especialización',
+                points: { nin: 30, tai: 30, gen: 30, chk: 30, vit: 30, def: 30, agi: 30, med: 30 },
+                nature: ['Libre'],
+                abilities: ['Jutsus básicos de todas las ramas', 'Reserva de chakra estable', 'Se adapta a cualquier estilo de combate'],
+                kekkei: [{ t: 'Ninguno (depende del clan que elijas)' }],
+                clan: { t: 'Sin clan / a elección' }
+            },
+            naruto: {
+                name: 'Naruto Uzumaki', icon: 'fa-hurricane',
+                sub: 'Jinchūriki del Kyūbi · Séptimo Hokage',
+                points: { nin: 80, tai: 25, gen: 0, chk: 60, vit: 50, def: 10, agi: 15, med: 0 },
+                nature: ['Viento'],
+                abilities: ['Kage Bunshin no Jutsu', 'Rasengan / Rasenshuriken', 'Modo Sabio', 'Modo Chakra de Kurama'],
+                kekkei: [{ t: 'Ninguno propio (poder del Kyūbi como Jinchūriki)' }],
+                clan: { t: 'Uzumaki', href: 'clanes.html#uzumaki' }
+            },
+            kakashi: {
+                name: 'Kakashi Hatake', icon: 'fa-mask',
+                sub: 'El ninja que copia mil técnicas',
+                points: { nin: 70, tai: 40, gen: 15, chk: 35, vit: 20, def: 15, agi: 45, med: 0 },
+                nature: ['Rayo', 'Tierra', 'Agua', 'Fuego', 'Viento'],
+                abilities: ['Raikiri / Chidori', 'Kamui', 'Copia de jutsus con el Sharingan', 'Ninken no Jutsu (invocación)'],
+                kekkei: [
+                    { t: 'Sharingan (trasplantado)', href: 'dojutsus.html#sharingan' },
+                    { t: 'Mangekyō Sharingan', href: 'dojutsus.html#mangekyo' }
+                ],
+                clan: { t: 'Hatake', href: 'clanes.html#hatake' }
+            },
+            itachi: {
+                name: 'Itachi Uchiha', icon: 'fa-eye',
+                sub: 'Maestro del genjutsu',
+                points: { nin: 50, tai: 10, gen: 100, chk: 40, vit: 10, def: 5, agi: 25, med: 0 },
+                nature: ['Fuego', 'Yin'],
+                abilities: ['Tsukuyomi', 'Amaterasu', 'Susanoo (Espada de Totsuka y Espejo de Yata)', 'Katon: Gōkakyū no Jutsu'],
+                kekkei: [
+                    { t: 'Sharingan', href: 'dojutsus.html#sharingan' },
+                    { t: 'Mangekyō Sharingan', href: 'dojutsus.html#mangekyo' }
+                ],
+                clan: { t: 'Uchiha', href: 'clanes.html#uchiha' }
+            },
+            sasuke: {
+                name: 'Sasuke Uchiha', icon: 'fa-bolt',
+                sub: 'El vengador del clan Uchiha',
+                points: { nin: 74, tai: 35, gen: 21, chk: 35, vit: 15, def: 10, agi: 50, med: 0 },
+                nature: ['Fuego', 'Rayo', 'Yin', 'Yang'],
+                abilities: ['Chidori / Kirin', 'Amaterasu', 'Susanoo', 'Katon: Gōkakyū no Jutsu'],
+                kekkei: [
+                    { t: 'Sharingan', href: 'dojutsus.html#sharingan' },
+                    { t: 'Mangekyō Sharingan Eterno', href: 'dojutsus.html#eternal' },
+                    { t: 'Rinnegan', href: 'dojutsus.html#rinnegan' }
+                ],
+                clan: { t: 'Uchiha', href: 'clanes.html#uchiha' }
+            }
+        };
+
+        // Páginas de cada elemento (si no hay página, el chip queda sin enlace)
+        const NATURE_LINKS = {
+            'Fuego': 'katon.html', 'Tierra': 'doton.html', 'Agua': 'suiton.html',
+            'Viento': 'futon.html', 'Rayo': 'raiton.html'
+        };
+
+        const NATURE_ICONS = {
+            'Fuego': 'fa-fire', 'Tierra': 'fa-mountain', 'Agua': 'fa-droplet', 'Viento': 'fa-wind',
+            'Rayo': 'fa-bolt', 'Yin': 'fa-moon', 'Yang': 'fa-sun', 'Libre': 'fa-infinity'
+        };
+
+        const NATURE_COLORS = {
+            'Fuego': '#ff6b4a', 'Rayo': '#ffd23f', 'Viento': '#7fe0a8', 'Agua': '#4aa8ff',
+            'Tierra': '#c49a6c', 'Yin': '#b58cff', 'Yang': '#ffa8d4', 'Libre': '#9fb0c0'
+        };
+
+        // ==========================================
+        // ESTADO
+        // ==========================================
+        const state = {};
+        BRANCHES.forEach(function (b) { state[b.id] = 0; });
+        let activePreset = null;
+        let custom = false;
+
+        const sum = function () { return BRANCHES.reduce(function (a, b) { return a + state[b.id]; }, 0); };
+        const free = function () { return MAX_TOTAL - sum(); };
+        const eff = function (p, max) { return max * (1 - Math.pow(1 - p / MAX_BRANCH, CURVE)); };
+        const fmt = function (n) { return String(Math.round(n * 100) / 100); };
+
+        // ==========================================
+        // TARJETAS DE DESARROLLO
+        // ==========================================
+        const cardsEl = document.getElementById('stCards');
+        const refs = {};
+
+        BRANCHES.forEach(function (b) {
+            const el = document.createElement('article');
+            el.className = 'st-card';
+            el.style.setProperty('--c', b.color);
+            el.style.setProperty('--bg', b.bg);
+            el.innerHTML =
+                '<div class="st-card-top">' +
+                    '<div class="st-badge"><i class="fa-solid ' + b.icon + '"></i></div>' +
+                    '<div class="st-card-name">' + b.name + '</div>' +
+                    '<div class="st-card-count">0</div>' +
+                    '<div class="st-btns">' +
+                        '<button type="button" class="st-step minus" aria-label="Quitar punto de ' + b.name + '"><i class="fa-solid fa-minus"></i></button>' +
+                        '<button type="button" class="st-step plus" aria-label="Añadir punto a ' + b.name + '"><i class="fa-solid fa-plus"></i>1</button>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="st-meta"></div>' +
+                '<div class="st-segs">' + new Array(7).join('<div class="st-seg"><b></b></div>') + '</div>' +
+                '<div class="st-now"></div>' +
+                '<div class="st-next"></div>' +
+                '<div class="st-desc">' + b.desc + '</div>';
+            cardsEl.appendChild(el);
+
+            refs[b.id] = {
+                el: el,
+                count: el.querySelector('.st-card-count'),
+                meta: el.querySelector('.st-meta'),
+                segs: el.querySelectorAll('.st-seg b'),
+                now: el.querySelector('.st-now'),
+                next: el.querySelector('.st-next'),
+                plus: el.querySelector('.plus'),
+                minus: el.querySelector('.minus')
+            };
+
+            holdButton(refs[b.id].plus, b.id, +1);
+            holdButton(refs[b.id].minus, b.id, -1);
+        });
+
+        function holdButton(btn, id, dir) {
+            let t1 = null, t2 = null;
+            function stop() { clearTimeout(t1); clearInterval(t2); t1 = t2 = null; }
+            btn.addEventListener('pointerdown', function (e) {
+                if (e.button !== undefined && e.button !== 0) return;
+                const step = e.shiftKey ? 10 : 1;
+                const ok = change(id, dir * step);
+                if (!ok) return;
+                t1 = setTimeout(function () {
+                    t2 = setInterval(function () {
+                        if (!change(id, dir * step)) stop();
+                    }, 70);
+                }, 380);
+            });
+            ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (ev) { btn.addEventListener(ev, stop); });
+            // Teclado (Enter / Espacio)
+            btn.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); change(id, dir * (e.shiftKey ? 10 : 1)); }
+            });
+        }
+
+        let msgTimer = null;
+        function msg(text) {
+            const m = document.getElementById('stMsg');
+            m.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+            m.appendChild(document.createTextNode(' ' + text));
+            clearTimeout(msgTimer);
+            msgTimer = setTimeout(function () { m.innerHTML = ''; }, 2600);
+        }
+        function flash(id) {
+            const el = refs[id].el;
+            el.classList.remove('shake');
+            void el.offsetWidth;
+            el.classList.add('shake');
+            setTimeout(function () { el.classList.remove('shake'); }, 400);
+        }
+
+        // Devuelve true si se aplicó algún cambio
+        function change(id, delta) {
+            const p = state[id];
+            let next;
+            if (delta > 0) {
+                if (p >= MAX_BRANCH) { msg('Máximo de ' + MAX_BRANCH + ' puntos en esta rama.'); flash(id); return false; }
+                if (free() <= 0) { msg('Ya gastaste los ' + MAX_TOTAL + ' puntos. Quita alguno de otra rama.'); flash(id); return false; }
+                next = p + Math.min(delta, MAX_BRANCH - p, free());
+            } else {
+                if (p <= 0) return false;
+                next = Math.max(0, p + delta);
+            }
+            state[id] = next;
+            custom = true;
+            render();
+            return true;
+        }
+
+        // ==========================================
+        // RADAR (SVG con animación)
+        // ==========================================
+        const svg = document.getElementById('stRadar');
+        const NS = 'http://www.w3.org/2000/svg';
+        const CX = 210, CY = 218, R = 132;
+        const pt = function (ang, v) {
+            const a = ang * Math.PI / 180;
+            return [CX + Math.cos(a) * R * v / 100, CY + Math.sin(a) * R * v / 100];
+        };
+        const polyStr = function (vals) {
+            return AXES.map(function (ax, i) { const p = pt(ax.ang, vals[i]); return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+        };
+        function el(tag, attrs) {
+            const n = document.createElementNS(NS, tag);
+            Object.keys(attrs).forEach(function (k) { n.setAttribute(k, attrs[k]); });
+            return n;
+        }
+
+        svg.innerHTML = '<defs><linearGradient id="stRadarGrad" x1="0" y1="0" x2="1" y2="1">' +
+            '<stop offset="0" stop-color="#38bdf8" stop-opacity="0.6"/>' +
+            '<stop offset="1" stop-color="#f2c14e" stop-opacity="0.35"/></linearGradient></defs>';
+
+        // Rejilla
+        [25, 50, 75, 100].forEach(function (lvl) {
+            svg.appendChild(el('polygon', {
+                points: polyStr(AXES.map(function () { return lvl; })),
+                'class': lvl === 100 ? 'st-ring st-ring-outer' : 'st-ring'
+            }));
+        });
+        AXES.forEach(function (ax) {
+            const p = pt(ax.ang, 100);
+            svg.appendChild(el('line', { x1: CX, y1: CY, x2: p[0], y2: p[1], 'class': 'st-spoke' }));
+        });
+
+        const poly = el('polygon', { 'class': 'st-poly' });
+        svg.appendChild(poly);
+
+        const dots = [], labels = [];
+        AXES.forEach(function (ax) {
+            const d = el('rect', { width: 9, height: 9, rx: 2.5, 'class': 'st-dot' });
+            svg.appendChild(d); dots.push(d);
+
+            const lp = pt(ax.ang, 100);
+            const dx = Math.cos(ax.ang * Math.PI / 180), dy = Math.sin(ax.ang * Math.PI / 180);
+            const anchor = Math.abs(dx) < 0.2 ? 'middle' : (dx > 0 ? 'start' : 'end');
+            const t = el('text', {
+                x: lp[0] + dx * 14 + (anchor === 'middle' ? 0 : (dx > 0 ? 4 : -4)),
+                y: lp[1] + dy * 20 + 5,
+                'text-anchor': anchor
+            });
+            svg.appendChild(t); labels.push(t);
+        });
+
+        let radarCur = AXES.map(function () { return 0; });
+        let radarTarget = radarCur.slice();
+        let radarRaf = null;
+
+        function radarValues() {
+            return AXES.map(function (ax) {
+                let s = 0;
+                Object.keys(ax.w).forEach(function (id) { s += state[id] * ax.w[id]; });
+                return Math.min(100, Math.round(s / MAX_BRANCH * 100));
+            });
+        }
+        function drawRadar() {
+            poly.setAttribute('points', polyStr(radarCur));
+            AXES.forEach(function (ax, i) {
+                const p = pt(ax.ang, radarCur[i]);
+                dots[i].setAttribute('x', (p[0] - 4.5).toFixed(1));
+                dots[i].setAttribute('y', (p[1] - 4.5).toFixed(1));
+            });
+        }
+        function tickRadar() {
+            let moving = false;
+            for (let i = 0; i < radarCur.length; i++) {
+                const diff = radarTarget[i] - radarCur[i];
+                if (Math.abs(diff) > 0.15) { radarCur[i] += diff * 0.2; moving = true; } else { radarCur[i] = radarTarget[i]; }
+            }
+            drawRadar();
+            radarRaf = moving ? requestAnimationFrame(tickRadar) : null;
+        }
+        function setRadar(vals) {
+            radarTarget = vals;
+            AXES.forEach(function (ax, i) { labels[i].textContent = ax.k + ' ' + vals[i]; });
+            if (!radarRaf) radarRaf = requestAnimationFrame(tickRadar);
+        }
+
+        // ==========================================
+        // RENDER
+        // ==========================================
+        function effLine(b, p) {
+            return b.effects.map(function (e) {
+                return '<span class="st-eff"><i class="fa-solid ' + e.icon + '"></i>' +
+                    e.sign + fmt(eff(p, e.max)) + e.unit + ' ' + e.label + '</span>';
+            }).join('');
+        }
+        function nextLine(b, p) {
+            if (p >= MAX_BRANCH) return '<i class="fa-solid fa-trophy"></i><span>Rama al máximo</span>';
+            return '<i class="fa-solid fa-angles-up"></i><span>Siguiente punto: ' + b.effects.map(function (e) {
+                return e.sign + fmt(eff(p + 1, e.max) - eff(p, e.max)) + e.unit + ' ' + e.label;
+            }).join(' · ') + '</span>';
+        }
+
+        function render() {
+            const spent = sum(), left = MAX_TOTAL - spent;
+
+            BRANCHES.forEach(function (b) {
+                const p = state[b.id], r = refs[b.id];
+                r.count.textContent = p;
+                r.meta.textContent = p + '/' + MAX_BRANCH + ' invertidos (' + Math.round(p / MAX_BRANCH * 100) + '%) · +0 externos';
+                const per = MAX_BRANCH / 6;
+                r.segs.forEach(function (s, i) {
+                    s.style.width = Math.max(0, Math.min(1, (p - i * per) / per)) * 100 + '%';
+                });
+                r.now.innerHTML = effLine(b, p);
+                r.next.innerHTML = nextLine(b, p);
+                r.plus.classList.toggle('st-off', p >= MAX_BRANCH || left <= 0);
+                r.minus.classList.toggle('st-off', p <= 0);
+            });
+
+            document.getElementById('stSpent').textContent = spent + ' invertidos';
+            document.getElementById('stFree').textContent = left + ' disponibles';
+            document.getElementById('stObtained').textContent = spent + ' / ' + MAX_TOTAL + ' invertidos';
+            document.getElementById('stBarFill').style.width = (spent / MAX_TOTAL * 100) + '%';
+
+            document.getElementById('stRadarSub').textContent = '100% progresión · ' + spent + '/' + MAX_TOTAL + ' pts';
+            const modeEl = document.getElementById('stRadarMode');
+            if (activePreset && !custom) modeEl.textContent = PRESETS[activePreset].name;
+            else if (activePreset && custom) modeEl.textContent = 'Personalizado';
+            else modeEl.textContent = custom ? 'Personalizado' : 'Sin modo activo';
+
+            document.querySelectorAll('.st-preset[data-preset]').forEach(function (b) {
+                b.classList.toggle('active', b.dataset.preset === activePreset && !custom);
+            });
+            const note = document.getElementById('stInfoNote');
+            if (note) note.classList.toggle('show', custom);
+
+            setRadar(radarValues());
+        }
+
+        // ==========================================
+        // PRESETS + INFO DEL PERSONAJE
+        // ==========================================
+        const presetsEl = document.getElementById('stPresets');
+        Object.keys(PRESETS).forEach(function (key) {
+            const p = PRESETS[key];
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'st-preset';
+            btn.dataset.preset = key;
+            btn.innerHTML = '<i class="fa-solid ' + p.icon + '"></i><span>' + p.name.split(' ')[0] + '</span>';
+            btn.addEventListener('click', function () { applyPreset(key); });
+            presetsEl.appendChild(btn);
+        });
+        const resetBtn = document.createElement('button');
+        resetBtn.type = 'button';
+        resetBtn.className = 'st-preset reset';
+        resetBtn.innerHTML = '<i class="fa-solid fa-rotate-left"></i><span>Reiniciar</span>';
+        resetBtn.addEventListener('click', function () {
+            BRANCHES.forEach(function (b) { state[b.id] = 0; });
+            custom = true;
+            msg('Puntos reiniciados. Tienes ' + MAX_TOTAL + ' para repartir.');
+            render();
+        });
+        presetsEl.appendChild(resetBtn);
+
+        function renderInfo(key) {
+            const p = PRESETS[key];
+            const chips = p.nature.map(function (n) {
+                const style = ' style="--nc:' + (NATURE_COLORS[n] || '#ccc') + '"';
+                const ico = '<i class="fa-solid ' + (NATURE_ICONS[n] || 'fa-circle') + '"></i>';
+                const href = NATURE_LINKS[n];
+                return href
+                    ? '<a class="st-chip st-link" href="' + href + '"' + style + ' title="Ver ' + n + '">' + ico + n + ' <i class="fa-solid fa-arrow-up-right-from-square st-ext"></i></a>'
+                    : '<span class="st-chip"' + style + '>' + ico + n + '</span>';
+            }).join('');
+            function tag(o, icon) {
+                const ico = '<i class="fa-solid ' + icon + '"></i>';
+                return o.href
+                    ? '<a class="st-tag st-link" href="' + o.href + '">' + ico + o.t + ' <i class="fa-solid fa-arrow-up-right-from-square st-ext"></i></a>'
+                    : '<span class="st-tag st-tag-plain">' + ico + o.t + '</span>';
+            }
+            const kekkeiHtml = p.kekkei.map(function (k) { return tag(k, 'fa-eye'); }).join('');
+            const clanHtml = tag(p.clan, 'fa-users');
+            const abil = p.abilities.map(function (a) { return '<li><i class="fa-solid fa-angle-right"></i><span>' + a + '</span></li>'; }).join('');
+            document.getElementById('stInfo').innerHTML =
+                '<div class="st-info-head">' +
+                    '<div class="st-info-avatar"><i class="fa-solid ' + p.icon + '"></i></div>' +
+                    '<div><h3>' + p.name + '</h3><p>' + p.sub + '</p></div>' +
+                    '<span class="st-info-note" id="stInfoNote"><i class="fa-solid fa-pen"></i>Build modificada</span>' +
+                '</div>' +
+                '<dl class="st-info-grid">' +
+                    '<div><dt><i class="fa-solid fa-fire-flame-curved"></i>Naturaleza</dt><dd>' + chips + '</dd></div>' +
+                    '<div><dt><i class="fa-solid fa-scroll"></i>Habilidades principales</dt><dd><ul>' + abil + '</ul></dd></div>' +
+                    '<div><dt><i class="fa-solid fa-dna"></i>Kekkei Genkai</dt><dd>' + kekkeiHtml + '</dd></div>' +
+                    '<div><dt><i class="fa-solid fa-people-group"></i>Clan</dt><dd>' + clanHtml + '</dd></div>' +
+                '</dl>';
+        }
+
+        function applyPreset(key) {
+            const p = PRESETS[key];
+            BRANCHES.forEach(function (b) { state[b.id] = Math.min(MAX_BRANCH, p.points[b.id] || 0); });
+            // Seguridad: nunca superar el total
+            let over = sum() - MAX_TOTAL;
+            for (let i = BRANCHES.length - 1; over > 0 && i >= 0; i--) {
+                const cut = Math.min(state[BRANCHES[i].id], over);
+                state[BRANCHES[i].id] -= cut; over -= cut;
+            }
+            activePreset = key;
+            custom = false;
+            renderInfo(key);
+            render();
+        }
+
+        applyPreset('equilibrada');
+    })();
+    </script>
+</body>
+</html>
