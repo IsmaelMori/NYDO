@@ -8,23 +8,54 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="busqueda.css">
     <link rel="stylesheet" href="jutsus.css">
+    <link rel="stylesheet" href="dojutsus.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
+        :root {
+            --bg-dark: #07080d;
+            --glass-bg: rgba(18, 22, 36, 0.6);
+            --glass-bg-hover: rgba(30, 37, 60, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-shadow: 0 10px 35px 0 rgba(0, 0, 0, 0.45);
+            --glass-blur: blur(16px);
+            
+            --red-uchiha: #ff3b4b;
+            --red-glow: rgba(255, 59, 75, 0.4);
+            --blue-hyuga: #00d2ff;
+            --blue-glow: rgba(0, 210, 255, 0.4);
+            --purple-rinnegan: #b15eff;
+            --purple-glow: rgba(177, 94, 255, 0.45);
+            --gold-accent: #ffc107;
+            --mc-btn-bg: rgba(40, 44, 60, 0.75);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(177, 94, 255, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(255, 59, 75, 0.08) 0%, transparent 45%);
+            background-attachment: fixed;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+        }
+
         .topbar { 
             display: flex; 
             align-items: center; 
             gap: 15px; 
             padding: 10px 20px; 
-            background: rgba(9, 10, 15, 0.95); 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+            background: rgba(9, 10, 15, 0.85) !important; 
+            border-bottom: 1px solid var(--glass-border); 
             position: sticky; 
             top: 0; 
             z-index: 100; 
-            backdrop-filter: blur(10px); 
+            backdrop-filter: var(--glass-blur); 
+            -webkit-backdrop-filter: var(--glass-blur);
         }
 
-        /* Banner independiente para Dojutsus */
+        /* Banner independiente */
         .dojutsu-banner-custom {
             position: relative;
             min-height: 480px;
@@ -33,7 +64,7 @@
             align-items: center;
             isolation: isolate;
             overflow: hidden;
-            border-bottom: 1px solid rgba(230, 57, 70, 0.4);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .dojutsu-banner-custom .banner-bg-img {
@@ -44,6 +75,7 @@
             object-fit: cover;
             object-position: center;
             z-index: -2;
+            filter: brightness(0.55);
         }
 
         .dojutsu-banner-custom .banner-overlay {
@@ -51,11 +83,101 @@
             inset: 0;
             background: linear-gradient(
                 90deg,
-                rgba(9, 10, 15, 0.95) 0%,
-                rgba(9, 10, 15, 0.75) 45%,
-                rgba(9, 10, 15, 0.3) 100%
+                rgba(7, 8, 13, 0.92) 0%,
+                rgba(7, 8, 13, 0.65) 45%,
+                rgba(7, 8, 13, 0.3) 100%
             );
             z-index: -1;
+        }
+
+        /* Paneles Glassmorphism */
+        .jutsu-panel {
+            max-width: 1100px;
+            margin: 0 auto 3rem;
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: var(--glass-shadow);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* ESTILOS DE DEMOSTRACIÓN DE CONTROLES INICIALES CON IMÁGENES/VIDEOS */
+        .controls-showcase-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .control-row-card {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 1.5rem;
+            background: rgba(10, 12, 20, 0.55);
+            border: 1px solid var(--glass-border);
+            border-radius: 18px;
+            padding: 1.2rem;
+            backdrop-filter: var(--glass-blur);
+            align-items: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .control-row-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 193, 7, 0.4);
+        }
+
+        .control-img-box {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #000;
+        }
+
+        .control-img-box img,
+        .control-img-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .control-row-card:hover .control-img-box img,
+        .control-row-card:hover .control-img-box video {
+            transform: scale(1.03);
+        }
+
+        .control-details-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .control-key-badge-wrap {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .control-details-box h3 {
+            color: #fff;
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .control-details-box p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
         }
 
         .mangekyo-gallery {
@@ -66,12 +188,13 @@
         }
 
         .eye-item {
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(231, 182, 109, 0.3);
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--glass-border);
             border-radius: 12px;
             padding: 12px 8px;
             text-align: center;
             transition: transform 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: var(--glass-blur);
         }
 
         .eye-item:hover {
@@ -104,23 +227,24 @@
         }
 
         .step-card {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid var(--glass-border);
             border-radius: 16px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            backdrop-filter: var(--glass-blur);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .step-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
 
         .step-card.highlight-step {
             border-color: rgba(239, 68, 68, 0.5);
-            background: rgba(30, 10, 10, 0.8);
+            background: rgba(40, 10, 10, 0.6);
         }
 
         .step-image {
@@ -147,7 +271,6 @@
             padding: 4px 10px;
             border-radius: 20px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .step-badge.alert {
@@ -169,14 +292,6 @@
             gap: 8px;
         }
 
-        .step-content h3 i {
-            color: #e7b66d;
-        }
-
-        .highlight-step .step-content h3 i {
-            color: #ef4444;
-        }
-
         .step-content p {
             color: #94a3b8;
             font-size: 13px;
@@ -185,166 +300,412 @@
         }
 
         /* ==========================================
-           ESTILOS SECCIÓN SUSANOO Y MODELO 3D
+           INTERFAZ GUI MINECRAFT SUSANOO REACTIVO
         ========================================== */
-        .susanoo-box {
-            display: grid;
-            grid-template-columns: 310px 1fr;
-            gap: 25px;
-            background: rgba(10, 14, 23, 0.85);
-            border: 2px solid var(--susanoo-color, #a855f7);
-            border-radius: 16px;
-            padding: 24px;
+        .susanoo-gui-container {
+            background: rgba(12, 14, 22, 0.95);
+            border: 2px solid var(--susanoo-color, #9351e8);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 0 30px var(--susanoo-glow, rgba(147, 81, 232, 0.35)), inset 0 0 15px rgba(0, 0, 0, 0.8);
             margin-top: 20px;
-            box-shadow: 0 0 35px var(--susanoo-glow, rgba(168, 85, 247, 0.3));
-            transition: all 0.4s ease;
+            font-family: monospace, sans-serif;
+            transition: all 0.3s ease;
         }
 
-        .susanoo-preview-card {
+        .susanoo-gui-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .susanoo-gui-title {
+            color: #e2e8f0;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .susanoo-gui-subtitle {
+            color: #8b92a5;
+            font-size: 13px;
+            margin: 4px 0 0;
+        }
+
+        .susanoo-gui-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 20px;
+        }
+
+        .gui-left-panel {
             display: flex;
             flex-direction: column;
+            gap: 12px;
+        }
+
+        .gui-viewport {
+            position: relative;
+            height: 280px;
+            background: #05060a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
             align-items: center;
             justify-content: center;
-            background: radial-gradient(circle at center, rgba(20, 25, 40, 0.95), rgba(5, 7, 12, 0.98));
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 12px;
-            padding: 22px 15px;
-            position: relative;
             overflow: hidden;
-            perspective: 1000px;
+            border-radius: 8px;
         }
 
-        /* ESCENA 3D Y ORBITA */
-        .susanoo-3d-scene {
-            position: relative;
-            width: 210px;
-            height: 220px;
-            display: grid;
-            place-items: center;
-            transform-style: preserve-3d;
-            margin-bottom: 10px;
-        }
-
-        .susanoo-3d-model {
+        .susanoo-svg-render {
             width: 100%;
             height: 100%;
-            transform-style: preserve-3d;
-            animation: susanooOrbit3D 7s infinite ease-in-out;
-            filter: drop-shadow(0 0 16px var(--susanoo-color, #a855f7));
-            transition: filter 0.4s ease;
+            max-width: 220px;
+            max-height: 240px;
+            filter: drop-shadow(0 0 16px var(--susanoo-glow, rgba(147, 81, 232, 0.6)));
+            transition: filter 0.3s ease;
         }
 
-        @keyframes susanooOrbit3D {
-            0% { transform: rotateY(-18deg) rotateX(4deg) translateY(0); }
-            50% { transform: rotateY(18deg) rotateX(-4deg) translateY(-6px); }
-            100% { transform: rotateY(-18deg) rotateX(4deg) translateY(0); }
-        }
-
-        .susanoo-3d-svg {
+        /* Canvas 3D de la caja de Susanoo */
+        .susanoo-3d-canvas {
             width: 100%;
             height: 100%;
-            overflow: visible;
+            display: block;
+            cursor: grab;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+            outline: none;
+            filter: drop-shadow(0 0 18px var(--susanoo-glow, rgba(147, 81, 232, 0.6)));
+            transition: filter 0.3s ease;
         }
 
-        /* ESTILOS DEL SVG DE SUSANOO QUE REACCIONAN AL COLOR */
-        .sus-bone {
-            fill: none;
-            stroke: var(--susanoo-color, #a855f7);
-            stroke-width: 3.2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            filter: drop-shadow(0 0 4px var(--susanoo-color, #a855f7));
-            transition: stroke 0.4s ease, filter 0.4s ease;
+        .susanoo-3d-canvas.grabbing { cursor: grabbing; }
+
+        .susanoo-3d-fallback {
+            color: #64748b;
+            font-size: 12px;
+            text-align: center;
+            padding: 20px;
         }
 
-        .sus-bone-fill {
-            fill: rgba(10, 12, 20, 0.85);
-            stroke: var(--susanoo-color, #a855f7);
-            stroke-width: 2.8;
-            stroke-linejoin: round;
-            transition: stroke 0.4s ease;
+        .gui-controls-hint {
+            color: #64748b;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 5px;
         }
 
-        .sus-glow-core {
-            fill: var(--susanoo-color, #a855f7);
-            opacity: 0.18;
-            transition: fill 0.4s ease;
+        .gui-right-panel {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .susanoo-title-badge {
+        .gui-section-label {
+            color: #d1d5db;
             font-size: 13px;
             font-weight: bold;
-            color: #fff;
-            letter-spacing: 1px;
             text-transform: uppercase;
-            text-align: center;
-            text-shadow: 0 0 12px var(--susanoo-color, #a855f7);
-            transition: text-shadow 0.4s ease;
+            letter-spacing: 0.5px;
         }
 
-        .susanoo-controls {
+        .susanoo-selector-list {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .susanoo-btn-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .susanoo-btn {
-            display: inline-flex;
-            align-items: center;
             gap: 8px;
-            padding: 10px 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 8px;
+        }
+
+        .susanoo-ninja-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #131622;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 12px;
+            border-radius: 4px;
             color: #e2e8f0;
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 13px;
+            font-weight: bold;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
         }
 
-        .susanoo-btn:hover {
-            transform: translateY(-2px);
+        .susanoo-ninja-btn:hover {
+            background: #1c2133;
+            border-color: var(--ninja-color);
+            transform: translateX(3px);
+        }
+
+        .susanoo-ninja-btn.active {
+            border-color: var(--ninja-color);
             background: rgba(255, 255, 255, 0.08);
-        }
-
-        .susanoo-btn.active {
-            border-color: var(--btn-color);
-            background: rgba(255, 255, 255, 0.12);
-            box-shadow: 0 0 15px var(--btn-glow);
+            box-shadow: 0 0 12px var(--ninja-glow);
             color: #fff;
         }
 
-        .susanoo-btn-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--btn-color);
-            box-shadow: 0 0 8px var(--btn-color);
+        .ninja-badge-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background-color: var(--ninja-color);
+            box-shadow: 0 0 8px var(--ninja-color);
         }
 
-        .susanoo-info-desc {
-            background: rgba(0, 0, 0, 0.35);
-            border-left: 3px solid var(--susanoo-color, #a855f7);
-            padding: 14px 18px;
-            border-radius: 0 8px 8px 0;
+        .gui-hex-box {
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .gui-preview-bars {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .gui-bar-item span {
+            display: block;
+            color: #64748b;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .gui-bar-color {
+            height: 24px;
+            background: var(--susanoo-color, #9351e8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background 0.3s;
+        }
+
+        .gui-action-btn {
+            background: #181b28;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: #cbd5e1;
-            font-size: 13px;
-            line-height: 1.6;
-            transition: border-color 0.4s ease;
+            padding: 10px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
         }
 
-        @media (max-width: 768px) {
-            .susanoo-box {
-                grid-template-columns: 1fr;
-            }
+        .gui-action-btn:hover {
+            background: #22273a;
+            color: #fff;
+            border-color: var(--susanoo-color, #9351e8);
+        }
+
+        /* Seccion Rinnegan Glassmorphism y Controles */
+        .rinnegan-panel {
+            border: 1px solid rgba(177, 94, 255, 0.35);
+            background: radial-gradient(circle at top right, rgba(177, 94, 255, 0.15), transparent 60%), var(--glass-bg);
+            box-shadow: 0 12px 40px rgba(177, 94, 255, 0.15);
+        }
+
+        .controls-glass-box {
+            background: rgba(10, 12, 20, 0.65);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            border-radius: 18px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .control-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 0.9rem 1.2rem;
+            border-radius: 12px;
+        }
+
+        kbd {
+            background: rgba(30, 35, 52, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 4px 0 rgba(0, 0, 0, 0.5);
+            color: var(--gold-accent);
+            font-weight: 800;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: monospace;
+        }
+
+        .rinnegan-showcase {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 1.5rem;
+            background: rgba(18, 22, 36, 0.55);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .ability-tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 1.2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: #cbd5e1;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            transform: translateX(4px);
+            border-color: rgba(177, 94, 255, 0.4);
+        }
+
+        .tab-btn.active {
+            background: rgba(177, 94, 255, 0.25);
+            border-color: var(--purple-rinnegan);
+            color: #fff;
+            box-shadow: 0 0 20px var(--purple-glow);
+        }
+
+        .video-display-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .video-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(18, 22, 36, 0.65);
+            padding: 0.6rem 1.2rem;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .mode-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 7px 16px;
+            background: #3c3c3c;
+            border: 2px solid;
+            border-color: #555555 #222222 #222222 #555555;
+            border-radius: 2px;
+            color: #e0e0e0;
+            font-family: monospace, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 2px 2px #000000;
+            cursor: pointer;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 4px 10px rgba(0,0,0,0.4);
+            transition: background 0.1s ease, border-color 0.1s ease, transform 0.1s ease;
+        }
+
+        .mode-toggle-btn:hover {
+            background: #5353e8;
+            border-color: #8181ff #282885 #282885 #8181ff;
+            color: #ffffa0;
+        }
+
+        .mode-toggle-btn:active {
+            background: #2b2bb8;
+            border-color: #1a1a6b #5555ff #5555ff #1a1a6b;
+            transform: translateY(1px);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.6);
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            background: #000;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mode-indicator-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .mode-indicator-badge.day {
+            background: rgba(255, 193, 7, 0.3);
+            color: #ffea8a;
+        }
+
+        .mode-indicator-badge.night {
+            background: rgba(13, 27, 62, 0.6);
+            color: #8bb2ff;
+        }
+
+        .ability-description-text {
+            background: rgba(18, 22, 36, 0.6);
+            border-left: 3px solid var(--purple-rinnegan);
+            padding: 1rem 1.2rem;
+            border-radius: 0 10px 10px 0;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            color: #cbd5e1;
+            backdrop-filter: blur(8px);
+            border-top: 1px solid var(--glass-border);
+            border-right: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         #guiaNube {
@@ -442,8 +803,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @media (max-width: 480px) {
-            #guiaNube { width: 260px; }
+        @media (max-width: 850px) {
+            .susanoo-gui-grid, .rinnegan-showcase, .control-row-card { grid-template-columns: 1fr; }
+            .control-img-box { height: 180px; }
         }
     </style>
 </head>
@@ -463,7 +825,6 @@
             <span>Mod de Naruto para Minecraft</span>
         </div>
 
-        <!-- BUSCADOR GLOBAL INTEGRADO ESTÉTICAMENTE -->
         <div class="wiki-search-wrap" id="wikiSearch">
             <div class="wiki-search-box">
                 <i class="fa-solid fa-magnifying-glass wiki-search-icon"></i>
@@ -494,7 +855,6 @@
         </div>
     </div>
 </header>
-<!-- FIN HEADER GLOBAL -->
 
     <div class="page-overlay" id="pageOverlay"></div>
 
@@ -514,19 +874,15 @@
             <a href="index.html#inicio" class="nav-link">
                 <i class="fa-solid fa-house"></i><span>Inicio</span>
             </a>
-
-
-         <a href="clanes.html" class="nav-link active">
-            <i class="fa-solid fa-users"></i><span>Clanes</span>
-        </a>
-
+            <a href="clanes.html" class="nav-link">
+                <i class="fa-solid fa-users"></i><span>Clanes</span>
+            </a>
             <a href="jutsus.html" class="nav-link">
                 <i class="fa-solid fa-hand-sparkles"></i><span>Jutsus</span>
-
             </a>
             <a href="dojutsus.html" class="nav-link active">
                 <i class="fa-solid fa-eye"></i><span>Dojutsus</span>
-            
+            </a>
 
             <div class="nav-divider"></div>
 
@@ -553,7 +909,7 @@
 
     <main class="jutsu-page">
 
-        <!-- BANNER DE INICIO CON SU PROPIA IMAGEN DE FONDO -->
+        <!-- BANNER DE INICIO -->
         <section class="jutsu-banner dojutsu-banner-custom" id="inicio">
             <img src="img/badojutsu.jpeg" alt="Fondo Dojutsus" class="banner-bg-img">
             <div class="banner-overlay"></div>
@@ -577,8 +933,85 @@
             </div>
         </section>
 
-        <!-- NAVEGACIÓN Y SECCIONES DE DŌJUTSUS -->
+        <!-- CATEGORÍAS Y CONTROLES TECLADO CON DEMOSTRACIÓN DE IMÁGENES/VIDEOS -->
         <section class="jutsu-categories" id="categorias">
+            
+            <div class="jutsu-panel" style="margin-bottom: 2rem;">
+                <div class="panel-heading">
+                    <div class="panel-icon gold-icon"><i class="fa-solid fa-keyboard"></i></div>
+                    <div>
+                        <span class="panel-number" style="color: var(--gold-accent);">INTERFAZ Y CONTROLES</span>
+                        <h2>Teclas y Menús de Gestión Ocular</h2>
+                        <p>Aprende las teclas esenciales para activar, calibrar y desplegar las habilidades de tus Dōjutsus en pantalla.</p>
+                    </div>
+                </div>
+
+                <div class="controls-showcase-container">
+                    
+                    <!-- FILA 1: ACTIVACIÓN CON TECLA I (AHORA CON VIDEO) -->
+                    <div class="control-row-card">
+                        <div class="control-img-box">
+                            <video autoplay loop muted playsinline>
+                                <source src="vid/activardoju.mp4" type="video/mp4">
+                                Tu navegador no soporta video.
+                            </video>
+                        </div>
+                        <div class="control-details-box">
+                            <div class="control-key-badge-wrap">
+                                <kbd>I</kbd>
+                                <h3>Activar / Desactivar Dōjutsu</h3>
+                            </div>
+                            <p>Esta tecla enciende o apaga tus ojos oculares activos (Sharingan, Byakugan, Rinnegan, etc.). Al presionarla, manifiestas la presencia visual del dōjutsu y canalizas sus beneficios pasivos sin necesidad de mantener menús abiertos.</p>
+                        </div>
+                    </div>
+
+                    <!-- FILA 2: RUEDA DE DŌJUTSU CON TAB -->
+                    <div class="control-row-card">
+                        <div class="control-img-box">
+                            <img src="img/rueda.png" alt="Rueda de Dōjutsu">
+                        </div>
+                        <div class="control-details-box">
+                            <div class="control-key-badge-wrap">
+                                <kbd>TAB</kbd>
+                                <h3>Ver y Seleccionar Dōjutsus</h3>
+                            </div>
+                            <p>Abre la rueda interactiva de Dōjutsus activos en pantalla. Permite alternar rápidamente la asignación en el ojo izquierdo (clic izquierdo) y en el ojo derecho (clic derecho) para combinaciones de Kekkei Genkai.</p>
+                        </div>
+                    </div>
+
+                    <!-- FILA 3: CALIBRACIÓN CON K -->
+                    <div class="control-row-card">
+                        <div class="control-img-box">
+                            <img src="img/calibrar dojutsus.png" alt="Calibración de ojos Dōjutsu">
+                        </div>
+                        <div class="control-details-box">
+                            <div class="control-key-badge-wrap">
+                                <kbd>K</kbd>
+                                <h3>Calibrar Ojos Dōjutsu</h3>
+                            </div>
+                            <p>Despliega el menú de alineación precisa sobre la piel de tu avatar de Minecraft. Puedes arrastrar la posición XY con las teclas Flecha Arriba y Abajo, modificar la escala y ajustar los píxeles individualmente para encajar de forma perfecta los ojos con la skin de tu personaje.</p>
+                        </div>
+                    </div>
+
+                    <!-- FILA 4: RUEDA DE HABILIDADES Y LANZAMIENTO CON ALT IZQ + V -->
+                    <div class="control-row-card">
+                        <div class="control-img-box">
+                            <img src="img/habilidades.png" alt="Rueda de Habilidades Ninja">
+                        </div>
+                        <div class="control-details-box">
+                            <div class="control-key-badge-wrap">
+                                <kbd>ALT IZQ</kbd>
+                                <span style="color:#64748b; font-weight:bold;">+</span>
+                                <kbd>V</kbd>
+                                <h3>Rueda de Habilidades y Ejecución</h3>
+                            </div>
+                            <p>Mantén presionada la tecla <kbd>ALT IZQ</kbd> para abrir el selector circular de jutsus y caminos (como el Camino Deva, Shinra Tensei o Atracción Universal). Una vez fijada la habilidad haciendo clic izquierdo sobre ella, presiona la tecla <kbd>V</kbd> para desatar la técnica instantáneamente en combate.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="jutsu-section-title">
                 <span>KEKKEI GENKAI OCULAR</span>
                 <h2>Tres Grandes Dōjutsus</h2>
@@ -671,7 +1104,6 @@
                     En el inventario del mod existen múltiples patrones oculares únicos inspirados en ninjas legendarios (Sasuke, Itachi, Madara, Obito, Kakashi, Shisui, etc.):
                 </p>
 
-                <!-- GALERÍA DE MODELOS DE OJOS/MANGEKYO (IMÁGENES DEL INVENTARIO) -->
                 <div class="mangekyo-gallery">
                     <div class="eye-item">
                         <img src="img/sasuke.svg" alt="Mangekyo Sasuke">
@@ -759,7 +1191,7 @@
                 </div>
             </article>
 
-            <!-- NUEVA SECCIÓN: SUSANOO CON MODELO 3D FIEL A LA SERIE -->
+            <!-- INTERFAZ SUSANOO SELLO CROMÁTICO -->
             <article class="jutsu-panel" id="susanoo">
                 <div class="panel-heading">
                     <div class="panel-icon purple-icon"><i class="fa-solid fa-shield-cat"></i></div>
@@ -771,144 +1203,180 @@
                 </div>
 
                 <p class="panel-description">
-                    El Susanoo es un humanoide gigante de chakra que rodea y protege al usuario, actuando como la defensa y el ataque definitivo. En el mod NYDo, cada usuario despierta una variante con un color de aura único y habilidades exclusivas.
+                    El Susanoo es un humanoide gigante de chakra que rodea y protege al usuario. Configura el pigmento e identidad cromática de tu avatar en la interfaz oficial del mod.
                 </p>
 
-                <!-- CAJA SUSANOO INTERACTIVA CON MODELO ANATÓMICO EN 3D DE LA SERIE -->
-                <div class="susanoo-box" id="susanooBox">
-                    <div class="susanoo-preview-card">
-                        <div class="susanoo-3d-scene">
-                            <div class="susanoo-3d-model">
-                                <svg class="susanoo-3d-svg" viewBox="0 0 300 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <defs>
-                                        <radialGradient id="auraGlow" cx="50%" cy="50%" r="50%">
-                                            <stop offset="0%" stop-color="var(--susanoo-color, #a855f7)" stop-opacity="0.5"/>
-                                            <stop offset="100%" stop-color="var(--susanoo-color, #a855f7)" stop-opacity="0"/>
-                                        </radialGradient>
-                                    </defs>
-
-                                    <!-- Aura resplandeciente de fondo -->
-                                    <circle cx="150" cy="160" r="130" fill="url(#auraGlow)" />
-                                    
-                                    <!-- AURA CHAKRA LLAMAS/ALAS INFERIORES -->
-                                    <path d="M 40 250 Q 80 220 100 270 Q 150 200 200 270 Q 220 220 260 250 Q 220 300 150 310 Q 80 300 40 250 Z" class="sus-glow-core"/>
-
-                                    <!-- 1. CABEZA Y CRÁNEO SUSANOO DE LA SERIE -->
-                                    <!-- Cuernos Demoníacos Curvados -->
-                                    <path d="M 115 80 C 105 40, 80 20, 95 15 C 110 35, 120 50, 128 75 Z" class="sus-bone-fill"/>
-                                    <path d="M 185 80 C 195 40, 220 20, 205 15 C 190 35, 180 50, 172 75 Z" class="sus-bone-fill"/>
-                                    
-                                    <!-- Casco / Frente -->
-                                    <path d="M 120 75 C 120 55, 180 55, 180 75 C 185 92, 178 100, 150 102 C 122 100, 115 92, 120 75 Z" class="sus-bone-fill"/>
-
-                                    <!-- Marcaciones y Ojos -->
-                                    <ellipse cx="136" cy="88" rx="6" ry="4" fill="#ffffff" class="sus-bone"/>
-                                    <ellipse cx="164" cy="88" rx="6" ry="4" fill="#ffffff" class="sus-bone"/>
-
-                                    <!-- Nariz y Mandíbula con Dientes -->
-                                    <polygon points="150,92 146,100 154,100" fill="var(--susanoo-color, #a855f7)"/>
-                                    <path d="M 130 103 L 170 103 L 165 118 L 150 122 L 135 118 Z" class="sus-bone-fill"/>
-                                    <line x1="135" y1="110" x2="165" y2="110" class="sus-bone"/>
-                                    <line x1="142" y1="103" x2="142" y2="116" class="sus-bone"/>
-                                    <line x1="150" y1="103" x2="150" y2="118" class="sus-bone"/>
-                                    <line x1="158" y1="103" x2="158" y2="116" class="sus-bone"/>
-
-                                    <!-- 2. CLAVÍCULAS Y COLUMNA VERTEBRAL -->
-                                    <path d="M 150 122 L 150 250" class="sus-bone" stroke-width="5"/>
-                                    <path d="M 150 130 Q 110 120 80 138" class="sus-bone"/>
-                                    <path d="M 150 130 Q 190 120 220 138" class="sus-bone"/>
-
-                                    <!-- 3. HOMBROS ARTICULADOS Y BRAZOS CERRADOS -->
-                                    <!-- Hombro Izquierdo y Brazo -->
-                                    <circle cx="80" cy="138" r="10" class="sus-bone-fill"/>
-                                    <path d="M 75 145 L 35 185 L 85 240 L 125 245" class="sus-bone" stroke-width="4"/>
-
-                                    <!-- Hombro Derecho y Brazo -->
-                                    <circle cx="220" cy="138" r="10" class="sus-bone-fill"/>
-                                    <path d="M 225 145 L 265 185 L 215 240 L 175 245" class="sus-bone" stroke-width="4"/>
-
-                                    <!-- 4. CAJA TORÁCICA / COSTILLAS ESTRUCTURALES -->
-                                    <path d="M 148 142 C 105 148, 100 170, 148 178" class="sus-bone"/>
-                                    <path d="M 152 142 C 195 148, 200 170, 152 178" class="sus-bone"/>
-
-                                    <path d="M 148 160 C 95 168, 90 190, 148 198" class="sus-bone"/>
-                                    <path d="M 152 160 C 205 168, 210 190, 152 198" class="sus-bone"/>
-
-                                    <path d="M 148 180 C 100 188, 95 210, 148 218" class="sus-bone"/>
-                                    <path d="M 152 180 C 200 188, 205 210, 152 218" class="sus-bone"/>
-
-                                    <path d="M 148 200 C 110 208, 108 225, 148 232" class="sus-bone"/>
-                                    <path d="M 152 200 C 190 208, 192 225, 152 232" class="sus-bone"/>
-
-                                    <!-- MANOS Y NÚCLEO DE MANIFESTACIÓN -->
-                                    <circle cx="150" cy="245" r="18" fill="var(--susanoo-color, #a855f7)" opacity="0.6" filter="drop-shadow(0 0 10px var(--susanoo-color, #a855f7))"/>
-                                </svg>
-                            </div>
-                        </div>
-                        <span class="susanoo-title-badge" id="susanooTitle">Sasuke Morado</span>
+                <div class="susanoo-gui-container" id="susanooBox">
+                    <div class="susanoo-gui-header">
+                        <h2 class="susanoo-gui-title">SUSANOO · SELLO CROMÁTICO</h2>
+                        <p class="susanoo-gui-subtitle">Mangekyo Sharingan Eterno</p>
                     </div>
 
-                    <div class="susanoo-controls">
-                        <h3 style="color: #fff; font-size: 15px; margin: 0 0 5px;">Selecciona la variante de Susanoo:</h3>
-                        
-                        <div class="susanoo-btn-grid">
-                            <button class="susanoo-btn active" style="--btn-color: #a855f7; --btn-glow: rgba(168, 85, 247, 0.4);" onclick="cambiarSusanoo('sasuke', '#a855f7', 'rgba(168, 85, 247, 0.35)', 'Sasuke Morado', 'Posee la espada Kusanagi de chakra y flechas de Amaterasu. Forma perfecta con alas para vuelo rápido en el servidor.', this)">
-                                <span class="susanoo-btn-dot"></span> Sasuke Morado
-                            </button>
-
-                            <button class="susanoo-btn" style="--btn-color: #3b82f6; --btn-glow: rgba(59, 130, 246, 0.4);" onclick="cambiarSusanoo('madara', '#3b82f6', 'rgba(59, 130, 246, 0.35)', 'Madara Azul', 'Posee espadas onduladas gemelas y la capacidad de invocar meteoros devastadores en área.', this)">
-                                <span class="susanoo-btn-dot"></span> Madara Azul
-                            </button>
-
-                            <button class="susanoo-btn" style="--btn-color: #f97316; --btn-glow: rgba(249, 115, 22, 0.4);" onclick="cambiarSusanoo('itachi', '#f97316', 'rgba(249, 115, 22, 0.35)', 'Itachi Naranja', 'Equipado con la Espada de Totsuka para sellar objetivos y el Espejo de Yata para reflejar todo daño.', this)">
-                                <span class="susanoo-btn-dot"></span> Itachi Naranja
-                            </button>
-
-                            <button class="susanoo-btn" style="--btn-color: #06b6d4; --btn-glow: rgba(6, 182, 212, 0.4);" onclick="cambiarSusanoo('obito', '#06b6d4', 'rgba(6, 182, 212, 0.35)', 'Obito / Kakashi Celeste', 'Utiliza los Kamui Shuriken para distorsionar la realidad y teleportar bloques o enemigos al Kamui.', this)">
-                                <span class="susanoo-btn-dot"></span> Obito Celeste
-                            </button>
-
-                            <button class="susanoo-btn" style="--btn-color: #22c55e; --btn-glow: rgba(34, 197, 94, 0.4);" onclick="cambiarSusanoo('shisui', '#22c55e', 'rgba(34, 197, 94, 0.35)', 'Shisui Verde', 'Porta un taladro gigante de chakra frontal capaz de atravesar múltiples capas de defensa y escudos.', this)">
-                                <span class="susanoo-btn-dot"></span> Shisui Verde
-                            </button>
+                    <div class="susanoo-gui-grid">
+                        <div class="gui-left-panel">
+                            <div class="gui-viewport">
+                                <canvas id="susanooCanvas" class="susanoo-3d-canvas" aria-label="Caja de costillas de Susanoo en 3D"></canvas>
+                            </div>
+                            <div class="gui-controls-hint">Arrastrar: girar · Rueda: zoom · Der. / doble clic: reiniciar</div>
                         </div>
 
-                        <div class="susanoo-info-desc" id="susanooDesc">
-                            Posee la espada Kusanagi de chakra y flechas de Amaterasu. Forma perfecta con alas para vuelo rápido en el servidor.
+                        <div class="gui-right-panel">
+                            <span class="gui-section-label">PIGMENTO DE CHAKRA</span>
+
+                            <div class="susanoo-selector-list">
+                                <button class="susanoo-ninja-btn" style="--ninja-color: #f97316; --ninja-glow: rgba(249, 115, 22, 0.4);" onclick="seleccionarNinja('Itachi Naranja', '#F97316', 'rgba(249, 115, 22, 0.35)', 'Equipado con la Espada de Totsuka para sellar objetivos y el Espejo de Yata para reflejar todo daño.', this)">
+                                    <span>Itachi Naranja</span>
+                                    <span class="ninja-badge-dot"></span>
+                                </button>
+
+                                <button class="susanoo-ninja-btn" style="--ninja-color: #06b6d4; --ninja-glow: rgba(6, 182, 212, 0.4);" onclick="seleccionarNinja('Obito Celeste', '#06B6D4', 'rgba(6, 182, 212, 0.35)', 'Utiliza los Kamui Shuriken para distorsionar la realidad y teleportar bloques o enemigos al Kamui.', this)">
+                                    <span>Obito Celeste</span>
+                                    <span class="ninja-badge-dot"></span>
+                                </button>
+
+                                <button class="susanoo-ninja-btn" style="--ninja-color: #22c55e; --ninja-glow: rgba(34, 197, 94, 0.4);" onclick="seleccionarNinja('Shisui Verde', '#22C55E', 'rgba(34, 197, 94, 0.35)', 'Porta un taladro gigante de chakra frontal capaz de atravesar múltiples capas de defensa.', this)">
+                                    <span>Shisui Verde</span>
+                                    <span class="ninja-badge-dot"></span>
+                                </button>
+
+                                <button class="susanoo-ninja-btn active" style="--ninja-color: #3b82f6; --ninja-glow: rgba(59, 130, 246, 0.4);" onclick="seleccionarNinja('Madara Azul', '#3B82F6', 'rgba(59, 130, 246, 0.35)', 'Posee espadas onduladas gemelas y la capacidad de invocar meteoros devastadores en área.', this)">
+                                    <span>Madara Azul</span>
+                                    <span class="ninja-badge-dot"></span>
+                                </button>
+
+                                <button class="susanoo-ninja-btn" style="--ninja-color: #9351e8; --ninja-glow: rgba(147, 81, 232, 0.4);" onclick="seleccionarNinja('Sasuke Morado', '#9351E8', 'rgba(147, 81, 232, 0.35)', 'Posee la espada Kusanagi de chakra y flechas de Amaterasu. Forma perfecta con alas para vuelo rápido.', this)">
+                                    <span>Sasuke Morado</span>
+                                    <span class="ninja-badge-dot"></span>
+                                </button>
+                            </div>
+
+                            <div class="gui-hex-box">
+                                <span style="color: #64748b;">#</span>
+                                <span id="guiHexValue">3B82F6</span>
+                            </div>
+
+                            <div class="gui-preview-bars">
+                                <div class="gui-bar-item">
+                                    <span>ANTES</span>
+                                    <div class="gui-bar-color" id="guiBarAntes" style="background: #3B82F6;"></div>
+                                </div>
+                                <div class="gui-bar-item">
+                                    <span>VISTA PREVIA</span>
+                                    <div class="gui-bar-color" id="guiBarPreview" style="background: #3B82F6;"></div>
+                                </div>
+                            </div>
+
+                            <button class="gui-action-btn" type="button">Color original de identidad</button>
+                            <button class="gui-action-btn" type="button" style="background: #1e293b; border-color: var(--susanoo-color, #3b82f6); color: #fff;">Inscribir pigmento</button>
                         </div>
+                    </div>
+
+                    <div class="susanoo-info-desc" id="susanooDesc" style="margin-top: 15px;">
+                        Posee espadas onduladas gemelas y la capacidad de invocar meteoros devastadores en área.
                     </div>
                 </div>
             </article>
 
-            <!-- 5. RINNEGAN -->
-            <article class="jutsu-panel" id="rinnegan">
+            <!-- 5. RINNEGAN INTERACTIVO GLASSMORPHISM -->
+            <article class="jutsu-panel rinnegan-panel" id="rinnegan">
                 <div class="panel-heading">
                     <div class="panel-icon purple-icon"><i class="fa-solid fa-circle-dot"></i></div>
                     <div>
-                        <span class="panel-number">05 / EL OJO SOBERANO</span>
+                        <span class="panel-number" style="color: var(--purple-rinnegan);">05 / EL OJO SOBERANO</span>
                         <h2>Rinnegan</h2>
-                        <p>El dōjutsu más sublime que gobierna la vida y la muerte.</p>
+                        <p>El dōjutsu supremo que gobierna la gravedad, la vida y la muerte.</p>
                     </div>
                 </div>
 
                 <p class="panel-description">
-                    Considerado el ojo de la creación y la destrucción. El Rinnegan otorga acceso a las seis transformaciones elementales del chakra y al uso de las habilidades de los Seis Caminos (Shinra Tensei, Banshō Ten'in, Chibaku Tensei e Invocaciones del Gedō Mazo).
+                    Considerado el ojo sagrado de la creación y la destrucción. En el mod NYDo, el Rinnegan otorga acceso a las técnicas universales del Camino Deva y a la manipulación del espacio-tiempo y la materia.
                 </p>
 
-                <h3 class="subheading">Habilidades de los Seis Caminos</h3>
+                <p class="note" style="background: rgba(177, 94, 255, 0.12); border-left: 4px solid var(--purple-rinnegan); padding: 14px 18px; border-radius: 0 12px 12px 0; margin: 1.5rem 0; color: #f1f5f9; backdrop-filter: blur(8px);">
+                    <i class="fa-solid fa-gem" style="color: var(--purple-rinnegan); margin-right: 8px;"></i>
+                    <strong>Método de Obtención:</strong> Para despertar el Rinnegan en el servidor NYDo, debes poseer el <strong>Mangekyō Sharingan Eterno (EMS)</strong> activo y consumir la mítica <strong>Fruta del Chakra</strong>.
+                </p>
 
+                <div class="controls-glass-box">
+                    <h3 style="color: #fff; font-size: 1rem; margin: 0 0 0.5rem;"><i class="fa-solid fa-gamepad"></i> Controles del Dōjutsu en NYDo Mod</h3>
+                    <div class="controls-grid">
+                        <div class="control-item">
+                            <kbd>TAB</kbd>
+                            <span>Equipar / Rinnegan</span>
+                        </div>
+
+                        <div class="control-item">
+                            <kbd>I</kbd>
+                            <span>Activar / Desactivar Rinnegan</span>
+                        </div>
+
+                        <div class="control-item">
+                            <kbd>K</kbd>
+                            <span>Calibrar Rinnegan</span>
+                        </div>
+
+                        <div class="control-item">
+                            <kbd>ALT IZQ</kbd>
+                            <span>Rueda de Habilidades</span>
+                        </div>
+                        <div class="control-item">
+                            <kbd>V</kbd>
+                            <span>Lanzar / Ejecutar Jutsu</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="subheading" style="color: #fff; margin-top: 2rem;">Demostración de Habilidades Oculares</h3>
+
+                <div class="rinnegan-showcase">
+                    <div class="ability-tabs">
+                        <button class="tab-btn active" onclick="seleccionarHabilidad('shinra', this)">
+                            <i class="fa-solid fa-burst"></i>
+                            <span>Shinra Tensei</span>
+                        </button>
+                        <button class="tab-btn" onclick="seleccionarHabilidad('atraccion', this)">
+                            <i class="fa-solid fa-magnet"></i>
+                            <span>Atracción Universal</span>
+                        </button>
+                        <button class="tab-btn" onclick="seleccionarHabilidad('chibaku', this)">
+                            <i class="fa-solid fa-meteor"></i>
+                            <span>Chibaku Tensei</span>
+                        </button>
+                    </div>
+
+                    <div class="video-display-box">
+                        <div class="video-header-bar">
+                            <strong id="abilityTitle" style="color: #fff; font-size: 1.05rem;">Shinra Tensei (Repulsión Celestial)</strong>
+                            
+                            <button class="mode-toggle-btn" id="dayNightBtn" onclick="toggleModoDiaNoche()">
+                                <i class="fa-solid fa-sun" id="modeIcon" style="color: #ffc107;"></i>
+                                <span id="modeText">SUN</span>
+                            </button>
+                        </div>
+
+                        <div class="video-wrapper">
+                            <span class="mode-indicator-badge day" id="modeBadge">☀️ MODO DÍA</span>
+                            <video id="rinneganVideo" autoplay loop muted playsinline poster="img/rinnegan-poster.jpg">
+                                <source id="videoSource" src="vid/shinraday.mp4" type="video/mp4">
+                                Tu navegador no soporta la reproducción de video.
+                            </video>
+                        </div>
+
+                        <div class="ability-description-text" id="abilityDesc">
+                            Emite una fuerza repulsiva omnidireccional capaz de repeler cualquier proyectil, ataque de chakra, entidad o jugador cercano, destruyendo el entorno alrededor.
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="subheading" style="color: #fff; margin-top: 2.5rem;">Técnicas Adicionales de los Seis Caminos</h3>
                 <div class="advanced-elements">
-                    <div><span class="dot storm"></span><strong>Deva</strong><small>Atracción/Repulsión</small></div>
+                    <div><span class="dot storm"></span><strong>Deva</strong><small>Gravedad / Fuerza</small></div>
                     <div><span class="dot wood"></span><strong>Asura</strong><small>Armamento Mecánico</small></div>
                     <div><span class="dot lava"></span><strong>Human</strong><small>Extracción de Almas</small></div>
                     <div><span class="dot boil"></span><strong>Animal</strong><small>Invocaciones Múltiples</small></div>
                     <div><span class="dot magnet"></span><strong>Preta</strong><small>Absorción de Chakra</small></div>
                     <div><span class="dot dust"></span><strong>Naraka</strong><small>Rey del Infierno</small></div>
                 </div>
-
-                <p class="note">
-                    Nota: Para despertar el Rinnegan en NYDo, se requiere combinar el ADN / Chakra del Clan Senju y Uchiha junto con un Mangekyō Sharingan Eterno activo.
-                </p>
             </article>
         </section>
 
@@ -923,7 +1391,7 @@
 
     <script src="script.js"></script>
 
-    <!-- GUÍA TRANSPARENTE SOBRE LA PÁGINA -->
+    <!-- GUÍA TRANSPARENTE -->
     <div id="guiaNube" style="display:none;">
         <div id="guiaMensaje">
             <span id="guiaNumero">GUÍA DE DŌJUTSUS</span>
@@ -940,24 +1408,418 @@
         <div id="guiaFlecha"></div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+    // ==========================================
+    // CAJA 3D DE SUSANOO (rotable y reactiva al color)
+    // ==========================================
+    (function () {
+        const canvas = document.getElementById('susanooCanvas');
+        if (!canvas) return;
+
+        if (typeof THREE === 'undefined') {
+            const msg = document.createElement('div');
+            msg.className = 'susanoo-3d-fallback';
+            msg.textContent = 'No se pudo cargar el visor 3D (revisa tu conexión).';
+            canvas.replaceWith(msg);
+            return;
+        }
+
+        const host = canvas.parentElement;
+        const DEFAULT_COLOR = '#3B82F6';
+        const DEFAULT_ROT_X = -0.28;   // vista ligeramente desde arriba
+        const DEFAULT_ROT_Y = -0.55;
+        const DEFAULT_ZOOM = 7.2;
+        const MIN_ZOOM = 4.2, MAX_ZOOM = 12;
+
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.setClearColor(0x000000, 0);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+        camera.position.set(0, 0, DEFAULT_ZOOM);
+
+        // Luces (con Lambert las caras de los cubos se ven bien diferenciadas)
+        scene.add(new THREE.AmbientLight(0xffffff, 0.55));
+        const keyLight = new THREE.DirectionalLight(0xffffff, 0.85);
+        keyLight.position.set(3, 6, 5);
+        scene.add(keyLight);
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.3);
+        rimLight.position.set(-4, -2, -5);
+        scene.add(rimLight);
+        const coreLight = new THREE.PointLight(0xffffff, 1.1, 9);
+        coreLight.position.set(0, 0.2, 0.5);
+        scene.add(coreLight);
+
+        // Colores reactivos
+        const currentColor = new THREE.Color(DEFAULT_COLOR);
+        const targetColor = new THREE.Color(DEFAULT_COLOR);
+        const edgeColor = new THREE.Color();
+        const WHITE = new THREE.Color(0xffffff);
+
+        // Textura pixel art 16x16 (borde oscuro + ruido) para cada cubo
+        function crearTexturaPixel() {
+            const S = 16;
+            const c = document.createElement('canvas');
+            c.width = c.height = S;
+            const g = c.getContext('2d');
+            let seed = 7;
+            function rnd() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
+            for (let y = 0; y < S; y++) {
+                for (let x = 0; x < S; x++) {
+                    let v = 232;
+                    if (x === 0 || y === 0 || x === S - 1 || y === S - 1) v = 150;       // contorno
+                    else if (x === 1 || y === 1) v = 250;                                 // luz arriba/izq
+                    else if (x === S - 2 || y === S - 2) v = 200;                         // sombra abajo/der
+                    else {
+                        const r = rnd();
+                        if (r < 0.12) v = 205; else if (r > 0.9) v = 255;                 // ruido de píxeles
+                    }
+                    g.fillStyle = 'rgb(' + v + ',' + v + ',' + v + ')';
+                    g.fillRect(x, y, 1, 1);
+                }
+            }
+            const tex = new THREE.CanvasTexture(c);
+            tex.magFilter = THREE.NearestFilter;
+            tex.minFilter = THREE.NearestFilter;
+            tex.generateMipmaps = false;
+            return tex;
+        }
+        const pixelTex = crearTexturaPixel();
+
+        const ribMat = new THREE.MeshLambertMaterial({
+            color: currentColor.clone(),
+            emissive: currentColor.clone().multiplyScalar(0.35),
+            map: pixelTex
+        });
+        const markMat = new THREE.MeshLambertMaterial({
+            color: 0xffffff,
+            emissive: 0x333333,
+            map: pixelTex
+        });
+
+        const box = new THREE.Group();
+
+        // ---------- Caja torácica en voxels (cubos) ----------
+        const C = 0.14;                 // tamaño de cada cubo
+        const RIBS = 5;
+        const ROWS = 3;                 // cubos de alto por costilla
+        const PITCH = 5;                // separación entre costillas (en cubos)
+        const RADII = [8, 10, 11.5, 12.5, 12.5];       // radio exterior (en cubos), arriba -> abajo
+        const FRONT_GAP = [1.6, 1.4, 1.25, 1.1, 1.0];  // apertura frontal (rad)
+        const THICK = 2.4;              // grosor del anillo (en cubos)
+        const SQUASH = 0.9;             // profundidad (z) algo menor que el ancho
+
+        const ribCells = [];   // {x, y, z, shade}
+        const markCells = [];
+        let seedV = 3;
+        function rnd() { seedV = (seedV * 16807) % 2147483647; return seedV / 2147483647; }
+
+        for (let i = 0; i < RIBS; i++) {
+            const R = RADII[i];
+            const gap = FRONT_GAP[i];
+            const yBase = ((RIBS - 1) / 2 * PITCH - i * PITCH) - 1; // fila inferior (en cubos)
+            const lim = Math.ceil(R) + 1;
+            let maxX = -999, minX = 999;
+
+            for (let ix = -lim; ix <= lim; ix++) {
+                for (let iz = -lim; iz <= lim; iz++) {
+                    const d = Math.sqrt(ix * ix + (iz / SQUASH) * (iz / SQUASH));
+                    if (d > R || d <= R - THICK) continue;
+                    if (Math.abs(Math.atan2(ix, iz)) < gap / 2) continue; // abertura frontal (+Z)
+                    for (let r = 0; r < ROWS; r++) {
+                        const shade = (r === 0 ? 0.74 : r === 1 ? 0.88 : 1.0) + (rnd() - 0.5) * 0.1;
+                        ribCells.push({ x: ix, y: yBase + r, z: iz, shade: shade });
+                    }
+                    if (iz === 0) { if (ix > maxX) maxX = ix; if (ix < minX) minX = ix; }
+                }
+            }
+
+            // Marca de 3 puntos (anillo de cubos 3x3) en cada costado
+            [[maxX + 1, 1], [minX - 1, -1]].forEach(function (s) {
+                for (let r = 0; r < 3; r++) {
+                    for (let k = -1; k <= 1; k++) {
+                        if (r === 1 && k === 0) continue;
+                        markCells.push({ x: s[0], y: yBase + r, z: k });
+                    }
+                }
+            });
+        }
+
+        const cubeGeo = new THREE.BoxGeometry(C, C, C);
+        const dummy = new THREE.Object3D();
+        const tmpCol = new THREE.Color();
+
+        const ribMesh = new THREE.InstancedMesh(cubeGeo, ribMat, ribCells.length);
+        ribCells.forEach(function (c, n) {
+            dummy.position.set(c.x * C, c.y * C, c.z * C);
+            dummy.updateMatrix();
+            ribMesh.setMatrixAt(n, dummy.matrix);
+            tmpCol.setRGB(c.shade, c.shade, c.shade);
+            ribMesh.setColorAt(n, tmpCol);
+        });
+        ribMesh.instanceMatrix.needsUpdate = true;
+        ribMesh.instanceColor.needsUpdate = true;
+        box.add(ribMesh);
+
+        const markMesh = new THREE.InstancedMesh(cubeGeo, markMat, markCells.length);
+        markCells.forEach(function (c, n) {
+            dummy.position.set(c.x * C, c.y * C, c.z * C);
+            dummy.updateMatrix();
+            markMesh.setMatrixAt(n, dummy.matrix);
+        });
+        markMesh.instanceMatrix.needsUpdate = true;
+        box.add(markMesh);
+
+        scene.add(box);
+
+        // ---------- Interacción ----------
+        let rotX = DEFAULT_ROT_X, rotY = DEFAULT_ROT_Y, zoom = DEFAULT_ZOOM, targetZoom = DEFAULT_ZOOM;
+        let dragging = false, lastX = 0, lastY = 0, lastInteraction = 0;
+        const pointers = new Map();
+        let pinchDist = 0;
+
+        function reiniciar() {
+            rotX = DEFAULT_ROT_X; rotY = DEFAULT_ROT_Y; targetZoom = DEFAULT_ZOOM;
+            lastInteraction = performance.now();
+        }
+
+        canvas.addEventListener('pointerdown', function (e) {
+            if (e.button === 2) return;
+            canvas.setPointerCapture(e.pointerId);
+            pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            if (pointers.size === 1) {
+                dragging = true;
+                lastX = e.clientX; lastY = e.clientY;
+                canvas.classList.add('grabbing');
+            } else if (pointers.size === 2) {
+                const p = Array.from(pointers.values());
+                pinchDist = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y);
+            }
+            lastInteraction = performance.now();
+        });
+
+        canvas.addEventListener('pointermove', function (e) {
+            if (!pointers.has(e.pointerId)) return;
+            pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            if (pointers.size === 2) {
+                const p = Array.from(pointers.values());
+                const d = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y);
+                if (pinchDist > 0 && d > 0) {
+                    targetZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, targetZoom * (pinchDist / d)));
+                }
+                pinchDist = d;
+            } else if (dragging) {
+                rotY += (e.clientX - lastX) * 0.01;
+                rotX += (e.clientY - lastY) * 0.01;
+                rotX = Math.max(-1.3, Math.min(1.3, rotX));
+                lastX = e.clientX; lastY = e.clientY;
+            }
+            lastInteraction = performance.now();
+        });
+
+        function soltar(e) {
+            pointers.delete(e.pointerId);
+            if (pointers.size === 0) {
+                dragging = false;
+                canvas.classList.remove('grabbing');
+            } else if (pointers.size === 1) {
+                const p = Array.from(pointers.values())[0];
+                lastX = p.x; lastY = p.y;
+            }
+            pinchDist = 0;
+            lastInteraction = performance.now();
+        }
+        canvas.addEventListener('pointerup', soltar);
+        canvas.addEventListener('pointercancel', soltar);
+
+        canvas.addEventListener('wheel', function (e) {
+            e.preventDefault();
+            targetZoom = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, targetZoom + e.deltaY * 0.004));
+            lastInteraction = performance.now();
+        }, { passive: false });
+
+        canvas.addEventListener('contextmenu', function (e) { e.preventDefault(); reiniciar(); });
+        canvas.addEventListener('dblclick', reiniciar);
+
+        // Tamaño
+        function ajustarTamano() {
+            const w = host.clientWidth || 300;
+            const h = host.clientHeight || 280;
+            renderer.setSize(w, h, false);
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+        }
+        ajustarTamano();
+        if (window.ResizeObserver) new ResizeObserver(ajustarTamano).observe(host);
+        else window.addEventListener('resize', ajustarTamano);
+
+        // Cambio de color (lo llama seleccionarNinja)
+        function setColor(hex) {
+            targetColor.set(hex);
+        }
+
+        // Bucle de render (se pausa si no se ve)
+        let visible = true;
+        if (window.IntersectionObserver) {
+            new IntersectionObserver(function (entries) {
+                visible = entries[0].isIntersecting;
+            }).observe(host);
+        }
+
+        function animar(now) {
+            requestAnimationFrame(animar);
+            if (!visible || document.hidden) return;
+
+            currentColor.lerp(targetColor, 0.12);
+            ribMat.color.copy(currentColor);
+            ribMat.emissive.copy(currentColor).multiplyScalar(0.35);
+            coreLight.color.copy(currentColor);
+            edgeColor.copy(currentColor).lerp(WHITE, 0.6);
+            markMat.color.copy(edgeColor);
+            markMat.emissive.copy(edgeColor).multiplyScalar(0.4);
+
+            if (!dragging && now - lastInteraction > 1500) rotY += 0.005;
+
+            zoom += (targetZoom - zoom) * 0.12;
+            camera.position.z = zoom;
+            box.rotation.x = rotX;
+            box.rotation.y = rotY;
+
+            renderer.render(scene, camera);
+        }
+        requestAnimationFrame(animar);
+
+        window.susanoo3D = { setColor: setColor, reiniciar: reiniciar };
+    })();
+    </script>
     <script src="busqueda.js"></script>
     <script>
-    function cambiarSusanoo(id, colorHex, glowColor, titulo, descripcion, btnElement) {
+    // LÓGICA DE LA INTERFAZ SUSANOO MINECRAFT GUI
+    function seleccionarNinja(nombre, hex, glow, descripcion, btnElement) {
         const box = document.getElementById('susanooBox');
-        const titleEl = document.getElementById('susanooTitle');
         const descEl = document.getElementById('susanooDesc');
+        const hexEl = document.getElementById('guiHexValue');
+        const barAntes = document.getElementById('guiBarAntes');
+        const barPreview = document.getElementById('guiBarPreview');
         
-        box.style.setProperty('--susanoo-color', colorHex);
-        box.style.setProperty('--susanoo-glow', glowColor);
+        box.style.setProperty('--susanoo-color', hex);
+        box.style.setProperty('--susanoo-glow', glow);
+        if (window.susanoo3D) window.susanoo3D.setColor(hex);
         
-        titleEl.textContent = titulo;
-        descEl.textContent = descripcion;
+        if (descEl) descEl.textContent = descripcion;
+        if (hexEl) hexEl.textContent = hex.replace('#', '');
+        if (barAntes && barPreview) {
+            barAntes.style.background = hex;
+            barPreview.style.background = hex;
+        }
 
-        const btns = document.querySelectorAll('.susanoo-btn');
+        const btns = document.querySelectorAll('.susanoo-ninja-btn');
         btns.forEach(b => b.classList.remove('active'));
-        if(btnElement) btnElement.classList.add('active');
+        if (btnElement) btnElement.classList.add('active');
     }
 
+    document.addEventListener("DOMContentLoaded", () => {
+        const box = document.getElementById('susanooBox');
+        box.style.setProperty('--susanoo-color', '#3B82F6');
+        box.style.setProperty('--susanoo-glow', 'rgba(59, 130, 246, 0.35)');
+    });
+
+    // LÓGICA REPRODUCTOR RINNEGAN CORREGIDA
+    const datosHabilidades = {
+        shinra: {
+            titulo: "Shinra Tensei (Repulsión Celestial)",
+            desc: "Emite una fuerza repulsiva omnidireccional capaz de repeler cualquier proyectil, ataque de chakra, entidad o jugador cercano, destruyendo el entorno alrededor.",
+            videoDay: "vid/shinraday.mp4",
+            videoNight: "vid/shinramoon.mp4"
+        },
+        atraccion: {
+            titulo: "Atracción Universal (Banshō Ten'in)",
+            desc: "Genera una intensa fuerza gravitacional orientada para atrapar, arrastrar y atraer irremediablemente a enemigos o mobs hacia la posición del usuario.",
+            videoDay: "vid/atraccion.mp4",
+            videoNight: "vid/atraccion.mp4"
+        },
+        chibaku: {
+            titulo: "Chibaku Tensei (Devastación Planetaria)",
+            desc: "Lanza una esfera de chakra negro compacta al cielo que atrae gravitacionalmente el terreno, rocas y entidades para crear un satélite masivo que sepulta a los rivales.",
+            videoDay: "vid/chibaku1.mp4",
+            videoNight: "vid/chibaku1.mp4"
+        }
+    };
+
+    let habilidadActual = "shinra";
+    let esModoDia = true;
+
+    function seleccionarHabilidad(id, element) {
+        habilidadActual = id;
+        
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        if (element) element.classList.add('active');
+
+        const info = datosHabilidades[id];
+        document.getElementById('abilityTitle').textContent = info.titulo;
+        document.getElementById('abilityDesc').textContent = info.desc;
+
+        const dayNightBtn = document.getElementById('dayNightBtn');
+        const badge = document.getElementById('modeBadge');
+
+        if (id === 'shinra') {
+            dayNightBtn.style.display = 'inline-flex';
+            badge.style.display = 'block';
+            esModoDia = true; 
+            document.getElementById('modeText').textContent = "SUN";
+            document.getElementById('modeIcon').className = "fa-solid fa-sun";
+            document.getElementById('modeIcon').style.color = "#ffc107";
+            badge.className = "mode-indicator-badge day";
+            badge.textContent = "☀️ MODO DÍA";
+        } else {
+            dayNightBtn.style.display = 'none';
+            badge.style.display = 'none';
+        }
+
+        actualizarVideo();
+    }
+
+    function toggleModoDiaNoche() {
+        if (habilidadActual !== 'shinra') return;
+        
+        esModoDia = !esModoDia;
+        
+        const btnText = document.getElementById('modeText');
+        const btnIcon = document.getElementById('modeIcon');
+        const badge = document.getElementById('modeBadge');
+
+        if (esModoDia) {
+            btnText.textContent = "SUN";
+            btnIcon.className = "fa-solid fa-sun";
+            btnIcon.style.color = "#ffc107";
+            badge.className = "mode-indicator-badge day";
+            badge.textContent = "☀️ MODO DÍA";
+        } else {
+            btnText.textContent = "MOON";
+            btnIcon.className = "fa-solid fa-moon";
+            btnIcon.style.color = "#8bb2ff";
+            badge.className = "mode-indicator-badge night";
+            badge.textContent = "🌙 MODO NOCHE";
+        }
+
+        actualizarVideo();
+    }
+
+    function actualizarVideo() {
+        const info = datosHabilidades[habilidadActual];
+        const videoPlayer = document.getElementById('rinneganVideo');
+        const videoSource = document.getElementById('videoSource');
+        
+        const rutaVideo = (habilidadActual === 'shinra') ? (esModoDia ? info.videoDay : info.videoNight) : info.videoDay;
+        
+        videoSource.src = rutaVideo;
+        videoPlayer.load();
+        videoPlayer.play().catch(() => {});
+    }
+
+    // GUÍA DE RECORRIDO
     (() => {
         const guia = document.getElementById("guiaNube");
         const titulo = document.getElementById("guiaTitulo");
@@ -1003,13 +1865,13 @@
             {
                 nombre: "05 / MANIFESTACIÓN DIVINA",
                 titulo: "Susanoo 🛡️",
-                texto: "Interactúa con el selector de colores para previsualizar la armadura de chakra en 3D de cada usuario.",
+                texto: "Explora la nueva interfaz del Sello Cromático e interactúa con los botones de Itachi, Obito, Shisui, Madara y Sasuke.",
                 selector: "#susanoo"
             },
             {
                 nombre: "06 / EL OJO SOBERANO",
                 titulo: "Rinnegan 🟣",
-                texto: "Explora el poder divino de los Seis Caminos y los requisitos para obtenerlo.",
+                texto: "Explora el poder divino de los Seis Caminos, aprende sus controles y prueba el reproductor interactivo Día/Noche.",
                 selector: "#rinnegan"
             },
             {
