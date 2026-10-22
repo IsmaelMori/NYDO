@@ -118,7 +118,7 @@
 
         <div class="st-wrap">
 
-            <section class="st-hero st-glass">
+            <section class="st-hero st-glass" id="stats-intro">
                 <span class="st-eyebrow"><i class="fa-solid fa-chart-simple"></i> SISTEMA DE PROGRESIÓN</span>
                 <h1>Stats <span>Shinobi</span></h1>
                 <p>Reparte tus puntos entre las ramas de desarrollo (máximo 120 por rama y 240 en total) o carga la build de un personaje para ver cómo cambia tu perfil.</p>
@@ -130,14 +130,22 @@
                 </div>
             </section>
 
-            <div class="st-presets-bar st-glass">
+            <section class="st-presets-bar st-glass" id="builds" aria-label="Builds de personajes">
+                <h2 class="st-sr-only">Builds de personajes: Equilibrada, Naruto, Kakashi, Itachi y Sasuke</h2>
                 <span class="st-presets-label"><i class="fa-solid fa-user-ninja"></i> Cargar build</span>
                 <div class="st-presets" id="stPresets" role="group" aria-label="Builds de personajes"></div>
-            </div>
+                <article id="build-equilibrada" class="st-sr-only"><h3>Equilibrada</h3><p>Build versátil, sin especialización. Naturaleza: Libre. Habilidades principales: Jutsus básicos de todas las ramas; Reserva de chakra estable; Se adapta a cualquier estilo de combate. Kekkei Genkai: Ninguno (depende del clan que elijas). Clan: Sin clan / a elección. Build de Equilibrada: Ninjutsu 30, Taijutsu 30, Genjutsu 30, Control de chakra 30, Vitalidad 30, Defensa 30, Agilidad 30, Medicina ninja 30.</p></article>
+                <article id="build-naruto" class="st-sr-only"><h3>Naruto Uzumaki</h3><p>Jinchūriki del Kyūbi · Séptimo Hokage. Naturaleza: Viento. Habilidades principales: Kage Bunshin no Jutsu; Rasengan / Rasenshuriken; Modo Sabio; Modo Chakra de Kurama. Kekkei Genkai: Ninguno propio (poder del Kyūbi como Jinchūriki). Clan: Uzumaki. Build de Naruto Uzumaki: Ninjutsu 80, Taijutsu 25, Control de chakra 60, Vitalidad 50, Defensa 10, Agilidad 15.</p></article>
+                <article id="build-kakashi" class="st-sr-only"><h3>Kakashi Hatake</h3><p>El ninja que copia mil técnicas. Naturaleza: Rayo, Tierra, Agua, Fuego, Viento. Habilidades principales: Raikiri / Chidori; Kamui; Copia de jutsus con el Sharingan; Ninken no Jutsu (invocación). Kekkei Genkai: Sharingan (trasplantado); Mangekyō Sharingan. Clan: Hatake. Build de Kakashi Hatake: Ninjutsu 70, Taijutsu 40, Genjutsu 15, Control de chakra 35, Vitalidad 20, Defensa 15, Agilidad 45.</p></article>
+                <article id="build-itachi" class="st-sr-only"><h3>Itachi Uchiha</h3><p>Maestro del genjutsu. Naturaleza: Fuego, Yin. Habilidades principales: Tsukuyomi; Amaterasu; Susanoo (Espada de Totsuka y Espejo de Yata); Katon: Gōkakyū no Jutsu. Kekkei Genkai: Sharingan; Mangekyō Sharingan. Clan: Uchiha. Build de Itachi Uchiha: Ninjutsu 50, Taijutsu 10, Genjutsu 100, Control de chakra 40, Vitalidad 10, Defensa 5, Agilidad 25.</p></article>
+                <article id="build-sasuke" class="st-sr-only"><h3>Sasuke Uchiha</h3><p>El vengador del clan Uchiha. Naturaleza: Fuego, Rayo, Yin, Yang. Habilidades principales: Chidori / Kirin; Amaterasu; Susanoo; Katon: Gōkakyū no Jutsu. Kekkei Genkai: Sharingan; Mangekyō Sharingan Eterno; Rinnegan. Clan: Uchiha. Build de Sasuke Uchiha: Ninjutsu 74, Taijutsu 35, Genjutsu 21, Control de chakra 35, Vitalidad 15, Defensa 10, Agilidad 50.</p></article>
+            </section>
 
             <div class="st-layout">
                 <div class="st-left">
-                    <section class="st-radar-card st-glass" aria-label="Perfil Shinobi">
+                    <section class="st-radar-card st-glass" id="perfil" aria-label="Perfil Shinobi">
+                        <h2 class="st-sr-only">Perfil Shinobi</h2>
+                        <p class="st-sr-only">Gráfico radial con seis atributos que reacciona a tus puntos: ATT ataque (Ninjutsu, Taijutsu y Genjutsu), DEF defensa (Defensa y Vitalidad), SPD velocidad (Agilidad y Taijutsu), CHK chakra (Control de chakra y Ninjutsu), TAI taijutsu (Taijutsu y Vitalidad) y TEC técnica (Genjutsu, Ninjutsu y Medicina ninja).</p>
                         <div class="st-radar-head">
                             <div class="st-head-title">
                                 <span class="st-ico"><i class="fa-solid fa-hexagon-nodes"></i></span>
@@ -154,7 +162,16 @@
                     <section class="st-info st-glass" id="stInfo" aria-live="polite"></section>
                 </div>
 
-                <section class="st-dev st-glass" aria-label="Desarrollo Shinobi">
+                <section class="st-dev st-glass" id="desarrollo" aria-label="Desarrollo Shinobi">
+                    <h2 class="st-sr-only">Desarrollo Shinobi: reparte 240 puntos, máximo 120 por rama</h2>
+                    <article id="rama-nin" class="st-sr-only"><h3>Ninjutsu</h3><p>Potencia y ejecución de ninjutsu: daño y potencia de las técnicas compatibles, sellos y carga. Efectos al llegar a 120 puntos: -30% sellos, +100% poder, -20% carga.</p></article>
+                    <article id="rama-tai" class="st-sr-only"><h3>Taijutsu</h3><p>Mejora el daño sin armas, la presión de guardia y la resistencia. El daño con armas no cambia. Efectos al llegar a 120 puntos: +100% daño, +60% resistencia, +40% guardia.</p></article>
+                    <article id="rama-gen" class="st-sr-only"><h3>Genjutsu</h3><p>Duelo mental: potencia genjutsu y resiste su daño y duración. Efectos al llegar a 120 puntos: +100% poder, -95% genjutsu recibido.</p></article>
+                    <article id="rama-chk" class="st-sr-only"><h3>Control de chakra</h3><p>Autonomía: más reserva, menor coste y mejor recuperación de chakra. Efectos al llegar a 120 puntos: +66% chakra, -20% coste, -10% carga, +40% regen..</p></article>
+                    <article id="rama-vit" class="st-sr-only"><h3>Vitalidad</h3><p>Aumenta proporcionalmente tu vida, también al subir de nivel. Absorbes golpes mayores. Efectos al llegar a 120 puntos: +100% vida máxima.</p></article>
+                    <article id="rama-def" class="st-sr-only"><h3>Defensa</h3><p>Reduce el daño físico y elemental, incluidos jutsus que ignoran armadura. Efectos al llegar a 120 puntos: -79% daño recibido.</p></article>
+                    <article id="rama-agi" class="st-sr-only"><h3>Agilidad</h3><p>Reposicionamiento y ritmo: movimiento, velocidad de acciones y recuperación de combate. Efectos al llegar a 120 puntos: +23% movimiento, +17% combate, -14% recuperación.</p></article>
+                    <article id="rama-med" class="st-sr-only"><h3>Medicina ninja</h3><p>Especialización médica: cura aliados o a ti mismo, mejora la activación celular y la cirugía. Efectos al llegar a 120 puntos: +100% curación, -26% cirugía, +20 integridad, +40% absorción celular.</p></article>
                     <div class="st-dev-head">
                         <div class="l">
                             <span class="st-ico"><i class="fa-solid fa-dumbbell"></i></span>
@@ -664,7 +681,23 @@
             render();
         }
 
+        // Llegar desde el buscador: stats.html#build-itachi / stats.html#rama-nin
+        function irAHash() {
+            const h = decodeURIComponent(location.hash.slice(1));
+            if (h.indexOf('build-') === 0 && PRESETS[h.slice(6)]) {
+                applyPreset(h.slice(6));
+                document.getElementById('stPresets').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else if (h.indexOf('rama-') === 0 && refs[h.slice(5)]) {
+                const c = refs[h.slice(5)].el;
+                c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                c.classList.add('st-hl');
+                setTimeout(function () { c.classList.remove('st-hl'); }, 2000);
+            }
+        }
+
         applyPreset('equilibrada');
+        irAHash();
+        window.addEventListener('hashchange', irAHash);
     })();
     </script>
 </body>
