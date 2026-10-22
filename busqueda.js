@@ -24,6 +24,7 @@
         { archivo: "dojutsus.html", nombre: "Dōjutsus" },
         { archivo: "clanes.html",   nombre: "Clanes" },
         { archivo: "guia.html",     nombre: "Guía del Mod" },
+       { archivo: "stats.html",     nombre: "Atributos jugadores" },
         // { archivo: "nueva-pagina.html", nombre: "Nueva página" },
     ];
 
