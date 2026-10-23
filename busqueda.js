@@ -25,6 +25,7 @@
         { archivo: "clanes.html",   nombre: "Clanes" },
         { archivo: "guia.html",     nombre: "Guía del Mod" },
         { archivo: "stats.html",    nombre: "Stats" },
+        { archivo: "bijus.html",    nombre: "Bijus" },
         // { archivo: "nueva-pagina.html", nombre: "Nueva página" },
     ];
 

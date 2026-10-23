@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki de Bijūs - Captura y Vínculo de Kurama | NYDo Wiki</title>
+
+    <!-- Hojas de estilo del proyecto -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="busqueda.css">
+    <link rel="stylesheet" href="jutsus.css">
+    <link rel="stylesheet" href="stats.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* Estilos personalizados Glassmorphism y UI Kurama */
+        .biju-card-disabled {
+            opacity: 0.45;
+            filter: grayscale(0.6);
+            cursor: not-allowed;
+        }
+
+        /* Estilo Glassmorphic específico para la sección Kurama */
+        .kurama-glass-box {
+            background: rgba(22, 18, 28, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 85, 0, 0.25);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255, 85, 0, 0.05);
+            border-radius: 16px;
+        }
+
+        .kurama-glass-box:hover {
+            border-color: rgba(255, 119, 0, 0.45);
+            box-shadow: 0 12px 36px rgba(255, 85, 0, 0.15);
+        }
+
+        /* Contenedores de Video */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #09080c;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, rgba(35, 20, 15, 0.9) 0%, rgba(10, 8, 12, 0.95) 100%);
+            color: #a0a0b0;
+            text-align: center;
+            padding: 20px;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-placeholder i {
+            font-size: 2.8rem;
+            color: #ff5500;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 10px rgba(255, 85, 0, 0.5));
+        }
+
+        /* Réplica UI Minecraft / Mod Kurama */
+        .mc-gui-container {
+            background-color: #14131a;
+            border: 2px solid #2d2a3a;
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.9), 0 10px 30px rgba(0,0,0,0.7);
+            border-radius: 8px;
+            font-family: monospace, sans-serif;
+        }
+
+        .mc-gui-btn {
+            background: linear-gradient(180deg, #2b2838 0%, #1a1824 100%);
+            border: 1px solid #3d3950;
+            color: #d0d0e0;
+            transition: all 0.2s ease;
+        }
+
+        .mc-gui-btn:hover:not(:disabled) {
+            background: linear-gradient(180deg, #3a364d 0%, #252233 100%);
+            border-color: #ff5500;
+            color: #ffaa00;
+        }
+
+        .mc-gui-btn-active {
+            background: linear-gradient(180deg, #3d1f12 0%, #261108 100%) !important;
+            border-color: #ff5500 !important;
+            color: #ffaa00 !important;
+        }
+
+        .mc-progress-bg {
+            background-color: #0b0a0f;
+            border: 1px solid #2d2a38;
+            border-radius: 3px;
+        }
+
+        .mc-progress-bar {
+            background: linear-gradient(90deg, #c43e00 0%, #ff6600 100%);
+            box-shadow: 0 0 8px rgba(255, 85, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / BARRA SUPERIOR -->
+    <header class="nydo-header">
+        <div class="topbar nydo-topbar">
+            <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="index.html#inicio" class="brand">
+                <span class="brand-symbol">木</span>
+                <span class="brand-name">NYDo</span>
+            </a>
+            <div class="brand-description">
+                <strong>WIKI NO OFICIAL</strong>
+                <span>Mod de Naruto para Minecraft</span>
+            </div>
+
+            <div class="wiki-search-wrap" id="wikiSearch">
+                <div class="wiki-search-box">
+                    <i class="fa-solid fa-magnifying-glass wiki-search-icon"></i>
+                    <input type="search" id="wikiSearchInput" placeholder="Buscar..." autocomplete="off" aria-label="Buscar en toda la wiki">
+                    <button type="button" id="wikiSearchClear" aria-label="Limpiar búsqueda" style="display:none;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="wikiSearchResults" class="wiki-search-results" role="region" aria-live="polite"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-overlay" id="pageOverlay"></div>
+
+    <!-- SIDEBAR DE NAVEGACIÓN -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html#inicio" class="sidebar-logo">
+                <span class="brand-symbol">木</span>
+                <span class="brand-name">NYDo</span>
+            </a>
+            <button class="close-btn" id="closeBtn" aria-label="Cerrar menú">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <nav class="navigation">
+            <a href="index.html#inicio" class="nav-link">
+                <i class="fa-solid fa-house"></i><span>Inicio</span>
+            </a>
+            <a href="clanes.html" class="nav-link">
+                <i class="fa-solid fa-users"></i><span>Clanes</span>
+            </a>
+            <a href="jutsus.html" class="nav-link">
+                <i class="fa-solid fa-hand-sparkles"></i><span>Jutsus</span>
+            </a>
+            <a href="dojutsus.html" class="nav-link">
+                <i class="fa-solid fa-eye"></i><span>Dojutsus</span>
+            </a>
+            <a href="stats.html" class="nav-link">
+                <i class="fa-solid fa-chart-simple"></i><span>Stats</span>
+            </a>
+            <a href="bijus.html" class="nav-link active">
+                <i class="fa-solid fa-fire"></i><span>Bijūs</span>
+            </a>
+
+            <div class="nav-divider"></div>
+
+            <a href="guia.html" class="nav-link">
+                <i class="fa-solid fa-book-open"></i><span>Guía del Mod</span>
+            </a>
+            <a href="index.html#descargas" class="nav-link">
+                <i class="fa-solid fa-download"></i><span>Descargas</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-symbol">木</div>
+            <p>"El conocimiento<br>es el primer paso<br>del camino shinobi"</p>
+            <span>— NYDo</span>
+        </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="jutsu-page st-page">
+        <!-- Orbes de luz animados (Glassmorphism) -->
+        <div class="st-orbs" aria-hidden="true"><i></i><i></i><i></i></div>
+
+        <div class="st-wrap" style="max-width: 1200px; margin: 0 auto; padding: 20px 15px;">
+
+            <!-- BOTÓN DE RETROCEDER -->
+            <div style="margin-bottom: 20px;">
+                <a type="button" class="back-link st-glass" onclick="history.back(); return false;" style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 10px; color: #fff; text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.15); transition: all 0.3s; cursor: pointer;">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Volver a la Wiki</span>
+                </a>
+            </div>
+
+            <!-- HERO SECTION DE BIJUS -->
+            <section class="st-hero st-glass" id="bijus-intro" style="margin-bottom: 30px;">
+                <span class="st-eyebrow"><i class="fa-solid fa-paw"></i> BESTIAS CON COLA</span>
+                <h1 style="color: #fff; font-size: 2.2rem; font-weight: 800; margin: 10px 0;">Guía de Bijūs <span>& Kurama</span></h1>
+                <p>Aprende los requisitos necesarios para capturar y sellar al Kyūbi (Nueve Colas), gestiona sus 4 Fases de poder y explora la réplica del sistema de vínculo del mod.</p>
+                <div class="st-hero-stats">
+                    <div><i class="fa-solid fa-cubes"></i><strong>9</strong><small>Bijūs Totales</small></div>
+                    <div><i class="fa-solid fa-lock-open"></i><strong>1</strong><small>Disponible (Kurama)</small></div>
+                    <div><i class="fa-solid fa-link"></i><strong>8</strong><small>Cadenas Necesarias</small></div>
+                    <div><i class="fa-solid fa-fire-flame-curved"></i><strong>4</strong><small>Fases de Colas</small></div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 1: SELECCIÓN DE BIJUS (1 A 9 COLAS) -->
+            <section class="st-glass" style="padding: 24px; border-radius: 16px; margin-bottom: 35px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px;">
+                    <h2 style="font-size: 1.2rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-layer-group" style="color: #ff5500;"></i> Registro de Bestias con Cola
+                    </h2>
+                    <span style="font-size: 0.8rem; color: #a0a0b0; font-family: monospace;">1 Disponible / 8 Bloqueadas</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px;">
+                    <!-- 1 Cola -->
+                    <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
+                        <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">1 Cola</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">Shukaku</strong>
+                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                    </div>
+
+                    <!-- 2 Colas -->
+                    <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
+                        <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">2 Colas</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">Matatabi</strong>
+                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                    </div>
+
+                    <!-- 3 Colas -->
+                    <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
+                        <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">3 Colas</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">Isobu</strong>
+                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                    </div>
+
+                    <!-- 4 Colas -->
+                    <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
+                        <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">4 Colas</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">Son Gokū</strong>
+                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                    </div>
+
+                    <!-- 5 Colas -->
+                    <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
+                        <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">5 Colas</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">Kokuō</strong>
+                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                    </div>
+
+                    <!-- 6 Colas -->
+                    <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
+                        <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">6 Colas</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">Saiken</strong>
+                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                    </div>
+
+                    <!-- 7 Colas -->
+                    <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
+                        <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">7 Colas</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">Chōmei</strong>
+                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                    </div>
+
+                    <!-- 8 Colas -->
+                    <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
+                        <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">8 Colas</span>
+                        <strong style="color: #fff; font-size: 0.9rem;">Gyūki</strong>
+                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                    </div>
+
+                    <!-- 9 Colas: KURAMA (ACTIVO) -->
+                    <div class="kurama-glass-box" style="padding: 12px; text-align: center; border: 2px solid #ff5500; position: relative;">
+                        <span style="font-size: 0.75rem; color: #ffaa00; font-weight: bold; display: block;">9 Colas</span>
+                        <strong style="color: #fff; font-size: 1rem; text-shadow: 0 0 8px rgba(255,85,0,0.8);">Kurama</strong>
+                        <span style="display: block; font-size: 0.65rem; color: #00ff88; margin-top: 6px; background: rgba(0,255,136,0.15); padding: 2px 4px; border-radius: 4px; font-weight: bold;">DISPONIBLE</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: REQUISITOS DE CAPTURA Y VIDEO PRINCIPAL -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-bottom: 35px;">
+                
+                <!-- Izquierda: Requisitos de Captura -->
+                <div class="kurama-glass-box" style="padding: 24px;">
+                    <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 18px;">
+                        <h2 style="font-size: 1.3rem; color: #ff7700; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                            <i class="fa-solid fa-scroll"></i> Método de Captura: Kurama
+                        </h2>
+                        <span style="font-size: 0.8rem; color: #a0a0b0;">Instrucciones para inmovilizar al Nueve Colas</span>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                                <i class="fa-solid fa-yin-yang" style="color: #a855f7; font-size: 1.2rem;"></i>
+                                <strong style="color: #fff; font-size: 0.95rem;">1. Elemento Yin (Yin Release)</strong>
+                            </div>
+                            <p style="font-size: 0.82rem; color: #c0c0d0; margin: 0; line-height: 1.4;">
+                                Se requiere dominar la energía mental y espiritual del <strong style="color: #c084fc;">Elemento Yin</strong> para estabilizar el sello y crear el plano mental de comunicación.
+                            </p>
+                        </div>
+
+                        <div style="background: rgba(0,0,0,0.3); padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+                                <i class="fa-solid fa-link" style="color: #eab308; font-size: 1.2rem;"></i>
+                                <strong style="color: #fff; font-size: 0.95rem;">2. Cadenas de Adamantita</strong>
+                            </div>
+                            <p style="font-size: 0.82rem; color: #c0c0d0; margin: 0; line-height: 1.4;">
+                                Técnica de sellado Uzumaki (Kongō Fūsa). Permite proyectar cadenas físicas de chakra indestructibles para restringir el chakra de Kurama.
+                            </p>
+                        </div>
+
+                        <div style="background: rgba(255,85,0,0.1); padding: 14px; border-radius: 12px; border: 1px solid rgba(255,85,0,0.3);">
+                            <strong style="color: #ffaa00; font-size: 0.9rem; display: block; margin-bottom: 4px;">
+                                <i class="fa-solid fa-lock"></i> Requisito Final de Restricción:
+                            </strong>
+                            <p style="font-size: 0.82rem; color: #e0e0e0; margin: 0; line-height: 1.4;">
+                                Debes <strong style="color: #ff7700;">envolver a Kurama en exactamente 8 Cadenas de Adamantita</strong> simultáneas alrededor de su cuerpo para desactivar sus ataques e iniciar la fase de sellado.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Derecha: Video Player de Captura -->
+                <div class="kurama-glass-box" style="padding: 24px; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 15px;">
+                            <h2 style="font-size: 1.2rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                                <i class="fa-solid fa-video" style="color: #ff5500;"></i> Video de la Captura
+                            </h2>
+                            <span style="font-size: 0.8rem; color: #a0a0b0;">Demostración del proceso de sellado</span>
+                        </div>
+
+                        <!-- Reproductor de Video Silenciado con Autoplay y Loop -->
+                        <div class="video-wrapper">
+                            <video id="mainCaptureVideo" style="width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline controls>
+                                <source src="vid/captura.mp4" type="video/mp4">
+                                Tu navegador no soporta el reproductor de video.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: FASES DE LAS COLAS (1 A 4) CON VIDEOS INDIVIDUALES -->
+            <section class="st-glass" style="padding: 24px; border-radius: 16px; margin-bottom: 35px;">
+                <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 20px;">
+                    <h2 style="font-size: 1.3rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                        <i class="fa-solid fa-fire-flame-curved" style="color: #ff5500;"></i> Fases del Manto de Kurama (1 a 4 Colas)
+                    </h2>
+                    <p style="font-size: 0.82rem; color: #a0a0b0; margin-top: 4px;">
+                        Selecciona cada cola para ver su descripción y su correspondiente video demostrativo.
+                    </p>
+                </div>
+
+                <!-- Botones de Selección de Fase -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 20px;">
+                    <button onclick="selectTailPhase(1)" id="tail-btn-1" class="mc-gui-btn mc-gui-btn-active" style="padding: 12px; border-radius: 10px; text-align: left; cursor: pointer;">
+                        <span style="font-size: 0.7rem; color: #ffaa00; display: block; font-family: monospace;">FASE 1</span>
+                        <strong style="font-size: 0.95rem; display: block;">1 Cola</strong>
+                    </button>
+
+                    <button onclick="selectTailPhase(2)" id="tail-btn-2" class="mc-gui-btn" style="padding: 12px; border-radius: 10px; text-align: left; cursor: pointer;">
+                        <span style="font-size: 0.7rem; color: #ffaa00; display: block; font-family: monospace;">FASE 2</span>
+                        <strong style="font-size: 0.95rem; display: block;">2 Colas</strong>
+                    </button>
+
+                    <button onclick="selectTailPhase(3)" id="tail-btn-3" class="mc-gui-btn" style="padding: 12px; border-radius: 10px; text-align: left; cursor: pointer;">
+                        <span style="font-size: 0.7rem; color: #ffaa00; display: block; font-family: monospace;">FASE 3</span>
+                        <strong style="font-size: 0.95rem; display: block;">3 Colas</strong>
+                    </button>
+
+                    <button onclick="selectTailPhase(4)" id="tail-btn-4" class="mc-gui-btn" style="padding: 12px; border-radius: 10px; text-align: left; cursor: pointer;">
+                        <span style="font-size: 0.7rem; color: #ffaa00; display: block; font-family: monospace;">FASE 4</span>
+                        <strong style="font-size: 0.95rem; display: block;">4 Colas</strong>
+                    </button>
+
+                    <button disabled class="mc-gui-btn" style="padding: 12px; border-radius: 10px; text-align: left; opacity: 0.35; cursor: not-allowed;">
+                        <span style="font-size: 0.7rem; color: #888; display: block; font-family: monospace;">5 - 9 COLAS</span>
+                        <strong style="font-size: 0.85rem; display: block; color: #ff4444;">Próximamente</strong>
+                    </button>
+                </div>
+
+                <!-- Detalle de la Fase Seleccionada + Video Específico -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; background: rgba(0,0,0,0.25); padding: 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                    
+                    <!-- Información de la Fase -->
+                    <div id="tailPhaseInfo" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <!-- Cargado por JS -->
+                    </div>
+
+                    <!-- Video Individual de la Fase Silenciado con Autoplay y Loop -->
+                    <div>
+                        <span style="font-size: 0.8rem; color: #a0a0b0; font-weight: bold; display: block; margin-bottom: 8px;">
+                            <i class="fa-solid fa-film" style="color: #ff7700;"></i> Demostración de la Fase:
+                        </span>
+                        
+                        <div class="video-wrapper">
+                            <video id="tailPhaseVideo" style="width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline controls>
+                                <source id="tailVideoSource" src="" type="video/mp4">
+                                Tu navegador no soporta el reproductor de video.
+                            </video>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECCIÓN 4: INTERFAZ DEL MOD MINECRAFT -->
+            <section class="st-glass" style="padding: 24px; border-radius: 16px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <div>
+                        <h2 style="font-size: 1.3rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 10px;">
+                            <i class="fa-solid fa-gamepad" style="color: #ff5500;"></i> Interfaz de Vínculo (Kurama GUI Mod)
+                        </h2>
+                        <span style="font-size: 0.8rem; color: #a0a0b0;">Réplica interactiva del sistema de coexistencia dentro del juego</span>
+                    </div>
+                    <span style="font-size: 0.75rem; color: #ffaa00; background: rgba(255,85,0,0.15); border: 1px solid rgba(255,85,0,0.3); padding: 4px 10px; border-radius: 6px; font-family: monospace;">
+                        Cautious coexistence
+                    </span>
+                </div>
+
+                <!-- CONTENEDOR GUI INTERACTIVO -->
+                <div class="mc-gui-container" style="padding: 20px; color: #d0d0e0;">
+                    
+                    <!-- Top Sub-Barra -->
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2d2a38; padding-bottom: 10px; margin-bottom: 18px;">
+                        <div style="font-size: 0.8rem; color: #ff7700; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-fire"></i>
+                            <span>SYSTEM_KURAMA_BOND_INTERFACE</span>
+                        </div>
+                        <button onclick="resetGuiValues()" style="background: #252230; color: #888; border: 1px solid #3d3950; padding: 3px 8px; font-size: 0.7rem; border-radius: 4px; cursor: pointer;">
+                            <i class="fa-solid fa-rotate-right"></i> Reset Stats
+                        </button>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+                        
+                        <!-- Panel Izquierdo: Avatar y Submenú -->
+                        <div style="background: #0f0e14; padding: 16px; border-radius: 6px; border: 1px solid #272433; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <h3 style="color: #fff; margin: 0; font-size: 1.1rem;">Kurama</h3>
+                                <span style="font-size: 0.75rem; color: #ffaa00;">Cautious coexistence</span>
+
+                                <!-- Avatar Zorro -->
+                                <div style="width: 110px; height: 110px; margin: 20px auto; background: radial-gradient(circle, rgba(255,85,0,0.2) 0%, transparent 70%); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fa-solid fa-fox" style="font-size: 4rem; color: #ff5500; filter: drop-shadow(0 0 12px rgba(255,85,0,0.8));"></i>
+                                </div>
+
+                                <div style="text-align: center; margin-bottom: 15px;">
+                                    <span style="font-size: 0.7rem; color: #ffaa00; background: rgba(255,85,0,0.1); border: 1px solid rgba(255,85,0,0.3); padding: 2px 8px; border-radius: 4px;">
+                                        Receptive
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Opciones de Menú -->
+                            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem;">
+                                <div class="mc-gui-btn" style="padding: 8px; border-radius: 4px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <i class="fa-regular fa-comment" style="color: #ffaa00;"></i> Talk
+                                </div>
+                                <div class="mc-gui-btn" style="padding: 8px; border-radius: 4px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <i class="fa-solid fa-list-check" style="color: #ffaa00;"></i> Requests
+                                </div>
+                                <div class="mc-gui-btn" style="padding: 8px; border-radius: 4px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <i class="fa-solid fa-fire" style="color: #ffaa00;"></i> Mantles
+                                </div>
+                                <div class="mc-gui-btn mc-gui-btn-active" style="padding: 8px; border-radius: 4px; display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: bold;">
+                                    <i class="fa-solid fa-book" style="color: #ffaa00;"></i> Bond
+                                </div>
+                                <div class="mc-gui-btn" style="padding: 8px; border-radius: 4px; display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                    <i class="fa-solid fa-shield-halved" style="color: #ffaa00;"></i> Seal
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Panel Derecho: Stats y Barras de Progreso -->
+                        <div style="background: #0f0e14; padding: 16px; border-radius: 6px; border: 1px solid #272433; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div style="font-size: 0.8rem; color: #888; border-bottom: 1px solid #252230; padding-bottom: 6px; margin-bottom: 14px;">
+                                    <span id="guiMoments" style="color: #fff; font-weight: bold;">0</span> shared moments
+                                </div>
+
+                                <!-- Friendship Bar -->
+                                <div style="margin-bottom: 12px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+                                        <span>Friendship</span>
+                                        <span id="valFriendship" style="color: #aaa;">0%</span>
+                                    </div>
+                                    <div class="mc-progress-bg" style="height: 8px; width: 100%;">
+                                        <div id="barFriendship" class="mc-progress-bar" style="height: 100%; width: 0%; transition: width 0.3s;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Trust Bar -->
+                                <div style="margin-bottom: 12px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+                                        <span>Trust</span>
+                                        <span id="valTrust" style="color: #aaa;">0%</span>
+                                    </div>
+                                    <div class="mc-progress-bg" style="height: 8px; width: 100%;">
+                                        <div id="barTrust" class="mc-progress-bar" style="height: 100%; width: 0%; transition: width 0.3s;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Coordination Bar -->
+                                <div style="margin-bottom: 12px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+                                        <span>Coordination</span>
+                                        <span id="valCoordination" style="color: #aaa;">7%</span>
+                                    </div>
+                                    <div class="mc-progress-bg" style="height: 8px; width: 100%;">
+                                        <div id="barCoordination" class="mc-progress-bar" style="height: 100%; width: 7%; transition: width 0.3s;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Chakra Bar -->
+                                <div style="margin-bottom: 12px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; margin-bottom: 4px;">
+                                        <span>Chakra</span>
+                                        <span id="valChakra" style="color: #ffaa00; font-weight: bold;">8880 / 10000</span>
+                                    </div>
+                                    <div class="mc-progress-bg" style="height: 10px; width: 100%;">
+                                        <div id="barChakra" class="mc-progress-bar" style="height: 100%; width: 88.8%; transition: width 0.3s;"></div>
+                                    </div>
+                                </div>
+
+                                <div style="font-size: 0.75rem; color: #888; margin-top: 10px;">
+                                    Bijū XP · <span id="valXp" style="color: #ffaa00;">0</span>
+                                </div>
+
+                                <!-- What we remember -->
+                                <div style="margin-top: 16px; border-top: 1px solid #252230; padding-top: 10px;">
+                                    <h4 style="font-size: 0.78rem; color: #ccc; margin-bottom: 8px;">What we remember</h4>
+                                    <div style="font-size: 0.72rem; color: #888; display: flex; flex-direction: column; gap: 4px; padding-left: 8px; border-left: 2px solid #ff5500;">
+                                        <div>◇ You regained control after the intervention.</div>
+                                        <div>◇ Kurama temporarily took control of the body.</div>
+                                        <div>◇ First contact</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botones Inferiores -->
+                            <div style="display: flex; gap: 10px; margin-top: 18px; border-top: 1px solid #252230; padding-top: 12px;">
+                                <button onclick="actionAskChakra()" class="mc-gui-btn" style="flex: 1; padding: 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                                    <i class="fa-solid fa-bolt" style="color: #ffaa00;"></i> Ask for chakra
+                                </button>
+                                <button onclick="actionContainChakra()" class="mc-gui-btn" style="flex: 1; padding: 8px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                                    <i class="fa-solid fa-circle-stop" style="color: #ff4444;"></i> Contain chakra
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- FOOTER IDÉNTICO AL PROYECTO -->
+        <footer class="jutsu-footer" style="margin-top: 50px;">
+            <a href="index.html" class="brand-name">NYDo</a>
+            <p>Wiki no oficial de Naruto para Minecraft · Sistema de Bijūs y Sellado Uzumaki</p>
+            <a href="#bijus-intro">Volver arriba ↑</a>
+        </footer>
+    </main>
+
+    <!-- SCRIPTS DEL SISTEMA Y BÚSQUEDA -->
+    <script src="script.js"></script>
+    <script src="busqueda.js"></script>
+
+    <script>
+        // DATA DE LAS 4 FASES DE KURAMA
+        const tailPhasesData = {
+            1: {
+                title: "Fase 1: Manto de 1 Cola",
+                subtitle: "Chakra Demoníaco Inicial",
+                desc: "Se manifiesta la primera cola de chakra hirviente. Aumenta la velocidad, la resistencia física y regenera pequeñas heridas sin perder la cordura.",
+                stats: "Chakra: +150% | Velocidad: +25% | Daño Físico: +30",
+                videoUrl: "vid/cola1.mp4"
+            },
+            2: {
+                title: "Fase 2: Manto de 2 Colas",
+                subtitle: "Chakra Denso y Garras",
+                desc: "El chakra se vuelve más denso. Aparecen garras alargadas de chakra que aumentan el rango de ataque de cuerpo a cuerpo.",
+                stats: "Chakra: +300% | Velocidad: +45% | Daño Físico: +60",
+                videoUrl: "vid/cola1.mp4"
+            },
+            3: {
+                title: "Fase 3: Manto de 3 Colas",
+                subtitle: "Transformación Parcial",
+                desc: "El chakra quema ligeramente la piel. Libera potentes ondas de choque rugientes capaz de repeler jutsus y proyectiles.",
+                stats: "Chakra: +500% | Velocidad: +70% | Daño Físico: +100",
+                videoUrl: "vid/cola3.mp4"
+            },
+            4: {
+                title: "Fase 4: Versión 2 (4 Colas)",
+                subtitle: "Estado de Sangre Negra / Furia",
+                desc: "El cuerpo es envuelto en chakra oscuro y sangre destilada. Permite cargar y disparar la devastadora Bijūdama (Bomba Bestia con Cola).",
+                stats: "Chakra: +1000% | Velocidad: +110% | Habilidad: Bijūdama",
+                videoUrl: "vid/cola4.mp4"
+            }
+        };
+
+        let currentActiveTail = 1;
+
+        // SELECCIONAR Y RENDERIZAR FASE DE COLA
+        function selectTailPhase(tailNum) {
+            currentActiveTail = tailNum;
+
+            // Actualizar botones UI
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`tail-btn-${i}`);
+                if (i === tailNum) {
+                    btn.classList.add('mc-gui-btn-active');
+                } else {
+                    btn.classList.remove('mc-gui-btn-active');
+                }
+            }
+
+            const data = tailPhasesData[tailNum];
+            const infoContainer = document.getElementById('tailPhaseInfo');
+
+            infoContainer.innerHTML = `
+                <div>
+                    <h3 style="color: #ffaa00; font-size: 1.15rem; margin: 0 0 4px 0;">${data.title}</h3>
+                    <span style="font-size: 0.78rem; color: #a0a0b0; display: block; margin-bottom: 10px;">${data.subtitle}</span>
+                    <p style="font-size: 0.85rem; color: #d0d0e0; line-height: 1.4; margin-bottom: 12px;">${data.desc}</p>
+                </div>
+                <div style="background: rgba(255,85,0,0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,85,0,0.25); font-size: 0.8rem; color: #ffaa00;">
+                    <strong>Estadísticas de la Fase:</strong><br>${data.stats}
+                </div>
+            `;
+
+            // Cargar video de esta cola asegurando que se reproduzca sin audio
+            const tailVideo = document.getElementById('tailPhaseVideo');
+            if (data.videoUrl) {
+                tailVideo.src = data.videoUrl;
+                tailVideo.muted = true;
+                tailVideo.load();
+                tailVideo.play().catch(e => console.log("Autoplay interactivo retenido por el navegador"));
+            }
+        }
+
+        // LÓGICA DE LA INTERFAZ MINECRAFT MOD
+        let guiState = {
+            moments: 0,
+            friendship: 0,
+            trust: 0,
+            coordination: 7,
+            chakra: 8880,
+            maxChakra: 10000,
+            xp: 0
+        };
+
+        function updateGuiDisplay() {
+            document.getElementById('guiMoments').innerText = guiState.moments;
+            document.getElementById('valFriendship').innerText = guiState.friendship + '%';
+            document.getElementById('valTrust').innerText = guiState.trust + '%';
+            document.getElementById('valCoordination').innerText = guiState.coordination + '%';
+            document.getElementById('valChakra').innerText = `${guiState.chakra} / ${guiState.maxChakra}`;
+            document.getElementById('valXp').innerText = guiState.xp;
+
+            document.getElementById('barFriendship').style.width = guiState.friendship + '%';
+            document.getElementById('barTrust').style.width = guiState.trust + '%';
+            document.getElementById('barCoordination').style.width = guiState.coordination + '%';
+            document.getElementById('barChakra').style.width = ((guiState.chakra / guiState.maxChakra) * 100) + '%';
+        }
+
+        function actionAskChakra() {
+            if (guiState.chakra < guiState.maxChakra) {
+                guiState.chakra = Math.min(guiState.maxChakra, guiState.chakra + 300);
+                guiState.coordination = Math.min(100, guiState.coordination + 1);
+                guiState.trust = Math.min(100, guiState.trust + 1);
+                guiState.moments += 1;
+                guiState.xp += 10;
+                updateGuiDisplay();
+            }
+        }
+
+        function actionContainChakra() {
+            if (guiState.chakra > 0) {
+                guiState.chakra = Math.max(0, guiState.chakra - 400);
+                guiState.friendship = Math.min(100, guiState.friendship + 1);
+                updateGuiDisplay();
+            }
+        }
+
+        function resetGuiValues() {
+            guiState = { moments: 0, friendship: 0, trust: 0, coordination: 7, chakra: 8880, maxChakra: 10000, xp: 0 };
+            updateGuiDisplay();
+        }
+
+        // Inicialización
+        window.onload = function() {
+            selectTailPhase(1);
+            updateGuiDisplay();
+        };
+    </script>
+</body>
+</html>
