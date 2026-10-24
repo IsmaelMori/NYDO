@@ -89,7 +89,7 @@
             <a href="stats.html" class="nav-link active">
                 <i class="fa-solid fa-chart-simple"></i><span>Stats</span>
             </a>
-            <a href="bijus.html" class="nav-link active">
+            <a href="bijus.html" class="nav-link">
                 <i class="fa-solid fa-fire"></i><span>Bijūs</span>
             </a>
 
@@ -129,12 +129,12 @@
                     <div><i class="fa-solid fa-coins"></i><strong>240</strong><small>puntos totales</small></div>
                     <div><i class="fa-solid fa-layer-group"></i><strong>120</strong><small>máx. por rama</small></div>
                     <div><i class="fa-solid fa-sitemap"></i><strong>8</strong><small>ramas</small></div>
-                    <div><i class="fa-solid fa-user-ninja"></i><strong>5</strong><small>builds</small></div>
+                    <div><i class="fa-solid fa-user-ninja"></i><strong>10</strong><small>builds</small></div>
                 </div>
             </section>
 
             <section class="st-presets-bar st-glass" id="builds" aria-label="Builds de personajes">
-                <h2 class="st-sr-only">Builds de personajes: Equilibrada, Naruto, Kakashi, Itachi y Sasuke</h2>
+                <h2 class="st-sr-only">Builds de personajes: Equilibrada, Naruto, Minato, Kakashi, Itachi, Sasuke, Might Guy, Sakura, Tsunade y Jiraiya</h2>
                 <span class="st-presets-label"><i class="fa-solid fa-user-ninja"></i> Cargar build</span>
                 <div class="st-presets" id="stPresets" role="group" aria-label="Builds de personajes"></div>
                 <article id="build-equilibrada" class="st-sr-only"><h3>Equilibrada</h3><p>Build versátil, sin especialización. Naturaleza: Libre. Habilidades principales: Jutsus básicos de todas las ramas; Reserva de chakra estable; Se adapta a cualquier estilo de combate. Kekkei Genkai: Ninguno (depende del clan que elijas). Clan: Sin clan / a elección. Build de Equilibrada: Ninjutsu 30, Taijutsu 30, Genjutsu 30, Control de chakra 30, Vitalidad 30, Defensa 30, Agilidad 30, Medicina ninja 30.</p></article>
@@ -406,7 +406,8 @@ jiraiya: {
     ],
     kekkei: [{ t: 'Ninguno' }],
     clan: { t: 'Sin clan', href: '' }
-    },
+    }
+        };
 
         // Páginas de cada elemento (si no hay página, el chip queda sin enlace)
         const NATURE_LINKS = {
@@ -661,7 +662,7 @@ jiraiya: {
             document.getElementById('stObtained').textContent = spent + ' / ' + MAX_TOTAL + ' invertidos';
             document.getElementById('stBarFill').style.width = (spent / MAX_TOTAL * 100) + '%';
 
-            document.getElementById('stRadarSub').textContent = '100% progresión · ' + spent + '/' + MAX_TOTAL + ' pts';
+            document.getElementById('stRadarSub').textContent = Math.round(spent / MAX_TOTAL * 100) + '% progresión · ' + spent + '/' + MAX_TOTAL + ' pts';
             const modeEl = document.getElementById('stRadarMode');
             if (activePreset && !custom) modeEl.textContent = PRESETS[activePreset].name;
             else if (activePreset && custom) modeEl.textContent = 'Personalizado';
