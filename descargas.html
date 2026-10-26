@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descargas | NYDo Wiki</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Iconos -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- BARRA SUPERIOR -->
+    <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="Abrir menú"
+                aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+
+        <div class="brand-description">
+            <strong>WIKI OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+    </header>
+
+    <!-- CAPA OSCURA -->
+    <div class="page-overlay" id="pageOverlay"></div>
+
+    <!-- MENÚ LATERAL IZQUIERDO -->
+    <aside class="sidebar" id="sidebar" data-include="sidebar.html"></aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <!-- SECCIÓN DE DESCARGAS -->
+        <section class="content-section" id="descargas" style="min-height: 85vh; display: flex; flex-direction: column; justify-content: center;">
+            <div class="section-heading">
+                <span class="eyebrow">CENTRO DE DESCARGAS</span>
+                <h2>Obtén NYDo Mod</h2>
+                <p>Selecciona la versión compatible con tu cliente de Minecraft y comienza tu aventura ninja.</p>
+            </div>
+
+            <div class="wiki-grid" style="grid-template-columns: repeat(2, minmax(0, 420px)); justify-content: center;">
+                
+                <!-- VERSIÓN 5.6 (Última versión) -->
+                <div class="wiki-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <h3>NYDo Mod - Versión 5.6</h3>
+                        <p>Última actualización con mejoras de rendimiento, nuevos jutsus corregidos, corrección de errores de texturas y balance general de estadísticas.</p>
+                    </div>
+                    <div>
+                        <span style="display: block; margin-bottom: 15px; color: var(--white); font-size: 11px;">Recomendado para Minecraft Forge</span>
+                        <a href="https://drive.google.com/file/u/2/d/1C30vFhhhBlX5Iq-eLzp9ZqbFQqAyTGl-/view?usp=drivesdk" class="explore-btn" style="width: 100%; min-height: 42px; font-size: 13px;">
+                            <span class="button-symbol" style="font-size: 18px;">木</span>
+                            <span>Descargar v5.6</span>
+                            <i class="fa-solid fa-download"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- VERSIÓN 5.5 -->
+                <div class="wiki-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <i class="fa-solid fa-box-archive"></i>
+                        <h3>NYDo Mod - Versión 5.5</h3>
+                        <p>Versión anterior estable. Ideal si tus paquetes de mods actuales o servidores multijugador mantienen compatibilidad estricta con esta build.</p>
+                    </div>
+                    <div>
+                        <span style="display: block; margin-bottom: 15px; color: var(--white); font-size: 11px;">Versión Anterior Estable</span>
+                        <a href="https://drive.google.com/file/d/1dtpDHs2_XB43BOWCO6VsHvXsYzf_9mf-/view?usp=sharing" class="explore-btn" style="width: 100%; min-height: 42px; font-size: 13px; background: rgba(15, 20, 30, 0.7);">
+                            <span class="button-symbol" style="font-size: 18px;">木</span>
+                            <span>Descargar v5.5</span>
+                            <i class="fa-solid fa-download"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PIE DE PÁGINA -->
+        <footer class="site-footer">
+            <span class="brand-name">NYDo</span>
+            <p>Wiki del mod de Naruto para Minecraft.</p>
+        </footer>
+    </main>
+
+    <!-- Script para el funcionamiento del menú lateral (sidebar) -->
+    <script src="script.js"></script>
+</body>
+</html>
