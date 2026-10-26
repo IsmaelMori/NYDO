@@ -803,9 +803,110 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ==========================================
+           MINIJUEGOS: EXTRACCIÓN Y CORTE OCULAR
+        ========================================== */
+        .mg-box {
+            background: rgba(8, 9, 14, 0.94);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 1.5rem;
+            font-family: monospace, sans-serif;
+            color: #e2e8f0;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(0, 0, 0, 0.7);
+        }
+
+
+
+
+        .mg-bar { height: 7px; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
+        .mg-bar > i { display: block; height: 100%; width: 0; background: #4fd1c5; transition: width 0.2s ease, background 0.2s; }
+        .mg-bar.red > i { background: #ff5a6a; }
+        .mg-msg { margin-top: 10px; font-size: 13px; color: #e2e8f0; min-height: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 8px; }
+        .mg-msg.ok { color: #4fd1c5; }
+        .mg-msg.bad { color: #ff5a6a; }
+        .mg-actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+        .mg-btn {
+            background: #181b28;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #e2e8f0;
+            padding: 10px 18px;
+            font-family: monospace, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.15s;
+        }
+        .mg-btn:hover { background: #22273a; border-color: #ffc107; color: #fff; }
+        .mg-btn.primary { background: #2b3a67; border-color: #5b7cff; }
+
+        /* Extracción */
+        .ex-scene {
+            position: relative;
+            min-height: 380px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: #10131c url('img/extraccion.png') center / cover no-repeat;
+        }
+        .ex-scene::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(5, 6, 10, 0.92) 0%, rgba(5, 6, 10, 0.25) 55%, transparent 100%); pointer-events: none; }
+        .ex-hud {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            z-index: 2;
+            padding: 12px 16px 10px;
+            display: grid;
+            grid-template-columns: 1fr 150px 1fr;
+            gap: 16px;
+            align-items: center;
+        }
+        .ex-col { font-size: 12px; display: flex; flex-direction: column; gap: 6px; }
+        .ex-col .row { display: flex; justify-content: space-between; color: #e2e8f0; letter-spacing: 0.5px; }
+        .ex-title { position: absolute; z-index: 2; top: 10px; left: 14px; right: 14px; display: flex; justify-content: space-between; font-size: 13px; color: #ff6b78; text-shadow: 1px 1px #000; }
+        .ex-title span:last-child { color: #e2e8f0; }
+        .ex-center { position: relative; height: 130px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .ex-target {
+            position: relative;
+            width: 58px; height: 58px;
+            border-radius: 50%;
+            border: 3px solid #ffc107;
+            background: rgba(10, 14, 24, 0.85);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: bold; color: #fff;
+            box-shadow: 0 0 14px rgba(255, 193, 7, 0.4);
+        }
+        .ex-ring {
+            position: absolute;
+            width: 58px; height: 58px;
+            border-radius: 50%;
+            border: 3px solid #4fd1c5;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(2.4);
+        }
+        .ex-rate { margin-top: 8px; font-size: 13px; font-weight: bold; letter-spacing: 1px; min-height: 18px; color: #e2e8f0; }
+        .ex-rate.perfect { color: #4fd1c5; }
+        .ex-rate.good { color: #ffc107; }
+        .ex-rate.miss { color: #ff5a6a; }
+        .ex-wasd { display: grid; grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(2, 38px); gap: 6px; justify-content: center; margin-top: 14px; }
+        .ex-wasd button { font-family: monospace; font-weight: 800; font-size: 15px; color: #ffc107; background: rgba(30, 35, 52, 0.9); border: 1px solid rgba(255, 255, 255, 0.25); box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5); border-radius: 6px; cursor: pointer; }
+        .ex-wasd button:active, .ex-wasd button.hit { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.5); background: #3a4166; }
+        .ex-wasd .k-w { grid-column: 2; grid-row: 1; }
+        .ex-wasd .k-a { grid-column: 1; grid-row: 2; }
+        .ex-wasd .k-s { grid-column: 2; grid-row: 2; }
+        .ex-wasd .k-d { grid-column: 3; grid-row: 2; }
+
+        .ui-shot { margin: 1.5rem 0 0; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; overflow: hidden; background: #000; box-shadow: 0 8px 25px rgba(0,0,0,0.5); }
+        .ui-shot img { width: 100%; display: block; }
+        .ui-shot figcaption { padding: 10px 14px; font-size: 12px; color: #94a3b8; background: rgba(12,14,22,0.95); border-top: 1px solid rgba(255,255,255,0.1); }
+
         @media (max-width: 850px) {
             .susanoo-gui-grid, .rinnegan-showcase, .control-row-card { grid-template-columns: 1fr; }
             .control-img-box { height: 180px; }
+            .ex-hud { grid-template-columns: 1fr; }
+            .ex-scene { min-height: 520px; }
         }
     </style>
 </head>
@@ -1030,6 +1131,7 @@
                 <a href="#byakugan">Byakugan</a>
                 <a href="#sharingan">Sharingan</a>
                 <a href="#mangekyo">Mangekyō Sharingan</a>
+                <a href="#extraccion">Extracción</a>
                 <a href="#eternal">Mangekyō Eterno</a>
                 <a href="#susanoo">Susanoo</a>
                 <a href="#rinnegan">Rinnegan</a>
@@ -1177,6 +1279,57 @@
                 </div>
             </article>
 
+            <!-- MINIJUEGO 1: EXTRACCIÓN OCULAR (WASD) -->
+            <article class="jutsu-panel" id="extraccion">
+                <div class="panel-heading">
+                    <div class="panel-icon red-icon"><i class="fa-solid fa-hand-back-fist"></i></div>
+                    <div>
+                        <span class="panel-number">MINIJUEGO / EXTRACCIÓN</span>
+                        <h2>Extracción Ocular</h2>
+                        <p>Arranca los ojos de tu objetivo con el pulso exacto.</p>
+                    </div>
+                </div>
+
+                <p class="panel-description">
+                    Para obtener unos ojos Mangekyō debes extraerlos con precisión. Aparecerá una tecla (<kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd>) y un aro que se encoge: pulsa la tecla justo cuando el aro encaje con el círculo dorado. Una pulsación <strong>PERFECT</strong> acelera la extracción; un fallo daña el tejido y debilita tu agarre.
+                </p>
+
+                <div class="mg-box" id="exBox">
+                    <div class="ex-scene">
+                        <div class="ex-title"><span id="exTitle">Mangekyo Sharingan - Itachi</span><span id="exEye">DERECHO</span></div>
+                        <div class="ex-hud">
+                            <div class="ex-col">
+                                <div class="row"><span>GRIP</span><span id="exGripTxt">80%</span></div>
+                                <div class="mg-bar"><i id="exGripBar" style="width:80%"></i></div>
+                                <div class="row"><span>PRECISION</span><span id="exStreak">x0</span></div>
+                            </div>
+                            <div class="ex-center">
+                                <div class="ex-target" id="exTarget"><span id="exKey">W</span></div>
+                                <div class="ex-ring" id="exRing"></div>
+                                <div class="ex-rate" id="exRate"></div>
+                            </div>
+                            <div class="ex-col">
+                                <div class="row"><span>EXTRACTION</span><span id="exExtTxt">0%</span></div>
+                                <div class="mg-bar red"><i id="exExtBar" style="width:0%"></i></div>
+                                <div class="row"><span>Tissue</span><span id="exTissueTxt">100%</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ex-wasd" aria-label="Teclas en pantalla">
+                        <button type="button" class="k-w" data-k="W">W</button>
+                        <button type="button" class="k-a" data-k="A">A</button>
+                        <button type="button" class="k-s" data-k="S">S</button>
+                        <button type="button" class="k-d" data-k="D">D</button>
+                    </div>
+
+                    <div class="mg-msg" id="exMsg">Pulsa «Comenzar extracción» y usa W, A, S, D en el momento exacto.</div>
+                    <div class="mg-actions">
+                        <button type="button" class="mg-btn primary" id="exStart">Comenzar extracción</button>
+                    </div>
+                </div>
+            </article>
+
             <!-- 4. ETERNAL MANGEKYO SHARINGAN -->
             <article class="jutsu-panel" id="eternal">
                 <div class="panel-heading">
@@ -1197,6 +1350,17 @@
                     <h3>Trasplante Ocular</h3>
                     <p>Fusiona tu Mangekyō Sharingan con otro conjunto de Mangekyō en el altar/interfaz de crafteo ninja para obtener la visión eterna.</p>
                 </div>
+
+                <!-- INTERFAZ: CIRUGÍA OCULAR (solo informativa) -->
+                <h3 class="subheading" style="color:#fff; margin-top:2rem;">Interfaz de Cirugía Ocular</h3>
+                <p class="small-description">
+                    Así se ve la interfaz del trasplante en el mod. La operación se divide en tres fases: <strong>Incisión</strong>, <strong>Conexión</strong> y <strong>Sutura</strong>. En cada una se sigue la línea ámbar y se suelta dentro de la zona turquesa; arriba se muestran el contador de errores y el porcentaje de integración. Con cinco errores la cirugía se aborta.
+                </p>
+
+                <figure class="ui-shot">
+                    <img src="img/corte de ojos.png" alt="Interfaz de cirugía ocular del mod: fase 03 Sutura, errores 2/5, integración 72%">
+                    <figcaption>Interfaz de cirugía ocular · Fase 03: Sutura</figcaption>
+                </figure>
             </article>
 
             <!-- INTERFAZ SUSANOO SELLO CROMÁTICO -->
@@ -1701,6 +1865,147 @@
 
         window.susanoo3D = { setColor: setColor, reiniciar: reiniciar };
     })();
+    </script>
+    <script>
+    // ==========================================
+    // MINIJUEGO 1: EXTRACCIÓN OCULAR (WASD)
+    // ==========================================
+    (function () {
+        const $ = id => document.getElementById(id);
+        const startBtn = $('exStart');
+        if (!startBtn) return;
+
+        const ring = $('exRing'), keyEl = $('exKey'), rateEl = $('exRate'), msgEl = $('exMsg');
+        const gripBar = $('exGripBar'), gripTxt = $('exGripTxt');
+        const extBar = $('exExtBar'), extTxt = $('exExtTxt');
+        const tissueTxt = $('exTissueTxt'), streakEl = $('exStreak'), eyeEl = $('exEye');
+        const target = $('exTarget');
+        const KEYS = ['W', 'A', 'S', 'D'];
+
+        let playing = false, eyeIdx = 0;
+        let grip = 80, ext = 0, tissue = 100, streak = 0;
+        let curKey = 'W', roundStart = 0, duration = 1500, resolved = false;
+        let raf = 0, timer = 0;
+
+        function setMsg(t, cls) { msgEl.textContent = t; msgEl.className = 'mg-msg' + (cls ? ' ' + cls : ''); }
+        function clamp(v) { return Math.max(0, Math.min(100, v)); }
+
+        function render() {
+            gripBar.style.width = grip + '%'; gripTxt.textContent = Math.round(grip) + '%';
+            extBar.style.width = ext + '%'; extTxt.textContent = Math.round(ext) + '%';
+            tissueTxt.textContent = 'Tissue ' + Math.round(tissue) + '%';
+            streakEl.textContent = 'x' + streak;
+            eyeEl.textContent = eyeIdx === 0 ? 'DERECHO' : 'IZQUIERDO';
+        }
+
+        function showRate(text, cls) {
+            rateEl.textContent = text;
+            rateEl.className = 'ex-rate ' + cls;
+        }
+
+        function nextRound() {
+            if (!playing) return;
+            let k;
+            do { k = KEYS[Math.floor(Math.random() * 4)]; } while (k === curKey && Math.random() < 0.6);
+            curKey = k;
+            keyEl.textContent = k;
+            resolved = false;
+            duration = Math.max(850, 1500 - ext * 5 - streak * 12);
+            roundStart = performance.now();
+            ring.style.opacity = '1';
+            raf = requestAnimationFrame(tick);
+        }
+
+        function tick(now) {
+            if (!playing || resolved) return;
+            const t = (now - roundStart) / duration;
+            ring.style.transform = 'scale(' + (2.4 - 1.4 * Math.min(t, 1.15)) + ')';
+            if (t > 1.15) { resolve('miss', 'MISS'); return; }
+            raf = requestAnimationFrame(tick);
+        }
+
+        function resolve(kind, label) {
+            if (resolved) return;
+            resolved = true;
+            cancelAnimationFrame(raf);
+            ring.style.opacity = '0';
+            if (kind === 'perfect') {
+                streak++; ext += 18 + Math.min(streak, 5); grip = clamp(grip + 6);
+                showRate('PERFECT', 'perfect');
+            } else if (kind === 'good') {
+                streak = 0; ext += 10; grip = clamp(grip + 1);
+                showRate('GOOD', 'good');
+            } else {
+                streak = 0; grip = clamp(grip - 16); tissue = clamp(tissue - 18);
+                showRate(label || 'MISS', 'miss');
+            }
+            ext = clamp(ext);
+            render();
+
+            if (tissue <= 0 || grip <= 0) {
+                return finish(false, tissue <= 0 ? 'El tejido quedó destruido: los ojos son inservibles.' : 'Perdiste el agarre. La extracción falló.');
+            }
+            if (ext >= 100) {
+                if (eyeIdx === 0) {
+                    eyeIdx = 1; ext = 0; render();
+                    setMsg('Ojo derecho extraído. Ahora el ojo izquierdo.', 'ok');
+                } else {
+                    return finish(true, 'Ambos ojos extraídos con éxito. Tejido conservado: ' + Math.round(tissue) + '%.');
+                }
+            }
+            timer = setTimeout(nextRound, 650);
+        }
+
+        function press(k) {
+            if (!playing || resolved) return;
+            const btn = document.querySelector('.ex-wasd [data-k="' + k + '"]');
+            if (btn) { btn.classList.add('hit'); setTimeout(() => btn.classList.remove('hit'), 120); }
+            if (k !== curKey) return resolve('miss', 'WRONG KEY');
+            const t = (performance.now() - roundStart) / duration;
+            if (t >= 0.88 && t <= 1.06) resolve('perfect');
+            else if ((t >= 0.65 && t < 0.88) || (t > 1.06 && t <= 1.15)) resolve('good');
+            else resolve('miss', 'TOO EARLY');
+        }
+
+        function finish(ok, text) {
+            playing = false;
+            clearTimeout(timer); cancelAnimationFrame(raf);
+            ring.style.opacity = '0';
+            setMsg(text, ok ? 'ok' : 'bad');
+            startBtn.textContent = ok ? 'Extraer de nuevo' : 'Reintentar';
+            startBtn.disabled = false;
+        }
+
+        function start() {
+            clearTimeout(timer); cancelAnimationFrame(raf);
+            playing = true; eyeIdx = 0; grip = 80; ext = 0; tissue = 100; streak = 0;
+            rateEl.textContent = ''; rateEl.className = 'ex-rate';
+            render();
+            setMsg('Pulsa la tecla indicada cuando el aro verde encaje en el círculo dorado.');
+            startBtn.disabled = true;
+            startBtn.textContent = 'Extrayendo...';
+            timer = setTimeout(nextRound, 500);
+        }
+
+        startBtn.addEventListener('click', start);
+
+        document.addEventListener('keydown', function (e) {
+            if (!playing) return;
+            const tag = (e.target && e.target.tagName) || '';
+            if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+            const k = e.key.toUpperCase();
+            if (KEYS.indexOf(k) === -1 || e.repeat) return;
+            e.preventDefault();
+            press(k);
+        });
+
+        document.querySelectorAll('.ex-wasd button').forEach(function (b) {
+            b.addEventListener('click', function () { press(b.dataset.k); });
+        });
+
+        render();
+    })();
+
     </script>
     <script src="busqueda.js"></script>
     <script>
