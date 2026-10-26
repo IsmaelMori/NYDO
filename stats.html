@@ -231,13 +231,57 @@
         ];
 
         // Builds (cada una suma 240 y ninguna rama pasa de 120)
+        // ==========================================
+        // GUÍA: cómo agregar la Preparación Shinobi (Config. I, II y III) de un personaje
+        // Dentro de su preset (junto a abilities) añade:
+        //
+        //   configs: [
+        //       { n: 'Nombre de la config', sub: 'Descripción corta', slots: [
+        //             { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu', 'Rasengan'] },   // posición 1
+        //             { d: 'Viento',   j: ['Rasenshuriken'] }                         // posición 2
+        //       ] },
+        //       { n: '...', sub: '...', slots: [ ... ] },                            // Config. II
+        //       { n: '...', sub: '...', slots: [ ... ] }                             // Config. III
+        //   ]
+        //
+        //  · d = disciplina del Arsenal: Fuego, Tierra, Agua, Rayo, Viento, Yin, Yang, Ninjutsu, Taijutsu,
+        //    Genjutsu, Fūinjutsu, Invocación, Medicina ninja.
+        //  · j = técnicas de esa posición (máximo 4: A, B, C, D).
+        //  · Posiciones 1-3 siempre abiertas; 4-6 salen "BLOQ." (se abren si una config usa más slots).
+        //  · El Arsenal (lista izquierda) se arma solo con las disciplinas que uses en las 3 configs.
+        //  · Enlaces: toda técnica de Fuego/Tierra/Agua/Rayo/Viento lleva a katon / doton / suiton /
+        //    raiton / futon .html. Para ir a una técnica concreta usa JUTSU_LINKS más abajo.
+        // ==========================================
         const PRESETS = {
             equilibrada: {
                 name: 'Equilibrada', icon: 'fa-scale-balanced',
                 sub: 'Build versátil, sin especialización',
                 points: { nin: 30, tai: 30, gen: 30, chk: 30, vit: 30, def: 30, agi: 30, med: 30 },
                 nature: ['Libre'],
-                abilities: ['Jutsus básicos de todas las ramas', 'Reserva de chakra estable', 'Se adapta a cualquier estilo de combate'],
+                abilities: [
+                    { n: 'Jutsus básicos de todas las ramas' },
+                    { n: 'Reserva de chakra estable' },
+                    { n: 'Se adapta a cualquier estilo de combate' }
+                ],
+                configs: [
+                    { n: 'Base', sub: 'Jutsus básicos', slots: [
+                        { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu'] },
+                        { d: 'Taijutsu', j: ['Golpes básicos'] },
+                        { d: 'Genjutsu', j: ['Genjutsu básico'] }
+                    ] },
+                    { n: 'Elementos', sub: 'Un poco de cada naturaleza', slots: [
+                        { d: 'Fuego', j: ['Katon básico'] },
+                        { d: 'Viento', j: ['Fūton básico'] },
+                        { d: 'Rayo', j: ['Raiton básico'] },
+                        { d: 'Tierra', j: ['Doton básico'] },
+                        { d: 'Agua', j: ['Suiton básico'] }
+                    ] },
+                    { n: 'Soporte', sub: 'Apoyo y utilidad', slots: [
+                        { d: 'Medicina ninja', j: ['Ninjutsu Médico'] },
+                        { d: 'Invocación', j: ['Kuchiyose no Jutsu'] },
+                        { d: 'Fūinjutsu', j: ['Sellos básicos'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Ninguno (depende del clan que elijas)' }],
                 clan: { t: 'Sin clan / a elección', href: '' }
             },
@@ -246,7 +290,26 @@
                 sub: 'Jinchūriki del Kyūbi · Séptimo Hokage',
                 points: { nin: 80, tai: 25, gen: 0, chk: 60, vit: 50, def: 10, agi: 15, med: 0 },
                 nature: ['Viento'],
-                abilities: ['Kage Bunshin no Jutsu', 'Rasengan / Rasenshuriken', 'Modo Sabio', 'Modo Chakra de Kurama'],
+                abilities: [
+                    { n: 'Kage Bunshin no Jutsu', t: ['Ninjutsu'] },
+                    { n: 'Rasengan', t: ['Ninjutsu'] },
+                    { n: 'Rasenshuriken', t: ['Viento'] },
+                    { n: 'Modo Sabio', t: ['Senjutsu'] },
+                    { n: 'Modo Chakra de Kurama', t: ['Jinchūriki'] }
+                ],
+                configs: [
+                    { n: 'Naruto normal', sub: 'Clones de sombra y Rasengan', slots: [
+                        { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu', 'Rasengan'] }
+                    ] },
+                    { n: 'Naruto Ermitaño', sub: 'Ninjutsu + estilo Viento: Rasenshuriken', slots: [
+                        { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu', 'Rasengan'] },
+                        { d: 'Viento', j: ['Rasenshuriken'] }
+                    ] },
+                    { n: 'Naruto Kurama', sub: 'Rasenshuriken y Rasengan', slots: [
+                        { d: 'Viento', j: ['Rasenshuriken'] },
+                        { d: 'Ninjutsu', j: ['Rasengan', 'Kage Bunshin no Jutsu'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Ninguno propio (poder del Kyūbi como Jinchūriki)' }],
                 clan: { t: 'Uzumaki', href: 'clanes.html#uzumaki' }
             },
@@ -261,11 +324,23 @@ madara: {
     },
     nature: ['Fuego', 'Tierra', 'Rayo'],
     abilities: [
-        'Susanoo',
-        'Katon: Gōka Mekkyaku',
-        'Sharingan',
-        'Técnicas del Mangekyō Sharingan'
-    ],
+                    { n: 'Susanoo', t: ['Dōjutsu'] },
+                    { n: 'Katon: Gōka Mekkyaku', t: ['Fuego'] },
+                    { n: 'Sharingan', t: ['Dōjutsu'] },
+                    { n: 'Técnicas del Mangekyō Sharingan', t: ['Dōjutsu'] }
+                ],
+                configs: [
+                    { n: 'Madara joven', sub: 'Técnicas de fuego', slots: [
+                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu', 'Katon: Gōka Mekkyaku'] }
+                    ] },
+                    { n: 'Madara Mangekyō', sub: 'Fuego y rayo', slots: [
+                        { d: 'Fuego', j: ['Katon: Gōka Mekkyaku'] },
+                        { d: 'Rayo', j: ['Raiton'] }
+                    ] },
+                    { n: 'Madara Rinnegan', sub: 'Técnicas de fuego', slots: [
+                        { d: 'Fuego', j: ['Katon: Gōka Mekkyaku'] }
+                    ] }
+                ],
     kekkei: [
         { t: 'Sharingan', href: 'dojutsus.html#sharingan' },
         { t: 'Mangekyō Sharingan', href: 'dojutsus.html#mangekyo' },
@@ -284,11 +359,23 @@ pain: {
     },
     nature: ['Fuego', 'Agua', 'Rayo'],
     abilities: [
-        'Shinra Tensei',
-        'Banshō Ten’in',
-        'Chibaku Tensei',
-        'Seis Caminos del Dolor'
-    ],
+                    { n: 'Shinra Tensei', t: ['Dōjutsu'] },
+                    { n: 'Banshō Ten’in', t: ['Dōjutsu'] },
+                    { n: 'Chibaku Tensei', t: ['Dōjutsu'] },
+                    { n: 'Seis Caminos del Dolor', t: ['Dōjutsu'] }
+                ],
+                configs: [
+                    { n: 'Seis Caminos', sub: 'Agua y fuego', slots: [
+                        { d: 'Agua', j: ['Suiton'] },
+                        { d: 'Fuego', j: ['Katon'] }
+                    ] },
+                    { n: 'Poder gravitatorio', sub: 'Técnicas de rayo', slots: [
+                        { d: 'Rayo', j: ['Raiton'] }
+                    ] },
+                    { n: 'Chibaku Tensei', sub: 'Invocación', slots: [
+                        { d: 'Invocación', j: ['Kuchiyose no Jutsu'] }
+                    ] }
+                ],
     kekkei: [
         { t: 'Rinnegan', href: 'dojutsus.html#rinnegan' }
     ],
@@ -304,7 +391,27 @@ pain: {
                 sub: 'El Rayo Amarillo de Konoha · Cuarto Hokage',
                 points: { nin: 60, tai: 25, gen: 0, chk: 45, vit: 25, def: 15, agi: 70, med: 0 },
                 nature: ['Viento', 'Rayo', 'Fuego'],
-                abilities: ['Hiraishin no Jutsu (Dios del Trueno Volador)', 'Rasengan', 'Shiki Fūjin (Sello del Demonio)', 'Modo Sabio (Sennin Mōdo)'],
+                abilities: [
+                    { n: 'Hiraishin no Jutsu (Dios del Trueno Volador)', t: ['Ninjutsu'] },
+                    { n: 'Rasengan', t: ['Ninjutsu'] },
+                    { n: 'Shiki Fūjin (Sello del Demonio)', t: ['Fūinjutsu'] },
+                    { n: 'Modo Sabio (Sennin Mōdo)', t: ['Senjutsu'] }
+                ],
+                configs: [
+                    { n: 'Cuarto Hokage', sub: 'Rasengan e Hiraishin', slots: [
+                        { d: 'Ninjutsu', j: ['Rasengan', 'Hiraishin no Jutsu (Dios del Trueno Volador)'] },
+                        { d: 'Viento', j: ['Fūton'] },
+                        { d: 'Rayo', j: ['Raiton'] }
+                    ] },
+                    { n: 'Minato Sellos', sub: 'Hiraishin y sellos', slots: [
+                        { d: 'Ninjutsu', j: ['Rasengan', 'Hiraishin no Jutsu (Dios del Trueno Volador)'] },
+                        { d: 'Fūinjutsu', j: ['Shiki Fūjin (Sello del Demonio)'] }
+                    ] },
+                    { n: 'Minato Hiraishin', sub: 'Hiraishin y Shiki Fūjin', slots: [
+                        { d: 'Ninjutsu', j: ['Hiraishin no Jutsu (Dios del Trueno Volador)'] },
+                        { d: 'Fūinjutsu', j: ['Shiki Fūjin (Sello del Demonio)'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Namikaze', href: '' }
             },
@@ -313,7 +420,29 @@ pain: {
                 sub: 'El ninja que copia mil técnicas',
                 points: { nin: 70, tai: 40, gen: 15, chk: 35, vit: 20, def: 15, agi: 45, med: 0 },
                 nature: ['Rayo', 'Tierra', 'Agua', 'Fuego', 'Viento'],
-                abilities: ['Raikiri / Chidori', 'Kamui', 'Copia de jutsus con el Sharingan', 'Ninken no Jutsu (invocación)'],
+                abilities: [
+                    { n: 'Raikiri', t: ['Rayo'] },
+                    { n: 'Chidori', t: ['Rayo'] },
+                    { n: 'Kamui', t: ['Dōjutsu'] },
+                    { n: 'Copia de jutsus con el Sharingan', t: ['Dōjutsu'] },
+                    { n: 'Ninken no Jutsu (invocación)', t: ['Invocación'] }
+                ],
+                configs: [
+                    { n: 'Kakashi Jōnin', sub: 'Rayo y perros ninja', slots: [
+                        { d: 'Rayo', j: ['Chidori', 'Raikiri'] },
+                        { d: 'Tierra', j: ['Doton: Tsuiga no Jutsu'] },
+                        { d: 'Invocación', j: ['Ninken no Jutsu (invocación)'] }
+                    ] },
+                    { n: 'Kakashi Sharingan', sub: 'Fuego, agua y rayo', slots: [
+                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] },
+                        { d: 'Agua', j: ['Suiton: Suiryūdan no Jutsu'] },
+                        { d: 'Rayo', j: ['Raikiri'] }
+                    ] },
+                    { n: 'Kakashi Raikiri', sub: 'Rayo y perros ninja', slots: [
+                        { d: 'Rayo', j: ['Raikiri'] },
+                        { d: 'Invocación', j: ['Ninken no Jutsu (invocación)'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Sharingan (trasplantado)', href: 'dojutsus.html#sharingan' }, { t: 'Mangekyō Sharingan', href: 'dojutsus.html#mangekyo' }],
                 clan: { t: 'Hatake', href: 'clanes.html#hatake' }
             },
@@ -322,7 +451,25 @@ pain: {
                 sub: 'Maestro del genjutsu',
                 points: { nin: 50, tai: 10, gen: 100, chk: 40, vit: 10, def: 5, agi: 25, med: 0 },
                 nature: ['Fuego', 'Yin'],
-                abilities: ['Tsukuyomi', 'Amaterasu', 'Susanoo (Espada de Totsuka y Espejo de Yata)', 'Katon: Gōkakyū no Jutsu'],
+                abilities: [
+                    { n: 'Tsukuyomi', t: ['Genjutsu'] },
+                    { n: 'Amaterasu', t: ['Dōjutsu'] },
+                    { n: 'Susanoo (Espada de Totsuka y Espejo de Yata)', t: ['Dōjutsu'] },
+                    { n: 'Katon: Gōkakyū no Jutsu', t: ['Fuego'] }
+                ],
+                configs: [
+                    { n: 'Itachi ANBU', sub: 'Fuego y clones de cuervo', slots: [
+                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] },
+                        { d: 'Ninjutsu', j: ['Karasu Bunshin no Jutsu'] }
+                    ] },
+                    { n: 'Itachi Mangekyō', sub: 'Genjutsu supremo', slots: [
+                        { d: 'Genjutsu', j: ['Tsukuyomi'] },
+                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] }
+                    ] },
+                    { n: 'Itachi Tsukuyomi', sub: 'Genjutsu', slots: [
+                        { d: 'Genjutsu', j: ['Tsukuyomi'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Sharingan', href: 'dojutsus.html#sharingan' }, { t: 'Mangekyō Sharingan', href: 'dojutsus.html#mangekyo' }],
                 clan: { t: 'Uchiha', href: 'clanes.html#uchiha' }
             },
@@ -331,7 +478,27 @@ pain: {
                 sub: 'El vengador del clan Uchiha',
                 points: { nin: 74, tai: 35, gen: 21, chk: 35, vit: 15, def: 10, agi: 50, med: 0 },
                 nature: ['Fuego', 'Rayo', 'Yin', 'Yang'],
-                abilities: ['Chidori / Kirin', 'Amaterasu', 'Susanoo', 'Katon: Gōkakyū no Jutsu'],
+                abilities: [
+                    { n: 'Chidori', t: ['Rayo'] },
+                    { n: 'Kirin', t: ['Rayo'] },
+                    { n: 'Amaterasu', t: ['Dōjutsu'] },
+                    { n: 'Susanoo', t: ['Dōjutsu'] },
+                    { n: 'Katon: Gōkakyū no Jutsu', t: ['Fuego'] }
+                ],
+                configs: [
+                    { n: 'Sasuke Genin', sub: 'Chidori y fuego', slots: [
+                        { d: 'Rayo', j: ['Chidori'] },
+                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] }
+                    ] },
+                    { n: 'Sasuke Mangekyō', sub: 'Kirin y fuego', slots: [
+                        { d: 'Rayo', j: ['Kirin', 'Chidori'] },
+                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] }
+                    ] },
+                    { n: 'Sasuke Rinnegan', sub: 'Rayo y fuego', slots: [
+                        { d: 'Rayo', j: ['Kirin', 'Chidori Nagashi'] },
+                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Sharingan', href: 'dojutsus.html#sharingan' }, { t: 'Mangekyō Sharingan Eterno', href: 'dojutsus.html#eternal' }, { t: 'Rinnegan', href: 'dojutsus.html#rinnegan' }],
                 clan: { t: 'Uchiha', href: 'clanes.html#uchiha' }
             },
@@ -340,7 +507,23 @@ pain: {
                 sub: 'Maestro del taijutsu · Bestia Verde de Konoha',
                 points: { nin: 0, tai: 120, gen: 0, chk: 0, vit: 50, def: 30, agi: 40, med: 0 },
                 nature: ['Fuego', 'Rayo'],
-                abilities: ['Puño Borracho', 'Hachimon Tonkō (Ocho Puertas)', 'Asa Kujaku', 'Hirudora'],
+                abilities: [
+                    { n: 'Puño Borracho', t: ['Taijutsu'] },
+                    { n: 'Hachimon Tonkō (Ocho Puertas)', t: ['Taijutsu'] },
+                    { n: 'Asa Kujaku', t: ['Taijutsu'] },
+                    { n: 'Hirudora', t: ['Taijutsu'] }
+                ],
+                configs: [
+                    { n: 'Guy Jōnin', sub: 'Taijutsu puro', slots: [
+                        { d: 'Taijutsu', j: ['Puño Borracho', 'Asa Kujaku'] }
+                    ] },
+                    { n: 'Guy Puertas', sub: 'Ocho Puertas', slots: [
+                        { d: 'Taijutsu', j: ['Hachimon Tonkō (Ocho Puertas)', 'Hirudora', 'Asa Kujaku'] }
+                    ] },
+                    { n: 'Guy Octava Puerta', sub: 'Máximo poder', slots: [
+                        { d: 'Taijutsu', j: ['Hachimon Tonkō (Ocho Puertas)', 'Yagai', 'Hirudora'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Sin clan', href: '' }
             },
@@ -349,7 +532,27 @@ pain: {
                 sub: 'La Ninja Médica · Discípula de la Quinta Hokage',
                 points: { nin: 20, tai: 55, gen: 0, chk: 45, vit: 30, def: 15, agi: 20, med: 55 },
                 nature: ['Tierra', 'Agua', 'Fuego'],
-                abilities: ['Ōkashō (Impacto de la Flor de Cerezo)', 'Ninjutsu Médico', 'Shōsen Jutsu (Palma Mística)', 'Byakugō no Jutsu (Sello de la Fuerza de un Centenar)'],
+                abilities: [
+                    { n: 'Ōkashō (Impacto de la Flor de Cerezo)', t: ['Taijutsu'] },
+                    { n: 'Ninjutsu Médico', t: ['Medicina ninja'] },
+                    { n: 'Shōsen Jutsu (Palma Mística)', t: ['Medicina ninja'] },
+                    { n: 'Byakugō no Jutsu (Sello de la Fuerza de un Centenar)', t: ['Medicina ninja'] }
+                ],
+                configs: [
+                    { n: 'Sakura Médica', sub: 'Palma Mística', slots: [
+                        { d: 'Medicina ninja', j: ['Ninjutsu Médico', 'Shōsen Jutsu (Palma Mística)'] },
+                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
+                    ] },
+                    { n: 'Sakura Byakugō', sub: 'Sello de la Fuerza', slots: [
+                        { d: 'Medicina ninja', j: ['Byakugō no Jutsu (Sello de la Fuerza de un Centenar)', 'Ninjutsu Médico'] },
+                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
+                    ] },
+                    { n: 'Sakura Katsuyu', sub: 'Invocación y apoyo', slots: [
+                        { d: 'Invocación', j: ['Katsuyu (Babosa)'] },
+                        { d: 'Medicina ninja', j: ['Byakugō no Jutsu (Sello de la Fuerza de un Centenar)'] },
+                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Haruno', href: '' }
             },
@@ -358,7 +561,27 @@ pain: {
                 sub: 'La Legendaria Sannin · Quinta Hokage',
                 points: { nin: 25, tai: 55, gen: 0, chk: 45, vit: 40, def: 20, agi: 15, med: 40 },
                 nature: ['Rayo', 'Tierra', 'Agua', 'Fuego'],
-                abilities: ['Ōkashō (Impacto de la Flor de Cerezo)', 'Sōzō Saisei (Regeneración Mitótica)', 'Byakugō no Jutsu (Sello de la Fuerza de un Centenar)', 'Ninjutsu Médico'],
+                abilities: [
+                    { n: 'Ōkashō (Impacto de la Flor de Cerezo)', t: ['Taijutsu'] },
+                    { n: 'Sōzō Saisei (Regeneración Mitótica)', t: ['Medicina ninja'] },
+                    { n: 'Byakugō no Jutsu (Sello de la Fuerza de un Centenar)', t: ['Medicina ninja'] },
+                    { n: 'Ninjutsu Médico', t: ['Medicina ninja'] }
+                ],
+                configs: [
+                    { n: 'Tsunade Médica', sub: 'Fuerza y medicina', slots: [
+                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] },
+                        { d: 'Medicina ninja', j: ['Ninjutsu Médico'] }
+                    ] },
+                    { n: 'Tsunade Byakugō', sub: 'Regeneración', slots: [
+                        { d: 'Medicina ninja', j: ['Sōzō Saisei (Regeneración Mitótica)', 'Byakugō no Jutsu (Sello de la Fuerza de un Centenar)'] },
+                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
+                    ] },
+                    { n: 'Tsunade Hokage', sub: 'Katsuyu y sanación', slots: [
+                        { d: 'Invocación', j: ['Katsuyu (Babosa)'] },
+                        { d: 'Medicina ninja', j: ['Sōzō Saisei (Regeneración Mitótica)', 'Ninjutsu Médico'] },
+                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Senju', href: '' }
             },
@@ -367,7 +590,28 @@ pain: {
                 sub: 'Sannin legendario · Sabio de los Sapos',
                 points: { nin: 75, tai: 35, gen: 10, chk: 50, vit: 30, def: 15, agi: 25, med: 0 },
                 nature: ['Fuego', 'Tierra', 'Agua', 'Viento'],
-                abilities: ['Rasengan', 'Katon: Gamayu Endan', 'Kuchiyose no Jutsu (Invocación de Sapos)', 'Sennin Mōdo (Modo Sabio)'],
+                abilities: [
+                    { n: 'Rasengan', t: ['Ninjutsu'] },
+                    { n: 'Katon: Gamayu Endan', t: ['Fuego'] },
+                    { n: 'Kuchiyose no Jutsu (Invocación de Sapos)', t: ['Invocación'] },
+                    { n: 'Sennin Mōdo (Modo Sabio)', t: ['Senjutsu'] }
+                ],
+                configs: [
+                    { n: 'Jiraiya Sannin', sub: 'Rasengan y fuego', slots: [
+                        { d: 'Ninjutsu', j: ['Rasengan'] },
+                        { d: 'Fuego', j: ['Katon: Gamayu Endan'] },
+                        { d: 'Invocación', j: ['Kuchiyose no Jutsu (Invocación de Sapos)'] }
+                    ] },
+                    { n: 'Jiraiya Sabio', sub: 'Sapos y Rasengan', slots: [
+                        { d: 'Invocación', j: ['Kuchiyose no Jutsu (Invocación de Sapos)'] },
+                        { d: 'Ninjutsu', j: ['Rasengan'] }
+                    ] },
+                    { n: 'Jiraiya Ermitaño', sub: 'Fuego, tierra y Rasengan', slots: [
+                        { d: 'Fuego', j: ['Katon: Gamayu Endan'] },
+                        { d: 'Tierra', j: ['Doton: Yomi Numa'] },
+                        { d: 'Ninjutsu', j: ['Rasengan'] }
+                    ] }
+                ],
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Sin clan', href: '' }
             }
@@ -388,6 +632,36 @@ pain: {
             'Fuego': '#ff6b4a', 'Rayo': '#ffd23f', 'Viento': '#7fe0a8', 'Agua': '#4aa8ff',
             'Tierra': '#c49a6c', 'Yin': '#b58cff', 'Yang': '#ffa8d4', 'Libre': '#9fb0c0'
         };
+
+        // Tipo de cada jutsu: elementos (arriba) + disciplinas del Arsenal. Solo etiquetas, sin enlaces.
+        const TYPE_META = {
+            'Ninjutsu':       { icon: 'fa-hand-sparkles',  color: '#2aa6c7' },
+            'Taijutsu':       { icon: 'fa-hand-fist',      color: '#e0643c' },
+            'Genjutsu':       { icon: 'fa-eye',            color: '#a35fe0' },
+            'Dōjutsu':        { icon: 'fa-eye',            color: '#ff5d73' },
+            'Fūinjutsu':      { icon: 'fa-stamp',          color: '#c9b6ff' },
+            'Invocación':     { icon: 'fa-paw',            color: '#e8a24a' },
+            'Senjutsu':       { icon: 'fa-leaf',           color: '#8fd16a' },
+            'Jinchūriki':     { icon: 'fa-hurricane',      color: '#ff9f43' },
+            'Medicina ninja': { icon: 'fa-kit-medical',    color: '#3fd0bd' }
+        };
+        // Kanji del árbol de naturalezas para el icono hexagonal de cada slot
+        const KANJI = {
+            'Fuego': '火', 'Viento': '風', 'Rayo': '雷', 'Tierra': '土', 'Agua': '水', 'Yin': '陰', 'Yang': '陽',
+            'Madera': '木', 'Ninjutsu': '忍', 'Taijutsu': '体', 'Genjutsu': '幻', 'Dōjutsu': '眼', 'Fūinjutsu': '封',
+            'Invocación': '召', 'Senjutsu': '仙', 'Jinchūriki': '尾', 'Medicina ninja': '医'
+        };
+        function hexIcon(d) {
+            const m = typeMeta(d), k = KANJI[d] || '?';
+            return '<svg class="st-hex" viewBox="0 0 48 52" aria-hidden="true" style="--hc:' + m.color + '">' +
+                '<polygon class="st-hex-bg" points="24,2 44,13.5 44,38.5 24,50 4,38.5 4,13.5"/>' +
+                '<polygon class="st-hex-in" points="24,8 38.8,16.5 38.8,35.5 24,44 9.2,35.5 9.2,16.5"/>' +
+                '<text x="24" y="31" text-anchor="middle" class="st-hex-k">' + k + '</text></svg>';
+        }
+        function typeMeta(t) {
+            if (TYPE_META[t]) return TYPE_META[t];
+            return { icon: NATURE_ICONS[t] || 'fa-circle', color: NATURE_COLORS[t] || '#9fb0c0' };
+        }
 
         // ==========================================
         // ESTADO
@@ -685,12 +959,27 @@ pain: {
             }
             const kekkeiHtml = p.kekkei.map(function (k) { return tag(k, 'fa-eye'); }).join('');
             const clanHtml = tag(p.clan, 'fa-users');
-            const abil = p.abilities.map(function (a) { return '<li><i class="fa-solid fa-angle-right"></i><span>' + a + '</span></li>'; }).join('');
+            const abil = p.abilities.map(function (a) {
+                const name = typeof a === 'string' ? a : a.n;
+                const types = (typeof a === 'string' ? [] : (a.t || [])).map(function (t) {
+                    const m = typeMeta(t);
+                    return '<span class="st-mini" style="--nc:' + m.color + '"><i class="fa-solid ' + m.icon + '"></i>' + t + '</span>';
+                }).join('');
+                return '<li><i class="fa-solid fa-angle-right"></i><span class="st-ab-name">' + name + '</span>' +
+                    (types ? '<span class="st-ab-tags">' + types + '</span>' : '') + '</li>';
+            }).join('');
+            const cfgs = p.configs || [];
+                        const romanHtml = cfgs.length
+                ? '<div class="st-roman" role="group" aria-label="Preparación Shinobi">' +
+                  cfgs.map(function (c, i) {
+                      return '<button type="button" class="st-rbtn" aria-haspopup="dialog" title="Preparación Shinobi · Config. ' + ROMAN[i] + '">' + ROMAN[i] + '</button>';
+                  }).join('') + '</div>'
+                : '';
             document.getElementById('stInfo').innerHTML =
                 '<div class="st-info-head">' +
                     '<div class="st-info-avatar"><i class="fa-solid ' + p.icon + '"></i></div>' +
                     '<div><h3>' + p.name + '</h3><p>' + p.sub + '</p></div>' +
-                    '<span class="st-info-note" id="stInfoNote"><i class="fa-solid fa-pen"></i>Build modificada</span>' +
+                    '<div class="st-info-right"><span class="st-info-note" id="stInfoNote"><i class="fa-solid fa-pen"></i>Build modificada</span>' + romanHtml + '</div>' +
                 '</div>' +
                 '<dl class="st-info-grid">' +
                     '<div><dt><i class="fa-solid fa-fire-flame-curved"></i>Naturaleza</dt><dd>' + chips + '</dd></div>' +
@@ -698,6 +987,140 @@ pain: {
                     '<div><dt><i class="fa-solid fa-dna"></i>Kekkei Genkai</dt><dd>' + kekkeiHtml + '</dd></div>' +
                     '<div><dt><i class="fa-solid fa-people-group"></i>Clan</dt><dd>' + clanHtml + '</dd></div>' +
                 '</dl>';
+            bindCfg(p);
+        }
+
+        // ==========================================
+        // PREPARACIÓN SHINOBI (ventana centrada, estilo del juego)
+        // ==========================================
+        // Enlace a una técnica concreta (si no está aquí, va a la página de su elemento).
+        // Ninjutsu y demás disciplinas no tienen página: añade aquí el href cuando exista,
+        // por ejemplo 'Rasengan': 'ninjutsu.html#rasengan'
+        const JUTSU_LINKS = { 'Rasenshuriken': 'futon.html#rasenshuriken' };
+        const ROMAN = ['I', 'II', 'III'];
+        let gm = null;
+
+        // El Arsenal muestra solo las disciplinas que usa la config abierta
+        function gmArsenal(c) {
+            const out = [];
+            c.slots.forEach(function (s) { if (out.indexOf(s.d) === -1) out.push(s.d); });
+            return out;
+        }
+        function gmUnlocked(c) { return Math.max(3, c.slots.length); }
+        function gmHref(d, j) { return JUTSU_LINKS[j] || NATURE_LINKS[d] || ''; }
+
+        function gmBuild() {
+            const root = document.createElement('div');
+            root.className = 'gm-root';
+            root.innerHTML =
+                '<div class="gm-overlay"></div>' +
+                '<aside class="gm-drawer" role="dialog" aria-modal="true" aria-label="Preparación Shinobi">' +
+                    '<div class="gm-head">' +
+                        '<div class="gm-title"><span class="gm-logo"><i class="fa-solid fa-diamond"></i></span>' +
+                            '<div><strong>PREPARACIÓN SHINOBI</strong><small>Prepara solo lo que necesitas antes del combate</small></div></div>' +
+                        '<div class="gm-tabs"></div>' +
+                        '<button type="button" class="gm-close" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>' +
+                    '</div>' +
+                    '<div class="gm-who"></div>' +
+                    '<div class="gm-slots"></div>' +
+                    '<div class="gm-main">' +
+                        '<section class="gm-panel gm-arsenal"><div class="gm-ph"><span><i class="fa-solid fa-diamond"></i> ARSENAL DE JUTSUS</span><b class="gm-count"></b></div>' +
+                            '<input type="search" class="gm-search" placeholder="Buscar en arsenal..." aria-label="Buscar en arsenal">' +
+                            '<div class="gm-list"></div>' +
+                            '<div class="gm-foot gm-foot-l"></div></section>' +
+                        '<section class="gm-panel gm-detail"></section>' +
+                    '</div>' +
+                '</aside>';
+            document.body.appendChild(root);
+            gm = { root: root, p: null, ci: 0, si: 0, q: '' };
+
+            root.querySelector('.gm-overlay').addEventListener('click', gmClose);
+            root.querySelector('.gm-close').addEventListener('click', gmClose);
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root.classList.contains('open')) gmClose(); });
+            root.querySelector('.gm-search').addEventListener('input', function (e) { gm.q = e.target.value; gmList(); });
+            root.addEventListener('click', function (e) {
+                const t = e.target.closest('[data-tab],[data-slot],[data-disc]');
+                if (!t) return;
+                if (t.dataset.tab !== undefined) { gm.ci = +t.dataset.tab; gm.si = 0; gmRender(); }
+                else if (t.dataset.slot !== undefined) { gm.si = +t.dataset.slot; gmRender(); }
+                else {
+                    const idx = gm.p.configs[gm.ci].slots.findIndex(function (s) { return s.d === t.dataset.disc; });
+                    if (idx !== -1) { gm.si = idx; gmRender(); }
+                }
+            });
+        }
+        function gmOpen(p, ci) {
+            if (!gm) gmBuild();
+            gm.p = p; gm.ci = ci; gm.si = 0; gm.q = '';
+            gm.root.querySelector('.gm-search').value = '';
+            gmRender();
+            gm.root.classList.add('open');
+            document.body.classList.add('gm-lock');
+            gm.root.querySelector('.gm-close').focus();
+        }
+        function gmClose() {
+            gm.root.classList.remove('open');
+            document.body.classList.remove('gm-lock');
+        }
+        function gmRender() {
+            const p = gm.p, c = p.configs[gm.ci], open = gmUnlocked(c);
+            gm.root.querySelector('.gm-who').innerHTML = '<i class="fa-solid ' + p.icon + '"></i><strong>' + p.name + '</strong><span>' + c.n + ' · ' + c.sub + '</span>';
+            gm.root.querySelector('.gm-tabs').innerHTML = p.configs.map(function (x, i) {
+                return '<button type="button" class="gm-tab' + (i === gm.ci ? ' on' : '') + '" data-tab="' + i + '">CONFIG. ' + ROMAN[i] + '</button>';
+            }).join('');
+            let h = '';
+            for (let i = 0; i < 6; i++) {
+                const s = c.slots[i], on = i === gm.si ? ' sel' : '';
+                if (i >= open) h += '<div class="gm-slot locked"><span class="gm-n">' + (i + 1) + '</span><em>BLOQ.</em></div>';
+                else if (s) h += '<button type="button" class="gm-slot' + on + '" data-slot="' + i + '"><span class="gm-n">' + (i + 1) + '</span>' + hexIcon(s.d) + '<em>' + s.d + '</em></button>';
+                else h += '<button type="button" class="gm-slot empty' + on + '" data-slot="' + i + '"><span class="gm-n">' + (i + 1) + '</span><b>+</b></button>';
+            }
+            gm.root.querySelector('.gm-slots').innerHTML = h;
+            gmList();
+            gmDetail();
+        }
+        function gmList() {
+            const c = gm.p.configs[gm.ci], q = gm.q.trim().toLowerCase(), arsenal = gmArsenal(c);
+            let h = '';
+            arsenal.forEach(function (d) {
+                const idx = c.slots.findIndex(function (s) { return s.d === d; });
+                const hay = (d + ' ' + c.slots[idx].j.join(' ')).toLowerCase();
+                if (q && hay.indexOf(q) === -1) return;
+                h += '<button type="button" class="gm-row' + (idx === gm.si ? ' on' : '') + (idx === -1 ? ' un' : '') + '" data-disc="' + d + '">' + hexIcon(d) +
+                     '<span><strong>' + d + '</strong><small>' + (idx === -1 ? 'Arsenal' : 'POSICIÓN ' + (idx + 1)) + '</small></span>' +
+                     (idx === -1 ? '' : '<i class="gm-dots">····</i>') + '</button>';
+            });
+            gm.root.querySelector('.gm-count').textContent = arsenal.length;
+            gm.root.querySelector('.gm-list').innerHTML = h || '<p class="gm-none">Sin resultados.</p>';
+            gm.root.querySelector('.gm-foot-l').textContent = 'Posición ' + (gm.si + 1) + ' seleccionada';
+        }
+        function gmDetail() {
+            const c = gm.p.configs[gm.ci], s = c.slots[gm.si], box = gm.root.querySelector('.gm-detail');
+            if (!s) {
+                box.innerHTML = '<div class="gm-ph gm-ph-pos"><span>POSICIÓN ' + (gm.si + 1) + '</span></div><small class="gm-un">SIN ASIGNAR</small>' +
+                    '<div class="gm-empty"><i></i><p>Esta posición está libre en esta configuración.</p></div>';
+                return;
+            }
+            const dl = NATURE_LINKS[s.d];
+            const name = dl ? '<a class="gm-dl" href="' + dl + '">' + s.d + ' <i class="fa-solid fa-arrow-up-right-from-square"></i></a>' : s.d;
+            let cards = '';
+            for (let i = 0; i < 4; i++) {
+                const L = 'ABCD'.charAt(i), j = s.j[i];
+                if (!j) { cards += '<div class="gm-j free"><span class="gm-l">' + L + '</span><strong>—</strong><small>LIBRE</small></div>'; continue; }
+                const href = gmHref(s.d, j);
+                cards += href
+                    ? '<a class="gm-j link" href="' + href + '"><span class="gm-l">' + L + '</span><strong>' + j + '</strong><small>VER TÉCNICA <i class="fa-solid fa-arrow-up-right-from-square"></i></small></a>'
+                    : '<div class="gm-j"><span class="gm-l">' + L + '</span><strong>' + j + '</strong><small>PREPARADO</small></div>';
+            }
+            box.innerHTML = '<div class="gm-ph gm-ph-pos"><span>POSICIÓN ' + (gm.si + 1) + '</span></div>' +
+                '<div class="gm-dhead">' + hexIcon(s.d) + '<span>' + name + '</span><b>' + s.j.length + '/4 PREPARADOS</b></div>' +
+                '<div class="gm-jgrid">' + cards + '</div>' +
+                '<div class="gm-foot">Pulsa una técnica con enlace para ver su página.</div>';
+        }
+        function bindCfg(p) {
+            document.querySelectorAll('#stInfo .st-rbtn').forEach(function (b, i) {
+                b.addEventListener('click', function () { gmOpen(p, i); });
+            });
         }
 
         function applyPreset(key) {
