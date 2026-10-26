@@ -10,93 +10,200 @@
 
 <style>
 :root{
---g-bg:#100d09;--g-panel:#211a12;--g-gold:#d6a84f;
---g-gold2:#f0cf78;--g-text:#eee2c9;--g-muted:#b9a98c;
---g-line:#60451f;--g-blue:#48c9e5;
+  --g-bg:#0a0806;
+  --g-panel:rgba(25, 19, 13, 0.65);
+  --g-glass:rgba(30, 22, 14, 0.55);
+  --g-glass-border:rgba(214, 168, 79, 0.25);
+  --g-gold:#d6a84f;
+  --g-gold2:#f0cf78;
+  --g-text:#eee2c9;
+  --g-muted:#b9a98c;
+  --g-line:rgba(96, 69, 31, 0.5);
+  --g-blue:#48c9e5;
 }
+
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:85px}
-body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helvetica,sans-serif}
+body{
+  margin:0;
+  background: radial-gradient(circle at top, #1c150e 0%, #080604 100%);
+  background-attachment: fixed;
+  color:var(--g-text);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .guia-wrap{max-width:1450px;margin:auto;padding:28px 22px 70px}
-.guia-hero{min-height:370px;display:flex;align-items:center;position:relative;overflow:hidden;border:1px solid var(--g-gold);background:linear-gradient(90deg,rgba(13,10,7,.97),rgba(20,15,10,.83)),url('img/fondo-naruto.jpg') center/cover;border-radius:3px;padding:clamp(28px,6vw,75px);box-shadow:inset 0 0 0 4px #17120d,inset 0 0 0 5px #5c421e}
-.guia-hero:after{content:"木";position:absolute;right:7%;font-size:clamp(150px,24vw,330px);color:rgba(214,168,79,.08);pointer-events:none}
+
+/* GLASSMORPHISM GLOBAL */
+.guia-hero, .guia-section, .info-card, .step-card, .keyboard, .key-detail, .tab-content, .stat-panel, .point-summary, .point-card, .minigame-container {
+  background: var(--g-glass) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--g-glass-border) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border-radius: 12px;
+}
+
+.guia-hero{
+  min-height:370px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(90deg,rgba(13,10,7,0.85),rgba(20,15,10,0.6)),url('img/fondo-naruto.jpg') center/cover !important;
+  padding:clamp(28px,6vw,75px);
+}
+.guia-hero:after{content:"木";position:absolute;right:7%;font-size:clamp(150px,24vw,330px);color:rgba(214,168,79,.05);pointer-events:none}
 .hero-copy{max-width:720px;position:relative;z-index:1}
 .eyebrow{color:var(--g-gold2);letter-spacing:3px;font-size:12px;font-weight:bold}
-.guia-hero h1{font-size:clamp(36px,6vw,68px);line-height:1.05;margin:18px 0;color:#f8e5b0}
+.guia-hero h1{font-size:clamp(36px,6vw,68px);line-height:1.05;margin:18px 0;color:#f8e5b0;text-shadow: 0 2px 10px rgba(0,0,0,0.7)}
 .guia-hero h1 span{color:var(--g-gold)}
 .guia-hero p{max-width:620px;color:#d2c4a9;line-height:1.8}
-.guia-btn,.tab-btn,.point-btn,.key{cursor:pointer;font:inherit}
-.guia-btn{display:inline-flex;gap:10px;align-items:center;margin-top:12px;padding:13px 19px;border:1px solid var(--g-gold);background:#b88a36;color:#161008;text-decoration:none;font-weight:bold}
-.guia-nav{display:flex;gap:8px;flex-wrap:wrap;padding:16px 0 25px}
-.guia-nav a{color:#d8c5a1;text-decoration:none;padding:10px 13px;border:1px solid #4b361c;background:#17120d;font-size:13px}
-.guia-nav a:hover{border-color:var(--g-gold);color:#ffe4a0}
-.guia-section{margin:28px 0;padding:clamp(18px,3vw,30px);border:1px solid var(--g-line);background:linear-gradient(135deg,rgba(38,29,19,.97),rgba(20,16,12,.98));box-shadow:inset 0 0 0 3px rgba(214,168,79,.035)}
-.section-head{display:flex;gap:14px;align-items:center;margin-bottom:22px}
-.section-icon{width:45px;height:45px;display:grid;place-items:center;flex:none;border:1px solid var(--g-gold);color:var(--g-gold2);font-size:19px;background:#19130c}
-.section-head small{color:var(--g-gold);letter-spacing:2px;font-size:10px}
-.section-head h2{margin:5px 0;font-size:clamp(23px,3vw,32px);color:#f4dfad}
-.section-head p{margin:5px 0;color:var(--g-muted);font-size:14px}
-.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.info-card{padding:18px;border:1px solid #4a371f;background:rgba(10,9,7,.52)}
-.info-card h3{margin:8px 0;color:#f0d38d;font-size:17px}
+.guia-btn,.tab-btn,.point-btn,.key{cursor:pointer;font:inherit;transition: all 0.3s ease;}
+
+.guia-btn{
+  display:inline-flex;gap:10px;align-items:center;margin-top:12px;padding:13px 22px;
+  border:1px solid var(--g-gold);background:rgba(184, 138, 54, 0.85);
+  color:#161008;text-decoration:none;font-weight:bold;border-radius:8px;
+  backdrop-filter: blur(4px);
+}
+.guia-btn:hover{background:var(--g-gold2);transform:translateY(-2px);box-shadow: 0 4px 15px rgba(214,168,79,0.4)}
+
+.guia-nav{display:flex;gap:10px;flex-wrap:wrap;padding:20px 0 25px}
+.guia-nav a{
+  color:#d8c5a1;text-decoration:none;padding:10px 16px;
+  border:1px solid var(--g-glass-border);background:var(--g-glass);
+  backdrop-filter: blur(8px); border-radius:8px;font-size:13px;font-weight:600;
+}
+.guia-nav a:hover{border-color:var(--g-gold);color:#ffe4a0;background:rgba(214,168,79,0.15)}
+
+.guia-section{margin:32px 0;padding:clamp(20px,3vw,35px)}
+.section-head{display:flex;gap:16px;align-items:center;margin-bottom:24px}
+.section-icon{
+  width:50px;height:50px;display:grid;place-items:center;flex:none;
+  border:1px solid var(--g-gold);color:var(--g-gold2);font-size:20px;
+  background:rgba(25, 19, 12, 0.7);border-radius:10px;
+}
+.section-head small{color:var(--g-gold);letter-spacing:2px;font-size:11px;font-weight:bold}
+.section-head h2{margin:4px 0;font-size:clamp(23px,3vw,32px);color:#f4dfad}
+.section-head p{margin:4px 0;color:var(--g-muted);font-size:14px}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+
+.info-card{padding:22px}
+.info-card h3{margin:8px 0;color:#f0d38d;font-size:18px}
 .info-card p,.step-card p{color:#c7b99f;font-size:14px;line-height:1.7;margin:8px 0}
-.info-card i{color:var(--g-gold);font-size:20px}
-.image-slot{min-height:175px;display:grid;place-items:center;text-align:center;padding:18px;border:1px dashed #9a7538;background:repeating-linear-gradient(135deg,#1b150e,#1b150e 12px,#20190f 12px,#20190f 24px);color:#bca779}
-.image-slot i{font-size:28px;margin-bottom:10px;color:#d3ad5c}
-.image-slot span{display:block;font-size:12px;line-height:1.5}
-.image-slot img{max-width:100%;max-height:360px;object-fit:contain}
-.step-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.step-card{padding:18px;border:1px solid #4c381f;background:#18120c}
-.step-number{font-size:25px;color:var(--g-gold);font-weight:bold}
+.info-card i{color:var(--g-gold);font-size:22px}
+
+/* CUADROS DE IMÁGENES MEJORADOS Y ADAPTABLES */
+.image-slot {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(214, 168, 79, 0.3);
+  background: rgba(10, 8, 6, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+}
+.image-slot img, .zoomable-img {
+  width: 100%;
+  height: auto;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 6px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+}
+.image-slot img:hover, .zoomable-img:hover {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
+.step-list{display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:20px}
+.step-card{padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+.step-number{font-size:28px;color:var(--g-gold);font-weight:bold}
 .step-card h3{margin:8px 0;color:#f4dfad}
+
 .key-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(240px,.7fr);gap:20px;align-items:start}
-.keyboard{padding:18px;border:1px solid #61451e;background:#100d09}
+.keyboard{padding:22px}
 .key-row{display:flex;justify-content:center;gap:8px;margin:10px 0;flex-wrap:wrap}
-.key{min-width:55px;min-height:48px;padding:8px 13px;border:1px solid #65502d;border-bottom-width:4px;border-radius:4px;color:#e8d6b3;background:linear-gradient(#342719,#1b150e);font-size:13px;font-weight:bold;transition:transform .12s,background .12s,border-color .12s}
-.key:hover,.key.active{background:#c69a43;color:#171006;border-color:#ffe09a;transform:translateY(-3px)}
+.key{
+  min-width:55px;min-height:48px;padding:8px 13px;
+  border:1px solid rgba(214,168,79,0.3);border-bottom-width:4px;
+  border-radius:6px;color:#e8d6b3;
+  background:rgba(40, 30, 20, 0.7);
+  font-size:13px;font-weight:bold;
+}
+.key:hover,.key.active{
+  background:var(--g-gold);color:#171006;border-color:#ffe09a;
+  transform:translateY(-3px);box-shadow:0 4px 12px rgba(214,168,79,0.4);
+}
 .key.wide{min-width:120px}
 .key.arrow{min-width:100px}
-.key-detail{padding:22px;border:1px solid #4c381f;background:#18120c;min-height:180px}
+.key-detail{padding:24px;min-height:200px}
 .key-detail h3{color:#f4d68c;margin:8px 0}
 .key-detail p{line-height:1.7;color:#c7b99f}
 .key-detail .key-instruction{color:#a99774;font-size:12px;margin-top:18px}
-.card-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
-.tab-btn{padding:10px 13px;color:#cdbb98;background:#17120d;border:1px solid #59401f}
-.tab-btn.active{color:#181006;background:var(--g-gold2);border-color:#ffe3a0}
-.tab-content{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:center;padding:20px;border:1px solid #4b371e;background:#17120d}
+
+.card-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab-btn{
+  padding:10px 16px;color:#cdbb98;background:var(--g-glass);
+  border:1px solid var(--g-glass-border);border-radius:8px;
+}
+.tab-btn.active{color:#181006;background:var(--g-gold2);border-color:#ffe3a0;font-weight:bold}
+.tab-content{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center;padding:24px}
 .tab-content h3{color:#f2d58c}.tab-content p{color:#c7b99f;line-height:1.8}
-.stat-layout{display:grid;grid-template-columns:260px minmax(0,1fr) 280px;gap:15px}
-.stat-panel{padding:18px;border:1px solid #61451f;background:#1d160f}
+
+.stat-layout{display:grid;grid-template-columns:260px minmax(0,1fr) 280px;gap:18px}
+.stat-panel{padding:20px}
 .stat-panel h3{margin-top:0;color:#e9c875}
 .stat-line{display:flex;justify-content:space-between;gap:10px;margin:13px 0 6px;font-size:13px}
-.meter{height:8px;background:#0b0907;border:1px solid #48351e;overflow:hidden}
+.meter{height:8px;background:rgba(0,0,0,0.5);border:1px solid rgba(214,168,79,0.2);border-radius:4px;overflow:hidden}
 .meter span{display:block;height:100%;background:linear-gradient(90deg,#a5792e,#f0d17b);transition:width .2s}
+
 .player-preview{display:flex;gap:14px;align-items:center;margin-bottom:18px}
-.avatar-slot{width:76px;height:95px;display:grid;place-items:center;border:1px dashed #94733b;color:#bfa56c;background:#15100b;text-align:center;font-size:11px;flex-shrink:0}
+.avatar-slot{
+  width:76px;height:95px;display:grid;place-items:center;
+  border:1px dashed var(--g-gold);color:#bfa56c;
+  background:rgba(0,0,0,0.4);border-radius:8px;text-align:center;font-size:11px;flex-shrink:0
+}
 .avatar-slot img{max-width:100%;max-height:100%;object-fit:contain}
 .player-info{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-width:0}
 .player-info strong{color:#f1d48a}
-.rango-select{width:100%;max-width:190px;padding:9px;color:#f0d17d;background:#130f0a;border:1px solid #80602b;font-weight:bold}
+.rango-select{
+  width:100%;max-width:190px;padding:8px;color:#f0d17d;
+  background:rgba(0,0,0,0.5);border:1px solid var(--g-gold);
+  border-radius:6px;font-weight:bold;outline:none;
+}
 .rango-porcentaje{color:#f0d17d;font-size:12px}
 .nivel-texto{color:#b9a98c;font-size:12px}
 .rango-emblema{width:100%;max-width:190px;height:65px;object-fit:contain;margin-top:5px}
+
 .radar-wrap{min-height:300px;display:grid;place-items:center}
 #radarStats{width:100%;max-width:420px;height:auto}
 .stat-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.fact{padding:12px;background:#130f0a;border:1px solid #46331b}
+.fact{padding:12px;background:rgba(0,0,0,0.4);border:1px solid var(--g-glass-border);border-radius:8px}
 .fact small{display:block;color:#b9a98c}.fact strong{display:block;color:#f0d17d;font-size:20px;margin-top:5px}
+
 .points-intro{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
-.point-summary{flex:1;min-width:145px;padding:15px;border:1px solid #61451f;background:#17120d}
+.point-summary{flex:1;min-width:145px;padding:18px}
 .point-summary small{color:#b9a98c}.point-summary strong{display:block;font-size:27px;color:#f0d17d;margin-top:6px}
-.point-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.point-btn{border:1px solid #745527;background:#241a0e;color:#f2dba7;padding:9px 12px}
-.point-btn:hover{background:#4b3518}
+.point-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.point-btn{border:1px solid var(--g-gold);background:rgba(36,26,14,0.8);color:#f2dba7;padding:10px 16px;border-radius:6px}
+.point-btn:hover{background:var(--g-gold);color:#100d09}
 .point-btn:disabled{opacity:.3;cursor:not-allowed}
-.point-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.point-card{padding:15px;border:1px solid #514027;background:#17120d}
+
+.point-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.point-card{padding:18px}
 .point-card-top{display:flex;align-items:center;gap:10px}
-.point-symbol{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--accent);color:var(--accent);background:#0e0b08;flex-shrink:0}
+.point-symbol{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--accent);color:var(--accent);background:rgba(0,0,0,0.5);border-radius:6px;flex-shrink:0}
 .point-card h3{font-size:15px;margin:0;color:#f0dfba;flex:1}
 .point-value{color:#f1d17b;font-weight:bold}
 .point-card p{margin:9px 0;color:#b9a98c;font-size:12px}
@@ -104,29 +211,100 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
 .point-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
 .point-controls .point-btn{min-width:38px;font-size:17px;padding:6px 10px}
 .point-controls small{color:#c6b99f}
-.points-note{margin-top:16px;padding:14px;border-left:3px solid var(--g-gold);background:#17120d;color:#c7b99f;line-height:1.7;font-size:13px}
+.points-note{margin-top:18px;padding:16px;border-left:4px solid var(--g-gold);background:rgba(0,0,0,0.4);border-radius:0 8px 8px 0;color:#c7b99f;line-height:1.7;font-size:13px}
+
 .guia-footer{text-align:center;padding:30px 10px;color:#9f8d6b;font-size:13px}
 .guia-footer strong{display:block;color:var(--g-gold2);letter-spacing:3px;margin-bottom:8px}
 
-/* ESTILOS ESTÉTICOS PARA INTEGRAR EL BUSCADOR EN LA TOPBAR */
-.topbar { display: flex; align-items: center; gap: 15px; padding: 10px 20px; background: var(--g-panel); border-bottom: 1px solid var(--g-line); position: sticky; top: 0; z-index: 1000; }
+/* MINIJUEGO DE SELLOS CON GLASSMORPHISM */
+.minigame-container { padding: 26px; text-align: center; max-width: 650px; margin: 0 auto; }
+.minigame-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--g-glass-border); padding-bottom: 10px; color: var(--g-gold2); font-weight: bold; }
+.minigame-lives { color: #ff5555; }
+.minigame-timer-bar { width: 100%; height: 8px; background: rgba(0,0,0,0.5); border: 1px solid var(--g-gold); border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+.minigame-timer-fill { width: 100%; height: 100%; background: var(--g-gold); transition: width 0.1s linear; }
+.sequence-display { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+.seal-box { width: 65px; height: 75px; background: rgba(0,0,0,0.4); border: 1px solid var(--g-glass-border); display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 6px; color: #fff; font-size: 11px; }
+.seal-box.active { border-color: var(--g-gold2); background: rgba(214,168,79,0.2); box-shadow: 0 0 12px rgba(214,168,79,0.5); }
+.seal-box.completed { opacity: 0.3; border-color: #333; }
+.seal-kanji { font-size: 20px; color: var(--g-gold2); margin-bottom: 4px; }
+.seal-key-hint { background: rgba(0,0,0,0.6); padding: 2px 6px; border-radius: 3px; font-size: 10px; color: var(--g-blue); margin-top: 4px; border: 1px solid rgba(214,168,79,0.2); }
+.seals-grid-game { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 380px; margin: 0 auto 20px; }
+.game-seal-btn { background: rgba(40,30,20,0.6); border: 1px solid var(--g-glass-border); border-bottom-width: 4px; color: #e8d6b3; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.1s; }
+.game-seal-btn:hover { background: var(--g-gold); color: #171006; border-color: #ffe09a; transform: translateY(-2px); }
+.minigame-status-msg { font-size: 14px; color: var(--g-muted); min-height: 24px; margin-bottom: 15px; }
+
+/* TOPBAR GLASS */
+.topbar { display: flex; align-items: center; gap: 15px; padding: 12px 24px; background: var(--g-glass); backdrop-filter: blur(15px); border-bottom: 1px solid var(--g-glass-border); position: sticky; top: 0; z-index: 1000; }
 .wiki-search-wrap { flex: 1; max-width: 420px; margin: 0 auto; position: relative; }
-.wiki-search-box { display: flex; align-items: center; background: #130f0a; border: 1px solid #60451f; padding: 4px 12px; border-radius: 6px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.3); transition: border-color 0.2s, box-shadow 0.2s; }
-.wiki-search-box:focus-within { border-color: var(--g-gold); box-shadow: 0 0 0 2px rgba(214,168,79,0.15); }
+.wiki-search-box { display: flex; align-items: center; background: rgba(0,0,0,0.5); border: 1px solid var(--g-glass-border); padding: 6px 14px; border-radius: 8px; transition: all 0.2s; }
+.wiki-search-box:focus-within { border-color: var(--g-gold); box-shadow: 0 0 10px rgba(214,168,79,0.3); }
 .wiki-search-icon { color: var(--g-gold); margin-right: 10px; font-size: 14px; }
 #wikiSearchInput { background: transparent; border: none; color: var(--g-text); outline: none; width: 100%; font-size: 13px; font-family: inherit; }
 #wikiSearchInput::placeholder { color: var(--g-muted); opacity: 0.8; }
 #wikiSearchClear { background: transparent; border: none; color: var(--g-muted); cursor: pointer; padding: 2px 5px; font-size: 14px; }
 #wikiSearchClear:hover { color: var(--g-gold2); }
-.wiki-search-hint { display: none; }
-.wiki-search-results { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #17120d; border: 1px solid var(--g-gold); border-radius: 6px; max-height: 320px; overflow-y: auto; z-index: 1100; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.6); }
-.wiki-search-result { display: block; padding: 11px 14px; border-bottom: 1px solid #322514; text-decoration: none; color: var(--g-text); transition: background 0.15s; }
+.wiki-search-results { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: rgba(18, 14, 10, 0.95); backdrop-filter: blur(10px); border: 1px solid var(--g-gold); border-radius: 8px; max-height: 320px; overflow-y: auto; z-index: 1100; display: none; box-shadow: 0 10px 25px rgba(0,0,0,0.8); }
+.wiki-search-result { display: block; padding: 11px 14px; border-bottom: 1px solid rgba(214,168,79,0.1); text-decoration: none; color: var(--g-text); transition: background 0.15s; }
 .wiki-search-result:last-child { border-bottom: none; }
-.wiki-search-result:hover { background: #261d13; }
+.wiki-search-result:hover { background: rgba(214,168,79,0.15); }
 .wiki-search-result-page { display: block; font-size: 9px; color: var(--g-gold); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 3px; font-weight: bold; }
 .wiki-search-result-title { display: block; font-size: 13px; font-weight: bold; color: #f4dfad; }
 .wiki-search-result-description { display: block; font-size: 11px; color: var(--g-muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.wiki-search-empty { padding: 14px; font-size: 12px; color: var(--g-muted); text-align: center; }
+
+/* MODAL / LIGHTBOX DE IMÁGENES EN PANTALLA COMPLETA */
+.image-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.image-modal.show {
+  display: flex;
+  opacity: 1;
+}
+.image-modal-content {
+  max-width: 90%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid var(--g-gold);
+  box-shadow: 0 0 30px rgba(214, 168, 79, 0.3);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+.image-modal.show .image-modal-content {
+  transform: scale(1);
+}
+.image-modal-caption {
+  margin-top: 15px;
+  color: var(--g-gold2);
+  font-size: 14px;
+  text-align: center;
+}
+.image-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  color: #fff;
+  font-size: 35px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.image-modal-close:hover {
+  color: var(--g-gold);
+}
 
 @media(max-width:950px){.stat-layout{grid-template-columns:1fr 1fr}.stat-layout .radar-panel{grid-column:1/-1;grid-row:1}.step-list,.grid-3{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.guia-wrap{padding:14px 10px 45px}.grid-2,.grid-3,.step-list,.key-layout,.tab-content,.stat-layout,.point-list{grid-template-columns:1fr}.stat-layout .radar-panel{grid-column:auto;grid-row:auto}.key{min-width:48px;min-height:42px;padding:8px;font-size:12px}.key-row{gap:5px}.tab-content{padding:14px}.guia-hero{min-height:330px}.point-card-top{gap:7px}.stat-layout{gap:12px}}
@@ -169,7 +347,6 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
       ></div>
   </div>
 </header>
-<!-- ... resto del documento idéntico ... -->
 
 <div class="page-overlay" id="pageOverlay"></div>
 
@@ -180,20 +357,11 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
   </div>
   <nav class="navigation">
     <a href="index.html#inicio" class="nav-link"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
-    
-        <a href="clanes.html" class="nav-link active">
-            <i class="fa-solid fa-users"></i><span>Clanes</span>
-        </a>
+    <a href="clanes.html" class="nav-link active"><i class="fa-solid fa-users"></i><span>Clanes</span></a>
     <a href="jutsus.html" class="nav-link"><i class="fa-solid fa-hand-sparkles"></i><span>Jutsus</span></a>
     <a href="dojutsus.html" class="nav-link"><i class="fa-solid fa-eye"></i><span>Dojutsus</span></a>
-    <a href="stats.html" class="nav-link active">
-                <i class="fa-solid fa-chart-simple"></i><span>Stats</span>
-            </a>
-
-<a href="bijus.html" class="nav-link active">
-                <i class="fa-solid fa-fire"></i><span>Bijūs</span>
-            </a>
-
+    <a href="stats.html" class="nav-link active"><i class="fa-solid fa-chart-simple"></i><span>Stats</span></a>
+    <a href="bijus.html" class="nav-link active"><i class="fa-solid fa-fire"></i><span>Bijūs</span></a>
     <div class="nav-divider"></div>
     <a href="guia.html" class="nav-link active"><i class="fa-solid fa-book-open"></i><span>Guía del Mod</span></a>
     <a href="index.html#descargas" class="nav-link"><i class="fa-solid fa-download"></i><span>Descargas</span></a>
@@ -215,27 +383,44 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
 </section>
 
 <nav class="guia-nav" aria-label="Secciones de la guía">
- <a href="#primeros-pasos">Inicio</a><a href="#crear-mundo">Crear mundo</a><a href="#teclas">Teclas</a><a href="#carta">Carta ninja</a><a href="#stats">Stats</a><a href="#puntos">Puntos</a><a href="#carta-desarrollo">Simulador</a>
+ <a href="#primeros-pasos">Inicio</a><a href="#crear-mundo">Crear mundo</a><a href="#teclas">Teclas</a><a href="#minijuego-sellos">Minijuego Sellos</a><a href="#carta">Carta ninja</a><a href="#stats">Stats</a><a href="#puntos">Puntos</a><a href="#carta-desarrollo">Simulador</a>
 </nav>
 
 <section class="guia-section" id="primeros-pasos">
  <div class="section-head"><div class="section-icon"><i class="fa-solid fa-door-open"></i></div><div><small>01 / PRIMER CONTACTO</small><h2>Al entrar al mod</h2><p>Qué revisar antes de comenzar tu aventura.</p></div></div>
  <div class="grid-2">
-  <div class="info-card"><i class="fa-solid fa-user-ninja"></i><h3>Conoce la Interfaz</h3><p>Puedes revisar el apartado del menu con un tema directo de naruto con esto puedes revisar cada uno de los apartados.</p></div>
+  <div class="info-card"><i class="fa-solid fa-user-ninja"></i><h3>Conoce la Interfaz</h3><p>Puedes revisar el apartado del menú con un estilo visual temático de Naruto. Con esto puedes navegar e interactuar con cada uno de los apartados de forma clara e interactiva.</p></div>
   <div class="image-slot"><img src="img/iniciomod.png" alt="Imagen de inicio del mod" onerror="this.style.display='none'"></div>
   <div class="image-slot"><img src="img/carta.png" alt="HUD de Minecraft" onerror="this.style.display='none'"></div>
-  <div class="info-card"><i class="fa-solid fa-compass"></i><h3>Explora con calma</h3><p>Abre la Carta Ninja con la letra N, identifica las pestañas y revisa las instrucciones del mod. Algunas funciones pueden depender de la versión instalada o de la configuración del servidor.</p></div>
+  <div class="info-card"><i class="fa-solid fa-compass"></i><h3>Explora con calma</h3><p>Abre la Carta Ninja con la tecla correspondiente, identifica las pestañas y revisa las instrucciones del mod. Algunas funciones pueden depender de la versión instalada o de la configuración del servidor.</p></div>
  </div>
 </section>
 
 <section class="guia-section" id="crear-mundo">
- <div class="section-head"><div class="section-icon"><i class="fa-solid fa-earth-americas"></i></div><div><small>02 / PREPARACIÓN</small><h2>Al generar un mundo</h2><p>Una ruta sencilla para empezar a jugar.</p></div></div>
+ <div class="section-head"><div class="section-icon"><i class="fa-solid fa-earth-americas"></i></div><div><small>02 / PREPARACIÓN</small><h2>Al generar un mundo</h2><p>Una ruta paso a paso para comenzar tu progreso en el juego.</p></div></div>
  <div class="step-list">
-  <article class="step-card"><div class="step-number">01</div><h3>Comprueba la instalación</h3><p>Abre Minecraft con el perfil de Forge y la versión compatible con el mod es la 1.20.1. Verifica que el mod aparezca en la lista de mods.</p><div class="image-slot"><img src="img/forge.png" alt="Perfil Forge" onerror="this.style.display='none'"></div></article>
-  <article class="step-card"><div class="step-number">02</div><h3>Crea tu mundo</h3><p>Entra en Un jugador, selecciona Crear mundo y configura el nombre, modo de juego y opciones que prefieras.</p><div class="image-slot"><img src="img/mundo.png" alt="Creación del mundo" onerror="this.style.display='none'"></div></article>
-  <article class="step-card"><div class="step-number">03</div><h3>Revisa tu interfaz</h3><p>Cuando aparezcas, espera a que cargue el mundo y revisa los indicadores del personaje. Abre la Carta Ninja para consultar tus datos.</p><div class="image-slot"><img src="img/carta.png" alt="Jugador en el mundo" onerror="this.style.display='none'"></div></article>
+  <article class="step-card">
+    <div class="step-number">01</div>
+    <h3>Comprueba la instalación</h3>
+    <p>Abre Minecraft en la versión 1.20.1 con Forge y verifica que el mod aparezca activado en la lista.</p>
+    <div class="image-slot"><img src="img/forge.png" alt="Perfil Forge" onerror="this.style.display='none'"></div>
+  </article>
+  
+  <article class="step-card">
+    <div class="step-number">02</div>
+    <h3>Crea tu mundo</h3>
+    <p>Inicia un mundo y explora hasta encontrar una **Aldea Normal**. En ella deberás localizar y conseguir el **Pergamino de Konoha** para iniciar tu camino ninja.</p>
+    <div class="image-slot"><img src="img/mundo.png" alt="Creación del mundo" onerror="this.style.display='none'"></div>
+  </article>
+  
+  <article class="step-card">
+    <div class="step-number">03</div>
+    <h3>Craftea tu Billetera</h3>
+    <p>Fabrica una billetera en la mesa de crafteo utilizando cuero, hilo y un lingote de oro para poder visualizar y gestionar tu dinero en el mod.</p>
+    <div class="image-slot"><img src="cartera.png" alt="Receta de la Billetera" onerror="this.style.display='none'"></div>
+  </article>
  </div>
- <p class="points-note">Nota: los nombres exactos de menús, teclas iniciales y funciones pueden variar según la versión del mod y su configuración.</p>
+ <p class="points-note">Nota: Revisa siempre tu Carta Ninja para consultar tu dinero acumulado y datos de progresión.</p>
 </section>
 
 <section class="guia-section" id="teclas">
@@ -243,7 +428,7 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
  <div class="key-layout">
   <div class="keyboard" aria-label="Teclado interactivo con controles del mod">
    <div class="key-row">
-    <button class="key" data-key="I">I</button><button class="key" data-key="B">B</button><button class="key" data-key="K">K</button><button class="key wide" data-key="TAB">TAB</button>
+    <button class="key" data-key="J">J</button><button class="key" data-key="B">B</button><button class="key" data-key="K">K</button><button class="key wide" data-key="TAB">TAB</button>
    </div>
    <div class="key-row">
     <button class="key" data-key="N">N</button><button class="key" data-key="H">H</button><button class="key" data-key="V">V</button><button class="key" data-key="G">G</button>
@@ -254,7 +439,7 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
    <div class="key-row">
     <button class="key" data-key="U">U</button><button class="key wide" data-key="ALTLEFT">ALT IZQUIERDO</button><button class="key arrow" data-key="ARROWDOWN"><i class="fa-solid fa-arrow-down"></i> ABAJO</button>
    </div>
-   <p style="color:#a99774;font-size:11px;text-align:center;line-height:1.6">Selecciona cualquier tecla para consultar su función. Las descripciones son editables desde el código.</p>
+   <p style="color:#a99774;font-size:11px;text-align:center;line-height:1.6">Selecciona cualquier tecla para consultar su función.</p>
   </div>
   <div class="key-detail" aria-live="polite">
    <span class="eyebrow">TECLA SELECCIONADA</span>
@@ -265,23 +450,65 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
  </div>
 </section>
 
+<!-- MINIJUEGO DE SELLOS DE MANO -->
+<section class="guia-section" id="minijuego-sellos">
+ <div class="section-head">
+  <div class="section-icon"><i class="fa-solid fa-hand-sparkles"></i></div>
+  <div>
+    <small>04 / ENTRENAMIENTO SHINOBI</small>
+    <h2>Minijuego: Práctica de Sellos</h2>
+    <p>Pon a prueba tus reflejos shinobi. Replica la secuencia de sellos correcta antes de que se acabe el tiempo.</p>
+  </div>
+ </div>
+
+ <div class="minigame-container">
+  <div class="minigame-header">
+   <span id="gameTitleJutsu">REPLICAR - Water Stream</span>
+   <span class="minigame-lives" id="gameLives">Vidas: ❤️❤️❤️</span>
+  </div>
+  
+  <div class="minigame-timer-bar">
+   <div class="minigame-timer-fill" id="gameTimerFill"></div>
+  </div>
+
+  <div class="minigame-status-msg" id="gameStatusMsg">Pulsa "Iniciar Entrenamiento" para comenzar.</div>
+
+  <div class="sequence-display" id="sequenceDisplay"></div>
+
+  <div class="seals-grid-game">
+   <button class="game-seal-btn" data-seal="Tora" data-key="Q">Q<br><small>Tora</small></button>
+   <button class="game-seal-btn" data-seal="Inu" data-key="W">W<br><small>Inu</small></button>
+   <button class="game-seal-btn" data-seal="Saru" data-key="E">E<br><small>Saru</small></button>
+   <button class="game-seal-btn" data-seal="Tori" data-key="R">R<br><small>Tori</small></button>
+   <button class="game-seal-btn" data-seal="Hebi" data-key="A">A<br><small>Hebi</small></button>
+   <button class="game-seal-btn" data-seal="Hitsuji" data-key="S">S<br><small>Hitsuji</small></button>
+   <button class="game-seal-btn" data-seal="Tatsu" data-key="D">D<br><small>Tatsu</small></button>
+   <button class="game-seal-btn" data-seal="Mi" data-key="F">F<br><small>Mi</small></button>
+  </div>
+
+  <button class="guia-btn" id="startMinigameBtn"><i class="fa-solid fa-play"></i> Iniciar Entrenamiento</button>
+ </div>
+</section>
+
 <section class="guia-section" id="carta">
- <div class="section-head"><div class="section-icon"><i class="fa-solid fa-id-card"></i></div><div><small>04 / PERFIL DEL JUGADOR</small><h2>Tu Carta Ninja</h2><p>La carta reúne la información principal de tu personaje.</p></div></div>
+ <div class="section-head"><div class="section-icon"><i class="fa-solid fa-id-card"></i></div><div><small>05 / PERFIL DEL JUGADOR</small><h2>Tu Carta Ninja</h2><p>La carta reúne la información principal de tu personaje.</p></div></div>
  <div class="card-tabs" role="tablist">
   <button class="tab-btn active" data-tab="resumen">Resumen</button><button class="tab-btn" data-tab="desarrollo">Desarrollo</button><button class="tab-btn" data-tab="misiones">Misiones</button><button class="tab-btn" data-tab="progresion">Progresión</button><button class="tab-btn" data-tab="preparacion">Preparación</button>
  </div>
- <div class="tab-content"><div><span class="eyebrow" id="tabEyebrow">PERFIL SHINOBI</span><h3 id="tabTitle">Resumen del personaje</h3><p id="tabText">Consulta tu identidad, rango, nivel, experiencia, vida, chakra, linaje y otros datos generales.</p></div><div class="image-slot">
-  <img
-    id="tabImage"
-    src="img/carta.png"
-    alt="Resumen de la Carta Ninja"
-    style="display:block; width:100%; max-height:360px; object-fit:contain;"
-  >
-</div></div>
+ <div class="tab-content">
+   <div>
+     <span class="eyebrow" id="tabEyebrow">PERFIL SHINOBI</span>
+     <h3 id="tabTitle">Resumen del personaje</h3>
+     <p id="tabText">Consulta tu identidad, rango, nivel, experiencia, vida, chakra, linaje y otros datos generales.</p>
+   </div>
+   <div class="image-slot">
+    <img id="tabImage" src="img/carta.png" alt="Resumen de la Carta Ninja">
+   </div>
+ </div>
 </section>
 
 <section class="guia-section" id="stats">
- <div class="section-head"><div class="section-icon"><i class="fa-solid fa-chart-radar"></i></div><div><small>05 / ATRIBUTOS</small><h2>Stats del jugador</h2><p>El rango define los atributos iniciales y el perfil refleja los puntos de Desarrollo Shinobi.</p></div></div>
+ <div class="section-head"><div class="section-icon"><i class="fa-solid fa-chart-radar"></i></div><div><small>06 / ATRIBUTOS</small><h2>Stats del jugador</h2><p>El rango define los atributos iniciales y el perfil refleja los puntos de Desarrollo Shinobi.</p></div></div>
  <div class="stat-layout">
   <aside class="stat-panel">
    <h3>Identidad</h3>
@@ -320,13 +547,13 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
    <div class="stat-line"><span>Chakra</span><b id="statChakra">10%</b></div>
    <div class="stat-line"><span>Agilidad</span><b id="statAgilidad">10%</b></div>
    <div class="stat-line"><span>Medicina</span><b id="statMedicina">10%</b></div>
-   <p style="font-size:12px;color:#a99774;line-height:1.6">Los porcentajes de estos detalles dependen del rango seleccionado. El gráfico Perfil de atributos sí cambia según los puntos distribuidos en Desarrollo Shinobi.</p>
+   <p style="font-size:12px;color:#a99774;line-height:1.6">Los porcentajes de estos detalles dependen del rango seleccionado. El gráfico Perfil de atributos cambia según los puntos distribuidos en Desarrollo Shinobi.</p>
   </aside>
  </div>
 </section>
 
 <section class="guia-section" id="puntos">
- <div class="section-head"><div class="section-icon"><i class="fa-solid fa-ranking-star"></i></div><div><small>06 / DISTRIBUCIÓN</small><h2>Guía de puntos</h2><p>Entiende el límite antes de invertir puntos en tu personaje.</p></div></div>
+ <div class="section-head"><div class="section-icon"><i class="fa-solid fa-ranking-star"></i></div><div><small>07 / DISTRIBUCIÓN</small><h2>Guía de puntos</h2><p>Entiende el límite antes de invertir puntos en tu personaje.</p></div></div>
  <div class="grid-3">
   <div class="info-card"><i class="fa-solid fa-coins"></i><h3>240 puntos totales</h3><p>Este simulador usa una reserva total de 240 puntos para distribuir entre los atributos disponibles.</p></div>
   <div class="info-card"><i class="fa-solid fa-gauge-high"></i><h3>120 por atributo</h3><p>Cada atributo tiene un máximo de 120 puntos invertidos. No puedes superar ese límite desde la carta.</p></div>
@@ -336,28 +563,80 @@ body{margin:0;background:var(--g-bg);color:var(--g-text);font-family:Arial,Helve
 </section>
 
 <section class="guia-section" id="carta-desarrollo">
- <div class="section-head"><div class="section-icon"><i class="fa-solid fa-sliders"></i></div><div><small>07 / CARTA INTERACTIVA</small><h2>Desarrollo shinobi</h2><p>Distribuye los puntos y observa cómo cambia el perfil de atributos de tu personaje.</p></div></div>
+ <div class="section-head"><div class="section-icon"><i class="fa-solid fa-sliders"></i></div><div><small>08 / CARTA INTERACTIVA</small><h2>Desarrollo shinobi</h2><p>Distribuye los puntos y observa cómo cambia el perfil de atributos de tu personaje.</p></div></div>
  <div class="points-intro">
   <div class="point-summary"><small>Puntos disponibles</small><strong id="puntosDisponibles">240</strong></div>
   <div class="point-summary"><small>Puntos invertidos</small><strong id="puntosInvertidos">0</strong></div>
   <div class="point-summary"><small>Progreso de inversión</small><strong id="porcentajePuntos">0%</strong></div>
  </div>
  <div class="meter" style="height:13px"><span id="barraTotal" style="width:0%"></span></div>
- <p style="color:#b9a98c;font-size:12px;line-height:1.7">Máximo total: 240 puntos · Máximo individual: 120 puntos · Pulsa + para invertir y − para retirar.</p>
+ <p style="color:#b9a98c;font-size:12px;line-height:1.7;margin-top:10px;">Máximo total: 240 puntos · Máximo individual: 120 puntos · Pulsa + para invertir y − para retirar.</p>
  <div class="point-list" id="listaPuntos"></div>
- <div class="point-actions"><button class="point-btn" id="reiniciarPuntos"><i class="fa-solid fa-rotate-left"></i> Reiniciar puntos</button><button class="point-btn" id="maxEquilibrado">Distribución equilibrada</button></div>
+ <div class="point-actions"><button class="point-btn" id="reiniciarPuntos"><i class="fa-solid fa-rotate-left"></i> Reiniciar puntos</button><button class="point-btn" id="maxEquilibrado">Distribución equilibrada</button><a href="stats.html">
+    <button class="point-btn" id="maxEquilibrado">Estadisticas de personajes</button>
+</a></div>
  <div class="points-note" id="mensajePuntos" aria-live="polite">Tienes todos tus puntos disponibles. Elige un atributo para comenzar.</div>
 </section>
 
 <footer class="guia-footer"><strong>NYDo · CAMINO SHINOBI</strong><p>El conocimiento de las artes shinobi comienza aquí.</p><a href="#inicio-guia" style="color:#e0bc68">Volver al inicio ↑</a></footer>
 </main>
 
+<!-- MODAL PARA VER IMÁGENES AMPLIADAS -->
+<div id="imageModal" class="image-modal">
+  <span class="image-modal-close" id="closeImageModal">&times;</span>
+  <img class="image-modal-content" id="imgModalSrc" alt="Imagen ampliada">
+  <div class="image-modal-caption" id="imgModalCaption"></div>
+</div>
+
 <script src="script.js"></script>
 <script src="busqueda.js"></script>
 <script>
-/* CARACTERÍSTICAS DE LAS TECLAS */
+/* LÓGICA DE AMPLIACIÓN DE IMÁGENES (LIGHTBOX MODAL) */
+const imageModal = document.getElementById("imageModal");
+const imgModalSrc = document.getElementById("imgModalSrc");
+const imgModalCaption = document.getElementById("imgModalCaption");
+const closeImageModal = document.getElementById("closeImageModal");
+
+function openImageModal(src, alt) {
+  if (!src) return;
+  imgModalSrc.src = src;
+  imgModalCaption.textContent = alt || "Vista previa";
+  imageModal.classList.add("show");
+  document.body.style.overflow = "hidden"; // Deshabilita el scroll mientras el modal está abierto
+}
+
+function closeModal() {
+  imageModal.classList.remove("show");
+  document.body.style.overflow = "auto";
+}
+
+// Delegación de eventos para capturar clics en imágenes estáticas y dinámicas
+document.addEventListener("click", (e) => {
+  const target = e.target;
+  if (target.tagName === "IMG" && (target.closest(".image-slot") || target.classList.contains("zoomable-img"))) {
+    if (target.src && target.style.display !== "none") {
+      openImageModal(target.src, target.alt);
+    }
+  }
+});
+
+closeImageModal.addEventListener("click", closeModal);
+
+imageModal.addEventListener("click", (e) => {
+  if (e.target === imageModal) {
+    closeModal();
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && imageModal.classList.contains("show")) {
+    closeModal();
+  }
+});
+
+/* CARACTERÍSTICAS DE LAS TECLAS (CAMBIADA LA 'I' POR 'J') */
 const keyHelp = {
-  "I": {title:"Inventario ninja",description:"Activar o desactivar los dojutsus."},
+  "J": {title:"Inventario ninja",description:"Activar o desactivar los dojutsus."},
   "B": {title:"Habilidad B",description:"Árbol de Taijutsu."},
   "K": {title:"Menú ninja",description:"Calibrar los ojos dojutsu."},
   "TAB": {title:"Información del jugador",description:"Cambiar o abrir la rueda de dojutsus."},
@@ -370,7 +649,7 @@ const keyHelp = {
   "ARROWRIGHT": {title:"Flecha derecha",description:"Pergamino siguiente."},
   "U": {title:"Habilidad U",description:"Activar/Desactivar Susano."},
   "ALTLEFT": {title:"Alt izquierdo",description:"Rueda Global de Habilidades."},
-  "ARROWDOWN": {title:"Flecha abajo",description:"seleccionar cuerpo de pain(con Shift)."}
+  "ARROWDOWN": {title:"Flecha abajo",description:"Seleccionar cuerpo de Pain (con Shift)."}
 };
 
 const keyButtons = document.querySelectorAll(".key[data-key]");
@@ -393,6 +672,139 @@ keyButtons.forEach(button => {
   });
 });
 
+/* LÓGICA DEL MINIJUEGO DE SELLOS DE MANO */
+const availableSeals = [
+  {name: "Tora", key: "Q", kanji: "虎"},
+  {name: "Inu", key: "W", kanji: "犬"},
+  {name: "Saru", key: "E", kanji: "亥"},
+  {name: "Tori", key: "R", kanji: "鳥"},
+  {name: "Hebi", key: "A", kanji: "蛇"},
+  {name: "Hitsuji", key: "S", kanji: "羊"},
+  {name: "Tatsu", key: "D", kanji: "龍"},
+  {name: "Mi", key: "F", kanji: "巳"}
+];
+
+const jutsusList = ["Water Stream", "Fireball Jutsu", "Chidori", "Rasengan", "Shadow Clone"];
+
+let gameActive = false;
+let currentSequence = [];
+let currentIndex = 0;
+let lives = 3;
+let timerInterval = null;
+let timeLeft = 100;
+
+const startBtn = document.getElementById("startMinigameBtn");
+const sequenceDisplay = document.getElementById("sequenceDisplay");
+const statusMsg = document.getElementById("gameStatusMsg");
+const livesDisplay = document.getElementById("gameLives");
+const timerFill = document.getElementById("gameTimerFill");
+const gameTitleJutsu = document.getElementById("gameTitleJutsu");
+
+function startMinigame() {
+  gameActive = true;
+  lives = 3;
+  updateLivesUI();
+  
+  const randomJutsu = jutsusList[Math.floor(Math.random() * jutsusList.length)];
+  gameTitleJutsu.textContent = `REPLICAR - ${randomJutsu}`;
+  
+  currentSequence = [];
+  for(let i=0; i<4; i++) {
+    const randomSeal = availableSeals[Math.floor(Math.random() * availableSeals.length)];
+    currentSequence.push(randomSeal);
+  }
+  
+  currentIndex = 0;
+  renderSequence();
+  
+  statusMsg.textContent = "¡Pulsa los sellos en orden usando los botones o el teclado!";
+  startBtn.style.display = "none";
+  
+  timeLeft = 100;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timeLeft -= 1.5;
+    timerFill.style.width = timeLeft + "%";
+    
+    if(timeLeft <= 0) {
+      failGame("¡Se acabó el tiempo! Has fallado el entrenamiento.");
+    }
+  }, 100);
+}
+
+function renderSequence() {
+  sequenceDisplay.innerHTML = "";
+  currentSequence.forEach((seal, idx) => {
+    const box = document.createElement("div");
+    box.className = `seal-box ${idx === currentIndex ? "active" : ""} ${idx < currentIndex ? "completed" : ""}`;
+    box.innerHTML = `
+      <span class="seal-kanji">${seal.kanji}</span>
+      <span>${seal.name}</span>
+      <span class="seal-key-hint">[${seal.key}]</span>
+    `;
+    sequenceDisplay.appendChild(box);
+  });
+}
+
+function handleSealInput(sealName) {
+  if(!gameActive) return;
+  
+  const expectedSeal = currentSequence[currentIndex];
+  
+  if(sealName === expectedSeal.name) {
+    currentIndex++;
+    renderSequence();
+    
+    if(currentIndex >= currentSequence.length) {
+      clearInterval(timerInterval);
+      gameActive = false;
+      statusMsg.textContent = "🎉 ¡Entrenamiento exitoso! Jutsu aprendido correctamente.";
+      startBtn.textContent = "Jugar de nuevo";
+      startBtn.style.display = "inline-flex";
+    }
+  } else {
+    lives--;
+    updateLivesUI();
+    statusMsg.textContent = `❌ ¡Sello incorrecto! Era ${expectedSeal.name} [${expectedSeal.key}]`;
+    
+    if(lives <= 0) {
+      failGame("💀 Has perdido todas tus vidas. ¡Entrenamiento fallido!");
+    }
+  }
+}
+
+function failGame(msg) {
+  clearInterval(timerInterval);
+  gameActive = false;
+  statusMsg.textContent = msg;
+  startBtn.textContent = "Reintentar";
+  startBtn.style.display = "inline-flex";
+}
+
+function updateLivesUI() {
+  let hearts = "";
+  for(let i=0; i<lives; i++) hearts += "❤️";
+  for(let i=lives; i<3; i++) hearts += "🖤";
+  livesDisplay.textContent = `Vidas: ${hearts}`;
+}
+
+startBtn.addEventListener("click", startMinigame);
+
+document.querySelectorAll(".game-seal-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    handleSealInput(btn.dataset.seal);
+  });
+});
+
+document.addEventListener("keydown", (e) => {
+  if(!gameActive) return;
+  const keyUpper = e.key.toUpperCase();
+  const matchedBtn = document.querySelector(`.game-seal-btn[data-key="${keyUpper}"]`);
+  if(matchedBtn) {
+    handleSealInput(matchedBtn.dataset.seal);
+  }
+});
+
 /* PESTAÑAS DE LA CARTA NINJA */
 const tabs = {
   resumen: {
@@ -402,7 +814,6 @@ const tabs = {
     image: "img/carta.png",
     alt: "Resumen de la Carta Ninja"
   },
-
   desarrollo: {
     eyebrow: "DESARROLLO SHINOBI",
     title: "Mejora tus atributos",
@@ -410,7 +821,6 @@ const tabs = {
     image: "img/desarrollo.png",
     alt: "Desarrollo Shinobi"
   },
-
   misiones: {
     eyebrow: "REGISTRO DE MISIONES",
     title: "Tus objetivos",
@@ -418,7 +828,6 @@ const tabs = {
     image: "img/misiones.png",
     alt: "Misiones Ninja"
   },
-
   progresion: {
     eyebrow: "CAMINO NINJA",
     title: "Experiencia y rango",
@@ -426,7 +835,6 @@ const tabs = {
     image: "img/progresion.png",
     alt: "Progresión Ninja"
   },
-
   preparacion: {
     eyebrow: "EQUIPO Y COMBATE",
     title: "Prepárate para luchar",
@@ -442,15 +850,12 @@ const tabTitle = document.getElementById("tabTitle");
 const tabText = document.getElementById("tabText");
 const tabImage = document.getElementById("tabImage");
 
-/* Cambia el contenido y la imagen al seleccionar una pestaña. */
 function cambiarPestanaCarta(nombre) {
   const contenido = tabs[nombre];
-
   if (!contenido) return;
 
   tabButtons.forEach(button => {
     const seleccionado = button.dataset.tab === nombre;
-
     button.classList.toggle("active", seleccionado);
     button.setAttribute("aria-selected", seleccionado ? "true" : "false");
   });
@@ -459,12 +864,10 @@ function cambiarPestanaCarta(nombre) {
   tabTitle.textContent = contenido.title;
   tabText.textContent = contenido.text;
 
-  /* Restablece la imagen y su visibilidad cada vez que se cambia de pestaña. */
   tabImage.style.display = "block";
   tabImage.alt = contenido.alt;
   tabImage.src = contenido.image;
 
-  /* Si una imagen no existe, muestra un aviso en vez de ocultarla. */
   tabImage.onerror = function() {
     this.onerror = null;
     this.removeAttribute("src");
@@ -481,7 +884,6 @@ function cambiarPestanaCarta(nombre) {
     contenedor.appendChild(aviso);
   };
 
-  /* Si la imagen carga correctamente, elimina cualquier aviso anterior. */
   tabImage.onload = function() {
     this.style.display = "block";
     const aviso = this.parentElement.querySelector(".image-error");
@@ -495,17 +897,10 @@ tabButtons.forEach(button => {
   });
 });
 
-/* Pestaña inicial. */
 cambiarPestanaCarta("resumen");
 
 /* RANGOS NINJA */
-const RANKS = {
-  genin:10,
-  chunin:20,
-  anbu:30,
-  kage:40
-};
-
+const RANKS = { genin:10, chunin:20, anbu:30, kage:40 };
 const RANK_IMAGES = {
   genin:"img/rangos/genin.png",
   chunin:"img/rangos/chunin.png",
@@ -536,12 +931,10 @@ function totalPoints() {
   return Object.values(points).reduce((sum,value) => sum + value,0);
 }
 
-/* 0 puntos = 0%; 120 puntos = 100%. */
 function porcentajeDesarrollo(id) {
   return Math.round((points[id] / MAX_STAT) * 100);
 }
 
-/* ACTUALIZA LAS TARJETAS Y EL PERFIL CADA VEZ QUE CAMBIAN LOS PUNTOS */
 function renderPoints() {
   list.innerHTML = "";
 
@@ -590,11 +983,9 @@ function renderPoints() {
       ? "Has distribuido los 240 puntos. Puedes retirar puntos para cambiar tu especialización."
       : `Te quedan ${left} puntos disponibles. Cada atributo alcanza el 100% al invertir 120 puntos.`;
 
-  /* CAMBIO PRINCIPAL: EL RADAR REACCIONA A LOS PUNTOS INVERTIDOS */
   drawRadar();
 }
 
-/* CAMBIA EL RANGO Y ACTUALIZA LOS DETALLES DEL JUGADOR */
 function actualizarRango() {
   const rango = rangoSelect.value;
   const porcentaje = RANKS[rango] ?? 10;
@@ -607,7 +998,6 @@ function actualizarRango() {
   emblema.alt = "Emblema del rango " + rango;
   emblema.style.display = "";
 
-  /* Estos cinco valores informativos dependen del rango seleccionado. */
   document.getElementById("statFuerza").textContent = porcentaje + "%";
   document.getElementById("statDefensa").textContent = porcentaje + "%";
   document.getElementById("statChakra").textContent = porcentaje + "%";
@@ -617,7 +1007,6 @@ function actualizarRango() {
 
 rangoSelect.addEventListener("change", actualizarRango);
 
-/* BOTONES PARA INVERTIR Y RETIRAR PUNTOS */
 list.addEventListener("click",event => {
   const button = event.target.closest("button[data-action]");
   if (!button) return;
@@ -625,11 +1014,7 @@ list.addEventListener("click",event => {
   const id = button.dataset.id;
   const action = button.dataset.action;
 
-  if (
-    action === "plus" &&
-    totalPoints() < MAX_TOTAL &&
-    points[id] < MAX_STAT
-  ) {
+  if (action === "plus" && totalPoints() < MAX_TOTAL && points[id] < MAX_STAT) {
     points[id]++;
   }
 
@@ -640,43 +1025,31 @@ list.addEventListener("click",event => {
   renderPoints();
 });
 
-/* REINICIAR PUNTOS */
 document.getElementById("reiniciarPuntos").addEventListener("click",() => {
-  attributes.forEach(attribute => {
-    points[attribute.id] = 0;
-  });
-
+  attributes.forEach(attribute => { points[attribute.id] = 0; });
   renderPoints();
 });
 
-/* DISTRIBUCIÓN EQUILIBRADA: 30 PUNTOS POR ATRIBUTO */
 document.getElementById("maxEquilibrado").addEventListener("click",() => {
-  attributes.forEach(attribute => {
-    points[attribute.id] = 0;
-  });
-
+  attributes.forEach(attribute => { points[attribute.id] = 0; });
   let remaining = MAX_TOTAL;
 
   while (remaining > 0) {
     let progressed = false;
-
     for (const attribute of attributes) {
       if (remaining === 0) break;
-
       if (points[attribute.id] < 30) {
         points[attribute.id]++;
         remaining--;
         progressed = true;
       }
     }
-
     if (!progressed) break;
   }
 
   renderPoints();
 });
 
-/* GRÁFICO RADAR: SE ACTUALIZA CON DESARROLLO SHINOBI */
 function drawRadar() {
   const names = ["NIN","TAI","GEN","CHK","VIT","DEF","AGI","MED"];
   const cx = 180;
@@ -692,72 +1065,49 @@ function drawRadar() {
   labels.innerHTML = "";
   dots.innerHTML = "";
 
-  /* Dibuja los cuatro niveles del radar: 25%, 50%, 75% y 100%. */
   for (let level = 1; level <= 4; level++) {
     const currentRadius = radius * level / 4;
-
     const polygonPoints = names.map((_,index) => {
       const angle = -Math.PI / 2 + index * 2 * Math.PI / names.length;
-
       return `${cx + Math.cos(angle) * currentRadius},${cy + Math.sin(angle) * currentRadius}`;
     }).join(" ");
 
-    const polygon = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "polygon"
-    );
-
+    const polygon = document.createElementNS("http://www.w3.org/2000/svg","polygon");
     polygon.setAttribute("points",polygonPoints);
     polygon.setAttribute("fill","none");
-    polygon.setAttribute("stroke","#60451f");
+    polygon.setAttribute("stroke","rgba(214,168,79,0.3)");
     polygon.setAttribute("stroke-width","1");
-
     grid.appendChild(polygon);
   }
 
-  const values = attributes.map(attribute => {
-    return porcentajeDesarrollo(attribute.id) / 100;
-  });
-
+  const values = attributes.map(attribute => porcentajeDesarrollo(attribute.id) / 100);
   const radarPoints = [];
 
   names.forEach((name,index) => {
     const angle = -Math.PI / 2 + index * 2 * Math.PI / names.length;
     const currentRadius = radius * values[index];
-
     const x = cx + Math.cos(angle) * currentRadius;
     const y = cy + Math.sin(angle) * currentRadius;
 
     radarPoints.push(`${x},${y}`);
 
-    const label = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text"
-    );
-
+    const label = document.createElementNS("http://www.w3.org/2000/svg","text");
     label.setAttribute("x",cx + Math.cos(angle) * (radius + 20));
     label.setAttribute("y",cy + Math.sin(angle) * (radius + 20) + 3);
     label.textContent = name;
-
     labels.appendChild(label);
 
-    const dot = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "circle"
-    );
-
+    const dot = document.createElementNS("http://www.w3.org/2000/svg","circle");
     dot.setAttribute("cx",x);
     dot.setAttribute("cy",y);
     dot.setAttribute("r","3.5");
     dot.setAttribute("fill","#f0d17d");
-
     dots.appendChild(dot);
   });
 
   area.setAttribute("points",radarPoints.join(" "));
 }
 
-/* CARGA INICIAL */
 actualizarRango();
 renderPoints();
 </script>
