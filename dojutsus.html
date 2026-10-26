@@ -299,6 +299,89 @@
             margin: 0;
         }
 
+        /* ESTILOS ESPECÍFICOS PARA EL BYAKUGAN Y TENSEIGAN */
+        .byakugan-abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .byakugan-ability-box {
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px solid rgba(0, 210, 255, 0.25);
+            border-radius: 14px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        .byakugan-ability-box.interactive {
+            border-color: var(--blue-hyuga);
+            background: rgba(0, 210, 255, 0.12);
+            box-shadow: 0 0 15px var(--blue-glow);
+        }
+        .byakugan-ability-box h4 {
+            color: #fff;
+            margin: 0;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .byakugan-ability-box h4 i {
+            color: var(--blue-hyuga);
+        }
+        .byakugan-ability-box p {
+            color: #94a3b8;
+            font-size: 13px;
+            margin: 0;
+            line-height: 1.5;
+        }
+        .byakugan-ability-box .status-tag {
+            align-self: flex-start;
+            font-size: 10px;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .status-tag.active-in-mod {
+            background: rgba(0, 210, 255, 0.25);
+            color: #00d2ff;
+        }
+        .status-tag.passive-mod {
+            background: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+
+        .ten-seigan-box {
+            margin-top: 25px;
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.15), rgba(15, 23, 42, 0.8));
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .ten-seigan-box h3 {
+            color: #fff;
+            font-size: 18px;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ten-seigan-box h3 i {
+            color: #00d2ff;
+        }
+        .ten-seigan-box p {
+            color: #cbd5e1;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
         /* ==========================================
            INTERFAZ GUI MINECRAFT SUSANOO REACTIVO
         ========================================== */
@@ -358,16 +441,6 @@
             border-radius: 8px;
         }
 
-        .susanoo-svg-render {
-            width: 100%;
-            height: 100%;
-            max-width: 220px;
-            max-height: 240px;
-            filter: drop-shadow(0 0 16px var(--susanoo-glow, rgba(147, 81, 232, 0.6)));
-            transition: filter 0.3s ease;
-        }
-
-        /* Canvas 3D de la caja de Susanoo */
         .susanoo-3d-canvas {
             width: 100%;
             height: 100%;
@@ -817,9 +890,6 @@
             box-shadow: 0 0 25px rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(0, 0, 0, 0.7);
         }
 
-
-
-
         .mg-bar { height: 7px; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
         .mg-bar > i { display: block; height: 100%; width: 0; background: #4fd1c5; transition: width 0.2s ease, background 0.2s; }
         .mg-bar.red > i { background: #ff5a6a; }
@@ -903,7 +973,7 @@
         .ui-shot figcaption { padding: 10px 14px; font-size: 12px; color: #94a3b8; background: rgba(12,14,22,0.95); border-top: 1px solid rgba(255,255,255,0.1); }
 
         @media (max-width: 850px) {
-            .susanoo-gui-grid, .rinnegan-showcase, .control-row-card { grid-template-columns: 1fr; }
+            .susanoo-gui-grid, .rinnegan-showcase, .control-row-card, .byakugan-abilities-grid { grid-template-columns: 1fr; }
             .control-img-box { height: 180px; }
             .ex-hud { grid-template-columns: 1fr; }
             .ex-scene { min-height: 520px; }
@@ -1137,37 +1207,62 @@
                 <a href="#rinnegan">Rinnegan</a>
             </nav>
 
-            <!-- 1. BYAKUGAN -->
+            <!-- 1. BYAKUGAN & TENSEIGAN -->
             <article class="jutsu-panel" id="byakugan">
                 <div class="panel-heading">
                     <div class="panel-icon silver-icon"><i class="fa-solid fa-eye"></i></div>
                     <div>
-                        <span class="panel-number">01 / OJOS BLANCOS</span>
-                        <h2>Byakugan</h2>
-                        <p>Visión de 360 grados y percepción del sistema de chakra.</p>
+                        <span class="panel-number">01 / OJOS BLANCOS & EVOLUCIÓN</span>
+                        <h2>Byakugan y Tenseigan</h2>
+                        <p>Visión de 360 grados, técnicas del Puño Suave y evolución al ojo de la reencarnación.</p>
                     </div>
                 </div>
 
                 <p class="panel-description">
-                    El Byakugan es el Kekkei Genkai del clan Hyūga. Concede una visión casi perfecta de 360°, la capacidad de ver a través de objetos sólidos y revelar los puntos de chakra (Tenketsu) de los enemigos en Minecraft.
+                    El Byakugan es el Kekkei Genkai nativo del clan Hyūga. Otorga visión periférica casi total de 360°, percepción de bloques y entidades a través de paredes (Rayos X) y la capacidad de visualizar el sistema circulatorio de chakra del objetivo.
                 </p>
 
-                <div class="feature-grid">
-                    <div class="info-card">
-                        <i class="fa-solid fa-expand"></i>
-                        <h3>Visión Rayos X</h3>
-                        <p>Permite ver entidades y bloques a través de paredes y estructuras.</p>
+                <h3 class="subheading" style="color: #fff; margin-top: 1.5rem;">Habilidades Principales del Byakugan</h3>
+                <p class="small-description">
+                    El mod incorpora 4 técnicas fundamentales de este linaje. A continuación se detallan las 4 habilidades del arsenal, resaltando de forma interactiva el <strong>8 Trigramas 64 Palmas</strong> y la <strong>Rotación</strong>:
+                </p>
+
+                <div class="byakugan-abilities-grid">
+                    <!-- 1. INTERACTIVA -->
+                    <div class="byakugan-ability-box interactive">
+                        <h4><i class="fa-solid fa-hand-fist"></i> Eight Trigrams 64 Palms</h4>
+                        <p>Libera una ráfaga veloz de 64 golpes consecutivos utilizando el estilo del Puño Suave sobre los puntos de chakra (Tenketsu) del rival para bloquear por completo su flujo de chakra y debilitarlo.</p>
+                        <span class="status-tag active-in-mod">Destacado Activo</span>
                     </div>
-                    <div class="info-card">
-                        <i class="fa-solid fa-bullseye"></i>
-                        <h3>Puntos de Chakra</h3>
-                        <p>Resalta los Tenketsu del oponente para ataques con Jūken (Puño Suave).</p>
+
+                    <!-- 2. INTERACTIVA -->
+                    <div class="byakugan-ability-box interactive">
+                        <h4><i class="fa-solid fa-rotate"></i> Palm Rotation (Hakkeshō Kaiten)</h4>
+                        <p>Expulsa chakra masivo desde todos los puntos Tenketsu del cuerpo mientras gira a alta velocidad, creando un escudo defensivo esférico capaz de desviar proyectiles y repeler ataques físicos en área.</p>
+                        <span class="status-tag active-in-mod">Destacado Defensivo</span>
                     </div>
-                    <div class="info-card">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <h3>Defensa Casi Absoluta</h3>
-                        <p>Elimina puntos ciegos durante los enfrentamientos contra mobs y jugadores.</p>
+
+                    <!-- 3. PASIVA/COMPLEMENTARIA -->
+                    <div class="byakugan-ability-box">
+                        <h4><i class="fa-solid fa-wind"></i> Air Palm (Hakke Kūshō)</h4>
+                        <p>Concentra una potente onda de chakra en la palma de la mano para golpear a distancia a oponentes y derribarlos sin necesidad de entrar en combate cuerpo a cuerpo directo.</p>
+                        <span class="status-tag passive-mod">Técnica a Distancia</span>
                     </div>
+
+                    <!-- 4. PASIVA/COMPLEMENTARIA -->
+                    <div class="byakugan-ability-box">
+                        <h4><i class="fa-solid fa-paw"></i> Gentle Step: Twin Lion Fists</h4>
+                        <p>Técnica avanzada del Puño Suave que materializa el chakra del usuario en forma de feroces cabezas de leones gemelos adheridas a las manos, aumentando drásticamente el daño físico absorbido.</p>
+                        <span class="status-tag passive-mod">Técnica Avanzada</span>
+                    </div>
+                </div>
+
+                <!-- BLOQUE EVOLUTIVO AL TENSEIGAN -->
+                <div class="ten-seigan-box">
+                    <h3><i class="fa-solid fa-globe"></i> Evolución Legendaria: Tenseigan</h3>
+                    <p>
+                        Al combinar la sangre pura del clan Hyūga con el chakra de los miembros del clan Ōtsutsuki dentro del juego, el Byakugan puede evolucionar y despertar el <strong>Tenseigan</strong> (Ojo de la Reencarnación). Este estadio supremo otorga un manto de chakra verde esmeralda brillante, la capacidad de levitar libremente por el mapa, ejecutar esferas de búsqueda de la verdad (Gudōdama) y desatar un poder destructivo equivalente al Rinnegan.
+                    </p>
                 </div>
             </article>
 
@@ -2153,8 +2248,8 @@
             },
             {
                 nombre: "01 / OJOS BLANCOS",
-                titulo: "Byakugan ⚪",
-                texto: "Conoce la visión de 360 grados y la detección del sistema de chakra de tus objetivos.",
+                titulo: "Byakugan & Tenseigan ⚪",
+                texto: "Conoce las 4 habilidades del Byakugan y su evolución definitiva al Tenseigan.",
                 selector: "#byakugan"
             },
             {
