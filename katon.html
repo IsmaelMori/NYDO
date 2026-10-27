@@ -756,6 +756,27 @@
             // Subir suavemente hacia la tarjeta principal para mostrar la técnica seleccionada
             document.getElementById('heroJutsuCard').scrollIntoView({ behavior: 'smooth' });
         }
+
+        // Abrir una técnica directamente desde otra página (ej.: futon.html#rasenshuriken).
+        // Funciona solo: el # se compara con el nombre de cada tarjeta (título en español
+        // o nombre japonés sin el prefijo "Fūton:"). No hay que tocar nada al añadir técnicas.
+        (function () {
+            function slug(t) {
+                return (t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+                    .replace(/^[^:]*:\s*/, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            }
+            function abrirDesdeHash() {
+                const h = slug(decodeURIComponent(location.hash.slice(1)));
+                if (!h) return;
+                const cards = Array.prototype.slice.call(document.querySelectorAll('.jutsu-card'));
+                const byTitle = cards.filter(function (c) { const e = c.querySelector('h3'); return e && slug(e.textContent) === h; })[0];
+                const byJp = cards.filter(function (c) { const e = c.querySelector('.japanese-name'); return e && slug(e.textContent) === h; })[0];
+                const hit = byTitle || byJp;
+                if (hit) hit.click();
+            }
+            abrirDesdeHash();
+            window.addEventListener('hashchange', abrirDesdeHash);
+        })();
     </script>
 </body>
 </html>
