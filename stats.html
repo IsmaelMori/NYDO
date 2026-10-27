@@ -263,25 +263,7 @@
                     { n: 'Reserva de chakra estable' },
                     { n: 'Se adapta a cualquier estilo de combate' }
                 ],
-                configs: [
-                    { n: 'Base', sub: 'Jutsus básicos', slots: [
-                        { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu'] },
-                        { d: 'Taijutsu', j: ['Golpes básicos'] },
-                        { d: 'Genjutsu', j: ['Genjutsu básico'] }
-                    ] },
-                    { n: 'Elementos', sub: 'Un poco de cada naturaleza', slots: [
-                        { d: 'Fuego', j: ['Katon básico'] },
-                        { d: 'Viento', j: ['Fūton básico'] },
-                        { d: 'Rayo', j: ['Raiton básico'] },
-                        { d: 'Tierra', j: ['Doton básico'] },
-                        { d: 'Agua', j: ['Suiton básico'] }
-                    ] },
-                    { n: 'Soporte', sub: 'Apoyo y utilidad', slots: [
-                        { d: 'Medicina ninja', j: ['Ninjutsu Médico'] },
-                        { d: 'Invocación', j: ['Kuchiyose no Jutsu'] },
-                        { d: 'Fūinjutsu', j: ['Sellos básicos'] }
-                    ] }
-                ],
+                
                 kekkei: [{ t: 'Ninguno (depende del clan que elijas)' }],
                 clan: { t: 'Sin clan / a elección', href: '' }
             },
@@ -305,9 +287,9 @@
                         { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu', 'Rasengan'] },
                         { d: 'Viento', j: ['Rasenshuriken'] }
                     ] },
-                    { n: 'Naruto Kurama', sub: 'Rasenshuriken y Rasengan', slots: [
-                        { d: 'Viento', j: ['Rasenshuriken'] },
-                        { d: 'Ninjutsu', j: ['Rasengan', 'Kage Bunshin no Jutsu'] }
+                    { n: 'Naruto Kurama', sub: 'Ninjutsu + estilo Viento: Rasenshuriken', slots: [
+                        { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu', 'Rasengan'] },
+                        { d: 'Viento', j: ['Rasenshuriken'] }
                     ] }
                 ],
                 kekkei: [{ t: 'Ninguno propio (poder del Kyūbi como Jinchūriki)' }],
@@ -329,18 +311,7 @@ madara: {
                     { n: 'Sharingan', t: ['Dōjutsu'] },
                     { n: 'Técnicas del Mangekyō Sharingan', t: ['Dōjutsu'] }
                 ],
-                configs: [
-                    { n: 'Madara joven', sub: 'Técnicas de fuego', slots: [
-                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu', 'Katon: Gōka Mekkyaku'] }
-                    ] },
-                    { n: 'Madara Mangekyō', sub: 'Fuego y rayo', slots: [
-                        { d: 'Fuego', j: ['Katon: Gōka Mekkyaku'] },
-                        { d: 'Rayo', j: ['Raiton'] }
-                    ] },
-                    { n: 'Madara Rinnegan', sub: 'Técnicas de fuego', slots: [
-                        { d: 'Fuego', j: ['Katon: Gōka Mekkyaku'] }
-                    ] }
-                ],
+                
     kekkei: [
         { t: 'Sharingan', href: 'dojutsus.html#sharingan' },
         { t: 'Mangekyō Sharingan', href: 'dojutsus.html#mangekyo' },
@@ -364,18 +335,7 @@ pain: {
                     { n: 'Chibaku Tensei', t: ['Dōjutsu'] },
                     { n: 'Seis Caminos del Dolor', t: ['Dōjutsu'] }
                 ],
-                configs: [
-                    { n: 'Seis Caminos', sub: 'Agua y fuego', slots: [
-                        { d: 'Agua', j: ['Suiton'] },
-                        { d: 'Fuego', j: ['Katon'] }
-                    ] },
-                    { n: 'Poder gravitatorio', sub: 'Técnicas de rayo', slots: [
-                        { d: 'Rayo', j: ['Raiton'] }
-                    ] },
-                    { n: 'Chibaku Tensei', sub: 'Invocación', slots: [
-                        { d: 'Invocación', j: ['Kuchiyose no Jutsu'] }
-                    ] }
-                ],
+                
     kekkei: [
         { t: 'Rinnegan', href: 'dojutsus.html#rinnegan' }
     ],
@@ -397,21 +357,7 @@ pain: {
                     { n: 'Shiki Fūjin (Sello del Demonio)', t: ['Fūinjutsu'] },
                     { n: 'Modo Sabio (Sennin Mōdo)', t: ['Senjutsu'] }
                 ],
-                configs: [
-                    { n: 'Cuarto Hokage', sub: 'Rasengan e Hiraishin', slots: [
-                        { d: 'Ninjutsu', j: ['Rasengan', 'Hiraishin no Jutsu (Dios del Trueno Volador)'] },
-                        { d: 'Viento', j: ['Fūton'] },
-                        { d: 'Rayo', j: ['Raiton'] }
-                    ] },
-                    { n: 'Minato Sellos', sub: 'Hiraishin y sellos', slots: [
-                        { d: 'Ninjutsu', j: ['Rasengan', 'Hiraishin no Jutsu (Dios del Trueno Volador)'] },
-                        { d: 'Fūinjutsu', j: ['Shiki Fūjin (Sello del Demonio)'] }
-                    ] },
-                    { n: 'Minato Hiraishin', sub: 'Hiraishin y Shiki Fūjin', slots: [
-                        { d: 'Ninjutsu', j: ['Hiraishin no Jutsu (Dios del Trueno Volador)'] },
-                        { d: 'Fūinjutsu', j: ['Shiki Fūjin (Sello del Demonio)'] }
-                    ] }
-                ],
+                
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Namikaze', href: '' }
             },
@@ -427,22 +373,7 @@ pain: {
                     { n: 'Copia de jutsus con el Sharingan', t: ['Dōjutsu'] },
                     { n: 'Ninken no Jutsu (invocación)', t: ['Invocación'] }
                 ],
-                configs: [
-                    { n: 'Kakashi Jōnin', sub: 'Rayo y perros ninja', slots: [
-                        { d: 'Rayo', j: ['Chidori', 'Raikiri'] },
-                        { d: 'Tierra', j: ['Doton: Tsuiga no Jutsu'] },
-                        { d: 'Invocación', j: ['Ninken no Jutsu (invocación)'] }
-                    ] },
-                    { n: 'Kakashi Sharingan', sub: 'Fuego, agua y rayo', slots: [
-                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] },
-                        { d: 'Agua', j: ['Suiton: Suiryūdan no Jutsu'] },
-                        { d: 'Rayo', j: ['Raikiri'] }
-                    ] },
-                    { n: 'Kakashi Raikiri', sub: 'Rayo y perros ninja', slots: [
-                        { d: 'Rayo', j: ['Raikiri'] },
-                        { d: 'Invocación', j: ['Ninken no Jutsu (invocación)'] }
-                    ] }
-                ],
+                
                 kekkei: [{ t: 'Sharingan (trasplantado)', href: 'dojutsus.html#sharingan' }, { t: 'Mangekyō Sharingan', href: 'dojutsus.html#mangekyo' }],
                 clan: { t: 'Hatake', href: 'clanes.html#hatake' }
             },
@@ -457,19 +388,7 @@ pain: {
                     { n: 'Susanoo (Espada de Totsuka y Espejo de Yata)', t: ['Dōjutsu'] },
                     { n: 'Katon: Gōkakyū no Jutsu', t: ['Fuego'] }
                 ],
-                configs: [
-                    { n: 'Itachi ANBU', sub: 'Fuego y clones de cuervo', slots: [
-                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] },
-                        { d: 'Ninjutsu', j: ['Karasu Bunshin no Jutsu'] }
-                    ] },
-                    { n: 'Itachi Mangekyō', sub: 'Genjutsu supremo', slots: [
-                        { d: 'Genjutsu', j: ['Tsukuyomi'] },
-                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] }
-                    ] },
-                    { n: 'Itachi Tsukuyomi', sub: 'Genjutsu', slots: [
-                        { d: 'Genjutsu', j: ['Tsukuyomi'] }
-                    ] }
-                ],
+                
                 kekkei: [{ t: 'Sharingan', href: 'dojutsus.html#sharingan' }, { t: 'Mangekyō Sharingan', href: 'dojutsus.html#mangekyo' }],
                 clan: { t: 'Uchiha', href: 'clanes.html#uchiha' }
             },
@@ -485,20 +404,7 @@ pain: {
                     { n: 'Susanoo', t: ['Dōjutsu'] },
                     { n: 'Katon: Gōkakyū no Jutsu', t: ['Fuego'] }
                 ],
-                configs: [
-                    { n: 'Sasuke Genin', sub: 'Chidori y fuego', slots: [
-                        { d: 'Rayo', j: ['Chidori'] },
-                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] }
-                    ] },
-                    { n: 'Sasuke Mangekyō', sub: 'Kirin y fuego', slots: [
-                        { d: 'Rayo', j: ['Kirin', 'Chidori'] },
-                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] }
-                    ] },
-                    { n: 'Sasuke Rinnegan', sub: 'Rayo y fuego', slots: [
-                        { d: 'Rayo', j: ['Kirin', 'Chidori Nagashi'] },
-                        { d: 'Fuego', j: ['Katon: Gōkakyū no Jutsu'] }
-                    ] }
-                ],
+                
                 kekkei: [{ t: 'Sharingan', href: 'dojutsus.html#sharingan' }, { t: 'Mangekyō Sharingan Eterno', href: 'dojutsus.html#eternal' }, { t: 'Rinnegan', href: 'dojutsus.html#rinnegan' }],
                 clan: { t: 'Uchiha', href: 'clanes.html#uchiha' }
             },
@@ -513,17 +419,7 @@ pain: {
                     { n: 'Asa Kujaku', t: ['Taijutsu'] },
                     { n: 'Hirudora', t: ['Taijutsu'] }
                 ],
-                configs: [
-                    { n: 'Guy Jōnin', sub: 'Taijutsu puro', slots: [
-                        { d: 'Taijutsu', j: ['Puño Borracho', 'Asa Kujaku'] }
-                    ] },
-                    { n: 'Guy Puertas', sub: 'Ocho Puertas', slots: [
-                        { d: 'Taijutsu', j: ['Hachimon Tonkō (Ocho Puertas)', 'Hirudora', 'Asa Kujaku'] }
-                    ] },
-                    { n: 'Guy Octava Puerta', sub: 'Máximo poder', slots: [
-                        { d: 'Taijutsu', j: ['Hachimon Tonkō (Ocho Puertas)', 'Yagai', 'Hirudora'] }
-                    ] }
-                ],
+                
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Sin clan', href: '' }
             },
@@ -538,21 +434,7 @@ pain: {
                     { n: 'Shōsen Jutsu (Palma Mística)', t: ['Medicina ninja'] },
                     { n: 'Byakugō no Jutsu (Sello de la Fuerza de un Centenar)', t: ['Medicina ninja'] }
                 ],
-                configs: [
-                    { n: 'Sakura Médica', sub: 'Palma Mística', slots: [
-                        { d: 'Medicina ninja', j: ['Ninjutsu Médico', 'Shōsen Jutsu (Palma Mística)'] },
-                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
-                    ] },
-                    { n: 'Sakura Byakugō', sub: 'Sello de la Fuerza', slots: [
-                        { d: 'Medicina ninja', j: ['Byakugō no Jutsu (Sello de la Fuerza de un Centenar)', 'Ninjutsu Médico'] },
-                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
-                    ] },
-                    { n: 'Sakura Katsuyu', sub: 'Invocación y apoyo', slots: [
-                        { d: 'Invocación', j: ['Katsuyu (Babosa)'] },
-                        { d: 'Medicina ninja', j: ['Byakugō no Jutsu (Sello de la Fuerza de un Centenar)'] },
-                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
-                    ] }
-                ],
+                
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Haruno', href: '' }
             },
@@ -567,21 +449,7 @@ pain: {
                     { n: 'Byakugō no Jutsu (Sello de la Fuerza de un Centenar)', t: ['Medicina ninja'] },
                     { n: 'Ninjutsu Médico', t: ['Medicina ninja'] }
                 ],
-                configs: [
-                    { n: 'Tsunade Médica', sub: 'Fuerza y medicina', slots: [
-                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] },
-                        { d: 'Medicina ninja', j: ['Ninjutsu Médico'] }
-                    ] },
-                    { n: 'Tsunade Byakugō', sub: 'Regeneración', slots: [
-                        { d: 'Medicina ninja', j: ['Sōzō Saisei (Regeneración Mitótica)', 'Byakugō no Jutsu (Sello de la Fuerza de un Centenar)'] },
-                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
-                    ] },
-                    { n: 'Tsunade Hokage', sub: 'Katsuyu y sanación', slots: [
-                        { d: 'Invocación', j: ['Katsuyu (Babosa)'] },
-                        { d: 'Medicina ninja', j: ['Sōzō Saisei (Regeneración Mitótica)', 'Ninjutsu Médico'] },
-                        { d: 'Taijutsu', j: ['Ōkashō (Impacto de la Flor de Cerezo)'] }
-                    ] }
-                ],
+                
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Senju', href: '' }
             },
@@ -596,22 +464,7 @@ pain: {
                     { n: 'Kuchiyose no Jutsu (Invocación de Sapos)', t: ['Invocación'] },
                     { n: 'Sennin Mōdo (Modo Sabio)', t: ['Senjutsu'] }
                 ],
-                configs: [
-                    { n: 'Jiraiya Sannin', sub: 'Rasengan y fuego', slots: [
-                        { d: 'Ninjutsu', j: ['Rasengan'] },
-                        { d: 'Fuego', j: ['Katon: Gamayu Endan'] },
-                        { d: 'Invocación', j: ['Kuchiyose no Jutsu (Invocación de Sapos)'] }
-                    ] },
-                    { n: 'Jiraiya Sabio', sub: 'Sapos y Rasengan', slots: [
-                        { d: 'Invocación', j: ['Kuchiyose no Jutsu (Invocación de Sapos)'] },
-                        { d: 'Ninjutsu', j: ['Rasengan'] }
-                    ] },
-                    { n: 'Jiraiya Ermitaño', sub: 'Fuego, tierra y Rasengan', slots: [
-                        { d: 'Fuego', j: ['Katon: Gamayu Endan'] },
-                        { d: 'Tierra', j: ['Doton: Yomi Numa'] },
-                        { d: 'Ninjutsu', j: ['Rasengan'] }
-                    ] }
-                ],
+                
                 kekkei: [{ t: 'Ninguno' }],
                 clan: { t: 'Sin clan', href: '' }
             }
