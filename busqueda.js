@@ -26,6 +26,8 @@
         { archivo: "guia.html",     nombre: "Guía del Mod" },
         { archivo: "stats.html",    nombre: "Stats" },
         { archivo: "bijus.html",    nombre: "Bijus" },
+        { archivo: "descargas.html",    nombre: "Descarga" },
+        { archivo: "Comandos.html",    nombre: "Comandos" },
         // { archivo: "nueva-pagina.html", nombre: "Nueva página" },
     ];
 

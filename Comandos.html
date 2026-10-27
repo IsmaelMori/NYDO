@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Comandos | NYDo Wiki</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="busqueda.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{
+  --bg:#0a0b12;--surface:rgba(255,255,255,.035);--surface-2:rgba(255,255,255,.06);
+  --bd:rgba(255,255,255,.08);--bd-2:rgba(255,255,255,.16);
+  --red:#ff4d5e;--gold:#ffc83d;--txt:#e8ecf4;--mut:#98a2b8;--dim:#6b758c;
+  --r:18px;--sp:clamp(16px,3vw,32px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;
+  background-image:radial-gradient(ellipse 60% 40% at 10% 0%,rgba(177,94,255,.14),transparent 70%),radial-gradient(ellipse 50% 40% at 100% 100%,rgba(255,77,94,.09),transparent 70%);
+  background-attachment:fixed;padding-bottom:env(safe-area-inset-bottom,0)}
+button{font:inherit;color:inherit}
+
+/* Header (igual que dojutsus) */
+.nydo-header{position:sticky;top:0;z-index:100}
+.topbar{display:flex;align-items:center;gap:15px;padding:10px 20px;background:rgba(9,10,15,.85)!important;border-bottom:1px solid var(--bd);position:relative;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.search{position:relative;width:min(420px,100%);display:block;margin:0 0 28px}
+.search input{width:100%;padding:11px 16px 11px 42px;border-radius:999px;border:1px solid var(--bd);background:var(--surface-2);color:#fff;font:inherit;font-size:.92rem;outline:0;transition:border-color .2s,background .2s}
+.search input:focus{border-color:var(--gold);background:rgba(255,255,255,.08)}
+.search::before{content:"⌕";position:absolute;left:16px;top:50%;transform:translateY(-52%);color:var(--mut);font-size:1.1rem;pointer-events:none}
+
+/* Layout */
+.layout{max-width:1180px;margin:0 auto;padding:clamp(28px,5vw,48px) var(--sp) 40px;display:grid;grid-template-columns:230px minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.catnav{position:sticky;top:88px;display:flex;flex-direction:column;gap:4px}
+.catnav h6{margin:0 0 8px 12px;font-size:.68rem;letter-spacing:.16em;color:var(--dim);font-weight:700}
+.ctab{display:flex;align-items:center;gap:10px;width:100%;text-align:left;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--mut);padding:9px 12px;border-radius:12px;font-size:.9rem;transition:background .2s,color .2s,border-color .2s}
+.ctab:hover{background:var(--surface);color:var(--txt)}
+.ctab .n{margin-left:auto;font-size:.72rem;color:var(--dim)}
+.ctab.on{background:color-mix(in srgb,var(--c) 14%,transparent);border-color:color-mix(in srgb,var(--c) 45%,transparent);color:#fff}
+.ctab.on .n{color:var(--c)}
+.ctab:focus-visible,.head:focus-visible,.mini:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.tools{margin-top:18px;padding-top:18px;border-top:1px solid var(--bd)}
+.mini{width:100%;cursor:pointer;border:1px solid var(--bd);background:var(--surface);padding:8px 12px;border-radius:12px;font-size:.82rem;color:var(--mut);transition:.2s}
+.mini:hover{color:#fff;border-color:var(--bd-2)}
+
+/* Category */
+.cat{margin-bottom:clamp(40px,6vw,72px)}
+.cat-h{display:flex;gap:16px;align-items:center;margin-bottom:28px}
+.ico{flex:none;width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.6rem;background:color-mix(in srgb,var(--c) 16%,transparent);border:1px solid color-mix(in srgb,var(--c) 40%,transparent)}
+.cat-h small{color:var(--c);letter-spacing:.14em;font-weight:700;font-size:.68rem}
+.cat-h h2{margin:2px 0 2px;font-size:1.6rem;color:#fff;letter-spacing:-.01em}
+.cat-h p{margin:0;color:var(--mut);font-size:.92rem}
+
+.grp{margin-top:30px}
+.grp-t{display:flex;align-items:center;gap:12px;margin:0 0 12px 4px;font:700 .82rem "Courier New",monospace;color:var(--c);letter-spacing:.02em}
+.grp-t::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,var(--bd),transparent)}
+.grp-t span{color:var(--dim);font-weight:400}
+.list{display:flex;flex-direction:column;gap:10px}
+
+/* Command card */
+.cmd{background:var(--surface);border:1px solid var(--bd);border-radius:var(--r);transition:border-color .25s,background .25s,box-shadow .25s}
+.cmd:hover{border-color:var(--bd-2);background:var(--surface-2)}
+.cmd.open{border-color:color-mix(in srgb,var(--c) 55%,transparent);background:var(--surface-2);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.head{display:flex;align-items:flex-start;gap:14px;width:100%;padding:16px 18px;border:0;background:none;text-align:left;cursor:pointer;border-radius:var(--r)}
+.info{flex:1;min-width:0}
+.line{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px}
+code.sx{font:600 .95rem "Courier New",ui-monospace,monospace;color:#fff;word-break:break-word}
+code.sx i{font-style:normal;color:var(--c)}
+code.sx .rq{color:var(--gold)}
+code.sx .op{color:var(--dim);font-weight:400}
+.desc{margin:6px 0 0;color:var(--mut);font-size:.9rem}
+.tg{font-size:.66rem;letter-spacing:.05em;border-radius:999px;padding:2px 9px;border:1px solid currentColor;opacity:.85;font-weight:600}
+.tg.op{color:var(--red)}.tg.pl{color:#5ee27a}.tg.cl{color:#4fd8ff}.tg.db{color:var(--gold)}
+.chev{flex:none;margin-top:4px;width:22px;height:22px;display:grid;place-items:center;color:var(--dim);transition:transform .3s,color .2s}
+.cmd:hover .chev{color:var(--txt)}
+.cmd.open .chev{transform:rotate(180deg);color:var(--c)}
+.cp{flex:none;border:1px solid var(--bd);background:transparent;border-radius:10px;padding:4px 10px;font-size:.74rem;color:var(--mut);cursor:pointer;transition:.2s}
+.cp:hover{color:#fff;border-color:var(--bd-2)}
+
+/* Demo */
+.demo-w{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.cmd.open .demo-w{grid-template-rows:1fr}
+.demo-in{overflow:hidden;min-height:0}
+.demo{margin:0 18px 18px;border-radius:14px;border:1px solid var(--bd);overflow:hidden;background:#05060a}
+.demo-bar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:rgba(255,255,255,.04);border-bottom:1px solid var(--bd);font-size:.7rem;color:var(--dim)}
+.demo-bar i{width:9px;height:9px;border-radius:50%;background:var(--dim);opacity:.5}
+.demo-bar button{margin-left:auto;border:0;background:none;color:var(--c);cursor:pointer;font-size:.74rem;font-weight:700}
+.chat{padding:14px 16px 8px;min-height:92px;display:flex;flex-direction:column;gap:3px;font:.82rem/1.55 "Courier New",ui-monospace,monospace}
+.chat div{color:#d7e0d7;white-space:pre-wrap;word-break:break-word;animation:in .3s ease both}
+.chat .y{color:#ffe066}.chat .g{color:#6ee787}.chat .r{color:#ff6b6b}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.inp{margin:6px 12px 12px;padding:6px 10px;border:1px solid var(--bd);border-radius:8px;font:.8rem "Courier New",monospace;color:#fff;white-space:nowrap;overflow:hidden;background:rgba(255,255,255,.03)}
+.inp i{display:inline-block;width:6px;height:12px;background:#fff;vertical-align:middle;margin-left:1px;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+
+.none{text-align:center;color:var(--mut);padding:80px 20px}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;background:#1d2233;border:1px solid var(--bd-2);padding:8px 18px;border-radius:999px;font-size:.85rem;pointer-events:none;transition:.3s;z-index:99}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{max-width:1180px;margin:0 auto;padding:24px var(--sp) 56px;color:var(--dim);font-size:.82rem;border-top:1px solid var(--bd)}
+
+@media(max-width:860px){
+  .layout{grid-template-columns:1fr;gap:20px}
+  .catnav{position:static;flex-direction:row;overflow-x:auto;gap:8px;padding-bottom:6px;margin:0 calc(var(--sp) * -1);padding-inline:var(--sp);scrollbar-width:none}
+  .catnav::-webkit-scrollbar{display:none}
+  .catnav h6,.tools{display:none}
+  .ctab{width:auto;flex:none;border-color:var(--bd);white-space:nowrap;padding:8px 14px;border-radius:999px}
+  .ctab .n{display:none}
+}
+@media(max-width:520px){
+  .head{padding:14px}.demo{margin:0 14px 14px}.cp{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="nydo-header">
+    <div class="topbar nydo-topbar">
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="index.html#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+        <div class="brand-description">
+            <strong>WIKI NO OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+
+        <div class="wiki-search-wrap" id="wikiSearch">
+            <div class="wiki-search-box">
+                <i class="fa-solid fa-magnifying-glass wiki-search-icon"></i>
+                <input type="search" id="wikiSearchInput" placeholder="Buscar..." autocomplete="off" aria-label="Buscar en toda la wiki" aria-controls="wikiSearchResults" aria-expanded="false">
+                <button type="button" id="wikiSearchClear" aria-label="Limpiar búsqueda" style="display:none;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="wikiSearchResults" class="wiki-search-results" role="region" aria-live="polite"></div>
+        </div>
+    </div>
+</header>
+
+<div class="page-overlay" id="pageOverlay"></div>
+
+<aside class="sidebar" id="sidebar" data-include="sidebar.html"></aside>
+
+<div class="layout">
+  <nav class="catnav" id="tabs" aria-label="Categorías"></nav>
+  <div>
+    <label class="search"><input id="q" type="search" placeholder="Filtrar comandos…" autocomplete="off" aria-label="Filtrar comandos"></label>
+    <main id="main"></main>
+  </div>
+</div>
+
+<footer>&lt;x&gt; = obligatorio · [x] = opcional · Las demos usan los textos reales del mod (es_es). Los comandos «OP» requieren permisos de operador (nivel 2).</footer>
+<div class="toast" id="toast">Copiado</div>
+
+<script src="script.js"></script>
+<script>
+const D=`#ninja|Ninja y chakra|🥷|#ff7a2f|Progresión ninja, chakra, XP y destrucción de terreno.
+/ninja info [jugador]|Muestra vida máxima, chakra y XP ninja del jugador.|=== Naruto ===~Vida máxima: 40~Chakra: 120/120 (nivel 5)~XP ninja: 1500 (nivel 7)
+/ninja unlock [jugador]|Convierte al jugador en ninja y desbloquea sus poderes de forma permanente.|Naruto ahora es ninja; sus poderes se han desbloqueado permanentemente.
+/ninja xp get [jugador]|Consulta la XP y el nivel ninja.|Naruto: XP ninja 1500, nivel ninja 7
+/ninja xp add <cantidad> [jugador]|Suma XP ninja.|Se han añadido 500 puntos de XP ninja a Naruto (ahora tiene 2000).
+/ninja xp set <cantidad> [jugador]|Fija la XP ninja a un valor exacto.|La XP ninja de Naruto se ha establecido en 100.
+/ninja chakra get [jugador]|Muestra chakra actual, máximo y nivel de chakra.|Naruto: chakra 80/120, nivel de chakra 5
+/ninja chakra fill [jugador]|Rellena el chakra al máximo.|El chakra de Naruto se ha rellenado hasta 120.
+/ninja chakra set <cantidad> [jugador]|Fija el chakra a una cantidad.|El chakra de Naruto se ha establecido en 50.
+/ninja jumpboost|Te da Salto mejorado y Velocidad. Corre y mantén Agacharse + Saltar para lanzarte.|Se han concedido Salto mejorado y Velocidad. Corre y mantén Agacharse y Saltar para lanzarte.
+/ninja jutsu unlock|Desbloquea las técnicas del pergamino de jutsu que sostienes en la mano (ej. Katon).|Se han desbloqueado todos los jutsus de Naruto.
+/ninja jutsu unlock all|Desbloquea todas las técnicas de todos los pergaminos sin cambiar el Jutsu XP.|Desbloqueadas 48 técnicas en 12 pergaminos; el Jutsu XP no cambió.
+/ninja jutsu train <xp>|Añade XP de jutsu a todos tus jutsus a la vez.|Se han añadido 200 puntos de XP de jutsu a todos los jutsus de Naruto.
+/ninja terrain|Muestra si los jutsus, Chibaku Tensei y las espadas destruyen terreno.|[NYDO] Destrucción de terreno — jutsus: activado, Chibaku: activado, espadas: desactivado
+/ninja terrain <all|jutsus|chibaku|sword> <on|off>|Activa o desactiva la destrucción de terreno: todo, jutsus, Chibaku Tensei o espadas.|[NYDO] Destrucción de terreno [jutsus]: desactivado.
+/jutsuxp get|XP de cada jutsu del objeto que sostienes (actual/máximo).|XP de jutsu de Naruto:~1. Katon: Gōkakyū: 120/500
+/jutsuxp add <xp>|Suma XP de jutsu al objeto en mano.|Se han añadido hasta 100 puntos de XP de jutsu a Katon.
+/jutsuxp add <xp> all|Suma XP a todos los jutsus.|Se han añadido hasta 100 puntos de XP de jutsu a todos los jutsus de Naruto.
+/jutsuxp max|Sube el jutsu en mano a su maestría máxima.|La XP de jutsu de Naruto ha alcanzado el límite original.
+/jutsuxp affinity get|Muestra tu afinidad elemental.|Afinidad de Naruto: Fūton
+/jutsuxp affinity <on|off>|Fija (on) o quita (off) tu afinidad con la naturaleza del jutsu en mano.|La afinidad de Naruto se ha establecido como Katon. Usa /jutsuxp get para ver su límite de entrenamiento.
+/nystats [jugador]|Ficha completa: clan, XP ninja, taijutsu y puntos RPG.|=== Estadísticas de Naruto ===~Ninja: XP 1500 | nivel 7~Taijutsu: XP 300 | nivel 3 | estilo uchiha | puntos 2~Clan: Uzumaki
+/nystats reset [jugador]|Devuelve los puntos RPG gastados (conserva nivel, jutsus y bonos de clan). No funciona en combate.|Naruto: se devolvieron 12 puntos RPG. Se conservaron nivel, jutsus y bonos de clan.
+/nystats ninja <add|set> <cantidad> [jugador]|Suma o fija la XP ninja.|Se han añadido 500 puntos de XP ninja a Naruto. Total: 2000 | nivel 8
+/nystats taijutsu <add|set> <cantidad> [jugador]|Suma o fija la XP de taijutsu.|Se han añadido 100 puntos de XP de taijutsu a Naruto. Total: 400 | nivel 4
+#tai|Taijutsu|👊|#ffc107|Estilos de combate cuerpo a cuerpo, XP y puntos de habilidad.
+/taijutsu info [jugador]|Resumen: XP, nivel, estilo, puntos y bonificación.|Naruto | XP de taijutsu 300 | nivel 3 | estilo uchiha | puntos 2 | bonificación 0
+/taijutsu get [jugador]|Consulta rápida de tu estado de taijutsu.|Naruto | XP de taijutsu 300 | nivel 3
+/taijutsu add <estilo> [jugador]|Concede todas las habilidades de un estilo y lo selecciona.|Se ha concedido y seleccionado el estilo de taijutsu uchiha para Naruto.
+/taijutsu style set <estilo> [jugador]|Cambia el estilo activo.|Se ha seleccionado el estilo de taijutsu uchiha para Naruto.
+/taijutsu xp get [jugador]|Muestra la XP de taijutsu.|Naruto | XP de taijutsu 300 | nivel 3
+/taijutsu xp add <cantidad> [jugador]|Suma XP de taijutsu.|Se han añadido 100 puntos de XP de taijutsu a Naruto. XP 400 | nivel 4
+/taijutsu xp set <cantidad> [jugador]|Fija la XP de taijutsu.|La XP de taijutsu de Naruto se ha establecido en 0. Nivel 1
+/taijutsu points get [jugador]|Puntos de habilidad disponibles, ganados y gastados.|Naruto | disponibles 2 | obtenidos 5 | gastados 3 | bonificación 0
+/taijutsu points add <cantidad> [jugador]|Da puntos de habilidad extra.|Se han añadido 3 puntos de habilidad de taijutsu adicionales a Naruto. Disponibles 5 | bonificación 3
+/taijutsu points set_bonus <cantidad> [jugador]|Fija los puntos extra (bonus).|Los puntos adicionales de taijutsu de Naruto se han establecido en 2. Disponibles 4
+/taijutsu skill unlock <habilidad> [jugador]|Desbloquea una habilidad concreta del árbol.|Se ha desbloqueado la habilidad de taijutsu <habilidad> para Naruto.
+#ojos|Dōjutsu y Susanoo|👁|#ff3b4b|XP de Sharingan y Susanoo, ceguera ocular y cirugía.
+/sharinganxp get [jugador]|Estado del Sharingan natural: tomoe, XP y bloqueos emocionales que faltan.|[XP de Sharingan] Naruto~  Tomoe actual: 2 | XP: 800 | Desbloqueos emocionales: 1~  Siguiente: 3 tomoe -> faltan 400 XP y 1 desbloqueo(s) emocional(es).
+/sharinganxp add <cantidad> [jugador]|Suma XP al Sharingan natural.|[XP de Sharingan +400] Naruto~  Tomoe actual: 2 | XP: 1200
+/sharinganxp set <cantidad> [jugador]|Fija la XP del Sharingan.|[XP de Sharingan =0] Naruto~  Tomoe actual: 1 | XP: 0
+/susanooxp get [left|right]|Muestra XP y fase máxima de Susanoo (ojo activo, izquierdo o derecho).|Consulta — ojo activo, Sharingan: 800/1000 XP (80%), fase máxima 3.
+/susanooxp add <cantidad> [left|right]|Suma XP de Susanoo al ojo elegido.|XP añadida — ojo izquierdo: 1000/1000 XP (100%), fase máxima 4.
+/susanooxp set <cantidad> [left|right]|Fija la XP de Susanoo (si baja la fase, se desactiva el Susanoo activo).|El Susanoo activo se desactivó porque su forma superaba la nueva maestría.
+/nydoblindness|(Alias /nydoblynes) Informe de ceguera de NYDO del jugador.|Ceguera de NYDO: total 0 s, ojo izquierdo 30 s, ojo derecho 0 s.
+/nydoblindness full [segundos]|Ceguera total durante N segundos.|Ceguera total de NYDO aplicada durante 60 segundos.
+/nydoblindness eye <left|right> [segundos]|Ceguera en un solo ojo con dōjutsu.|Ceguera de NYDO: ojo izquierdo, 30 segundos.
+/nydoblindness both [segundos]|Ceguera en ambos ojos.|Ceguera de NYDO aplicada a 2 ojo(s) durante 30 segundos.
+/nydoblindness clear|Quita la ceguera y la deuda ocular temporal.|Se han eliminado la ceguera de NYDO y la deuda ocular temporal.
+/nydosurgery <konoha|rogue> locate|Indica dónde está el cirujano (Nao en Konoha, Kuro en Akatsuki).|Nao: acceso oculto por el río occidental de Konoha. Kuro: ala médica de la base subterránea Akatsuki.
+/nydosurgery <konoha|rogue> inspect|Cuenta cuántos bloques modificaría instalar la sala quirúrgica.|Se modificarían 1840 bloques. /nydosurgery <konoha|rogue> install reemplaza esa área; revisa y respalda tu mundo primero.
+/nydosurgery <konoha|rogue> install|Construye la sala quirúrgica (debes estar a <32 bloques, en el Overworld).|Sala instalada: 1840 bloques modificados. El especialista aparecerá al cargarse la zona.
+/nydosurgery <konoha|rogue> relocate|Mueve al cirujano a la nueva sala sin duplicarlo.|Especialista reubicado. Se conservaron su identidad y su configuración.
+/nydosurgery <konoha|rogue> entrance|Prepara/ubica la entrada de la sala quirúrgica.|Buscando la entrada de la sala…
+#clan|Clanes y villa|🏯|#00d2ff|Clanes de sangre, sub-clanes, reputación, cartera y aldea.
+/clan get [jugador]|Muestra el clan de sangre del jugador.|Naruto | clan Uzumaki (uzumaki) | nivel 3 | naturalezas Suiton | linaje puro
+/clan set <clan> [jugador]|Asigna un clan.|Se ha asignado el clan Uchiha (uchiha) a Naruto.
+/clan change <clan> [jugador]|Cambia el clan por otro (transición con reglas del mod).|Se ha asignado el clan Hyūga (hyuga) a Naruto.
+/clan clear [jugador]|Elimina el clan asignado.|Se ha eliminado el clan asignado a Naruto.
+/clan list|Lista los ID de clan válidos.|Clanes registrados: uchiha, hyuga, uzumaki, senju, nara…
+/clan reputation [get] [jugador]|(Alias /clan reputacion) Reputación con tu clan/villa de origen.|Reputación de Naruto con su clan/villa de origen (Konoha): 120.
+/clan reputation <set|add> <valor> [jugador]|Fija o suma reputación.|Reputación de Naruto con Konoha: 120 → 220.
+/nyclan create <nombre>|(Alias crear) Funda un sub-clan (3–24 caracteres). Requiere ser ninja con clan de sangre.|Subclán creado: Hoja Veloz. Haz clic derecho en un jugador con el Pergamino de Clan para invitarlo.
+/nyclan invite <jugador>|(Alias invitar) El líder invita a un jugador cercano.|Invitación enviada a Sasuke para el sub-clan Hoja Veloz.
+/nyclan accept|(Alias aceptar) Acepta la invitación pendiente.|Te uniste al sub-clan Hoja Veloz.
+/nyclan reject|(Alias rechazar) Rechaza la invitación; tras 2 rechazos te bloquean ese sub-clan.|Invitación rechazada (1/2). Rechazos restantes antes del bloqueo: 1.
+/nyclan leave|(Alias salir) Sales de tu sub-clan.|Saliste del sub-clan Hoja Veloz.
+/nyclan info|Datos de tu sub-clan: miembros, máximo y sangre.|Sub-clan: Hoja Veloz | miembros: 3/8 | sangre: puro
+/nyclan list|Lista todos los sub-clanes.|• Hoja Veloz — 3 miembros [puro]
+/nyclan join <id>|(OP, unirAdmin) Te mete en un sub-clan saltando invitaciones.|Te uniste a Hoja Veloz.
+/nyclan blood get [jugador]|(Alias sangre) Ve el clan de sangre.|Clan de sangre de Naruto: Uzumaki (uzumaki)
+/nyclan blood set <id> <jugador>|(OP) Fija el clan de sangre.|Se ha establecido el clan de sangre de Naruto como Uchiha (uchiha).
+/nyclan blood clear [jugador]|(OP) Quita el clan de sangre.|Se ha eliminado el clan de sangre de Naruto.
+/nyclan blood list|Lista los clanes de sangre disponibles.|uchiha - hyuga - uzumaki - senju…
+/wallet get <jugador>|Saldo de la Cartera Shinobi (ryō).|Saldo de la cartera de Naruto: 5000
+/wallet add <cantidad> <jugador>|Agrega ryō.|Agregaste 1000 a la cartera de Naruto. Saldo: 6000
+/wallet take <cantidad> <jugador>|Quita ryō.|Quitaste 500 de la cartera de Naruto. Saldo: 5500
+/wallet set <cantidad> <jugador>|Fija el saldo.|Saldo de la cartera de Naruto fijado en 0
+/nydovillage status|Estado de la aldea (Konoha) donde estás.|(estado de la aldea y tu reputación)
+/nydovillage locate|Localiza la aldea más cercana.|(coordenadas de la aldea)
+/nydovillage reputation <jugador> <valor>|Fija la reputación del jugador con la aldea.|Reputación actualizada.
+#biju|Bijū y Jinchūriki|🦊|#ff9a3c|Colas, sellado, manto de Kurama, Mundo Interior y sistema de supervivencia.
+/biju set <colas> [jugador] [force]|Convierte al jugador en jinchūriki del bijū (1–9). «force» solo para depurar.|Naruto se ha convertido en el jinchūriki de tails=9.
+/biju clear <colas>|Reinicia recipiente y ciclo de vida de ese bijū (reaparecerá).|Se han restablecido el recipiente y el ciclo de vida de tails=9.
+/biju seal <colas> [jugador]|Inicia el sellado de un bijū salvaje en el jugador.|Sellado iniciado: Naruto ahora es el jinchūriki de tails=9.
+/biju locate [nearest|<colas>]|Localiza el bijū libre más cercano o uno concreto.|Bijū más cercano: tails=1 (dimensión=overworld, distancia=820 bloques)
+/biju spawnpos <colas>|Genera la posición de aparición del bijū.|Posición de aparición generada para tails=1: 120 70 -340
+/biju info [jugador]|Info del jinchūriki: bijū, manto y aspecto.|Naruto | aspecto de Kurama: balanceado
+/biju info tails <colas>|Info de un bijū concreto.|tails=9 | estado, titular y posición
+/biju cloak [jugador]|Alterna el manto del Bijū (requiere armadura del manto equipada).|Manto de Naruto: desactivado → activado
+/biju aspect <balanced|yin|yang> [jugador]|Cambia el aspecto de Kurama.|Naruto | aspecto de Kurama: yin
+/biju xp <cantidad> [jugador]|Suma XP de Bijū con manto activo.|Naruto | XP de Bijū con manto de nivel 1: 0 → 500
+/biju dimension [colas]|Entra al Mundo Interior (celda del bijū); repite para volver.|Mundo interior: celda de tails=9 en 0 64 0. Usa /biju dimension otra vez para regresar.
+/biju awaken_shukaku [jugador]|Despertar natural de Shukaku (depuración).|Se ha aplicado a Naruto el despertar natural de Shukaku para depuración.
+/bijuxp get [jugador]|Muestra el Bijū XP (dominio de Kurama).|Naruto tiene 1200 Bijū XP.
+/bijuxp <add|set> <jugadores> <cantidad>|Suma o fija Bijū XP a varios jugadores.|Bijū XP actualizado para 1 jugador(es).
+/bijuconfianza /bijuamistad /bijuchakra <get|set|add|fill> [jugador] [n]|Prueba el vínculo con Kurama: confianza, amistad o reserva de chakra.|Prueba aplicada a Naruto · Confianza: 50 / 100
+/nydobiju status|Estado del sistema biju de supervivencia.|Biju survival activo=true | Kurama UUID=… | portador=Naruto
+/nydobiju claim [yin|yang]|Asigna Kurama (o un aspecto) por comando administrativo.|Kurama asignado mediante un comando administrativo.
+/nydobiju instinct <start|stop|status>|Controla el modo instinto de prueba.|Instinto iniciado (manual).
+/nydobiju form-plan <colas>|Muestra el plan de forma del bijū.|(plan de forma de tails=9)
+/nydobiju activity|Resumen de actividad del vínculo.|Vínculo: 0 tareas pendientes, 4 ejecutadas, 1 primer contacto…
+/nydobiju prototype <enable|disable>|Activa o desactiva el sistema biju.|Sistema biju de supervivencia habilitado.
+/nydobiju block|Te convierte en un bloque gris 2×2 de prueba (F5 para verlo).|Bloque gris activo. F5 para verlo y F3+B para revisar colisión.
+/nydobiju human|Restaura tu forma humana.|Representación humana restaurada.
+/nydobiju release|Libera la reserva de prueba (conserva historial).|Reserva de prueba liberada.
+/nydobiju release-owner <uuid>|Libera la reserva de un titular por UUID.|Reserva liberada.
+/nydobiju mastery-set <xp>|Fija la XP técnica de prueba.|XP técnica de prueba actualizada en el jugador.
+#adm|Admin, mundo y varios|🛠|#b15eff|Utilidades de administración, worldgen, tutorial y combate.
+/hsts reset [jugador]|Reinicia el entrenamiento de sellos de mano (aprendidos, bloqueados y sesión).|HSTS restablecido para Naruto (técnicas aprendidas, bloqueadas y sesión activa).
+/hsts reset_learned [jugador]|Borra solo las técnicas aprendidas.|HSTS: se han eliminado las técnicas aprendidas de Naruto.
+/hsts reset_blocked [jugador]|Borra solo las técnicas bloqueadas.|HSTS: se han eliminado las técnicas bloqueadas de Naruto.
+/nydotutorial status|Estado del tutorial ninja.|Estado del tutorial: activo — paso 3.
+/nydotutorial explain|Reabre la explicación detallada del paso actual.|Explicación detallada abierta de nuevo.
+/nydotutorial skip|Omite el tutorial.|Tutorial omitido. No volverá a aparecer salvo que uses /nydotutorial resume o restart.
+/nydotutorial resume|Reanuda desde el paso guardado.|Tutorial reanudado desde el paso guardado.
+/nydotutorial restart|Lo reinicia desde el primer paso.|Tutorial reiniciado desde el primer paso.
+/nydo worldgen|Resumen de la generación del mod en tu posición: bioma, montaña, Myōboku.|NYDO worldgen @ 120,70,-340 | biome=… | mountain=true | myoboku=false
+/nydo worldgen here|Estructuras permitidas en tu ubicación.|Allowed structures: camp=true, shrine=false, ruins=true, sage_training=false
+/nydo worldgen relief|Mide el relieve del terreno cargado (256×256).|NYDO relief (loaded 256x256): minY=60, meanY=82.4, maxY=140, relief=80
+/nydo worldgen config|Muestra la config de worldgen, estructuras y NPC.|NYDO worldgen: enabled=true, biomes=true, mountainWeight=…
+/nydoclash diagnose <a> <b>|Diagnostica por qué dos jugadores pueden (o no) iniciar un choque Rasengan vs Chidori.|Contacto válido: ambos jutsus pueden iniciar el choque.
+#dbg|Pruebas y cliente|🧪|#22c55e|Comandos de depuración y de cliente (no necesitan servidor).
+/test particles nydo <fire|flames|amaterasu|amaterasu_flames|hit>|Reproduce partículas de prueba de NYDO.|Efecto de fuego amaterasu de NYDO reproducido ×1.
+/test particles nydo effect <id> [escala]|Reproduce un efecto visual por ID.|Efecto visual de NYDO solicitado: 3 (escala 1.0).
+/test particles nydo stress <cantidad>|Prueba de estrés de partículas.|Prueba de estrés: 500 partículas.
+/nydocinematic play <nydo|sharingan_left|tsukuyomi|shisui>|(cliente) Reproduce una cinemática.|▶ Cinemática «tsukuyomi» en reproducción.
+/nydocinematic <skip|stop|list>|(cliente) Salta, detiene o lista las cinemáticas.|Cinemáticas: nydo, sharingan_left, tsukuyomi, shisui
+/test cinematic <nydo|sharingan_left|tsukuyomi|shisui|stop>|(cliente) Atajo de prueba de cinemáticas.|▶ Cinemática «nydo» en reproducción.
+/nydovfx <list|stats|clear|reset_stats>|(cliente) Lista, estadísticas y limpieza de efectos VFX.|VFX activos: 0
+/nydovfx play <efecto> [escala]|(cliente) Reproduce un VFX.|VFX reproducido (escala 1.0).
+/nyitemcalib <open|off|reset>|(cliente) Calibra la posición de un ítem en mano.|Calibración abierta.
+/nygreatswordcalib|(cliente) Calibra la gran espada.|Calibración de espada abierta.
+/nybendyprofiles <reload|folder>|(cliente) Recarga o abre la carpeta de perfiles Bendy.|Perfiles recargados.`;
+
+const cats=[];let cur;
+D.split('\n').forEach(l=>{
+  if(l[0]=='#'){const[i,n,e,c,d]=l.slice(1).split('|');cur={i,n,e,c,d,k:[]};cats.push(cur)}
+  else{const[c,d,o]=l.split('|');cur.k.push({c,d,o:(o||'').split('~')})}
+});
+
+const tabs=document.getElementById('tabs'),main=document.getElementById('main'),q=document.getElementById('q'),toast=document.getElementById('toast');
+let sel='all',allOpen=false;
+const esc=s=>s.replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const groupOf=c=>c.split(' ')[0];
+
+function tag(c){
+  let t=/^\/(test|nydocinematic|nydovfx|nyitem|nygreat|nybendy)/.test(c)?'<span class="tg cl">CLIENTE</span>':'<span class="tg op">OP 2</span>';
+  if(/^\/nyclan (create|invite|accept|reject|leave|info|list)/.test(c)||/^\/nydotutorial/.test(c))t='<span class="tg pl">JUGADOR</span>';
+  if(/^\/(test|nydobiju|nydoclash)/.test(c))t+='<span class="tg db">DEBUG</span>';
+  return t;
+}
+function syntax(c){
+  const parts=esc(c).split(' ');
+  return parts.map((p,i)=>{
+    if(i==0)return '<i>'+p+'</i>';
+    if(p.startsWith('&lt;'))return '<span class="rq">'+p+'</span>';
+    if(p.startsWith('['))return '<span class="op">'+p+'</span>';
+    return p;
+  }).join(' ');
+}
+
+function render(){
+  const f=q.value.trim().toLowerCase();
+  let h='',tot=0;
+  cats.forEach(c=>{
+    if(sel!='all'&&sel!=c.i)return;
+    const ks=c.k.filter(x=>!f||(x.c+' '+x.d).toLowerCase().includes(f));
+    if(!ks.length)return;
+    tot+=ks.length;
+    const groups={};ks.forEach(x=>(groups[groupOf(x.c)]=groups[groupOf(x.c)]||[]).push(x));
+    h+=`<section class="cat" style="--c:${c.c}" id="${c.i}"><div class="cat-h"><div class="ico">${c.e}</div><div><small>${ks.length} COMANDOS</small><h2>${c.n}</h2><p>${c.d}</p></div></div>`;
+    Object.entries(groups).forEach(([g,items])=>{
+      h+=`<div class="grp"><h3 class="grp-t">${esc(g)} <span>${items.length}</span></h3><div class="list">`;
+      items.forEach(x=>{
+        h+=`<article class="cmd${allOpen?' open':''}" data-c="${esc(x.c)}" data-o="${esc(x.o.join('~'))}">
+<button class="head" aria-expanded="${allOpen}"><div class="info"><div class="line"><code class="sx">${syntax(x.c)}</code>${tag(x.c)}</div><p class="desc">${esc(x.d)}</p></div><span class="chev" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6l5 5 5-5"/></svg></span></button>
+<div class="demo-w"><div class="demo-in"><div class="demo"><div class="demo-bar"><i></i><i></i><i></i><span>&nbsp;chat</span><button class="rep" type="button">↻ Repetir</button><button class="cp" type="button" style="margin-left:8px">Copiar</button></div><div class="chat"></div><div class="inp">&gt; <span></span><i></i></div></div></div></div></article>`;
+      });
+      h+='</div></div>';
+    });
+    h+='</section>';
+  });
+  main.innerHTML=h||'<div class="none">No se encontró ningún comando.</div>';
+  if(allOpen)main.querySelectorAll('.cmd').forEach(play);
+}
+
+async function play(card){
+  const id=(card._id=(card._id||0)+1),ch=card.querySelector('.chat'),sp=card.querySelector('.inp span');
+  ch.innerHTML='';sp.textContent='';
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  for(const c of card.dataset.c){if(card._id!=id)return;sp.textContent+=c;if(!reduce)await sleep(18)}
+  await sleep(reduce?0:300);if(card._id!=id)return;
+  const e=document.createElement('div');e.className='y';e.textContent='<Tú> '+card.dataset.c;ch.appendChild(e);sp.textContent='';
+  await sleep(reduce?0:260);
+  for(const ln of card.dataset.o.split('~')){
+    if(card._id!=id)return;
+    const d=document.createElement('div');d.className=/rechaz|No se|no está/i.test(ln)?'r':'g';d.textContent=ln;ch.appendChild(d);
+    await sleep(reduce?0:220);
+  }
+}
+
+function showToast(t){toast.textContent=t;toast.classList.add('on');clearTimeout(showToast.t);showToast.t=setTimeout(()=>toast.classList.remove('on'),1400)}
+
+main.addEventListener('click',e=>{
+  const card=e.target.closest('.cmd');if(!card)return;
+  if(e.target.closest('.cp')){
+    const txt=card.dataset.c;
+    (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>showToast('Comando copiado')).catch(()=>showToast('No se pudo copiar'));
+    return;
+  }
+  if(e.target.closest('.rep')){play(card);return}
+  if(e.target.closest('.head')){
+    const open=card.classList.toggle('open');
+    card.querySelector('.head').setAttribute('aria-expanded',open);
+    if(open)play(card);else card._id=(card._id||0)+1;
+  }
+});
+
+function buildTabs(){
+  const total=cats.reduce((a,c)=>a+c.k.length,0);
+  const items=[{i:'all',n:'Todos',e:'⌨',c:'#ffc83d',k:{length:total}}].concat(cats);
+  tabs.innerHTML='<h6>CATEGORÍAS</h6>'+items.map(t=>`<button class="ctab${t.i==sel?' on':''}" data-i="${t.i}" style="--c:${t.c}"><span>${t.e}</span>${t.n}<span class="n">${t.k.length}</span></button>`).join('')
+   +'<div class="tools"><button class="mini" id="exp" type="button">Expandir todas las demos</button></div>';
+}
+tabs.addEventListener('click',e=>{
+  if(e.target.closest('#exp')){
+    allOpen=!allOpen;e.target.closest('#exp').textContent=allOpen?'Plegar todas las demos':'Expandir todas las demos';render();return;
+  }
+  const b=e.target.closest('.ctab');if(!b)return;
+  sel=b.dataset.i;tabs.querySelectorAll('.ctab').forEach(x=>x.classList.toggle('on',x==b));render();
+  window.scrollTo({top:document.querySelector('.layout').offsetTop-80,behavior:'smooth'});
+});
+q.addEventListener('input',render);
+buildTabs();render();
+</script>
+<script src="busqueda.js"></script>
+</body>
+</html>
