@@ -860,7 +860,16 @@ pain: {
             return out;
         }
         function gmUnlocked(c) { return Math.max(3, c.slots.length); }
-        function gmHref(d, j) { return JUTSU_LINKS[j] || NATURE_LINKS[d] || ''; }
+        function slugJutsu(t) {
+            return (t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+                .replace(/^[^:]*:\s*/, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        }
+        // Elementos (Fuego, Tierra, Agua, Viento, Rayo): enlace automático a página#nombre-de-la-técnica.
+        // JUTSU_LINKS solo hace falta para casos especiales (otra página o un # distinto).
+        function gmHref(d, j) {
+            if (JUTSU_LINKS[j]) return JUTSU_LINKS[j];
+            return NATURE_LINKS[d] ? NATURE_LINKS[d] + '#' + slugJutsu(j) : '';
+        }
 
         function gmBuild() {
             const root = document.createElement('div');
