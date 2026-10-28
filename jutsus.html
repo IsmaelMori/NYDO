@@ -149,6 +149,219 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.08) !important;
         }
+
+        /* TARJETA NINJUTSU (6ª tarjeta, sin kanji: usa la imagen del juego) */
+        .element-grid {
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        }
+        .element-card.ninja {
+            --ninja: #4fb3ff;
+        }
+        .element-card.ninja:hover {
+            border-color: var(--ninja);
+            box-shadow: 0 10px 25px rgba(79, 179, 255, 0.18);
+        }
+        .element-card.ninja .element-symbol {
+            display: inline-grid;
+            place-items: center;
+        }
+        .element-card.ninja .element-symbol img {
+            width: 46px;
+            height: 46px;
+            image-rendering: pixelated;
+            filter: brightness(3.2) contrast(1.1);
+        }
+        .element-card.ninja .element-name {
+            color: var(--ninja);
+        }
+
+        /* KEKKEI GENKAI CLICABLES */
+        .advanced-elements .kg-item {
+            cursor: pointer;
+            transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+        .advanced-elements .kg-item:hover,
+        .advanced-elements .kg-item:focus-visible {
+            transform: translateY(-3px);
+            outline: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .45), 0 0 0 1px rgba(231, 182, 109, .6);
+        }
+
+        .advanced-elements .kg-item.active {
+            border-color: var(--kg, #e7b66d);
+            box-shadow: 0 0 14px var(--kg-glow, rgba(231, 182, 109, .35));
+        }
+
+        /* PANEL EN LÍNEA DE KEKKEI GENKAI
+           Se inserta dentro de la cuadrícula, justo debajo de la fila del
+           elemento pulsado, y empuja hacia abajo todo lo demás. */
+        .kg-panel {
+            --kg: #5fcf7a;
+            --kg-soft: rgba(95, 207, 122, .12);
+            --kg-glow: rgba(95, 207, 122, .35);
+            grid-column: 1 / -1;
+            flex: 0 0 100%;
+            width: 100%;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-rows: 0fr;
+            margin: 0;
+            transition: grid-template-rows .35s ease, margin .35s ease;
+        }
+        .kg-panel.open {
+            grid-template-rows: 1fr;
+            margin: 6px 0 10px;
+        }
+        .kg-panel-clip {
+            min-height: 0;
+            overflow: hidden;
+        }
+        .kg-box {
+            position: relative;
+            padding: 24px 24px 22px;
+            color: #f4f5fa;
+            background: linear-gradient(145deg, #131826, #0b0d14);
+            border: 1px solid var(--kg);
+            border-radius: 16px;
+            box-shadow: inset 0 0 30px var(--kg-soft);
+        }
+        .kg-box::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--kg), #ffffff55, var(--kg));
+            border-radius: 16px 16px 0 0;
+        }
+        .kg-close {
+            position: absolute;
+            top: 12px; right: 12px;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .05);
+            color: #cbd5e1;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .kg-close:hover { color: #fff; border-color: var(--kg); background: var(--kg-soft); }
+
+        .kg-eyebrow {
+            display: block;
+            color: var(--kg);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .kg-title {
+            margin: 4px 0 6px;
+            padding-right: 40px;
+            font-size: 26px;
+            line-height: 1.2;
+            color: #fff;
+        }
+        .kg-title small {
+            font-size: 13px;
+            font-weight: 600;
+            color: #aeb7c8;
+        }
+        .kg-desc {
+            margin: 0 0 14px;
+            color: #c2cad8;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .kg-notice {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin: 0 0 16px;
+            padding: 11px 13px;
+            color: #f3e4c3;
+            font-size: 12.5px;
+            line-height: 1.6;
+            background: rgba(231, 182, 109, .1);
+            border: 1px solid rgba(231, 182, 109, .55);
+            border-radius: 10px;
+        }
+        .kg-notice i { color: #e7b66d; margin-top: 3px; }
+
+        .kg-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+        .kg-tab {
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            background: rgba(255, 255, 255, .04);
+            color: #cbd5e1;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        .kg-tab:hover { border-color: var(--kg); color: #fff; }
+        .kg-tab.active {
+            color: #fff;
+            border-color: var(--kg);
+            background: var(--kg-soft);
+            box-shadow: 0 0 12px var(--kg-glow);
+        }
+
+        .kg-detail {
+            padding: 14px 14px 12px;
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+        }
+        .kg-detail h4 { margin: 0 0 2px; font-size: 17px; color: #fff; }
+        .kg-jp {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--kg);
+            font-size: 11.5px;
+            font-weight: 700;
+        }
+        .kg-detail p {
+            margin: 0 0 12px;
+            color: #aeb7c8;
+            font-size: 12.5px;
+            line-height: 1.7;
+        }
+        .kg-video {
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 10px;
+        }
+        .kg-video video { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+        .kg-empty {
+            padding: 22px 14px;
+            text-align: center;
+            color: #aeb7c8;
+            font-size: 13px;
+            line-height: 1.7;
+            background: rgba(255, 255, 255, .03);
+            border: 1px dashed rgba(255, 255, 255, .15);
+            border-radius: 12px;
+        }
+        .kg-empty i { display: block; margin-bottom: 8px; font-size: 22px; color: var(--kg); }
+
+        @media (max-width: 480px) {
+            .kg-box { padding: 22px 16px 18px; }
+            .kg-title { font-size: 22px; }
+        }
     </style>
 </head>
 
@@ -285,7 +498,7 @@
                 habilidades especiales.
             </p>
 
-            <h3 class="subheading">Las cinco naturalezas básicas</h3>
+            <h3 class="subheading">Las cinco naturalezas básicas y el Ninjutsu</h3>
 
             <div class="element-grid">
                 <a href="katon.html" class="element-card fire">
@@ -322,6 +535,13 @@
                     <span class="element-name">Elemento Agua</span>
                     <p>Permite crear y controlar agua en diferentes formas.</p>
                 </a>
+
+                <a href="ninjutsu.html" class="element-card ninja">
+                    <span class="element-symbol"><img src="img/ninjutsu.png" alt="Ninjutsu"></span>
+                    <h3>Ninjutsu</h3>
+                    <span class="element-name">No es un elemento</span>
+                    <p>Rasengan, clones de sombra, Dios del Trueno Volador y jutsu de sustitución.</p>
+                </a>
             </div>
 
             <h3 class="subheading">Ninjutsu médico</h3>
@@ -351,21 +571,22 @@
             </p>
 
             <div class="advanced-elements">
-                <div><span class="dot wood"></span><strong>Mokuton</strong><small>Madera</small></div>
-                <div><span class="dot ice"></span><strong>Hyōton</strong><small>Hielo</small></div>
-                <div><span class="dot lava"></span><strong>Yōton</strong><small>Lava</small></div>
-                <div><span class="dot storm"></span><strong>Ranton</strong><small>Tormenta</small></div>
-                <div><span class="dot boil"></span><strong>Futton</strong><small>Ebullición</small></div>
-                <div><span class="dot magnet"></span><strong>Jiton</strong><small>Magnetismo</small></div>
-                <div><span class="dot scorch"></span><strong>Shakuton</strong><small>Calor abrasador</small></div>
-                <div><span class="dot explosion"></span><strong>Bakuton</strong><small>Explosión</small></div>
-                <div><span class="dot dust"></span><strong>Jinton</strong><small>Polvo</small></div>
+                <div class="kg-item" data-kg="mokuton" role="button" tabindex="0"><span class="dot wood"></span><strong>Mokuton</strong><small>Madera</small></div>
+                <div class="kg-item" data-kg="hyoton" role="button" tabindex="0"><span class="dot ice"></span><strong>Hyōton</strong><small>Hielo</small></div>
+                <div class="kg-item" data-kg="yoton" role="button" tabindex="0"><span class="dot lava"></span><strong>Yōton</strong><small>Lava</small></div>
+                <div class="kg-item" data-kg="ranton" role="button" tabindex="0"><span class="dot storm"></span><strong>Ranton</strong><small>Tormenta</small></div>
+                <div class="kg-item" data-kg="futton" role="button" tabindex="0"><span class="dot boil"></span><strong>Futton</strong><small>Ebullición</small></div>
+                <div class="kg-item" data-kg="jiton" role="button" tabindex="0"><span class="dot magnet"></span><strong>Jiton</strong><small>Magnetismo</small></div>
+                <div class="kg-item" data-kg="shakuton" role="button" tabindex="0"><span class="dot scorch"></span><strong>Shakuton</strong><small>Calor abrasador</small></div>
+                <div class="kg-item" data-kg="bakuton" role="button" tabindex="0"><span class="dot explosion"></span><strong>Bakuton</strong><small>Explosión</small></div>
+                <div class="kg-item" data-kg="jinton" role="button" tabindex="0"><span class="dot dust"></span><strong>Jinton</strong><small>Polvo</small></div>
             </div>
 
             <p class="note">
                 Nota: algunas transformaciones avanzadas son kekkei genkai
                 o kekkei tōta; no todos los ninjas pueden aprenderlas.
                 Esta lista incluye ejemplos y no es exhaustiva.
+                Haz clic en un kekkei genkai para ver sus técnicas.
             </p>
         </article>
 
@@ -631,6 +852,328 @@
 <script src="script.js"></script>
 <script src="busqueda.js"></script>
 
+<!-- KEKKEI GENKAI: DATOS Y COMPORTAMIENTO -->
+<script>
+(() => {
+    /* Para añadir un jutsu: agrega un objeto a "jutsus" del kekkei genkai.
+       Para activar otro kekkei genkai: agrega su entrada con la misma clave
+       que su data-kg (hyoton, yoton, ranton...). Los videos van en la carpeta vid/. */
+    const KEKKEI = {
+        mokuton: {
+            color: "#5fcf7a",
+            soft: "rgba(95, 207, 122, .12)",
+            glow: "rgba(95, 207, 122, .35)",
+            nombre: "Mokuton",
+            es: "Elemento Madera",
+            tipo: "Kekkei genkai",
+            desc: "Combina las naturalezas Tierra y Agua para crear y controlar madera y vegetación. En el mod NYDo agrupa técnicas de prisión, construcción e invocación de árboles.",
+            aviso: null,
+            jutsus: [
+                {
+                    nombre: "Sepultura de Madera",
+                    jp: "Técnica NYDo",
+                    desc: "Estructura de madera que aprisiona y entierra al objetivo bajo troncos.",
+                    video: "vid/sepulturama.mp4"
+                },
+                {
+                    nombre: "Prisión de Cuatro Pilares",
+                    jp: "Mokuton: Shichūrō no Jutsu",
+                    desc: "Cuatro pilares de madera surgen del suelo y forman una celda que encierra al objetivo.",
+                    video: "vid/prisionma.mp4"
+                },
+                {
+                    nombre: "Casa de Cuatro Pilares",
+                    jp: "Técnica NYDo",
+                    desc: "Levanta una casa de madera a partir de cuatro pilares, útil como refugio.",
+                    video: "vid/madera-casa.mp4"
+                },
+                {
+                    nombre: "Jutsu del Gran Bosque",
+                    jp: "Mokuton: Jukai Kōtan",
+                    desc: "Hace crecer un bosque entero de árboles a partir del chakra del usuario, cubriendo una zona amplia.",
+                    video: "vid/jutsugranbos.mp4"
+                },
+                {
+                    nombre: "Golem de Madera",
+                    jp: "Técnica NYDo",
+                    desc: "Da forma a un gigante de madera que combate al lado del usuario.",
+                    video: "vid/golemma.mp4"
+                }
+            ]
+        },
+
+        jiton: {
+            color: "#e7b66d",
+            soft: "rgba(231, 182, 109, .12)",
+            glow: "rgba(231, 182, 109, .35)",
+            nombre: "Jiton",
+            es: "Elemento Imán",
+            tipo: "Kekkei genkai",
+            desc: "Permite controlar el magnetismo y, con él, la arena. En el mod NYDo el Elemento Imán se usa para manejar arena con fines ofensivos, defensivos y de movilidad.",
+            aviso: "Cuando obtienes el elemento Imán, te dan una calabaza. Debes equiparla primero para poder manejar la arena.",
+            jutsus: [
+                {
+                    nombre: "Ráfaga de Balas de Arena",
+                    jp: "Técnica NYDo",
+                    desc: "Dispara una ráfaga de proyectiles de arena comprimida contra los enemigos.",
+                    video: "vid/arena-rafaga.mp4"
+                },
+                {
+                    nombre: "Escudo de Arena",
+                    jp: "Suna no Tate",
+                    desc: "La arena se interpone y forma una barrera que protege al usuario de los ataques.",
+                    video: "vid/arena-escudo.mp4"
+                },
+                {
+                    nombre: "Atadura de Arena",
+                    jp: "Técnica NYDo",
+                    desc: "La arena envuelve al objetivo y lo inmoviliza.",
+                    video: "vid/arena-atadura.mp4"
+                },
+                {
+                    nombre: "Reunión de Arena",
+                    jp: "Técnica NYDo",
+                    desc: "Concentra la arena dispersa alrededor del usuario para dejarla lista para usar.",
+                    video: "vid/arena-reunion.mp4"
+                },
+                {
+                    nombre: "Levitación de Arena",
+                    jp: "Técnica NYDo",
+                    desc: "El usuario se eleva sobre una plataforma de arena y se desplaza por el aire.",
+                    video: "vid/arena-levitacion.mp4"
+                }
+            ]
+        }
+    };
+
+    /* Kekkei genkai sin técnicas registradas todavía */
+    const PENDIENTES = {
+        hyoton:   { nombre: "Hyōton",   es: "Elemento Hielo",         color: "#8ad4ff" },
+        yoton:    { nombre: "Yōton",    es: "Elemento Lava",          color: "#ff7a38" },
+        ranton:   { nombre: "Ranton",   es: "Elemento Tormenta",      color: "#b79cff" },
+        futton:   { nombre: "Futton",   es: "Elemento Ebullición",    color: "#7fd1ff" },
+        shakuton: { nombre: "Shakuton", es: "Elemento Calor abrasador", color: "#ff5240" },
+        bakuton:  { nombre: "Bakuton",  es: "Elemento Explosión",     color: "#ffb347" },
+        jinton:   { nombre: "Jinton",   es: "Elemento Polvo",         color: "#d6c7ff" }
+    };
+
+    const grid = document.querySelector(".advanced-elements");
+
+    let panel = null;      /* panel abierto actualmente */
+    let activo = null;     /* item (.kg-item) activo */
+
+    function texto(tag, clase, contenido) {
+        const el = document.createElement(tag);
+        if (clase) el.className = clase;
+        el.textContent = contenido;
+        return el;
+    }
+
+    function colorear(el, c, soft, glow) {
+        el.style.setProperty("--kg", c);
+        el.style.setProperty("--kg-soft", soft || "rgba(255,255,255,.08)");
+        el.style.setProperty("--kg-glow", glow || "rgba(255,255,255,.2)");
+    }
+
+    function mostrarJutsu(k, tabs, cuerpo, indice) {
+        const j = k.jutsus[indice];
+
+        Array.prototype.forEach.call(tabs.children, (b, i) => {
+            b.classList.toggle("active", i === indice);
+        });
+
+        cuerpo.replaceChildren();
+        const caja = document.createElement("div");
+        caja.className = "kg-detail";
+        caja.appendChild(texto("h4", "", j.nombre));
+        caja.appendChild(texto("span", "kg-jp", j.jp));
+        caja.appendChild(texto("p", "", j.desc));
+
+        const wrap = document.createElement("div");
+        wrap.className = "kg-video";
+        const video = document.createElement("video");
+        video.controls = true;
+        video.loop = true;
+        video.muted = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        const fuente = document.createElement("source");
+        fuente.src = j.video;
+        fuente.type = "video/mp4";
+        video.appendChild(fuente);
+        wrap.appendChild(video);
+        caja.appendChild(wrap);
+        cuerpo.appendChild(caja);
+    }
+
+    /* Construye el panel con el contenido del kekkei genkai */
+    function crearPanel(clave) {
+        const k = KEKKEI[clave];
+        const p = PENDIENTES[clave];
+
+        const el = document.createElement("div");
+        el.className = "kg-panel";
+        el.setAttribute("role", "region");
+
+        const clip = document.createElement("div");
+        clip.className = "kg-panel-clip";
+        const box = document.createElement("div");
+        box.className = "kg-box";
+
+        const cerrarBtn = document.createElement("button");
+        cerrarBtn.type = "button";
+        cerrarBtn.className = "kg-close";
+        cerrarBtn.setAttribute("aria-label", "Cerrar");
+        const x = document.createElement("i");
+        x.className = "fa-solid fa-xmark";
+        cerrarBtn.appendChild(x);
+        cerrarBtn.addEventListener("click", cerrarPanel);
+        box.appendChild(cerrarBtn);
+
+        const eyebrow = texto("span", "kg-eyebrow", (k ? k.tipo : "Kekkei genkai").toUpperCase());
+        const titulo = document.createElement("h3");
+        titulo.className = "kg-title";
+        const d = k || p;
+        titulo.append(d.nombre + " ");
+        titulo.appendChild(texto("small", "", "(" + d.es + ")"));
+        box.appendChild(eyebrow);
+        box.appendChild(titulo);
+
+        if (k) {
+            colorear(el, k.color, k.soft, k.glow);
+            box.appendChild(texto("p", "kg-desc", k.desc));
+
+            if (k.aviso) {
+                const av = document.createElement("div");
+                av.className = "kg-notice";
+                const ic = document.createElement("i");
+                ic.className = "fa-solid fa-circle-info";
+                av.appendChild(ic);
+                av.appendChild(texto("span", "", k.aviso));
+                box.appendChild(av);
+            }
+
+            const tabs = document.createElement("div");
+            tabs.className = "kg-tabs";
+            const cuerpo = document.createElement("div");
+            k.jutsus.forEach((j, i) => {
+                const b = texto("button", "kg-tab", j.nombre);
+                b.type = "button";
+                b.addEventListener("click", () => mostrarJutsu(k, tabs, cuerpo, i));
+                tabs.appendChild(b);
+            });
+            box.appendChild(tabs);
+            box.appendChild(cuerpo);
+            mostrarJutsu(k, tabs, cuerpo, 0);
+        } else {
+            colorear(el, p.color);
+            const vacio = document.createElement("div");
+            vacio.className = "kg-empty";
+            const icono = document.createElement("i");
+            icono.className = "fa-solid fa-hourglass-half";
+            vacio.appendChild(icono);
+            vacio.appendChild(document.createTextNode("Aún no hay técnicas registradas para este kekkei genkai."));
+            box.appendChild(vacio);
+        }
+
+        clip.appendChild(box);
+        el.appendChild(clip);
+        return el;
+    }
+
+    /* Coloca el panel justo después del último item de la fila del item dado */
+    function colocarPanel(el, item) {
+        const items = Array.prototype.slice.call(grid.querySelectorAll(".kg-item"));
+        const fila = items.filter((i) => Math.abs(i.offsetTop - item.offsetTop) < 6);
+        const ultimo = fila[fila.length - 1] || item;
+        ultimo.after(el);
+    }
+
+    function quitarPanel(el) {
+        if (el && el.parentNode) el.parentNode.removeChild(el);   /* detiene el video */
+    }
+
+    function cerrarPanel() {
+        if (!panel) return;
+        const viejo = panel;
+        const item = activo;
+        panel = null;
+        activo = null;
+        if (item) {
+            item.classList.remove("active");
+            item.setAttribute("aria-expanded", "false");
+        }
+        viejo.classList.remove("open");
+        let hecho = false;
+        const fin = () => { if (!hecho) { hecho = true; quitarPanel(viejo); } };
+        viejo.addEventListener("transitionend", (e) => { if (e.target === viejo) fin(); });
+        setTimeout(fin, 450);
+        if (item) item.focus({ preventScroll: true });
+    }
+
+    function abrir(clave, item) {
+        if (!KEKKEI[clave] && !PENDIENTES[clave]) return;
+
+        /* Segundo clic sobre el mismo elemento: se pliega */
+        if (activo === item) { cerrarPanel(); return; }
+
+        /* Si había otro abierto, se quita al instante */
+        if (panel) {
+            quitarPanel(panel);
+            panel = null;
+            if (activo) {
+                activo.classList.remove("active");
+                activo.setAttribute("aria-expanded", "false");
+            }
+        }
+
+        const d = KEKKEI[clave] || PENDIENTES[clave];
+        item.style.setProperty("--kg", d.color);
+        item.style.setProperty("--kg-glow", d.glow || "rgba(255,255,255,.2)");
+
+        panel = crearPanel(clave);
+        activo = item;
+        item.classList.add("active");
+        item.setAttribute("aria-expanded", "true");
+
+        colocarPanel(panel, item);
+        void panel.offsetHeight;            /* fuerza el reflow para animar */
+        panel.classList.add("open");
+
+        setTimeout(() => {
+            if (panel) panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        }, 380);
+    }
+
+    grid.querySelectorAll(".kg-item").forEach((el) => {
+        el.setAttribute("aria-expanded", "false");
+        el.addEventListener("click", () => abrir(el.dataset.kg, el));
+        el.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                abrir(el.dataset.kg, el);
+            }
+        });
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && panel) cerrarPanel();
+    });
+
+    /* Si cambia el ancho (más/menos columnas), reubica el panel bajo la fila correcta */
+    let t = null;
+    window.addEventListener("resize", () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+            if (!panel || !activo) return;
+            const p = panel;
+            p.remove();
+            colocarPanel(p, activo);
+        }, 120);
+    });
+})();
+</script>
+
 <!-- NUBE DE SUGERENCIAS -->
 <div id="guiaNube" style="display:none;">
     <div id="guiaMensaje">
@@ -790,7 +1333,7 @@
         {
             nombre: "01 / ARTE NINJA",
             titulo: "Ninjutsu 🔥",
-            texto: "Aquí encontrarás los cinco elementos básicos, el ninjutsu médico y otras transformaciones elementales.",
+            texto: "Aquí encontrarás los cinco elementos básicos, la página de Ninjutsu, el ninjutsu médico y otras transformaciones elementales. Haz clic en un kekkei genkai, como Mokuton o Jiton, para ver sus técnicas.",
             selector: "#ninjutsu"
         },
         {
