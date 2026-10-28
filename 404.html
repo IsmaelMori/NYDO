@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Página no encontrada | NYDo Wiki</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* =====================================================
+           PÁGINA 404 - NYDo WIKI
+           Autónoma: no depende de style.css para que siempre cargue.
+           FONDO: coloca tu imagen de Naruto en  img/404-naruto.jpg
+           (si no existe, se ve el fondo ninja generado con CSS).
+        ===================================================== */
+        :root {
+            --bg: #080b12;
+            --red: #e50920;
+            --orange: #ff8a1f;
+            --text: #f4f5fa;
+            --muted: #b4bccb;
+            --bg-image: url("img/404-naruto.jpg");
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body { height: 100%; }
+
+        body {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            overflow-x: hidden;
+            color: var(--text);
+            font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+            background-color: var(--bg);
+        }
+
+        /* ---------- FONDO ---------- */
+        .bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(180deg, rgba(8, 11, 18, .55) 0%, rgba(8, 11, 18, .82) 70%, rgba(8, 11, 18, .95) 100%),
+                var(--bg-image),
+                radial-gradient(circle at 50% 38%, rgba(255, 138, 31, .35), transparent 55%),
+                radial-gradient(circle at 15% 85%, rgba(229, 9, 32, .25), transparent 45%),
+                linear-gradient(160deg, #141a2b, #080b12 65%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Espiral giratoria detrás del 404 */
+        .spiral {
+            position: fixed;
+            z-index: 0;
+            top: 50%; left: 50%;
+            width: min(95vmin, 760px);
+            aspect-ratio: 1;
+            transform: translate(-50%, -50%);
+            opacity: .16;
+            pointer-events: none;
+            animation: spin 40s linear infinite;
+        }
+        @keyframes spin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* Hojas cayendo */
+        .leaves { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+        .leaf {
+            position: absolute;
+            top: -30px;
+            width: 14px; height: 14px;
+            background: linear-gradient(135deg, #7ddc7e, #2f8f46);
+            border-radius: 0 100% 0 100%;
+            opacity: .75;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0%   { transform: translate3d(0, -30px, 0) rotate(0deg); }
+            50%  { transform: translate3d(40px, 55vh, 0) rotate(200deg); }
+            100% { transform: translate3d(-30px, 112vh, 0) rotate(420deg); }
+        }
+
+        /* ---------- CONTENIDO ---------- */
+        .wrap {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 640px;
+            padding: 38px 28px 30px;
+            text-align: center;
+            background: rgba(10, 14, 24, .62);
+            border: 1px solid rgba(255, 138, 31, .35);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 0 50px rgba(255, 138, 31, .18), 0 24px 60px rgba(0, 0, 0, .6);
+            animation: rise .6s ease both;
+        }
+        .wrap::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            border-radius: 20px 20px 0 0;
+            background: linear-gradient(90deg, var(--red), var(--orange), var(--red));
+        }
+        @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .brand-symbol {
+            display: grid;
+            place-items: center;
+            width: 34px; height: 34px;
+            font-size: 20px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--red), var(--orange));
+        }
+
+        .eyebrow {
+            display: block;
+            margin-bottom: 2px;
+            color: var(--orange);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .code {
+            font-size: clamp(88px, 22vw, 150px);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: 4px;
+            background: linear-gradient(180deg, #fff 0%, var(--orange) 55%, var(--red) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            filter: drop-shadow(0 0 22px rgba(255, 138, 31, .45));
+            animation: flicker 4s ease-in-out infinite;
+        }
+        @keyframes flicker {
+            0%, 100% { filter: drop-shadow(0 0 22px rgba(255, 138, 31, .45)); }
+            50%      { filter: drop-shadow(0 0 34px rgba(229, 9, 32, .65)); }
+        }
+
+        h1 {
+            margin: 4px 0 10px;
+            font-size: clamp(20px, 5vw, 28px);
+            line-height: 1.25;
+        }
+        h1 span { color: var(--orange); }
+
+        p {
+            margin: 0 auto 18px;
+            max-width: 480px;
+            color: var(--muted);
+            font-size: 14.5px;
+            line-height: 1.75;
+        }
+
+        /* Barra de reparación */
+        .repair {
+            margin: 0 auto 24px;
+            max-width: 420px;
+            text-align: left;
+        }
+        .repair-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 7px;
+            color: #f3e4c3;
+            font-size: 12.5px;
+            font-weight: 700;
+        }
+        .repair-label i { color: var(--orange); animation: wrench 1.6s ease-in-out infinite; transform-origin: 70% 70%; }
+        @keyframes wrench { 0%, 100% { transform: rotate(-18deg); } 50% { transform: rotate(18deg); } }
+        .bar {
+            height: 10px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .08);
+            border: 1px solid rgba(255, 255, 255, .12);
+        }
+        .bar span {
+            display: block;
+            height: 100%;
+            width: 40%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--red), var(--orange), var(--red));
+            background-size: 200% 100%;
+            animation: load 3.2s ease-in-out infinite alternate, shine 1.6s linear infinite;
+        }
+        @keyframes load { from { width: 18%; } to { width: 86%; } }
+        @keyframes shine { to { background-position: -200% 0; } }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 20px;
+            border-radius: 10px;
+            font-size: 13.5px;
+            font-weight: 700;
+            text-decoration: none;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, .18);
+            background: rgba(255, 255, 255, .06);
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+        }
+        .btn:hover, .btn:focus-visible {
+            transform: translateY(-2px);
+            outline: none;
+            border-color: var(--orange);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .45);
+        }
+        .btn.primary {
+            border-color: transparent;
+            background: linear-gradient(135deg, var(--red), var(--orange));
+        }
+
+        .path {
+            margin-top: 22px;
+            color: #7d8799;
+            font-size: 11.5px;
+            word-break: break-all;
+        }
+        .path code { color: #aeb7c8; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .spiral, .leaf, .code, .bar span, .repair-label i, .wrap { animation: none; }
+            .bar span { width: 60%; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg" aria-hidden="true"></div>
+
+    <!-- Espiral decorativa -->
+    <svg class="spiral" viewBox="-100 -100 200 200" aria-hidden="true">
+        <path fill="none" stroke="#ff8a1f" stroke-width="5" stroke-linecap="round"
+              d="M0 0 C 4 -4, 10 -4, 12 1 C 14 8, 6 14, -2 13 C -14 11, -18 -3, -12 -13 C -4 -26, 16 -26, 26 -14 C 38 0, 32 22, 16 31 C -4 42, -30 34, -40 12 C -52 -14, -38 -44, -10 -54 C 22 -64, 56 -46, 64 -14 C 74 24, 52 58, 16 68 C -26 80, -66 56, -76 14 C -88 -34, -60 -78, -14 -88" />
+    </svg>
+
+    <!-- Hojas cayendo (se generan abajo con JS) -->
+    <div class="leaves" id="leaves" aria-hidden="true"></div>
+
+    <main class="wrap">
+        <a href="index.html" class="brand" aria-label="Ir al inicio de NYDo">
+            <span class="brand-symbol">木</span>
+            <span>NYDo</span>
+        </a>
+
+        <span class="eyebrow">Error 404 · Pergamino perdido</span>
+        <div class="code" role="img" aria-label="Error 404">404</div>
+
+        <h1>¡Esta página se perdió en <span>la misión</span>!</h1>
+
+        <p>
+            No encontramos el recurso o la página que buscas. Puede que haya
+            cambiado de lugar o que todavía no exista. No te preocupes,
+            <strong>lo vamos a reparar</strong>.
+        </p>
+
+        <div class="repair" aria-label="Reparación en curso">
+            <div class="repair-label">
+                <i class="fa-solid fa-wrench"></i>
+                Nuestros shinobi están trabajando en ello...
+            </div>
+            <div class="bar"><span></span></div>
+        </div>
+
+        <div class="actions">
+            <a href="index.html" class="btn primary">
+                <i class="fa-solid fa-house"></i> Volver al inicio
+            </a>
+            <a href="jutsus.html" class="btn">
+                <i class="fa-solid fa-book-open"></i> Ir a Jutsus
+            </a>
+            <a href="javascript:history.back()" class="btn">
+                <i class="fa-solid fa-arrow-left"></i> Regresar
+            </a>
+        </div>
+
+        <div class="path">
+            Dirección solicitada: <code id="ruta"></code>
+        </div>
+    </main>
+
+    <script>
+        /* Muestra la dirección que no se encontró */
+        document.getElementById("ruta").textContent = location.pathname + location.search;
+
+        /* Hojas cayendo */
+        (function () {
+            const cont = document.getElementById("leaves");
+            for (let i = 0; i < 14; i++) {
+                const l = document.createElement("span");
+                l.className = "leaf";
+                l.style.left = (Math.random() * 100) + "%";
+                l.style.animationDuration = (9 + Math.random() * 9) + "s";
+                l.style.animationDelay = (-Math.random() * 14) + "s";
+                const s = 9 + Math.random() * 12;
+                l.style.width = l.style.height = s + "px";
+                cont.appendChild(l);
+            }
+        })();
+    </script>
+</body>
+</html>
