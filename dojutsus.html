@@ -355,6 +355,128 @@
             color: #cbd5e1;
         }
 
+        /* HABILIDADES DEL BYAKUGAN CON VIDEO (64 Palmas y Rotación) */
+        .byakugan-ability-box[data-bya] {
+            cursor: pointer;
+            position: relative;
+        }
+        .byakugan-ability-box[data-bya]:hover,
+        .byakugan-ability-box[data-bya]:focus-visible {
+            transform: translateY(-3px);
+            outline: none;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, .45), 0 0 18px var(--blue-glow);
+        }
+        .byakugan-ability-box[data-bya].active {
+            border-color: var(--blue-hyuga);
+            background: rgba(0, 210, 255, 0.2);
+            box-shadow: 0 0 22px var(--blue-glow);
+        }
+        .bya-hint {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: auto;
+            padding-top: 4px;
+            color: var(--blue-hyuga);
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .bya-hint .chev { transition: transform .3s ease; }
+        .byakugan-ability-box.active .bya-hint .chev { transform: rotate(180deg); }
+
+        /* Panel en línea: se inserta bajo la fila pulsada y empuja el resto hacia abajo */
+        .bya-panel {
+            grid-column: 1 / -1;
+            width: 100%;
+            box-sizing: border-box;
+            display: grid;
+            grid-template-rows: 0fr;
+            margin: 0;
+            transition: grid-template-rows .35s ease, margin .35s ease;
+        }
+        .bya-panel.open { grid-template-rows: 1fr; margin: 2px 0 6px; }
+        .bya-clip { min-height: 0; overflow: hidden; }
+        .bya-box {
+            position: relative;
+            padding: 22px 22px 20px;
+            color: #f4f5fa;
+            background: linear-gradient(145deg, #0f1a26, #0a0e16);
+            border: 1px solid var(--blue-hyuga);
+            border-radius: 16px;
+            box-shadow: inset 0 0 30px rgba(0, 210, 255, .1);
+        }
+        .bya-box::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--blue-hyuga), #ffffff66, var(--blue-hyuga));
+            border-radius: 16px 16px 0 0;
+        }
+        .bya-close {
+            position: absolute;
+            top: 12px; right: 12px;
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .05);
+            color: #cbd5e1;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .bya-close:hover { color: #fff; border-color: var(--blue-hyuga); background: rgba(0, 210, 255, .12); }
+        .bya-eyebrow {
+            display: block;
+            color: var(--blue-hyuga);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .bya-title { margin: 4px 0 2px; padding-right: 40px; font-size: 22px; line-height: 1.25; color: #fff; }
+        .bya-jp { display: block; margin-bottom: 14px; color: var(--blue-hyuga); font-size: 12px; font-weight: 700; }
+        .bya-video {
+            width: 100%;
+            max-width: 920px;
+            margin: 0 auto;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
+        }
+        .bya-video video {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 78vh;
+            aspect-ratio: auto 16 / 9;   /* reserva espacio 16:9 y luego usa la proporción real */
+            object-fit: contain;
+            background: #000;
+        }
+        .bya-empty {
+            padding: 22px 14px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.7;
+            background: rgba(255, 255, 255, .03);
+            border: 1px dashed rgba(255, 255, 255, .15);
+            border-radius: 12px;
+        }
+        .bya-empty i { display: block; margin-bottom: 8px; font-size: 22px; color: var(--blue-hyuga); }
+
+        @media (max-width: 640px) {
+            .bya-box { padding: 20px 12px 14px; border-radius: 14px; }
+            .bya-title { font-size: 19px; padding-right: 36px; }
+            .bya-title, .bya-jp, .bya-eyebrow { padding-left: 4px; }
+            .bya-video { max-width: none; border-radius: 10px; }
+            .bya-video video { max-height: 70vh; }
+        }
+        @media (max-height: 480px) and (orientation: landscape) {
+            .bya-video video { max-height: 85vh; }
+        }
+
         .ten-seigan-box {
             margin-top: 25px;
             background: linear-gradient(135deg, rgba(0, 210, 255, 0.15), rgba(15, 23, 42, 0.8));
@@ -1174,17 +1296,19 @@
 
                 <div class="byakugan-abilities-grid">
                     <!-- 1. INTERACTIVA -->
-                    <div class="byakugan-ability-box interactive">
+                    <div class="byakugan-ability-box interactive" data-bya="palmas" role="button" tabindex="0" aria-expanded="false">
                         <h4><i class="fa-solid fa-hand-fist"></i> Eight Trigrams 64 Palms</h4>
                         <p>Libera una ráfaga veloz de 64 golpes consecutivos utilizando el estilo del Puño Suave sobre los puntos de chakra (Tenketsu) del rival para bloquear por completo su flujo de chakra y debilitarlo.</p>
                         <span class="status-tag active-in-mod">Destacado Activo</span>
+                        <span class="bya-hint"><i class="fa-solid fa-circle-play"></i> Ver video <i class="fa-solid fa-chevron-down chev"></i></span>
                     </div>
 
                     <!-- 2. INTERACTIVA -->
-                    <div class="byakugan-ability-box interactive">
+                    <div class="byakugan-ability-box interactive" data-bya="rotacion" role="button" tabindex="0" aria-expanded="false">
                         <h4><i class="fa-solid fa-rotate"></i> Palm Rotation (Hakkeshō Kaiten)</h4>
                         <p>Expulsa chakra masivo desde todos los puntos Tenketsu del cuerpo mientras gira a alta velocidad, creando un escudo defensivo esférico capaz de desviar proyectiles y repeler ataques físicos en área.</p>
                         <span class="status-tag active-in-mod">Destacado Defensivo</span>
+                        <span class="bya-hint"><i class="fa-solid fa-circle-play"></i> Ver video <i class="fa-solid fa-chevron-down chev"></i></span>
                     </div>
 
                     <!-- 3. PASIVA/COMPLEMENTARIA -->
@@ -2391,5 +2515,151 @@
     })();
     </script>
     <script src="dojutsu-anim.js"></script>
+
+    <!-- BYAKUGAN: VIDEOS DE 64 PALMAS Y ROTACIÓN (panel en línea) -->
+    <script>
+    (() => {
+        /* Para cambiar un video, edita la ruta "video". Los videos van en la carpeta vid/ */
+        const BYA = {
+            palmas: {
+                nombre: "Eight Trigrams 64 Palms",
+                jp: "Hakke Rokujūyon Shō",
+                video: "vid/8T64P.mp4"
+            },
+            rotacion: {
+                nombre: "Palm Rotation",
+                jp: "Hakkeshō Kaiten",
+                video: "vid/8Trotacion.mp4"
+            }
+        };
+
+        const grid = document.querySelector(".byakugan-abilities-grid");
+        if (!grid) return;
+
+        let panel = null;
+        let activo = null;
+
+        function el(tag, clase, txt) {
+            const e = document.createElement(tag);
+            if (clase) e.className = clase;
+            if (txt !== undefined) e.textContent = txt;
+            return e;
+        }
+
+        function crearPanel(clave) {
+            const d = BYA[clave];
+            const p = el("div", "bya-panel");
+            p.setAttribute("role", "region");
+            const clip = el("div", "bya-clip");
+            const box = el("div", "bya-box");
+
+            const x = el("button", "bya-close");
+            x.type = "button";
+            x.setAttribute("aria-label", "Cerrar");
+            const ix = el("i", "fa-solid fa-xmark");
+            x.appendChild(ix);
+            x.addEventListener("click", cerrar);
+            box.appendChild(x);
+
+            box.appendChild(el("span", "bya-eyebrow", "Byakugan"));
+            box.appendChild(el("h3", "bya-title", d.nombre));
+            box.appendChild(el("span", "bya-jp", d.jp));
+
+            const wrap = el("div", "bya-video");
+            const v = document.createElement("video");
+            v.controls = true;
+            v.loop = true;
+            v.muted = true;
+            v.autoplay = true;
+            v.playsInline = true;
+            v.preload = "metadata";
+            v.setAttribute("webkit-playsinline", "");
+            const src = document.createElement("source");
+            src.src = d.video;
+            src.type = "video/mp4";
+            /* Si el archivo no existe todavía, muestra un aviso en vez de un cuadro vacío */
+            src.addEventListener("error", () => {
+                const vacio = el("div", "bya-empty");
+                vacio.appendChild(el("i", "fa-solid fa-film"));
+                vacio.appendChild(document.createTextNode("El video de esta técnica estará disponible pronto."));
+                wrap.replaceWith(vacio);
+            });
+            v.appendChild(src);
+            wrap.appendChild(v);
+            box.appendChild(wrap);
+
+            clip.appendChild(box);
+            p.appendChild(clip);
+            return p;
+        }
+
+        function colocar(p, caja) {
+            const cajas = Array.prototype.slice.call(grid.querySelectorAll(".byakugan-ability-box"));
+            const fila = cajas.filter((c) => Math.abs(c.offsetTop - caja.offsetTop) < 6);
+            (fila[fila.length - 1] || caja).after(p);
+        }
+
+        function marcar(caja, on) {
+            caja.classList.toggle("active", on);
+            caja.setAttribute("aria-expanded", on ? "true" : "false");
+        }
+
+        function cerrar() {
+            if (!panel) return;
+            const viejo = panel, caja = activo;
+            panel = null; activo = null;
+            if (caja) { marcar(caja, false); caja.focus({ preventScroll: true }); }
+            viejo.classList.remove("open");
+            let listo = false;
+            const fin = () => { if (!listo) { listo = true; viejo.remove(); } };   /* detiene el video */
+            viejo.addEventListener("transitionend", (e) => { if (e.target === viejo) fin(); });
+            setTimeout(fin, 450);
+        }
+
+        function abrir(caja) {
+            const clave = caja.dataset.bya;
+            if (!BYA[clave]) return;
+            if (activo === caja) { cerrar(); return; }
+
+            if (panel) {            /* había otro abierto: se quita al instante */
+                panel.remove();
+                if (activo) marcar(activo, false);
+                panel = null;
+            }
+            panel = crearPanel(clave);
+            activo = caja;
+            marcar(caja, true);
+            colocar(panel, caja);
+            void panel.offsetHeight;          /* fuerza reflow para animar */
+            panel.classList.add("open");
+            setTimeout(() => {
+                if (panel) panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }, 380);
+        }
+
+        grid.querySelectorAll("[data-bya]").forEach((caja) => {
+            caja.addEventListener("click", () => abrir(caja));
+            caja.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") { e.preventDefault(); abrir(caja); }
+            });
+        });
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && panel) cerrar();
+        });
+
+        /* Si cambia el número de columnas, reubica el panel bajo la fila correcta */
+        let t = null;
+        window.addEventListener("resize", () => {
+            clearTimeout(t);
+            t = setTimeout(() => {
+                if (!panel || !activo) return;
+                const p = panel;
+                p.remove();
+                colocar(p, activo);
+            }, 120);
+        });
+    })();
+    </script>
 </body>
 </html>
