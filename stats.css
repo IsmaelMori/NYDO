@@ -436,3 +436,128 @@ body.gm-lock { overflow: hidden; }
 .gm-dhead span { margin-right: auto; }
 .gm-dhead b { font-size: 12px; font-weight: 400; color: #6fe3b0; letter-spacing: 1px; }
 .gm-dhead .st-hex { width: 30px; height: 33px; }
+
+/* ==========================================================================
+   ADAPTACIÓN PARA TELÉFONO
+   Se añade al final para sobrescribir las reglas de escritorio.
+   ========================================================================== */
+
+/* Táctil: sin resaltado gris al tocar y sin "hover pegado" tras pulsar */
+.st-page, .gm-root { -webkit-tap-highlight-color: transparent; }
+.st-step { -webkit-touch-callout: none; }
+.st-desk-only { white-space: nowrap; }
+
+@media (hover: none) {
+    .st-desk-only { display: none; }
+    .st-hero-stats > div:hover,
+    .st-preset:hover,
+    .st-card:hover,
+    a.st-chip.st-link:hover,
+    a.st-tag.st-link:hover,
+    .gm-j.link:hover,
+    .st-rbtn:hover { transform: none; }
+}
+
+/* ---------- Tablet / teléfono grande ---------- */
+@media (max-width: 720px) {
+    /* Rendimiento: menos desenfoque (mucho más fluido en móviles) */
+    .st-orbs i { filter: blur(50px); opacity: .4; }
+    .st-orbs i:nth-child(1) { width: 300px; height: 300px; left: -120px; }
+    .st-orbs i:nth-child(2) { width: 320px; height: 320px; right: -140px; }
+    .st-orbs i:nth-child(3) { width: 280px; height: 280px; }
+    .st-glass { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); --st-radius: 18px; }
+    .st-card { -webkit-backdrop-filter: none; backdrop-filter: none; background:
+        linear-gradient(145deg, color-mix(in srgb, var(--c) 20%, transparent), transparent 60%), rgba(14, 18, 30, .88); }
+
+    /* Hero */
+    .st-hero h1 { font-size: clamp(30px, 9vw, 40px); }
+    .st-hero > p { font-size: 14px; line-height: 1.65; }
+    .st-hero-stats { gap: 10px; margin-top: 20px; }
+    .st-hero-stats > div { padding: 10px 12px; column-gap: 10px; }
+    .st-hero-stats strong { font-size: 19px; }
+    .st-hero-stats small { font-size: 10px; letter-spacing: .6px; }
+
+    /* Builds: cuadrícula de 2 columnas, fácil de tocar */
+    .st-presets-bar { gap: 10px; }
+    .st-presets-label { width: 100%; }
+    .st-presets { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .st-preset { min-width: 0; min-height: 46px; padding: 6px 10px 6px 6px; gap: 8px; font-size: 13px; line-height: 1.2; }
+    .st-preset i { width: 30px; height: 30px; font-size: 13px; }
+    .st-preset.reset { grid-column: 1 / -1; justify-content: center; margin-left: 0; }
+
+    /* Perfil / radar */
+    .st-radar-card { padding: 14px 12px 6px; }
+    .st-radar-head { flex-wrap: wrap; }
+
+    /* Ficha del personaje */
+    .st-info { padding: 16px 14px; }
+    .st-info-head { gap: 12px; }
+    .st-info-avatar { width: 46px; height: 46px; font-size: 19px; border-radius: 14px; }
+    .st-info-head h3 { font-size: 17px; }
+    .st-info-right { margin-left: 0; width: 100%; justify-content: space-between; flex-wrap: wrap; }
+    .st-roman { flex: 1; gap: 8px; }
+    .st-rbtn { flex: 1; min-width: 44px; height: 44px; font-size: 15px; }
+    .st-info-grid { gap: 10px; }
+    .st-info-grid > div { padding: 11px 12px; }
+
+    /* Panel de desarrollo */
+    .st-dev-head { align-items: flex-start; }
+    .st-dev-head .r { text-align: left; width: 100%; }
+    .st-bar { height: 14px; }
+    .st-foot { padding: 14px 16px; margin-top: 18px; }
+}
+
+/* ---------- Teléfono ---------- */
+@media (max-width: 560px) {
+    .st-wrap { padding: 18px 12px 40px; }
+    .st-hero { padding: 24px 16px 18px; }
+    .st-eyebrow { font-size: 10px; letter-spacing: 1.8px; padding: 5px 11px; }
+
+    /* Tarjetas de rama: botones grandes en su propia fila (zona táctil ≥ 44px) */
+    .st-card { padding: 13px 14px 14px 18px; }
+    .st-card-top { flex-wrap: wrap; row-gap: 10px; }
+    .st-card-name { font-size: 15px; }
+    .st-btns { flex: 1 1 100%; order: 3; gap: 8px; }
+    .st-step { flex: 1; height: 44px; min-width: 56px; font-size: 14px; border-radius: 12px; touch-action: none; }
+    .st-step.plus { flex: 1.4; }
+    .st-meta { margin-top: 10px; }
+    .st-segs { gap: 4px; }
+    .st-seg { height: 10px; }
+    .st-msg { min-height: 0; }
+}
+
+/* ---------- Panel "Preparación Shinobi": hoja a pantalla completa ---------- */
+@media (max-width: 760px) {
+    .gm-root .gm-drawer {
+        top: 0; left: 0; right: 0; bottom: 0;
+        width: 100%; max-width: none;
+        height: 100vh; height: 100dvh; max-height: none;
+        padding: 12px 12px calc(16px + env(safe-area-inset-bottom, 0px));
+        border-width: 0;
+        transform: translateY(24px);
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+    .gm-root.open .gm-drawer { transform: none; }
+
+    .gm-head { gap: 10px; }
+    .gm-title { flex: 1; min-width: 0; }
+    .gm-close { width: 42px; height: 42px; flex: none; order: 2; }
+    .gm-tabs { order: 3; width: 100%; gap: 6px; }
+    .gm-tab { flex: 1; min-height: 42px; padding: 9px 6px; }
+
+    .gm-slots { gap: 10px 8px; padding-bottom: 14px; }
+    .gm-slot { min-height: 84px; }
+    .gm-main { min-height: 0; }
+    .gm-list { max-height: 260px; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .gm-row { min-height: 46px; }
+    .gm-search { font-size: 16px; padding: 12px 10px; }   /* 16px evita el zoom automático de iOS */
+    .gm-jgrid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+}
+
+/* Teléfono en horizontal: aprovechar el poco alto disponible */
+@media (max-height: 480px) and (orientation: landscape) {
+    .st-hero { padding: 20px 22px 16px; }
+    .gm-slots { grid-template-columns: repeat(6, 1fr); }
+    .gm-slot { min-height: 70px; padding-top: 16px; }
+}
