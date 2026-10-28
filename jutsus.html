@@ -336,15 +336,25 @@
         }
         .kg-video {
             width: 100%;
-            max-width: 420px;
+            max-width: 920px;
             margin: 0 auto;
-            aspect-ratio: 16 / 9;
             overflow: hidden;
             background: #000;
             border: 1px solid rgba(255, 255, 255, .12);
-            border-radius: 10px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .5), 0 0 0 1px var(--kg-soft);
         }
-        .kg-video video { width: 100%; height: 100%; object-fit: contain; display: block; }
+        /* El video toma todo el ancho disponible y respeta su proporción real
+           (horizontal o vertical). "auto 16/9" reserva espacio mientras carga. */
+        .kg-video video {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 78vh;
+            aspect-ratio: auto 16 / 9;
+            object-fit: contain;
+            background: #000;
+        }
 
         .kg-empty {
             padding: 22px 14px;
@@ -358,9 +368,47 @@
         }
         .kg-empty i { display: block; margin-bottom: 8px; font-size: 22px; color: var(--kg); }
 
-        @media (max-width: 480px) {
-            .kg-box { padding: 22px 16px 18px; }
-            .kg-title { font-size: 22px; }
+        /* ---------- TABLET / CELULAR ---------- */
+        @media (max-width: 640px) {
+            .kg-box { padding: 20px 12px 16px; border-radius: 14px; }
+            .kg-title { font-size: 22px; padding-right: 36px; }
+            .kg-desc { font-size: 13px; }
+
+            /* Pestañas de técnicas en una sola fila con scroll horizontal */
+            .kg-tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                margin-left: -12px;
+                margin-right: -12px;
+                padding: 2px 12px 8px;
+                scroll-snap-type: x proximity;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .kg-tabs::-webkit-scrollbar { display: none; }
+            .kg-tab {
+                flex: 0 0 auto;
+                padding: 9px 14px;
+                white-space: nowrap;
+                scroll-snap-align: start;
+            }
+
+            /* La tarjeta del detalle se funde con el panel y el video
+               ocupa todo el ancho útil */
+            .kg-detail { padding: 12px 0 0; background: none; border: 0; }
+            .kg-detail h4,
+            .kg-detail .kg-jp,
+            .kg-detail p { padding: 0 4px; }
+            .kg-video {
+                max-width: none;
+                border-radius: 10px;
+            }
+            .kg-video video { max-height: 70vh; }
+        }
+
+        /* Celular en horizontal: que el video no se salga de la pantalla */
+        @media (max-height: 480px) and (orientation: landscape) {
+            .kg-video video { max-height: 85vh; }
         }
     </style>
 </head>
@@ -997,6 +1045,8 @@
         video.muted = true;
         video.autoplay = true;
         video.playsInline = true;
+        video.preload = "metadata";
+        video.setAttribute("webkit-playsinline", "");
         const fuente = document.createElement("source");
         fuente.src = j.video;
         fuente.type = "video/mp4";
