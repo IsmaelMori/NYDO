@@ -10,6 +10,72 @@
     <!-- Iconos -->
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        /* DESCARGAS: ADAPTABLE A CELULAR */
+        .download-section {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 420px));
+            justify-content: center;
+            gap: 20px;
+        }
+        .download-grid .wiki-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 18px;
+            min-width: 0;
+        }
+        .download-grid .wiki-card h3,
+        .download-grid .wiki-card p {
+            overflow-wrap: anywhere;
+        }
+        .download-grid .explore-btn {
+            width: 100%;
+            min-height: 46px;
+            font-size: 13px;
+            justify-content: center;
+        }
+        .download-grid .explore-btn.secondary {
+            background: rgba(15, 20, 30, 0.7);
+        }
+        .download-note {
+            display: block;
+            margin-bottom: 15px;
+            color: var(--white);
+            font-size: 11px;
+        }
+
+        /* Tablet: una columna centrada */
+        @media (max-width: 860px) {
+            .download-grid {
+                grid-template-columns: minmax(0, 520px);
+            }
+        }
+
+        /* Celular */
+        @media (max-width: 480px) {
+            .download-section {
+                min-height: auto;
+                padding-top: 24px;
+                padding-bottom: 24px;
+            }
+            .download-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 16px;
+            }
+            .download-grid .explore-btn {
+                min-height: 50px;   /* más fácil de tocar con el dedo */
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -40,25 +106,25 @@
     <!-- CONTENIDO PRINCIPAL -->
     <main>
         <!-- SECCIÓN DE DESCARGAS -->
-        <section class="content-section" id="descargas" style="min-height: 85vh; display: flex; flex-direction: column; justify-content: center;">
+        <section class="content-section download-section" id="descargas">
             <div class="section-heading">
                 <span class="eyebrow">CENTRO DE DESCARGAS</span>
                 <h2>Obtén NYDo Mod</h2>
                 <p>Selecciona la versión compatible con tu cliente de Minecraft y comienza tu aventura ninja.</p>
             </div>
 
-            <div class="wiki-grid" style="grid-template-columns: repeat(2, minmax(0, 420px)); justify-content: center;">
+            <div class="wiki-grid download-grid">
                 
                 <!-- VERSIÓN 5.6 (Última versión) -->
-                <div class="wiki-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div class="wiki-card">
                     <div>
                         <i class="fa-solid fa-file-arrow-down"></i>
                         <h3>NYDo Mod - Versión 5.6</h3>
                         <p>Última actualización con mejoras de rendimiento, nuevos jutsus corregidos, corrección de errores de texturas y balance general de estadísticas.</p>
                     </div>
                     <div>
-                        <span style="display: block; margin-bottom: 15px; color: var(--white); font-size: 11px;">Recomendado para Minecraft Forge</span>
-                        <a href="https://drive.google.com/file/d/1C30vFhhhBlX5Iq-eLzp9ZqbFQqAyTGl-/view?usp=sharing" class="explore-btn" style="width: 100%; min-height: 42px; font-size: 13px;">
+                        <span class="download-note">Recomendado para Minecraft Forge</span>
+                        <a href="https://drive.google.com/file/d/1C30vFhhhBlX5Iq-eLzp9ZqbFQqAyTGl-/view?usp=sharing" class="explore-btn" target="_blank" rel="noopener noreferrer" aria-label="Descargar NYDo Mod versión 5.6 (se abre en una pestaña nueva)">
                             <span class="button-symbol" style="font-size: 18px;">木</span>
                             <span>Descargar v5.6</span>
                             <i class="fa-solid fa-download"></i>
@@ -67,15 +133,15 @@
                 </div>
 
                 <!-- VERSIÓN 5.5 -->
-                <div class="wiki-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div class="wiki-card">
                     <div>
                         <i class="fa-solid fa-box-archive"></i>
                         <h3>NYDo Mod - Versión 5.5</h3>
                         <p>Versión anterior estable. Ideal si tus paquetes de mods actuales o servidores multijugador mantienen compatibilidad estricta con esta build.</p>
                     </div>
                     <div>
-                        <span style="display: block; margin-bottom: 15px; color: var(--white); font-size: 11px;">Versión Anterior Estable</span>
-                        <a href="https://drive.google.com/file/d/1dtpDHs2_XB43BOWCO6VsHvXsYzf_9mf-/view?usp=sharing" class="explore-btn" style="width: 100%; min-height: 42px; font-size: 13px; background: rgba(15, 20, 30, 0.7);">
+                        <span class="download-note">Versión Anterior Estable</span>
+                        <a href="https://drive.google.com/file/d/1dtpDHs2_XB43BOWCO6VsHvXsYzf_9mf-/view?usp=sharing" class="explore-btn secondary" target="_blank" rel="noopener noreferrer" aria-label="Descargar NYDo Mod versión 5.5 (se abre en una pestaña nueva)">
                             <span class="button-symbol" style="font-size: 18px;">木</span>
                             <span>Descargar v5.5</span>
                             <i class="fa-solid fa-download"></i>
