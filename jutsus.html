@@ -410,6 +410,34 @@
         @media (max-height: 480px) and (orientation: landscape) {
             .kg-video video { max-height: 85vh; }
         }
+
+        /* MODO SABIO DE LOS SAPOS: la tarjeta es un enlace a modo-sabio.html */
+        a.sage-card.sage-link {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+        a.sage-card.sage-link:hover,
+        a.sage-card.sage-link:focus-visible {
+            transform: translateY(-3px);
+            outline: none;
+            border-color: #f0a04b;
+            box-shadow: 0 10px 26px rgba(0, 0, 0, .45), 0 0 18px rgba(240, 160, 75, .35);
+        }
+        .sage-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: 12px;
+            color: #f0a04b;
+            font-size: 12.5px;
+            font-weight: 700;
+        }
+        .sage-more i { transition: transform .25s ease; }
+        a.sage-card.sage-link:hover .sage-more i { transform: translateX(4px); }
+        @media (hover: none) { a.sage-card.sage-link:hover { transform: none; } }
     </style>
 </head>
 
@@ -731,7 +759,7 @@
             <h3 class="subheading">Modos sabios conocidos</h3>
 
             <div class="sage-grid">
-                <div class="sage-card">
+                <a href="modo-sabio.html" class="sage-card sage-link" aria-label="Modo Sabio de los Sapos: ver guía">
                     <div class="sage-symbol">仙</div>
                     <h3>Modo Sabio de los Sapos</h3>
                     <p>
@@ -739,7 +767,8 @@
                         con los sapos del Monte Myōboku. Permite utilizar
                         energía natural y mejorar las capacidades de combate.
                     </p>
-                </div>
+                    <span class="sage-more">Ver guía y habilidades <i class="fa-solid fa-arrow-right"></i></span>
+                </a>
 
                 <div class="sage-card">
                     <div class="sage-symbol">蛇</div>
