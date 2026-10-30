@@ -86,17 +86,30 @@
 
     /* ---------- Estilos del selector y ocultar la barra de Google ---------- */
     function injectStyles() {
+        // Resalta el idioma activo en el menú lateral
+        var activeRules = LANGS.map(function (l) {
+            return 'html[data-nydo-lang="' + l.code + '"] .sidebar-lang .lang-option[data-set-lang="' + l.code + '"]{background:linear-gradient(135deg,rgba(229,9,32,.35),rgba(255,138,31,.35));font-weight:700}';
+        }).join('\n');
+
         var css = [
-            '.nydo-lang{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:9999;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}',
+            '.nydo-lang{position:fixed;top:16px;right:16px;z-index:9999;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}',
             '.nydo-lang-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,138,31,.55);background:rgba(10,14,24,.92);color:#fff;font-size:13px;font-weight:800;letter-spacing:1px;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.45);transition:transform .2s ease,border-color .2s ease}',
             '.nydo-lang-btn:hover,.nydo-lang-btn:focus-visible{transform:translateY(-2px);border-color:#ff8a1f;outline:none}',
             '.nydo-lang-btn i{color:#ff8a1f;font-size:15px}',
-            '.nydo-lang-menu{position:absolute;right:0;bottom:calc(100% + 10px);min-width:170px;margin:0;padding:6px;list-style:none;border-radius:14px;border:1px solid rgba(255,138,31,.35);background:rgba(10,14,24,.97);box-shadow:0 14px 34px rgba(0,0,0,.55)}',
+            '.nydo-lang-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:170px;margin:0;padding:6px;list-style:none;border-radius:14px;border:1px solid rgba(255,138,31,.35);background:rgba(10,14,24,.97);box-shadow:0 14px 34px rgba(0,0,0,.55)}',
             '.nydo-lang-menu[hidden]{display:none}',
             '.nydo-lang-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:0;border-radius:10px;background:transparent;color:#f4f5fa;font-size:14px;text-align:left;cursor:pointer}',
             '.nydo-lang-menu button:hover,.nydo-lang-menu button:focus-visible{background:rgba(255,138,31,.16);outline:none}',
             '.nydo-lang-menu button.active{background:linear-gradient(135deg,rgba(229,9,32,.35),rgba(255,138,31,.35));font-weight:700}',
             '.nydo-lang-menu .code{display:inline-grid;place-items:center;min-width:30px;padding:2px 6px;border-radius:6px;background:rgba(255,255,255,.1);color:#ff8a1f;font-size:11px;font-weight:800;letter-spacing:1px}',
+            /* Selector de idioma dentro del menú lateral */
+            '.sidebar-lang .lang-toggle{cursor:pointer}',
+            '.sidebar-lang .lang-chevron{margin-left:auto;font-size:12px;transition:transform .2s ease}',
+            '.sidebar-lang .lang-toggle[aria-expanded="true"] .lang-chevron{transform:rotate(180deg)}',
+            '.sidebar-lang .lang-list{display:flex;flex-direction:column;gap:2px;margin:2px 0 6px 14px;padding-left:10px;border-left:2px solid rgba(255,138,31,.35)}',
+            '.sidebar-lang .lang-list[hidden]{display:none}',
+            '.sidebar-lang .lang-code{display:inline-grid;place-items:center;min-width:30px;padding:2px 6px;border-radius:6px;background:rgba(255,255,255,.1);color:#ff8a1f;font-size:11px;font-weight:800;letter-spacing:1px}',
+            activeRules,
             /* Ocultar la barra y los avisos de Google Translate */
             'body{top:0!important}',
             'body>.skiptranslate,iframe.goog-te-banner-frame,.VIpgJd-ZVi9od-ORHb-OEVmcd,.VIpgJd-ZVi9od-aZ2wEe-wOHMyf{display:none!important}',
@@ -168,12 +181,84 @@
         document.body.appendChild(wrap);
     }
 
+    /* ---------- Selector dentro del menú lateral (sidebar) ---------- */
+    // El sidebar se carga con fetch, por eso se usa delegación de eventos.
+    // Se escucha en fase de captura para que otros scripts no cierren el menú.
+    function bindSidebar() {
+        document.addEventListener('click', function (e) {
+            var opt = e.target.closest ? e.target.closest('[data-set-lang]') : null;
+            if (opt) {
+                e.preventDefault();
+                e.stopPropagation();
+                changeLang(opt.getAttribute('data-set-lang'));
+                return;
+            }
+            var tog = e.target.closest ? e.target.closest('.lang-toggle') : null;
+            if (tog) {
+                e.preventDefault();
+                e.stopPropagation();
+                var list = tog.parentNode.querySelector('.lang-list');
+                if (!list) return;
+                list.hidden = !list.hidden;
+                tog.setAttribute('aria-expanded', list.hidden ? 'false' : 'true');
+            }
+        }, true);
+    }
+
+    /* ---------- Colocar el botón junto a la hamburguesa ---------- */
+    function findBurger() {
+        var sels = [
+            '#menuBtn', '#menu-btn', '#hamburger', '#openBtn', '#menuToggle', '#sidebarToggle',
+            '.hamburger', '.menu-btn', '.menu-toggle', '.menu-button', '.open-btn', '.sidebar-toggle',
+            'button[aria-label*="brir"]', 'button[aria-label*="pen"]'
+        ];
+        for (var i = 0; i < sels.length; i++) {
+            var el = document.querySelector(sels[i]);
+            if (el && el.id !== 'closeBtn' && !el.closest('.sidebar-header, .sidebar, #sidebar')) {
+                var r = el.getBoundingClientRect();
+                if (r.width > 0) return el;
+            }
+        }
+        return null;
+    }
+
+    function placeLang() {
+        var wrap = document.querySelector('.nydo-lang');
+        if (!wrap) return;
+        var burger = findBurger();
+        if (!burger) {
+            wrap.style.top = '16px';
+            wrap.style.right = '16px';
+            wrap.style.left = 'auto';
+            return;
+        }
+
+        var r = burger.getBoundingClientRect();
+        var gap = 10, w = wrap.offsetWidth, h = wrap.offsetHeight;
+        wrap.style.top = (r.top + (r.height - h) / 2) + 'px';
+
+        // A la derecha de la hamburguesa; si no cabe, a la izquierda
+        var left = (r.right + gap + w <= window.innerWidth - 8) ? r.right + gap : r.left - gap - w;
+        wrap.style.left = Math.max(8, left) + 'px';
+        wrap.style.right = 'auto';
+    }
+
     /* ---------- Inicio ---------- */
     function init() {
         var current = getCurrent();
+        document.documentElement.setAttribute('data-nydo-lang', current);
+        bindSidebar();
         injectStyles();
         markNoTranslate();
         buildUI(current);
+
+        placeLang();
+        setTimeout(placeLang, 300);   // por si la hamburguesa se crea después
+        setTimeout(placeLang, 1200);
+        window.addEventListener('load', placeLang);
+        window.addEventListener('resize', placeLang);
+        window.addEventListener('scroll', placeLang, { passive: true });
+
         if (current !== PAGE_LANG) loadGoogle(); // en español no se carga nada extra
     }
 
