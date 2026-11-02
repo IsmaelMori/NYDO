@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="jutsus.css">
     <link rel="stylesheet" href="stats.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
 
     <style>
         /* Estilos personalizados Glassmorphism y UI Kurama */
@@ -107,6 +108,115 @@
             box-shadow: 0 0 8px rgba(255, 85, 0, 0.7);
         }
     </style>
+
+    <style id="nydo-liquid-glass">
+        :root {
+            color-scheme: dark;
+            --lg-panel: rgba(20, 22, 32, .48);
+            --lg-panel-strong: rgba(18, 20, 29, .72);
+            --lg-line: rgba(255, 255, 255, .16);
+            --lg-glow: rgba(255, 112, 35, .22);
+            --lg-radius: 22px;
+            --lg-blur: 22px;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            background:
+                radial-gradient(ellipse at 15% 8%, rgba(255, 104, 35, .13), transparent 38%),
+                radial-gradient(ellipse at 88% 35%, rgba(105, 67, 190, .12), transparent 42%),
+                #090a10;
+        }
+        .st-page { isolation: isolate; }
+        .st-glass, .kurama-glass-box, .glass-step, .command-link,
+        .command-cta, .mc-gui-container, .video-wrapper {
+            background-color: var(--lg-panel);
+            background-image: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.018) 48%, rgba(255,255,255,.045));
+            border: 1px solid var(--lg-line);
+            border-radius: var(--lg-radius);
+            box-shadow: 0 16px 44px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.12);
+            -webkit-backdrop-filter: blur(var(--lg-blur)) saturate(155%);
+            backdrop-filter: blur(var(--lg-blur)) saturate(155%);
+        }
+        .st-glass, .kurama-glass-box { transition: border-color .25s ease, transform .25s ease, box-shadow .25s ease; }
+        .st-glass:hover, .kurama-glass-box:hover, .glass-step:hover {
+            border-color: rgba(255, 143, 79, .42);
+            box-shadow: 0 18px 48px rgba(0,0,0,.34), 0 0 28px var(--lg-glow), inset 0 1px 0 rgba(255,255,255,.16);
+        }
+        button, .mc-gui-btn, .command-link, .command-cta, .back-link {
+            -webkit-tap-highlight-color: transparent;
+            transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease, filter .2s ease;
+        }
+        button:hover:not(:disabled), .mc-gui-btn:hover:not(:disabled), .command-link:hover, .command-cta:hover, .back-link:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.12);
+            box-shadow: 0 8px 24px rgba(255, 104, 35, .14);
+        }
+        button:active:not(:disabled), .mc-gui-btn:active:not(:disabled), .command-link:active, .command-cta:active {
+            transform: scale(.97);
+        }
+        button:focus-visible, a:focus-visible { outline: 2px solid #ff9b61; outline-offset: 3px; }
+        .biju-top-actions { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+        .command-link {
+            display:inline-flex; align-items:center; gap:9px; padding:10px 16px;
+            color:#fff; text-decoration:none; font-size:.9rem; font-weight:700;
+        }
+        .command-link i, .command-cta > i:first-child { color:#ff985c; }
+        .biju-status {
+            display:inline-block; margin-top:7px; padding:3px 7px; border-radius:999px;
+            color:#c9d2e5; background:rgba(150,165,190,.12); border:1px solid rgba(190,205,230,.15);
+            font-size:.62rem;
+        }
+        .biju-status-active { color:#8fffc1; background:rgba(0,255,136,.12); border-color:rgba(0,255,136,.25); }
+        .progression-section { padding:clamp(18px, 3vw, 28px); border-radius:var(--lg-radius); margin:0 0 35px; }
+        .section-heading { margin-bottom:20px; }
+        .section-heading h2 { color:#fff; font-size:clamp(1.25rem, 2.5vw, 1.65rem); margin:8px 0; }
+        .section-heading p, .muted-note { color:#b3b8c8; line-height:1.65; font-size:.9rem; }
+        .progression-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+        .glass-step { position:relative; padding:20px; min-width:0; }
+        .glass-step h3 { color:#fff; font-size:1rem; margin:8px 0 12px; }
+        .glass-step h3 i { color:#ff985c; margin-right:7px; }
+        .glass-step p { color:#c7cbd6; font-size:.87rem; line-height:1.65; }
+        .step-number { color:#ff985c; font:800 .72rem/1 monospace; letter-spacing:.12em; }
+        .command-chip { display:inline-block; padding:8px 12px; margin:3px 0 8px; color:#ffd2b5; background:rgba(255,111,48,.12); border:1px solid rgba(255,143,79,.28); border-radius:10px; }
+        .mastery-flow { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:9px; margin:20px 0; padding:16px; background:rgba(0,0,0,.2); border:1px solid rgba(255,255,255,.09); border-radius:16px; }
+        .mastery-flow span, .mastery-flow strong { padding:7px 10px; border-radius:9px; background:rgba(255,255,255,.055); color:#e6e8ef; font-size:.76rem; }
+        .mastery-flow strong { color:#ffc18e; border:1px solid rgba(255,145,80,.24); }
+        .mastery-flow i { color:#ff985c; font-size:.72rem; }
+        .glass-note { display:flex; gap:12px; align-items:flex-start; padding:14px 16px; border:1px solid rgba(126,171,255,.2); border-radius:14px; background:rgba(90,130,210,.08); }
+        .glass-note i { color:#9fc3ff; margin-top:3px; }
+        .glass-note p { margin:0; color:#cbd5e8; font-size:.83rem; line-height:1.6; }
+        .command-cta { display:flex; align-items:center; gap:13px; margin-top:16px; padding:15px 17px; color:#fff; text-decoration:none; }
+        .command-cta span { display:flex; flex:1; flex-direction:column; gap:3px; }
+        .command-cta small { color:#aeb4c4; font-size:.75rem; }
+        .mc-gui-container { overflow:hidden; }
+        .mc-gui-btn { border-radius:11px !important; }
+        .video-wrapper { border-radius:16px; }
+        .video-wrapper video { display:block; }
+        @media (max-width: 760px) {
+            :root { --lg-blur:16px; --lg-radius:18px; }
+            .progression-grid { grid-template-columns:1fr; }
+            .mastery-flow { justify-content:flex-start; }
+            .mastery-flow i { transform:rotate(90deg); }
+            .st-wrap { padding:14px 12px !important; }
+            .st-hero h1 { font-size:clamp(1.65rem, 7vw, 2.1rem) !important; }
+            .st-hero-stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+            .biju-top-actions > a { flex:1 1 auto; justify-content:center; }
+            .mc-gui-container { padding:13px !important; }
+            .mc-gui-container > div:first-child { gap:10px; flex-wrap:wrap; }
+            .mc-gui-container button { min-height:42px; }
+            .video-wrapper { aspect-ratio:16/9; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior:auto; }
+            *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+        }
+        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+            .st-glass, .kurama-glass-box, .glass-step, .command-link, .command-cta, .mc-gui-container, .video-wrapper {
+                background-color: var(--lg-panel-strong);
+            }
+        }
+    </style>
+
 </head>
 <body>
 
@@ -150,7 +260,8 @@
         <div class="st-wrap" style="max-width: 1200px; margin: 0 auto; padding: 20px 15px;">
 
             <!-- BOTÓN DE RETROCEDER -->
-            <div style="margin-bottom: 20px;">
+            <div class="biju-top-actions" style="margin-bottom: 20px;">
+                <a href="Comandos.html" class="command-link st-glass" aria-label="Abrir guía de comandos"><i class="fa-solid fa-terminal"></i><span>Ver comandos</span></a>
                 <a type="button" class="back-link st-glass" onclick="history.back(); return false;" style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 18px; border-radius: 10px; color: #fff; text-decoration: none; font-weight: 600; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.15); transition: all 0.3s; cursor: pointer;">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span>Volver a la Wiki</span>
@@ -161,10 +272,10 @@
             <section class="st-hero st-glass" id="bijus-intro" style="margin-bottom: 30px;">
                 <span class="st-eyebrow"><i class="fa-solid fa-paw"></i> BESTIAS CON COLA</span>
                 <h1 style="color: #fff; font-size: 2.2rem; font-weight: 800; margin: 10px 0;">Guía de Bijūs <span>& Kurama</span></h1>
-                <p>Aprende los requisitos necesarios para capturar y sellar al Kyūbi (Nueve Colas), gestiona sus 4 Fases de poder y explora la réplica del sistema de vínculo del mod.</p>
+                <p>Conoce las nueve Bestias con Cola, los requisitos para capturar a Kurama, cómo conseguir experiencia para avanzar en el manto y las etapas necesarias para dominar sus formas MK1 y de chakra.</p>
                 <div class="st-hero-stats">
                     <div><i class="fa-solid fa-cubes"></i><strong>9</strong><small>Bijūs Totales</small></div>
-                    <div><i class="fa-solid fa-lock-open"></i><strong>1</strong><small>Disponible (Kurama)</small></div>
+                    <div><i class="fa-solid fa-paw"></i><strong>9</strong><small>Bestias del registro</small></div>
                     <div><i class="fa-solid fa-link"></i><strong>8</strong><small>Cadenas Necesarias</small></div>
                     <div><i class="fa-solid fa-fire-flame-curved"></i><strong>4</strong><small>Fases de Colas</small></div>
                 </div>
@@ -176,7 +287,7 @@
                     <h2 style="font-size: 1.2rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 10px;">
                         <i class="fa-solid fa-layer-group" style="color: #ff5500;"></i> Registro de Bestias con Cola
                     </h2>
-                    <span style="font-size: 0.8rem; color: #a0a0b0; font-family: monospace;">1 Disponible / 8 Bloqueadas</span>
+                    <span style="font-size: 0.8rem; color: #a0a0b0; font-family: monospace;">Las 9 Bestias con Cola</span>
                 </div>
 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px;">
@@ -184,66 +295,69 @@
                     <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
                         <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">1 Cola</span>
                         <strong style="color: #fff; font-size: 0.9rem;">Shukaku</strong>
-                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                        <span class="biju-status">Parte del registro</span>
                     </div>
 
                     <!-- 2 Colas -->
                     <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
                         <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">2 Colas</span>
                         <strong style="color: #fff; font-size: 0.9rem;">Matatabi</strong>
-                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                        <span class="biju-status">Parte del registro</span>
                     </div>
 
                     <!-- 3 Colas -->
                     <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
                         <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">3 Colas</span>
                         <strong style="color: #fff; font-size: 0.9rem;">Isobu</strong>
-                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                        <span class="biju-status">Parte del registro</span>
                     </div>
 
                     <!-- 4 Colas -->
                     <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
                         <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">4 Colas</span>
                         <strong style="color: #fff; font-size: 0.9rem;">Son Gokū</strong>
-                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                        <span class="biju-status">Parte del registro</span>
                     </div>
 
                     <!-- 5 Colas -->
                     <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
                         <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">5 Colas</span>
                         <strong style="color: #fff; font-size: 0.9rem;">Kokuō</strong>
-                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                        <span class="biju-status">Parte del registro</span>
                     </div>
 
                     <!-- 6 Colas -->
                     <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
                         <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">6 Colas</span>
                         <strong style="color: #fff; font-size: 0.9rem;">Saiken</strong>
-                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                        <span class="biju-status">Parte del registro</span>
                     </div>
 
                     <!-- 7 Colas -->
                     <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
                         <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">7 Colas</span>
                         <strong style="color: #fff; font-size: 0.9rem;">Chōmei</strong>
-                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                        <span class="biju-status">Parte del registro</span>
                     </div>
 
                     <!-- 8 Colas -->
                     <div class="st-glass biju-card-disabled" style="padding: 12px; text-align: center; border-radius: 12px;">
                         <span style="font-size: 0.75rem; color: #a0a0b0; display: block;">8 Colas</span>
                         <strong style="color: #fff; font-size: 0.9rem;">Gyūki</strong>
-                        <span style="display: block; font-size: 0.65rem; color: #ff4444; margin-top: 6px; background: rgba(255,0,0,0.15); padding: 2px 4px; border-radius: 4px;">Bloqueado</span>
+                        <span class="biju-status">Parte del registro</span>
                     </div>
 
                     <!-- 9 Colas: KURAMA (ACTIVO) -->
                     <div class="kurama-glass-box" style="padding: 12px; text-align: center; border: 2px solid #ff5500; position: relative;">
                         <span style="font-size: 0.75rem; color: #ffaa00; font-weight: bold; display: block;">9 Colas</span>
                         <strong style="color: #fff; font-size: 1rem; text-shadow: 0 0 8px rgba(255,85,0,0.8);">Kurama</strong>
-                        <span style="display: block; font-size: 0.65rem; color: #00ff88; margin-top: 6px; background: rgba(0,255,136,0.15); padding: 2px 4px; border-radius: 4px; font-weight: bold;">DISPONIBLE</span>
+                        <span class="biju-status biju-status-active">Guía disponible</span>
                     </div>
                 </div>
             </section>
+
+
+            
 
             <!-- SECCIÓN 2: REQUISITOS DE CAPTURA Y VIDEO PRINCIPAL -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-bottom: 35px;">
@@ -283,7 +397,7 @@
                                 <i class="fa-solid fa-lock"></i> Requisito Final de Restricción:
                             </strong>
                             <p style="font-size: 0.82rem; color: #e0e0e0; margin: 0; line-height: 1.4;">
-                                Debes <strong style="color: #ff7700;">envolver a Kurama en exactamente 8 Cadenas de Adamantita</strong> simultáneas alrededor de su cuerpo para desactivar sus ataques e iniciar la fase de sellado.
+                                Debes tener el <strong style="color: #c084fc;">Yin</strong> y las <strong style="color: #ff7700;">Cadenas de Adamantita</strong>. Utiliza las cadenas para inmovilizar a Kurama y poder iniciar el sellado.
                             </p>
                         </div>
                     </div>
@@ -301,7 +415,7 @@
 
                         <!-- Reproductor de Video Silenciado con Autoplay y Loop -->
                         <div class="video-wrapper">
-                            <video id="mainCaptureVideo" style="width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline controls>
+                            <video id="mainCaptureVideo" preload="metadata" style="width: 100%; height: 100%; object-fit: cover;" muted playsinline controls preload="metadata">
                                 <source src="vid/captura.mp4" type="video/mp4">
                                 Tu navegador no soporta el reproductor de video.
                             </video>
@@ -310,7 +424,66 @@
                 </div>
             </div>
 
-            <!-- SECCIÓN 3: FASES DE LAS COLAS (1 A 4) CON VIDEOS INDIVIDUALES -->
+
+
+
+
+
+               <!-- SECCIÓN 3: PROGRESIÓN Y DOMINIO DE KURAMA -->
+            <section class="st-glass progression-section" id="progresion-kurama">
+                <div class="section-heading">
+                    <span class="st-eyebrow"><i class="fa-solid fa-fire-flame-curved"></i> PROGRESIÓN DEL BIJŪ</span>
+                    <h2>Cómo subir las colas y dominar a Kurama</h2>
+                    <p>La experiencia del Bijū permite avanzar por las fases del manto. Después podrás completar las pruebas de dominio.</p>
+                </div>
+
+                <div class="progression-grid">
+                    <article class="glass-step">
+                        <span class="step-number">01</span>
+                        <h3><i class="fa-solid fa-khanda"></i> Conseguir Bijū XP</h3>
+                        <p>Para subir de colas en el <strong>modo Manto</strong>, consigue experiencia derrotando enemigos o utiliza el comando:</p>
+                        <code class="command-chip">/biju xp</code>
+                        <p class="muted-note">La experiencia acumulada te permitirá avanzar progresivamente en las fases del manto.</p>
+                    </article>
+
+                    <article class="glass-step">
+                        <span class="step-number">02</span>
+                        <h3><i class="fa-solid fa-moon"></i> Desbloquear Kurama MK1</h3>
+                        <p>Cuando tengas el vínculo necesario, <strong>duerme en una cama</strong>. Serás teletransportado a la dimensión de Kurama.</p>
+                        <p>Allí tendrás que <strong>derrotar nuevamente a Kurama</strong> para superar la prueba y obtener el <strong>modo Kurama</strong>.</p>
+                    </article>
+
+                    <article class="glass-step">
+                        <span class="step-number">03</span>
+                        <h3><i class="fa-solid fa-bolt"></i> Kurama con Chakra</h3>
+                        <p>Después de dominar la fase anterior, vuelve a enfrentarte a Kurama y derrótalo una vez más.</p>
+                        <p>Al completar esta segunda prueba obtendrás la forma <strong>Kurama con Chakra</strong>.</p>
+                    </article>
+                </div>
+
+                <div class="mastery-flow" aria-label="Orden de progresión">
+                    <span>Manto y Bijū XP</span><i class="fa-solid fa-arrow-right"></i>
+                    <span>Dormir</span><i class="fa-solid fa-arrow-right"></i>
+                    <span>Dimensión de Kurama</span><i class="fa-solid fa-arrow-right"></i>
+                    <span>Derrotar a Kurama</span><i class="fa-solid fa-arrow-right"></i>
+                    <span>Modo Kurama</span><i class="fa-solid fa-arrow-right"></i>
+                    <span>Segunda victoria</span><i class="fa-solid fa-arrow-right"></i>
+                    <strong>Kurama con Chakra</strong>
+                </div>
+
+                <div class="glass-note">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <p><strong>Importante:</strong> el registro muestra las nueve Bestias con Cola conocidas. Que una bestia aparezca en la lista no significa necesariamente que esté habilitada para capturarse en todas las versiones de NYDO; comprueba la versión del mod y sus funciones disponibles Actualmente la pagina muestra la guia de la version R18 .</p>
+                </div>
+
+                <a class="command-cta" href="Comandos.html">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span><strong>Consultar todos los comandos</strong><small>Abre la guía de comandos de NYDO</small></span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </section>
+
+            <!-- SECCIÓN 4: FASES DE LAS COLAS (1 A 4) CON VIDEOS INDIVIDUALES -->
             <section class="st-glass" style="padding: 24px; border-radius: 16px; margin-bottom: 35px;">
                 <div style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; margin-bottom: 20px;">
                     <h2 style="font-size: 1.3rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 10px;">
@@ -364,7 +537,7 @@
                         </span>
                         
                         <div class="video-wrapper">
-                            <video id="tailPhaseVideo" style="width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline controls>
+                            <video id="tailPhaseVideo" preload="none" style="width: 100%; height: 100%; object-fit: cover;" muted playsinline controls preload="metadata">
                                 <source id="tailVideoSource" src="" type="video/mp4">
                                 Tu navegador no soporta el reproductor de video.
                             </video>
@@ -374,7 +547,10 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN 4: INTERFAZ DEL MOD MINECRAFT -->
+
+         
+
+            <!-- SECCIÓN 5: INTERFAZ DEL MOD MINECRAFT -->
             <section class="st-glass" style="padding: 24px; border-radius: 16px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
                     <div>
@@ -606,7 +782,7 @@
                 tailVideo.src = data.videoUrl;
                 tailVideo.muted = true;
                 tailVideo.load();
-                tailVideo.play().catch(e => console.log("Autoplay interactivo retenido por el navegador"));
+                // Reproducción iniciada por el usuario: evita consumo innecesario de recursos.
             }
         }
 
@@ -660,10 +836,10 @@
         }
 
         // Inicialización
-        window.onload = function() {
+        document.addEventListener("DOMContentLoaded", function() {
             selectTailPhase(1);
             updateGuiDisplay();
-        };
+        }, { once: true });
     </script>
     <script src="translate.js"></script>
 </body>
