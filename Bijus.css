@@ -1,0 +1,144 @@
+/* =====================================================
+   BIJUS.CSS - NYDo Wiki | Liquid Glass estilo iOS
+   Cada bestia tiene su tema: la página cambia de color
+   con data-biju="nombre" (ver bloque TEMAS más abajo).
+   Optimizado: sin animaciones continuas, blur limitado.
+===================================================== */
+:root{--bj-r:26px;--bj-blur:18px;--bj-mute:#aab1c2;
+--bj-disp:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP","Iowan Old Style",Georgia,serif;
+--bj-emoji:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+/* La barra superior sigue el scroll (busqueda.css la dejaba relative) */
+.nydo-header .nydo-topbar{position:fixed;top:0;left:0;right:0;width:auto}
+
+/* ---------- TEMAS (uno por bestia) ---------- */
+.bj-page{--rgb:255 112 28;--rgb2:255 196 60;--bx:14%}
+.bj-page[data-biju="shukaku"]{--rgb:226 184 104;--rgb2:150 94 44;--bx:20%}
+.bj-page[data-biju="matatabi"]{--rgb:82 160 255;--rgb2:140 100 250;--bx:80%}
+.bj-page[data-biju="isobu"]{--rgb:40 178 152;--rgb2:255 128 108;--bx:35%}
+.bj-page[data-biju="son-goku"]{--rgb:255 84 52;--rgb2:255 170 50;--bx:65%}
+.bj-page[data-biju="kokuo"]{--rgb:236 240 250;--rgb2:255 176 120;--bx:50%}
+.bj-page[data-biju="saiken"]{--rgb:138 196 255;--rgb2:196 150 255;--bx:25%}
+.bj-page[data-biju="chomei"]{--rgb:96 206 98;--rgb2:232 214 96;--bx:75%}
+.bj-page[data-biju="gyuki"]{--rgb:148 98 214;--rgb2:60 52 110;--bx:40%}
+.bj-page[data-biju="kurama"]{--rgb:255 112 28;--rgb2:255 196 60;--bx:14%}
+
+.bj-page{position:relative;isolation:isolate;color:#f4f5fa;padding:calc(var(--topbar-height) + 16px) 0 40px}
+.bj-page::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+background:radial-gradient(60% 45% at var(--bx) 8%,rgb(var(--rgb)/.24),transparent 70%),
+radial-gradient(50% 40% at 92% 45%,rgb(var(--rgb2)/.16),transparent 70%),
+radial-gradient(45% 35% at 12% 96%,rgb(var(--rgb)/.10),transparent 70%),#07080d}
+.bj-wrap{max-width:1100px;margin:0 auto;padding:0 clamp(14px,4vw,28px)}
+.bj-page h1,.bj-page h2,.bj-page h3,.bj-page h4,.bj-page p,.bj-page ol,.bj-page dl,.bj-page dd{margin:0}
+.bj-page a{text-decoration:none}
+.bj-page :focus-visible{outline:2px solid rgb(var(--rgb));outline-offset:3px}
+.bj-emo{font-family:var(--bj-emoji);line-height:1}
+
+/* ---------- LIQUID GLASS ---------- */
+.bj-glass,.bj-btn{-webkit-backdrop-filter:blur(var(--bj-blur)) saturate(180%);backdrop-filter:blur(var(--bj-blur)) saturate(180%)}
+.bj-glass{position:relative;border-radius:var(--bj-r);
+background:radial-gradient(120% 80% at 0 0,rgba(255,255,255,.14),transparent 55%),
+radial-gradient(80% 70% at 100% 0,rgb(var(--rgb)/.14),transparent 70%),rgba(16,18,28,.44);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.38),inset 0 -1px 0 rgba(255,255,255,.05),0 20px 44px -20px rgb(var(--rgb)/.45)}
+.bj-glass::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+background:linear-gradient(140deg,rgba(255,255,255,.55),rgba(255,255,255,.05) 28%,rgba(255,255,255,.03) 62%,rgb(var(--rgb)/.5));
+-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude}
+.bj-pad{padding:clamp(16px,3vw,26px)}
+.bj-btn{display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 18px;border-radius:999px;color:#fff;font-weight:700;font-size:.88rem;
+background:rgba(255,255,255,.09);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 8px 22px -10px rgba(0,0,0,.6);transition:transform .2s,background .2s;-webkit-tap-highlight-color:transparent}
+.bj-btn i{color:rgb(var(--rgb))}.bj-btn:active{transform:scale(.97)}
+.bj-chip{display:inline-block;margin-right:6px;padding:2px 9px;border-radius:999px;font-size:.68rem;font-weight:700;color:#9dffc7;background:rgba(0,255,136,.12);box-shadow:inset 0 0 0 1px rgba(0,255,136,.25)}
+.bj-code{display:inline-block;padding:3px 9px;border-radius:9px;color:#ffd2b5;background:rgb(var(--rgb)/.18);font:600 .82rem monospace}
+.bj-sub{color:var(--bj-mute);font-size:.88rem}
+.bj-lead{color:var(--bj-mute);line-height:1.6;margin:6px 0 14px;max-width:62ch;font-size:.92rem}
+
+/* ---------- BARRA SUPERIOR DE PÁGINA + HERO ---------- */
+.bj-bar{display:flex;justify-content:flex-end;margin-bottom:12px}
+.bj-hero{overflow:hidden;padding:clamp(20px,4vw,36px)}
+.bj-hero h1{font:800 clamp(2rem,6vw,3.4rem)/1.05 var(--bj-disp)}
+.bj-hero p{color:#cfd4e2;line-height:1.65;max-width:60ch;margin-top:10px}
+.bj-ghost{position:absolute;top:6px;right:clamp(10px,4vw,36px);writing-mode:vertical-rl;font:700 clamp(3.4rem,10vw,6.5rem)/1 var(--bj-disp);color:rgba(255,255,255,.06);pointer-events:none}
+.bj-hero .bj-ok{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;color:#d7dce8}
+.bj-ok i{color:#7dffb4;margin-top:3px}.bj-ok strong{color:#fff}
+
+/* ---------- SELECTOR DE BESTIAS (tarjetas pequeñas) ---------- */
+.bj-select{margin-top:16px;padding:10px}
+.bj-tiles{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:8px}
+.bj-tile{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px 9px;border:0;border-radius:18px;color:#fff;cursor:pointer;font:inherit;
+background:linear-gradient(160deg,rgb(var(--rgb)/.34),rgb(var(--rgb2)/.14)),rgba(14,16,24,.55);box-shadow:inset 0 1px 0 rgba(255,255,255,.28);-webkit-tap-highlight-color:transparent;transition:transform .2s,box-shadow .2s}
+.bj-tile .bj-emo{font-size:1.9rem;margin-bottom:2px}
+.bj-tile b{font-size:.8rem;font-weight:700}.bj-tile small{color:#d4d9e6;font-size:.68rem}
+.bj-tile .bj-tails{--d:8px;margin:5px 0 0;height:8px}
+.bj-tile[aria-selected=true]{transform:translateY(-2px);background:linear-gradient(160deg,rgb(var(--rgb)/.6),rgb(var(--rgb2)/.28)),rgba(14,16,24,.5);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 2px rgb(var(--rgb)),0 10px 24px -8px rgb(var(--rgb)/.8)}
+.bj-tails{--d:11px;position:relative;display:block;width:calc(var(--d)*9);height:11px;margin-top:10px;
+background:radial-gradient(circle at center,rgba(255,255,255,.25) 28%,transparent 36%) 0 0/var(--d) 100% repeat-x}
+.bj-tails::after{content:"";position:absolute;left:0;top:0;bottom:0;width:calc(var(--d)*var(--n));
+background:radial-gradient(circle at center,rgb(var(--rgb)) 28%,transparent 36%) 0 0/var(--d) 100% repeat-x}
+
+/* ---------- PANEL DE LA BESTIA ---------- */
+.bj-panel{margin-top:16px;padding:clamp(18px,3.5vw,32px)}
+.bj-panel[hidden],.bj-phase[hidden]{display:none}
+.bj-top{display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,3vw,28px);align-items:center}
+.bj-art{position:relative;display:grid;place-items:center;overflow:hidden;width:clamp(140px,20vw,220px);aspect-ratio:1;border-radius:28px;
+background:radial-gradient(80% 80% at 30% 20%,rgb(var(--rgb)/.65),transparent 70%),radial-gradient(80% 80% at 100% 100%,rgb(var(--rgb2)/.5),rgba(10,11,18,.95));
+box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 18px 40px -16px rgb(var(--rgb)/.7)}
+.bj-art .bj-emo{font-size:clamp(4.2rem,9vw,6.4rem);filter:drop-shadow(0 8px 16px rgba(0,0,0,.45))}
+.bj-kanji{position:absolute;top:10px;right:12px;writing-mode:vertical-rl;font:700 1.3rem var(--bj-disp);color:rgba(255,255,255,.55)}
+.bj-art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s}
+.bj-art.has-img img{opacity:1}.bj-art.has-img .bj-emo,.bj-art.has-img .bj-kanji{opacity:0}
+.bj-wide{width:100%;aspect-ratio:4/3;border-radius:18px}.bj-wide img{object-fit:contain}.bj-wide .bj-emo{font-size:3.4rem}
+.bj-info h2{font:800 clamp(1.9rem,5vw,2.8rem)/1.05 var(--bj-disp);text-shadow:0 0 28px rgb(var(--rgb)/.6)}
+.bj-info .bj-sub{margin-top:4px}
+.bj-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.bj-facts div{padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.bj-facts dt{color:var(--bj-mute);font-size:.72rem;margin-bottom:3px}
+.bj-facts dd{font-size:.86rem;line-height:1.45}.bj-facts a{color:rgb(var(--rgb));font-weight:700}
+
+/* ---------- SECCIONES DE KURAMA (dentro del panel) ---------- */
+.bj-sec{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1)}
+.bj-sec h3,.bj-capture-wrap h2{font:700 clamp(1.3rem,3vw,1.7rem)/1.2 var(--bj-disp)}
+.bj-tabs{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:6px;margin-bottom:16px}
+.bj-tab{min-height:44px;border:0;border-radius:13px;color:#dfe3ee;font:700 1.05rem var(--bj-disp);cursor:pointer;background:rgba(255,255,255,.06);box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+.bj-tab[aria-selected=true]{color:#fff;background:linear-gradient(160deg,rgb(var(--rgb)/.65),rgb(var(--rgb2)/.3));box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 20px rgb(var(--rgb)/.35)}
+.bj-phase{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:start}
+.bj-phase h4,.bj-form h4{font:700 1.2rem var(--bj-disp);color:#fff}
+.bj-phase p{color:#d5dae6;line-height:1.65;font-size:.9rem;margin-top:8px}.bj-phase .bj-sub{margin-top:3px}
+.bj-stat{padding:11px 13px;border-radius:13px;font-size:.82rem!important;color:#ffd9b8!important;background:rgb(var(--rgb)/.14);box-shadow:inset 0 0 0 1px rgb(var(--rgb)/.3)}
+.bj-forms{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bj-form{padding:14px;border-radius:22px;background:linear-gradient(160deg,rgb(var(--rgb)/.2),rgba(10,11,18,.5));box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.bj-form .bj-art{margin-bottom:12px}
+.bj-steps{list-style:none;counter-reset:s;display:grid;gap:8px;padding:0;margin-top:12px}
+.bj-steps li{counter-increment:s;display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:14px;color:#d5dae6;font-size:.86rem;line-height:1.5;background:rgba(255,255,255,.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+.bj-steps li::before{content:counter(s);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;font-weight:800;font-size:.8rem;color:#fff;background:rgb(var(--rgb)/.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+
+/* ---------- CAPTURA (común a todas) ---------- */
+.bj-capture-wrap{margin-top:34px;content-visibility:auto;contain-intrinsic-size:auto 560px}
+.bj-capture{display:grid;grid-template-columns:1.15fr 1fr;gap:14px}
+.bj-reqs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bj-req{padding:14px;border-radius:18px;background:rgba(255,255,255,.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.bj-req>i{font-size:1.4rem;margin-bottom:8px}.bj-req h3{font-size:.98rem;margin-bottom:4px}
+.bj-req p{color:#c3c9d8;font-size:.82rem;line-height:1.55}
+.bj-chains{display:flex;gap:5px;margin-top:8px;color:#eab308;font-size:.75rem}
+.bj-capture h3{font-size:1.02rem;margin-bottom:12px}
+.bj-video{aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#08090e;box-shadow:inset 0 0 0 1px rgba(255,255,255,.1)}
+.bj-video video{display:block;width:100%;height:100%;object-fit:cover}
+.bj-cta{display:flex;align-items:center;gap:12px;margin-top:14px;padding:14px 18px;border-radius:20px;color:#fff}
+.bj-cta>i:first-child{color:rgb(var(--rgb));font-size:1.1rem}
+.bj-cta span{flex:1;display:flex;flex-direction:column;gap:2px;font-weight:700}.bj-cta small{color:var(--bj-mute);font-weight:400}
+.bj-footer{margin-top:40px;text-align:center;color:var(--bj-mute);font-size:.85rem;display:grid;gap:8px;justify-items:center}
+.bj-footer a:first-child{font:800 1.6rem var(--bj-disp);color:#fff}.bj-footer a:last-child{color:rgb(var(--rgb))}
+
+/* ---------- RESPONSIVE / MÓVIL ---------- */
+@media(hover:hover){.bj-btn:hover{background:rgba(255,255,255,.17)}.bj-tile:hover{transform:translateY(-2px)}}
+@media(max-width:900px){.bj-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}.bj-capture,.bj-forms,.bj-phase{grid-template-columns:1fr}}
+@media(max-width:560px){
+:root{--bj-blur:12px;--bj-r:22px}
+.bj-top{grid-template-columns:1fr;justify-items:center;text-align:center}
+.bj-info .bj-tails{margin-left:auto;margin-right:auto}.bj-facts{text-align:left;grid-template-columns:1fr}
+.bj-reqs{grid-template-columns:1fr}.bj-tab{font-size:.95rem}
+}
+/* Sin soporte de blur o con transparencia reducida: fondos sólidos */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.bj-glass{background:rgba(20,22,32,.92)}}
+@media(prefers-reduced-transparency:reduce){.bj-glass{background:rgba(20,22,32,.95)}.bj-glass,.bj-btn{-webkit-backdrop-filter:none;backdrop-filter:none}}
+@media(prefers-reduced-motion:reduce){.bj-page *{transition:none!important}}
