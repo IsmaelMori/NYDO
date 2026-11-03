@@ -1,0 +1,182 @@
+/* ==========================================================
+   NAV INFERIOR MÓVIL (estilo TikTok + Liquid Glass iOS)
+   Cárgalo DESPUÉS de style.css en todas las páginas:
+   <link rel="stylesheet" href="mobile-nav.css">
+========================================================== */
+
+@media (max-width: 768px) {
+
+    /* El botón hamburguesa y la capa oscura ya no hacen falta */
+    .menu-btn,
+    .page-overlay { display: none !important; }
+
+    /* Espacio para que el dock no tape el contenido */
+    body { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+
+    /* ---------- DOCK ---------- */
+    .sidebar {
+        top: auto;
+        left: 12px;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        width: auto;
+        height: 68px;
+        padding: 6px;
+        flex-direction: row;
+        align-items: center;
+        overflow: visible;
+        border-radius: 34px;
+        transform: none !important;           /* siempre visible */
+        animation: dockIn .7s cubic-bezier(.34,1.56,.64,1) both;
+        transition: transform .45s cubic-bezier(.34,1.2,.64,1),
+                    opacity .3s;
+
+        /* LIQUID GLASS */
+        background: linear-gradient(
+            135deg,
+            rgba(255,255,255,.16),
+            rgba(255,255,255,.05) 45%,
+            rgba(255,255,255,.10)
+        );
+        -webkit-backdrop-filter: blur(24px) saturate(190%) brightness(1.08);
+        backdrop-filter: blur(24px) saturate(190%) brightness(1.08);
+        border: 1px solid rgba(255,255,255,.28);
+        box-shadow:
+            inset 0 1.5px 1px rgba(255,255,255,.45),   /* brillo superior */
+            inset 0 -1px 1px rgba(255,255,255,.12),
+            inset 0 0 18px rgba(255,255,255,.06),
+            0 12px 32px rgba(0,0,0,.45),
+            0 2px 6px rgba(0,0,0,.3);
+    }
+
+    /* Reflejo especular que recorre el cristal */
+    .sidebar::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        background: linear-gradient(
+            115deg,
+            transparent 30%,
+            rgba(255,255,255,.18) 48%,
+            transparent 62%
+        );
+        background-size: 250% 100%;
+        animation: glassShine 6s ease-in-out infinite;
+    }
+
+    /* Ocultar lo que sobra del sidebar de escritorio */
+    .sidebar-header,
+    .sidebar-footer,
+    .nav-divider { display: none !important; }
+
+    /* Dock oculto al bajar scroll (lo activa el JS) */
+    .sidebar.dock-hidden {
+        transform: translateY(140%) !important;
+        opacity: 0;
+    }
+
+    /* ---------- ENLACES ---------- */
+    .navigation {
+        position: relative;
+        flex-direction: row;
+        gap: 4px;
+        width: 100%;
+        height: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    .navigation::-webkit-scrollbar { display: none; }
+
+    .nav-link {
+        position: relative;
+        flex: 0 0 auto;
+        min-width: 62px;
+        height: 100%;
+        min-height: 0;
+        padding: 0 10px;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        border-radius: 28px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: .2px;
+        white-space: nowrap;
+        color: rgba(255,255,255,.65);
+        scroll-snap-align: center;
+        -webkit-tap-highlight-color: transparent;
+        transition:
+            color .3s,
+            background .35s,
+            transform .45s cubic-bezier(.34,1.56,.64,1),
+            box-shadow .35s;
+    }
+
+    .nav-link > i {
+        width: auto;
+        font-size: 20px;
+        transition: transform .45s cubic-bezier(.34,1.8,.64,1),
+                    filter .3s;
+    }
+
+    /* Sin el desplazamiento lateral del escritorio */
+    .nav-link:hover {
+        transform: none;
+        background: rgba(255,255,255,.06);
+        border-color: transparent;
+    }
+
+    /* Efecto "gota" al presionar */
+    .nav-link:active {
+        transform: scale(.88);
+        background: rgba(255,255,255,.14);
+    }
+
+    /* ---------- ACTIVO: burbuja líquida ---------- */
+    .nav-link.active {
+        color: #fff;
+        border-color: rgba(255,255,255,.35);
+        background: linear-gradient(
+            160deg,
+            rgba(255,70,90,.55),
+            rgba(185,12,37,.30)
+        );
+        box-shadow:
+            inset 0 1.5px 1px rgba(255,255,255,.55),
+            inset 0 -6px 12px rgba(255,255,255,.08),
+            0 4px 16px rgba(255,38,63,.45);
+        animation: bubblePop .55s cubic-bezier(.34,1.56,.64,1);
+    }
+
+    .nav-link.active > i {
+        transform: translateY(-1px) scale(1.18);
+        filter: drop-shadow(0 0 6px rgba(255,255,255,.7));
+    }
+}
+
+/* ---------- ANIMACIONES ---------- */
+@keyframes dockIn {
+    from { transform: translateY(160%) scale(.9); opacity: 0; }
+    to   { transform: translateY(0) scale(1);     opacity: 1; }
+}
+
+@keyframes bubblePop {
+    0%   { transform: scale(.85, 1.1); }
+    45%  { transform: scale(1.12, .92); }
+    75%  { transform: scale(.97, 1.03); }
+    100% { transform: scale(1); }
+}
+
+@keyframes glassShine {
+    0%, 55% { background-position: 150% 0; }
+    100%    { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sidebar, .sidebar::before, .nav-link, .nav-link.active { animation: none !important; }
+}

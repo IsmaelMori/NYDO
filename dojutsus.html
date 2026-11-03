@@ -41,19 +41,23 @@
             padding: 0;
         }
 
-        .topbar { 
-            display: flex; 
-            align-items: center; 
-            gap: 15px; 
-            padding: 10px 20px; 
-            background: rgba(9, 10, 15, 0.85) !important; 
-            border-bottom: 1px solid var(--glass-border); 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            backdrop-filter: var(--glass-blur); 
-            -webkit-backdrop-filter: var(--glass-blur);
-        }
+        .nydo-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    background: rgba(8, 11, 18, 0.75) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(229, 9, 32, 0.3);
+    /* quita position: sticky, top y z-index de aquí */
+}
 
         /* Banner independiente */
         .dojutsu-banner-custom {
@@ -1101,6 +1105,7 @@
             .ex-scene { min-height: 520px; }
         }
     </style>
+<link rel="stylesheet" href="mobile-nav.css">
 </head>
 <body>
 
@@ -2662,5 +2667,6 @@
     })();
     </script>
     <script src="translate.js"></script>
+<script src="mobile-nav.js"></script>
 </body>
 </html>
