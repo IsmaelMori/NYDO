@@ -525,6 +525,8 @@
 .scorch { background: #ffb14f; }
 .explosion { background: #fa4545; }
 .dust { background: #d1c7a3; }
+.glass { background: #8ff0e0; }
+.steam { background: #c9d3e3; }
 
 .note {
     margin-top: 20px;
@@ -1124,4 +1126,3 @@ kbd {
         grid-template-columns: 1fr;
     }
 }
-

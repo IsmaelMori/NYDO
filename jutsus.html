@@ -15,19 +15,23 @@
 
     <style>
         /* TOPBAR CON EFECTO GLASS (TRANSPARENTE) */
-        .topbar {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 10px 20px;
-            background: rgba(8, 11, 18, 0.75) !important;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(229, 9, 32, 0.3);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        .nydo-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    background: rgba(8, 11, 18, 0.75) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(229, 9, 32, 0.3);
+    /* quita position: sticky, top y z-index de aquí */
+}
 
         /* ESTILOS DEL BUSCADOR INTEGRADO EN TOPBAR */
         .wiki-search-wrap {
@@ -351,9 +355,64 @@
             width: 100%;
             height: auto;
             max-height: 78vh;
+            max-height: 78dvh;
             aspect-ratio: auto 16 / 9;
             object-fit: contain;
             background: #000;
+        }
+
+        .kg-video { position: relative; -webkit-tap-highlight-color: transparent; }
+        .kg-video video { touch-action: manipulation; }
+
+        /* Indicador de carga */
+        .kg-spinner {
+            display: none;
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 34px; height: 34px;
+            margin: -17px 0 0 -17px;
+            border: 3px solid rgba(255, 255, 255, .2);
+            border-top-color: var(--kg, #fff);
+            border-radius: 50%;
+            animation: kg-giro .8s linear infinite;
+            pointer-events: none;
+        }
+        .kg-video.cargando .kg-spinner { display: block; }
+        @keyframes kg-giro { to { transform: rotate(360deg); } }
+
+        /* Mensaje: ahorro de datos (toca para cargar) o error de carga */
+        .kg-video-msg {
+            display: none;
+            position: absolute;
+            inset: 0;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            text-align: center;
+            color: #dfe5f0;
+            font-size: 13px;
+            background: rgba(0, 0, 0, .6);
+        }
+        .kg-video.en-espera .kg-video-msg,
+        .kg-video.error .kg-video-msg { display: flex; }
+        .kg-video.en-espera video,
+        .kg-video.error video { pointer-events: none; }
+        .kg-video-btn {
+            min-height: 44px;
+            padding: 0 22px;
+            font: inherit;
+            font-weight: 700;
+            color: #fff;
+            background: var(--kg-soft);
+            border: 1px solid var(--kg);
+            border-radius: 999px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 640px) {
+            .kg-tab { min-height: 44px; }
         }
 
         .kg-empty {
@@ -403,12 +462,14 @@
                 max-width: none;
                 border-radius: 10px;
             }
-            .kg-video video { max-height: 70vh; }
+            .kg-video video { max-height: 70vh;
+            max-height: 70dvh; }
         }
 
         /* Celular en horizontal: que el video no se salga de la pantalla */
         @media (max-height: 480px) and (orientation: landscape) {
-            .kg-video video { max-height: 85vh; }
+            .kg-video video { max-height: 85vh;
+            max-height: 85dvh; }
         }
 
         /* MODO SABIO DE LOS SAPOS: la tarjeta es un enlace a modo-sabio.html */
@@ -656,6 +717,8 @@
                 <div class="kg-item" data-kg="shakuton" role="button" tabindex="0"><span class="dot scorch"></span><strong>Shakuton</strong><small>Calor abrasador</small></div>
                 <div class="kg-item" data-kg="bakuton" role="button" tabindex="0"><span class="dot explosion"></span><strong>Bakuton</strong><small>Explosión</small></div>
                 <div class="kg-item" data-kg="jinton" role="button" tabindex="0"><span class="dot dust"></span><strong>Jinton</strong><small>Polvo</small></div>
+                <div class="kg-item" data-kg="garasuton" role="button" tabindex="0"><span class="dot glass"></span><strong>Garasuton</strong><small>Vidrio</small></div>
+                <div class="kg-item" data-kg="joton" role="button" tabindex="0"><span class="dot steam"></span><strong>Jōton</strong><small>Vapor</small></div>
             </div>
 
             <p class="note">
@@ -1020,17 +1083,207 @@
                     video: "vid/levitacionIman.mp4"
                 }
             ]
+        },
+
+        bakuton: {
+            color: "#ffb347",
+            soft: "rgba(255, 179, 71, .12)",
+            glow: "rgba(255, 179, 71, .35)",
+            nombre: "Bakuton",
+            es: "Elemento Explosión",
+            tipo: "Kekkei genkai",
+            desc: "Convierte el chakra en cargas explosivas que detonan al contacto o a voluntad del usuario. Ideal para daño de área y para romper defensas.",
+            aviso: null,
+            jutsus: [
+                {
+                    nombre: "Golondrinas de ruptura",
+                    jp: "Técnica NYDo",
+                    desc: "Lanza una carga de chakra comprimido que detona al impactar.",
+                    video: "vid/C1.mp4"
+                },
+                {
+                    nombre: "Clon Explosivo",
+                    jp: "Técnica NYDo",
+                    desc: "Un clon que estalla al ser tocado, dañando a todo lo que esté cerca.",
+                    video: "vid/clonEsplo.mp4"
+                },
+
+                {
+                    nombre: "Soberano Descendente",
+                    jp: "Técnica NYDo",
+                    desc: "Un clon que estalla al ser tocado, dañando a todo lo que esté cerca.",
+                    video: "vid/C3.mp4"
+                },
+
+
+                {
+                    nombre: "C1 Nido Arañas",
+                    jp: "Técnica NYDo",
+                    desc: "Un clon que estalla al ser tocado, dañando a todo lo que esté cerca.",
+                    video: "vid/C1araña.mp4"
+                },
+
+
+
+                {
+                    nombre: "C4 Karura-Floracion hueca",
+                    jp: "Técnica NYDo",
+                    desc: "Un clon que estalla al ser tocado, dañando a todo lo que esté cerca.",
+                    video: "vid/C4.mp4"
+                },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {
+                    nombre: "Dragon de doble Forma",
+                    jp: "Técnica NYDo",
+                    desc: "Libera una detonación en el cuerpo del usuario que empuja y daña a los enemigos cercanos.",
+                    video: "vid/C2.mp4"
+                }
+            ]
+        },
+
+        yoton: {
+            color: "#ff7a38",
+            soft: "rgba(255, 122, 56, .12)",
+            glow: "rgba(255, 122, 56, .35)",
+            nombre: "Yōton",
+            es: "Elemento Lava",
+            tipo: "Kekkei genkai",
+            desc: "Combina las naturalezas Fuego y Tierra para generar lava incandescente capaz de fundir casi cualquier cosa.",
+            aviso: null,
+            jutsus: [
+                {
+                    nombre: "camino de Lava",
+                    jp: "Técnica NYDo",
+                    desc: "Dispara una masa de lava que quema y funde al impactar.",
+                    video: "vid/calceIgneo.mp4"
+                },
+                {
+                    nombre: "Muro de Lava",
+                    jp: "Técnica NYDo",
+                    desc: "Levanta una pared de roca fundida que bloquea el paso y quema al contacto.",
+                    video: "vid/diquebasaltico.mp4"
+                },
+                {
+                    nombre: "forja de escoria",
+                    jp: "Técnica NYDo",
+                    desc: "No disponible.",
+                    video: "vid/forgeescoria.mp4"
+                },
+
+
+
+
+
+
+                {
+                    nombre: "Fractura Volcanica",
+                    jp: "Técnica NYDo",
+                    desc: "Hace Fracturar tu lava.",
+                    video: "vid/fracturavolcanica.mp4"
+                }
+            ]
+        },
+
+        garasuton: {
+            color: "#8ff0e0",
+            soft: "rgba(143, 240, 224, .12)",
+            glow: "rgba(143, 240, 224, .35)",
+            nombre: "Garasuton",
+            es: "Elemento Vidrio",
+            tipo: "Kekkei genkai",
+            desc: "Permite crear y moldear vidrio con el chakra: proyectiles cortantes, barreras transparentes y superficies reflectantes.",
+            aviso: null,
+            jutsus: [
+                {
+                    nombre: "Lanza de Vidrio",
+                    jp: "Técnica NYDo",
+                    desc: "Forma una lanza de vidrio afilado y la dispara contra el objetivo.",
+                    video: "vid/rayodivinoVi.mp4"
+                },
+                {
+                    nombre: "Escudo de Vidrio",
+                    jp: "Técnica NYDo",
+                    desc: "Levanta una barrera de vidrio que detiene los ataques del enemigo.",
+                    video: "vid/escudoVidrio.mp4"
+                },
+                {
+                    nombre: "Prision de Vidrio",
+                    jp: "Técnica NYDo",
+                    desc: "Levanta una barrera de vidrio que detiene los ataques del enemigo.",
+                    video: "vid/prisionVi.mp4"
+                },
+
+
+
+                {
+                    nombre: "Lluvia de Cristales",
+                    jp: "Técnica NYDo",
+                    desc: "Hace caer una lluvia de esquirlas de vidrio sobre una zona amplia.",
+                    video: "vid/caminodivinoVi.mp4"
+                }
+            ]
+        },
+
+        joton: {
+            color: "#c9d3e3",
+            soft: "rgba(201, 211, 227, .12)",
+            glow: "rgba(201, 211, 227, .35)",
+            nombre: "Jōton",
+            es: "Elemento Vapor",
+            tipo: "Kekkei genkai",
+            desc: "Controla el vapor caliente para cegar, quemar y empujar a los enemigos, combinando fuego y agua.",
+            aviso: null,
+            jutsus: [
+                {
+                    nombre: "Nube de Vapor",
+                    jp: "Técnica NYDo",
+                    desc: "Libera una densa nube de vapor que oculta al usuario y quema a quien la cruce.",
+                    video: "vid/nieblaCoro.mp4"
+                },
+                {
+                    nombre: "Explosión de Vapor",
+                    jp: "Técnica NYDo",
+                    desc: "Expulsa una ráfaga de vapor a presión que empuja y daña a los enemigos.",
+                    video: "vid/descargaPre.mp4"
+                },
+                {
+                    nombre: "Fuerza Imparable",
+                    jp: "Técnica NYDo",
+                    desc: "Concentra el vapor en un chorro fino y letal que atraviesa al objetivo.",
+                    video: "vid/fuerzasinrival.mp4"
+                }
+            ]
         }
     };
 
     /* Kekkei genkai sin técnicas registradas todavía */
     const PENDIENTES = {
         hyoton:   { nombre: "Hyōton",   es: "Elemento Hielo",         color: "#8ad4ff" },
-        yoton:    { nombre: "Yōton",    es: "Elemento Lava",          color: "#ff7a38" },
         ranton:   { nombre: "Ranton",   es: "Elemento Tormenta",      color: "#b79cff" },
         futton:   { nombre: "Futton",   es: "Elemento Ebullición",    color: "#7fd1ff" },
         shakuton: { nombre: "Shakuton", es: "Elemento Calor abrasador", color: "#ff5240" },
-        bakuton:  { nombre: "Bakuton",  es: "Elemento Explosión",     color: "#ffb347" },
         jinton:   { nombre: "Jinton",   es: "Elemento Polvo",         color: "#d6c7ff" }
     };
 
@@ -1052,6 +1305,150 @@
         el.style.setProperty("--kg-glow", glow || "rgba(255,255,255,.2)");
     }
 
+    /* ---------- VIDEOS: carga diferida, ahorro de datos y celular ---------- */
+    const conexion = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const AHORRO_DATOS = !!(conexion && (conexion.saveData || /2g/.test(conexion.effectiveType || "")));
+    const MOV_REDUCIDO = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    const AUTOPLAY = !AHORRO_DATOS && !MOV_REDUCIDO;
+
+    function reproducir(v) {
+        const p = v.play();
+        if (p && p.catch) p.catch(() => {});
+    }
+
+    /* Solo carga/reproduce el video cuando está en pantalla; lo pausa al salir */
+    const observador = "IntersectionObserver" in window
+        ? new IntersectionObserver((entradas) => {
+            entradas.forEach((en) => {
+                const v = en.target;
+                v._visible = en.isIntersecting;
+                if (en.isIntersecting) {
+                    if (!AUTOPLAY) return;
+                    if (v._cargar) v._cargar();
+                    if (!v._pausaUsuario) reproducir(v);
+                } else if (!v.paused) {
+                    v._pausaAuto = true;
+                    v.pause();
+                }
+            });
+        }, { threshold: 0.35 })
+        : null;
+
+    /* Pausa al cambiar de pestaña o bloquear el celular */
+    document.addEventListener("visibilitychange", () => {
+        document.querySelectorAll(".kg-video video").forEach((v) => {
+            if (document.hidden) {
+                if (!v.paused) { v._pausaAuto = true; v.pause(); }
+            } else if (AUTOPLAY && v._visible && !v._pausaUsuario && v.getAttribute("src")) {
+                reproducir(v);
+            }
+        });
+    });
+
+    /* Libera red y memoria de los videos de un contenedor */
+    function liberar(raiz) {
+        if (!raiz) return;
+        raiz.querySelectorAll("video").forEach((v) => {
+            if (observador) observador.unobserve(v);
+            v._cargar = null;
+            v._pausaAuto = true;
+            v.pause();
+            v.removeAttribute("src");
+            v.load();
+        });
+    }
+
+    function crearVideo(j) {
+        const wrap = document.createElement("div");
+        wrap.className = "kg-video";
+
+        const video = document.createElement("video");
+        video.controls = true;
+        video.loop = true;
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+        video.preload = "none";                       /* no descarga nada hasta que se necesite */
+        video.setAttribute("playsinline", "");
+        video.setAttribute("webkit-playsinline", "");
+        video.setAttribute("controlslist", "nodownload noremoteplayback");
+        video.setAttribute("disablepictureinpicture", "");
+        video.setAttribute("aria-label", j.nombre);
+
+        const spinner = document.createElement("span");
+        spinner.className = "kg-spinner";
+
+        const msg = document.createElement("div");
+        msg.className = "kg-video-msg";
+        const msgTxt = document.createElement("span");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "kg-video-btn";
+        msg.appendChild(msgTxt);
+        msg.appendChild(btn);
+
+        wrap.appendChild(video);
+        wrap.appendChild(spinner);
+        wrap.appendChild(msg);
+
+        let cargado = false;
+
+        function cargar() {
+            if (cargado) return;
+            cargado = true;
+            wrap.classList.remove("en-espera", "error");
+            wrap.classList.add("cargando");
+            video.preload = "metadata";
+            video.src = j.video;
+            video.load();
+        }
+        video._cargar = cargar;
+
+        function ponerMensaje(clase, texto, boton) {
+            wrap.classList.remove("cargando", "en-espera", "error");
+            wrap.classList.add(clase);
+            msgTxt.textContent = texto;
+            btn.textContent = boton;
+        }
+
+        const listo = () => wrap.classList.remove("cargando");
+        video.addEventListener("loadeddata", listo);
+        video.addEventListener("canplay", listo);
+        video.addEventListener("playing", listo);
+        video.addEventListener("waiting", () => { if (cargado && !wrap.classList.contains("error")) wrap.classList.add("cargando"); });
+        video.addEventListener("error", () => {
+            if (!video.getAttribute("src")) return;
+            ponerMensaje("error", "No se pudo cargar el video.", "Reintentar");
+        });
+        video.addEventListener("play", () => { video._pausaUsuario = false; });
+        video.addEventListener("pause", () => {
+            if (video._pausaAuto) video._pausaAuto = false;
+            else video._pausaUsuario = true;          /* pausa manual: no se reanuda sola */
+        });
+
+        btn.addEventListener("click", () => {
+            if (wrap.classList.contains("error")) {
+                cargado = false;
+                video.removeAttribute("src");
+            }
+            cargar();
+            reproducir(video);
+        });
+
+        if (!AUTOPLAY) {
+            /* Ahorro de datos / movimiento reducido: espera un toque del usuario */
+            ponerMensaje("en-espera", "Toca para cargar el video", "▶ Reproducir");
+        }
+
+        if (observador) {
+            observador.observe(video);
+        } else if (AUTOPLAY) {
+            cargar();
+            reproducir(video);
+        }
+        return wrap;
+    }
+
     function mostrarJutsu(k, tabs, cuerpo, indice) {
         const j = k.jutsus[indice];
 
@@ -1059,29 +1456,21 @@
             b.classList.toggle("active", i === indice);
         });
 
+        /* En celular las pestañas hacen scroll: centra la activa */
+        const activa = tabs.children[indice];
+        if (activa && tabs.scrollWidth > tabs.clientWidth) {
+            const izq = activa.getBoundingClientRect().left - tabs.getBoundingClientRect().left + tabs.scrollLeft;
+            tabs.scrollTo({ left: izq - (tabs.clientWidth - activa.offsetWidth) / 2, behavior: "smooth" });
+        }
+
+        liberar(cuerpo);                               /* suelta el video anterior */
         cuerpo.replaceChildren();
         const caja = document.createElement("div");
         caja.className = "kg-detail";
         caja.appendChild(texto("h4", "", j.nombre));
         caja.appendChild(texto("span", "kg-jp", j.jp));
         caja.appendChild(texto("p", "", j.desc));
-
-        const wrap = document.createElement("div");
-        wrap.className = "kg-video";
-        const video = document.createElement("video");
-        video.controls = true;
-        video.loop = true;
-        video.muted = true;
-        video.autoplay = true;
-        video.playsInline = true;
-        video.preload = "metadata";
-        video.setAttribute("webkit-playsinline", "");
-        const fuente = document.createElement("source");
-        fuente.src = j.video;
-        fuente.type = "video/mp4";
-        video.appendChild(fuente);
-        wrap.appendChild(video);
-        caja.appendChild(wrap);
+        caja.appendChild(crearVideo(j));
         cuerpo.appendChild(caja);
     }
 
@@ -1169,7 +1558,8 @@
     }
 
     function quitarPanel(el) {
-        if (el && el.parentNode) el.parentNode.removeChild(el);   /* detiene el video */
+        liberar(el);                                              /* detiene y libera los videos */
+        if (el && el.parentNode) el.parentNode.removeChild(el);
     }
 
     function cerrarPanel() {
