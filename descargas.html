@@ -12,18 +12,127 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
-        /* DESCARGAS: ADAPTABLE A CELULAR */
-        .download-section {
-            min-height: 85vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        /* =====================================================
+           DESCARGAS — LIQUID GLASS (estilo iOS, transparente)
+        ===================================================== */
+
+        /* Resplandores de fondo para que el cristal tenga qué desenfocar */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(255,38,63,.28), transparent 32%),
+                radial-gradient(circle at 85% 35%, rgba(110,80,255,.22), transparent 34%),
+                radial-gradient(circle at 40% 85%, rgba(0,190,255,.14), transparent 36%);
         }
+
+        /* Las secciones de esta página son totalmente transparentes */
+        .download-section,
+        .install-section,
+        .pack-section {
+            background: transparent;
+            -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+            box-shadow: none;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+        .download-section { padding-top: 110px; }
+
+        /* Cristal líquido reutilizable */
+        .glass {
+            position: relative;
+            overflow: hidden;
+            border-radius: 26px;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.03) 45%, rgba(255,255,255,.08));
+            border: 1px solid rgba(255,255,255,.20);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.28),
+                inset 0 1.5px 0 rgba(255,255,255,.45),
+                inset 0 -1px 0 rgba(255,255,255,.08),
+                inset 0 0 28px rgba(255,255,255,.04);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            backdrop-filter: blur(28px) saturate(190%);
+        }
+        /* Brillo especular */
+        .glass::after {
+            content: "";
+            position: absolute;
+            top: -60%;
+            left: -20%;
+            width: 70%;
+            height: 120%;
+            background: linear-gradient(115deg, rgba(255,255,255,.18), transparent 55%);
+            transform: rotate(8deg);
+            pointer-events: none;
+        }
+        .glass > * { position: relative; z-index: 1; }
+
+        /* Botones de cristal */
+        .glass-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 46px;
+            padding: 0 20px;
+            border-radius: 999px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            background: linear-gradient(135deg, rgba(255,38,63,.45), rgba(255,255,255,.08));
+            border: 1px solid rgba(255,255,255,.28);
+            box-shadow: 0 8px 24px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.4);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+        .glass-btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, rgba(255,38,63,.65), rgba(255,255,255,.14));
+            box-shadow: 0 12px 32px rgba(255,38,63,.28), inset 0 1px 0 rgba(255,255,255,.5);
+        }
+        .glass-btn.ghost {
+            background: linear-gradient(135deg, rgba(255,255,255,.14), rgba(255,255,255,.04));
+        }
+        .glass-btn.ghost:hover {
+            background: linear-gradient(135deg, rgba(255,255,255,.24), rgba(255,255,255,.08));
+            box-shadow: 0 12px 32px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.5);
+        }
+        .glass-btn.cf { border-color: rgba(241,100,54,.6); }
+        .glass-btn.cf i:first-child { color: #ff8a5c; }
+
+        /* Navegación rápida de la página */
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 26px;
+        }
+        .quick-nav a {
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.18);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+            transition: background .25s, transform .25s;
+        }
+        .quick-nav a:hover { background: rgba(255,255,255,.16); transform: translateY(-2px); }
+
+        /* ---------- Tarjetas de descarga ---------- */
         .download-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 420px));
+            grid-template-columns: repeat(2, minmax(0, 440px));
             justify-content: center;
-            gap: 20px;
+            gap: 22px;
         }
         .download-grid .wiki-card {
             display: flex;
@@ -31,55 +140,173 @@
             justify-content: space-between;
             gap: 18px;
             min-width: 0;
+            padding: 30px 26px;
+            border-radius: 26px;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.03) 45%, rgba(255,255,255,.08));
+            border: 1px solid rgba(255,255,255,.20);
+            box-shadow:
+                0 20px 50px rgba(0,0,0,.28),
+                inset 0 1.5px 0 rgba(255,255,255,.45),
+                inset 0 0 28px rgba(255,255,255,.04);
+            -webkit-backdrop-filter: blur(28px) saturate(190%);
+            backdrop-filter: blur(28px) saturate(190%);
         }
         .download-grid .wiki-card h3,
-        .download-grid .wiki-card p {
-            overflow-wrap: anywhere;
+        .download-grid .wiki-card p { overflow-wrap: anywhere; }
+
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 4px 0 16px;
         }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(255,255,255,.10);
+            border: 1px solid rgba(255,255,255,.2);
+        }
+        .badge i { color: var(--red-light); font-size: 11px; margin: 0; }
+        .badge.gold { background: rgba(255,190,60,.16); border-color: rgba(255,200,90,.45); }
+        .badge.gold i { color: #ffc65a; }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+        .feature-list li {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .feature-list i { color: var(--red-light); margin-top: 3px; font-size: 12px; }
+
         .download-grid .explore-btn {
             width: 100%;
-            min-height: 46px;
+            min-height: 48px;
             font-size: 13px;
+            border-radius: 999px;
             justify-content: center;
-        }
-        .download-grid .explore-btn.secondary {
-            background: rgba(15, 20, 30, 0.7);
-        }
-        .download-grid .wiki-card:last-child:nth-child(odd) {
-            grid-column: 1 / -1;
-            justify-self: center;
-            width: 100%;
-            max-width: 420px;
         }
         .download-note {
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             color: var(--white);
             font-size: 11px;
         }
 
-        /* Tablet: una columna centrada */
+        /* ---------- Instalación ---------- */
+        .steps {
+            max-width: 900px;
+            margin: auto;
+            display: grid;
+            gap: 16px;
+        }
+        .step {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 22px 24px;
+        }
+        .step-num {
+            flex: 0 0 auto;
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, rgba(255,38,63,.55), rgba(255,255,255,.1));
+            border: 1px solid rgba(255,255,255,.3);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 0 20px rgba(255,38,63,.25);
+        }
+        .step h3 { font-size: 17px; margin-bottom: 6px; }
+        .step p {
+            color: var(--muted);
+            font-size: 13.5px;
+            line-height: 1.7;
+        }
+        .step p + p { margin-top: 8px; }
+        .step code {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 8px;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 13px;
+            color: #fff;
+            background: rgba(0,0,0,.35);
+            border: 1px solid rgba(255,255,255,.15);
+        }
+        .step .glass-btn { margin-top: 12px; min-height: 40px; }
+
+        /* ---------- Modpack ---------- */
+        .pack-grid {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+        .pack-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 24px 22px;
+        }
+        .pack-card > div > i {
+            color: var(--red-light);
+            font-size: 26px;
+            margin-bottom: 14px;
+            filter: drop-shadow(0 0 9px rgba(255,38,63,.3));
+        }
+        .pack-card h3 { font-size: 17px; margin-bottom: 8px; }
+        .pack-card p { color: var(--muted); font-size: 12.5px; line-height: 1.65; }
+        .pack-card .glass-btn { width: 100%; }
+
+        .pack-all {
+            max-width: 1100px;
+            margin: 26px auto 0;
+            padding: 26px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .pack-all h3 { font-size: 18px; margin-bottom: 6px; }
+        .pack-all p { color: var(--muted); font-size: 13px; line-height: 1.6; max-width: 560px; }
+        .pack-all .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+        /* Tablet */
         @media (max-width: 860px) {
-            .download-grid {
-                grid-template-columns: minmax(0, 520px);
-            }
+            .download-grid { grid-template-columns: minmax(0, 520px); }
         }
 
         /* Celular */
         @media (max-width: 480px) {
-            .download-section {
-                min-height: auto;
-                padding-top: 24px;
-                padding-bottom: 24px;
-            }
-            .download-grid {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 16px;
-            }
-            .download-grid .explore-btn {
-                min-height: 50px;   /* más fácil de tocar con el dedo */
-                font-size: 14px;
-            }
+            .download-section { padding-top: 90px; }
+            .download-section,
+            .install-section,
+            .pack-section { padding-left: 16px; padding-right: 16px; padding-bottom: 50px; }
+            .download-grid { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+            .download-grid .explore-btn { min-height: 52px; font-size: 14px; }
+            .step { flex-direction: column; gap: 12px; padding: 18px; }
+            .pack-all { flex-direction: column; align-items: stretch; }
+            .pack-all .glass-btn { width: 100%; }
         }
     </style>
 </head>
@@ -111,22 +338,39 @@
 
     <!-- CONTENIDO PRINCIPAL -->
     <main>
-        <!-- SECCIÓN DE DESCARGAS -->
+
+        <!-- ============ DESCARGAS ============ -->
         <section class="content-section download-section" id="descargas">
             <div class="section-heading">
                 <span class="eyebrow">CENTRO DE DESCARGAS</span>
                 <h2>Obtén NYDo Mod</h2>
-                <p>Selecciona la versión compatible con tu cliente de Minecraft y comienza tu aventura ninja.</p>
+                <p>Elige la versión que prefieras, instálala siguiendo la guía y descarga el modpack completo.</p>
+
+                <nav class="quick-nav" aria-label="Secciones de la página">
+                    <a href="#descargas"><i class="fa-solid fa-download"></i> Descargas</a>
+                    <a href="#instalar"><i class="fa-solid fa-screwdriver-wrench"></i> Cómo instalar</a>
+                    <a href="#modpack"><i class="fa-solid fa-cubes"></i> Modpack completo</a>
+                </nav>
             </div>
 
             <div class="wiki-grid download-grid">
-                
-                <!-- VERSIÓN 5.6 (Última versión) -->
+
+                <!-- NYDO 5.6 -->
                 <div class="wiki-card">
                     <div>
                         <i class="fa-solid fa-file-arrow-down"></i>
                         <h3>NYDo Mod - Versión 5.6</h3>
-                        <p>Última actualización con mejoras de rendimiento, nuevos jutsus corregidos, corrección de errores de texturas y balance general de estadísticas.</p>
+                        <div class="badge-row">
+                            <span class="badge"><i class="fa-solid fa-circle-check"></i> Última versión</span>
+                            <span class="badge"><i class="fa-solid fa-hammer"></i> Forge 1.20.1</span>
+                        </div>
+                        <p>La versión oficial del mod, pensada para vivir la progresión completa de un ninja desde cero.</p>
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-bolt"></i> Mejoras de rendimiento</li>
+                            <li><i class="fa-solid fa-bolt"></i> Nuevos jutsus y correcciones</li>
+                            <li><i class="fa-solid fa-bolt"></i> Texturas corregidas</li>
+                            <li><i class="fa-solid fa-bolt"></i> Balance general de estadísticas</li>
+                        </ul>
                     </div>
                     <div>
                         <span class="download-note">Recomendado para Minecraft Forge</span>
@@ -138,26 +382,178 @@
                     </div>
                 </div>
 
-                <!-- VERSIÓN 5.5 -->
-                
-
-                <!-- NYDO 18 MEJORADO -->
+                <!-- NYDO R18 -->
                 <div class="wiki-card">
                     <div>
                         <i class="fa-solid fa-star"></i>
-                        <h3>NYDO 18 Mejorado</h3>
-                        <p>Versión mejorada de NYDo 18 con ajustes y mejoras adicionales sobre la build original.</p>
+                        <h3>NYDO R18</h3>
+                        <div class="badge-row">
+                            <span class="badge gold"><i class="fa-solid fa-lock-open"></i> Todo desbloqueado</span>
+                            <span class="badge gold"><i class="fa-solid fa-wand-magic-sparkles"></i> Todos los modos</span>
+                        </div>
+                        <p>Versión mejorada con todo el contenido disponible desde el primer minuto, ideal si quieres probar el mod sin límites.</p>
+                        <ul class="feature-list">
+                            <li><i class="fa-solid fa-bolt"></i> Todos los jutsus y habilidades desbloqueados</li>
+                            <li><i class="fa-solid fa-bolt"></i> Todos los modos disponibles, incluido el Modo Sabio</li>
+                            <li><i class="fa-solid fa-bolt"></i> Ajustes y correcciones sobre la build original</li>
+                        </ul>
                     </div>
                     <div>
-                        <span class="download-note">Versión Mejorada</span>
-                        <a href="https://github.com/IsmaelMori/NYDO/releases/download/5.5/NYDO_R18_Corregido_Modo_Sabio.jar" class="explore-btn" rel="noopener noreferrer" aria-label="Descargar NYDO 18 Mejorado">
+                        <span class="download-note">Versión mejorada · Todo desbloqueado</span>
+                        <a href="https://github.com/IsmaelMori/NYDO/releases/download/5.5/NYDO_R18_Corregido_Modo_Sabio.jar" class="explore-btn" rel="noopener noreferrer" aria-label="Descargar NYDO R18">
                             <span class="button-symbol" style="font-size: 18px;">木</span>
-                            <span>Descargar NYDO 18 Mejorado</span>
+                            <span>Descargar NYDO R18</span>
                             <i class="fa-solid fa-download"></i>
                         </a>
                     </div>
                 </div>
 
+            </div>
+        </section>
+
+        <!-- ============ CÓMO INSTALAR ============ -->
+        <section class="content-section install-section" id="instalar">
+            <div class="section-heading">
+                <span class="eyebrow">GUÍA PASO A PASO</span>
+                <h2>Cómo instalar el mod</h2>
+                <p>Sigue estos pasos en orden y estarás jugando en pocos minutos.</p>
+            </div>
+
+            <div class="steps">
+
+                <div class="glass step">
+                    <div class="step-num">1</div>
+                    <div>
+                        <h3>Instala Minecraft Forge 1.20.1</h3>
+                        <p>Descarga e instala <strong>Forge para la versión 1.20.1</strong>. Abre el instalador, elige <em>Install client</em> y espera a que termine.</p>
+                        <a class="glass-btn ghost" href="https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-hammer"></i> Descargar Forge 1.20.1
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass step">
+                    <div class="step-num">2</div>
+                    <div>
+                        <h3>Abre la carpeta de Minecraft</h3>
+                        <p>Presiona <code>Windows + R</code>, escribe <code>%appdata%</code> y presiona Enter.</p>
+                        <p>Entra a la carpeta <code>.minecraft</code>.</p>
+                    </div>
+                </div>
+
+                <div class="glass step">
+                    <div class="step-num">3</div>
+                    <div>
+                        <h3>Entra a la carpeta mods</h3>
+                        <p>Abre la carpeta <code>mods</code>. Si no existe, créala con ese nombre exacto (en minúsculas). Debes ver esta ruta: <code>%appdata%\.minecraft\mods</code></p>
+                    </div>
+                </div>
+
+                <div class="glass step">
+                    <div class="step-num">4</div>
+                    <div>
+                        <h3>Coloca los mods necesarios</h3>
+                        <p>Copia estos archivos <strong>.jar</strong> dentro de la carpeta <code>mods</code>:</p>
+                        <p>
+                            <code>bendy-lib</code>
+                            <code>geckolib</code>
+                            <code>player-animation</code>
+                            <code>terrablender</code>
+                            <code>NYDO (cualquier versión)</code>
+                        </p>
+                        <p>Todos los enlaces de descarga están en la sección <a href="#modpack" style="color: var(--red-light); font-weight:700;">Modpack completo</a>.</p>
+                    </div>
+                </div>
+
+                <div class="glass step">
+                    <div class="step-num">5</div>
+                    <div>
+                        <h3>Abre el juego y a jugar</h3>
+                        <p>Abre el launcher de Minecraft, selecciona el perfil <strong>Forge 1.20.1</strong> y presiona Jugar.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============ MODPACK COMPLETO ============ -->
+        <section class="content-section pack-section" id="modpack">
+            <div class="section-heading">
+                <span class="eyebrow">MODPACK COMPLETO</span>
+                <h2>Todo lo que necesitas</h2>
+                <p>Descarga los 5 mods del pack. Las librerías te llevan a CurseForge; asegúrate de elegir la versión <strong>1.20.1 · Forge</strong>.</p>
+            </div>
+
+            <div class="pack-grid">
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-person-walking"></i>
+                        <h3>Bendy-lib</h3>
+                        <p>Librería que permite doblar y animar partes del cuerpo del jugador.</p>
+                    </div>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/bendy-lib/files" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-fire"></i> CurseForge <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-dragon"></i>
+                        <h3>GeckoLib</h3>
+                        <p>Motor de animaciones y modelos 3D que usan las entidades y jutsus del mod.</p>
+                    </div>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/geckolib/files" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-fire"></i> CurseForge <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-person-running"></i>
+                        <h3>Player Animation</h3>
+                        <p>Librería de animaciones del jugador, necesaria para las poses y sellos de manos.</p>
+                    </div>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/playeranimator/files" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-fire"></i> CurseForge <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-mountain-sun"></i>
+                        <h3>TerraBlender</h3>
+                        <p>Librería de generación de biomas y mundo requerida por el mod.</p>
+                    </div>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/terrablender/files" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-solid fa-fire"></i> CurseForge <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+
+                <div class="glass pack-card">
+                    <div>
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <h3>NYDo (cualquier versión)</h3>
+                        <p>El mod principal. Elige la v5.6 o la R18 con todo desbloqueado.</p>
+                    </div>
+                    <a class="glass-btn" href="#descargas">
+                        <i class="fa-solid fa-download"></i> Ir a las descargas
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="glass pack-all">
+                <div>
+                    <h3><i class="fa-solid fa-cubes" style="color: var(--red-light); margin-right: 8px;"></i>Pack completo en 5 archivos</h3>
+                    <p>Descarga las 4 librerías y NYDo, colócalas en <code style="font-family:Consolas,monospace;">%appdata%\.minecraft\mods</code> y listo.</p>
+                </div>
+                <div class="actions">
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/bendy-lib/files" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-fire"></i> Bendy-lib</a>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/geckolib/files" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-fire"></i> GeckoLib</a>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/playeranimator/files" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-fire"></i> Player Anim.</a>
+                    <a class="glass-btn cf" href="https://www.curseforge.com/minecraft/mc-mods/terrablender/files" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-fire"></i> TerraBlender</a>
+                </div>
             </div>
         </section>
 
