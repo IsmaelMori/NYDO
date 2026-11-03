@@ -85,7 +85,7 @@
                 <span class="st-presets-label"><i class="fa-solid fa-user-ninja"></i> Cargar build</span>
                 <div class="st-presets" id="stPresets" role="group" aria-label="Builds de personajes"></div>
                 <article id="build-equilibrada" class="st-sr-only"><h3>Equilibrada</h3><p>Build versátil, sin especialización. Naturaleza: Libre. Habilidades principales: Jutsus básicos de todas las ramas; Reserva de chakra estable; Se adapta a cualquier estilo de combate. Kekkei Genkai: Ninguno (depende del clan que elijas). Clan: Sin clan / a elección. Build de Equilibrada: Ninjutsu 30, Taijutsu 30, Genjutsu 30, Control de chakra 30, Vitalidad 30, Defensa 30, Agilidad 30, Medicina ninja 30.</p></article>
-                <article id="build-naruto" class="st-sr-only"><h3>Naruto Uzumaki</h3><p>Jinchūriki del Kyūbi · Séptimo Hokage. Naturaleza: Viento. Habilidades principales: Kage Bunshin no Jutsu; Rasengan / Rasenshuriken; Modo Sabio; Modo Chakra de Kurama. Kekkei Genkai: Ninguno propio (poder del Kyūbi como Jinchūriki). Clan: Uzumaki. Build de Naruto Uzumaki: Ninjutsu 80, Taijutsu 25, Control de chakra 60, Vitalidad 50, Defensa 10, Agilidad 15.</p></article>
+                <article id="build-naruto" class="st-sr-only"><h3>Naruto Uzumaki</h3><p>Jinchūriki del Kyūbi · Séptimo Hokage. Naturaleza: Viento. Habilidades principales: Kage Bunshin no Jutsu; Rasengan / Rasenshuriken; Modo Sabio; Modo Chakra de Kurama. De pequeño hasta el final: Naruto pequeño con Kage Bunshin (clones), Rasengan, Rasenshuriken, Modo Sabio y es Jinchūriki de Kurama. Kekkei Genkai: Ninguno propio (poder del Kyūbi como Jinchūriki). Clan: Uzumaki. Build de Naruto Uzumaki: Ninjutsu 80, Taijutsu 25, Control de chakra 60, Vitalidad 50, Defensa 10, Agilidad 15.</p></article>
                 <article id="build-kakashi" class="st-sr-only"><h3>Kakashi Hatake</h3><p>El ninja que copia mil técnicas. Naturaleza: Rayo, Tierra, Agua, Fuego, Viento. Habilidades principales: Raikiri / Chidori; Kamui; Copia de jutsus con el Sharingan; Ninken no Jutsu (invocación). Kekkei Genkai: Sharingan (trasplantado); Mangekyō Sharingan. Clan: Hatake. Build de Kakashi Hatake: Ninjutsu 70, Taijutsu 40, Genjutsu 15, Control de chakra 35, Vitalidad 20, Defensa 15, Agilidad 45.</p></article>
                 <article id="build-itachi" class="st-sr-only"><h3>Itachi Uchiha</h3><p>Maestro del genjutsu. Naturaleza: Fuego, Yin. Habilidades principales: Tsukuyomi; Amaterasu; Susanoo (Espada de Totsuka y Espejo de Yata); Katon: Gōkakyū no Jutsu. Kekkei Genkai: Sharingan; Mangekyō Sharingan. Clan: Uchiha. Build de Itachi Uchiha: Ninjutsu 50, Taijutsu 10, Genjutsu 100, Control de chakra 40, Vitalidad 10, Defensa 5, Agilidad 25.</p></article>
                 <article id="build-sasuke" class="st-sr-only"><h3>Sasuke Uchiha</h3><p>El vengador del clan Uchiha. Naturaleza: Fuego, Rayo, Yin, Yang. Habilidades principales: Chidori / Kirin; Amaterasu; Susanoo; Katon: Gōkakyū no Jutsu. Kekkei Genkai: Sharingan; Mangekyō Sharingan Eterno; Rinnegan. Clan: Uchiha. Build de Sasuke Uchiha: Ninjutsu 74, Taijutsu 35, Genjutsu 21, Control de chakra 35, Vitalidad 15, Defensa 10, Agilidad 50.</p></article>
@@ -231,27 +231,9 @@
         ];
 
         // Builds (cada una suma 240 y ninguna rama pasa de 120)
-        // ==========================================
-        // GUÍA: cómo agregar la Preparación Shinobi (Config. I, II y III) de un personaje
-        // Dentro de su preset (junto a abilities) añade:
-        //
-        //   configs: [
-        //       { n: 'Nombre de la config', sub: 'Descripción corta', slots: [
-        //             { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu', 'Rasengan'] },   // posición 1
-        //             { d: 'Viento',   j: ['Rasenshuriken'] }                         // posición 2
-        //       ] },
-        //       { n: '...', sub: '...', slots: [ ... ] },                            // Config. II
-        //       { n: '...', sub: '...', slots: [ ... ] }                             // Config. III
-        //   ]
-        //
-        //  · d = disciplina del Arsenal: Fuego, Tierra, Agua, Rayo, Viento, Yin, Yang, Ninjutsu, Taijutsu,
-        //    Genjutsu, Fūinjutsu, Invocación, Medicina ninja.
-        //  · j = técnicas de esa posición (máximo 4: A, B, C, D).
-        //  · Posiciones 1-3 siempre abiertas; 4-6 salen "BLOQ." (se abren si una config usa más slots).
-        //  · El Arsenal (lista izquierda) se arma solo con las disciplinas que uses en las 3 configs.
-        //  · Enlaces: toda técnica de Fuego/Tierra/Agua/Rayo/Viento lleva a katon / doton / suiton /
-        //    raiton / futon .html. Para ir a una técnica concreta usa JUTSU_LINKS más abajo.
-        // ==========================================
+        // Para mostrar una "ruta" dentro de Habilidades principales (ej. de pequeño hasta el final),
+        // añade al preset:  journey: [ { stage, icon, n, t, note } ... ],  journeyEnd: [ 'Texto', ... ]
+        //   stage = etapa · n = habilidad · t = tipo (Ninjutsu, Viento, Senjutsu, Jinchūriki...) · note = nota corta
         const PRESETS = {
             equilibrada: {
                 name: 'Equilibrada', icon: 'fa-scale-balanced',
@@ -279,17 +261,29 @@
                     { n: 'Modo Sabio', t: ['Senjutsu'] },
                     { n: 'Modo Chakra de Kurama', t: ['Jinchūriki'] }
                 ],
+                journey: [
+                    { stage: 'Naruto pequeño', icon: 'fa-child', n: 'Kage Bunshin no Jutsu', t: 'Ninjutsu', note: 'Clones de sombra: su primera gran técnica.' },
+                    { stage: 'Entrenamiento', icon: 'fa-circle-notch', n: 'Rasengan', t: 'Ninjutsu', note: 'Esfera de chakra giratoria.' },
+                    { stage: 'Shippūden', icon: 'fa-wind', n: 'Rasenshuriken', t: 'Viento', note: 'Rasengan con naturaleza Viento.' },
+                    { stage: 'Monte Myōboku', icon: 'fa-leaf', n: 'Modo Sabio', t: 'Senjutsu', note: 'Energía natural + chakra.' },
+                    { stage: 'Final', icon: 'fa-hurricane', n: 'Jinchūriki de Kurama', t: 'Jinchūriki', note: 'Controla el poder del Kyūbi.' }
+                ],
+                journeyEnd: ['Clones', 'Rasengan', 'Rasenshuriken', 'Modo Sabio', 'Es Jinchūriki'],
+                // Configs de combate (estilo "Preparación Shinobi"): hasta 5 posiciones útiles; la 6 va bloqueada
                 configs: [
-                    { n: 'Naruto normal', sub: 'Clones de sombra y Rasengan', slots: [
-                        { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu', 'Rasengan'] }
+                    { name: 'CONFIG. I', label: 'Naruto pequeño', slots: [
+                        { n: 'Kage Bunshin no Jutsu', t: 'Ninjutsu', icon: 'fa-clone', note: 'Clones de sombra: su primera gran técnica.' },
+                        { n: 'Rasengan', t: 'Ninjutsu', icon: 'fa-circle-notch', note: 'Esfera de chakra giratoria.' }
                     ] },
-                    { n: 'Naruto Ermitaño', sub: 'Ninjutsu + estilo Viento: Rasenshuriken', slots: [
-                        { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu', 'Rasengan'] },
-                        { d: 'Viento', j: ['Rasenshuriken'] }
+                    { name: 'CONFIG. II', label: 'Modo Ermitaño', slots: [
+                        { n: 'Modo Sabio (Ermitaño)', t: 'Senjutsu', icon: 'fa-leaf', note: 'Energía natural + chakra.' }
                     ] },
-                    { n: 'Naruto Kurama', sub: 'Ninjutsu + estilo Viento: Rasenshuriken', slots: [
-                        { d: 'Ninjutsu', j: ['Kage Bunshin no Jutsu', 'Rasengan'] },
-                        { d: 'Viento', j: ['Rasenshuriken'] }
+                    { name: 'CONFIG. III', label: 'Todo', slots: [
+                        { n: 'Kage Bunshin no Jutsu', t: 'Ninjutsu', icon: 'fa-clone', note: 'Clones de sombra: su primera gran técnica.' },
+                        { n: 'Rasengan', t: 'Ninjutsu', icon: 'fa-circle-notch', note: 'Esfera de chakra giratoria.' },
+                        { n: 'Rasenshuriken', t: 'Viento', icon: 'fa-wind', note: 'Rasengan con naturaleza Viento.' },
+                        { n: 'Modo Sabio (Ermitaño)', t: 'Senjutsu', icon: 'fa-leaf', note: 'Energía natural + chakra.' },
+                        { n: 'Jinchūriki de Kurama', t: 'Jinchūriki', icon: 'fa-hurricane', note: 'Controla el poder del Kyūbi.' }
                     ] }
                 ],
                 kekkei: [{ t: 'Ninguno propio (poder del Kyūbi como Jinchūriki)' }],
@@ -498,19 +492,6 @@ pain: {
             'Jinchūriki':     { icon: 'fa-hurricane',      color: '#ff9f43' },
             'Medicina ninja': { icon: 'fa-kit-medical',    color: '#3fd0bd' }
         };
-        // Kanji del árbol de naturalezas para el icono hexagonal de cada slot
-        const KANJI = {
-            'Fuego': '火', 'Viento': '風', 'Rayo': '雷', 'Tierra': '土', 'Agua': '水', 'Yin': '陰', 'Yang': '陽',
-            'Madera': '木', 'Ninjutsu': '忍', 'Taijutsu': '体', 'Genjutsu': '幻', 'Dōjutsu': '眼', 'Fūinjutsu': '封',
-            'Invocación': '召', 'Senjutsu': '仙', 'Jinchūriki': '尾', 'Medicina ninja': '医'
-        };
-        function hexIcon(d) {
-            const m = typeMeta(d), k = KANJI[d] || '?';
-            return '<svg class="st-hex" viewBox="0 0 48 52" aria-hidden="true" style="--hc:' + m.color + '">' +
-                '<polygon class="st-hex-bg" points="24,2 44,13.5 44,38.5 24,50 4,38.5 4,13.5"/>' +
-                '<polygon class="st-hex-in" points="24,8 38.8,16.5 38.8,35.5 24,44 9.2,35.5 9.2,16.5"/>' +
-                '<text x="24" y="31" text-anchor="middle" class="st-hex-k">' + k + '</text></svg>';
-        }
         function typeMeta(t) {
             if (TYPE_META[t]) return TYPE_META[t];
             return { icon: NATURE_ICONS[t] || 'fa-circle', color: NATURE_COLORS[t] || '#9fb0c0' };
@@ -623,7 +604,7 @@ pain: {
             }
             state[id] = next;
             custom = true;
-            render();
+            render(id);
             return true;
         }
 
@@ -731,19 +712,26 @@ pain: {
             }).join(' · ') + '</span>';
         }
 
-        function render() {
+        const presetBtns = [];
+        function paintCard(b) {
+            const p = state[b.id], r = refs[b.id];
+            r.count.textContent = p;
+            r.meta.textContent = p + '/' + MAX_BRANCH + ' invertidos (' + Math.round(p / MAX_BRANCH * 100) + '%) · +0 externos';
+            const per = MAX_BRANCH / 6;
+            r.segs.forEach(function (sg, i) {
+                sg.style.width = Math.max(0, Math.min(1, (p - i * per) / per)) * 100 + '%';
+            });
+            r.now.innerHTML = effLine(b, p);
+            r.next.innerHTML = nextLine(b, p);
+        }
+
+        // render(id) repinta solo esa tarjeta; render() repinta todas (al cargar una build)
+        function render(only) {
             const spent = sum(), left = MAX_TOTAL - spent;
 
             BRANCHES.forEach(function (b) {
                 const p = state[b.id], r = refs[b.id];
-                r.count.textContent = p;
-                r.meta.textContent = p + '/' + MAX_BRANCH + ' invertidos (' + Math.round(p / MAX_BRANCH * 100) + '%) · +0 externos';
-                const per = MAX_BRANCH / 6;
-                r.segs.forEach(function (s, i) {
-                    s.style.width = Math.max(0, Math.min(1, (p - i * per) / per)) * 100 + '%';
-                });
-                r.now.innerHTML = effLine(b, p);
-                r.next.innerHTML = nextLine(b, p);
+                if (!only || only === b.id) paintCard(b);
                 r.plus.classList.toggle('st-off', p >= MAX_BRANCH || left <= 0);
                 r.minus.classList.toggle('st-off', p <= 0);
             });
@@ -756,10 +744,9 @@ pain: {
             document.getElementById('stRadarSub').textContent = Math.round(spent / MAX_TOTAL * 100) + '% progresión · ' + spent + '/' + MAX_TOTAL + ' pts';
             const modeEl = document.getElementById('stRadarMode');
             if (activePreset && !custom) modeEl.textContent = PRESETS[activePreset].name;
-            else if (activePreset && custom) modeEl.textContent = 'Personalizado';
             else modeEl.textContent = custom ? 'Personalizado' : 'Sin modo activo';
 
-            document.querySelectorAll('.st-preset[data-preset]').forEach(function (b) {
+            presetBtns.forEach(function (b) {
                 b.classList.toggle('active', b.dataset.preset === activePreset && !custom);
             });
             const note = document.getElementById('stInfoNote');
@@ -781,6 +768,7 @@ pain: {
             btn.innerHTML = '<i class="fa-solid ' + p.icon + '"></i><span>' + p.name.split(' ')[0] + '</span>';
             btn.addEventListener('click', function () { applyPreset(key); });
             presetsEl.appendChild(btn);
+            presetBtns.push(btn);
         });
         const resetBtn = document.createElement('button');
         resetBtn.type = 'button';
@@ -793,6 +781,85 @@ pain: {
             render();
         });
         presetsEl.appendChild(resetBtn);
+
+        // Ruta "de pequeño hasta el final" (solo si el preset tiene journey)
+        function journeyHtml(p) {
+            if (!p.journey) return '';
+            const steps = p.journey.map(function (j) {
+                const m = typeMeta(j.t);
+                return '<div class="st-j-step" style="--nc:' + m.color + '"><span class="st-j-dot"><i class="fa-solid ' + j.icon + '"></i></span>' +
+                    '<div class="st-j-body"><strong>' + j.stage + '</strong><span class="st-j-skill">' + j.n + '</span><small>' + j.note + '</small></div></div>';
+            }).join('');
+            const end = (p.journeyEnd || []).map(function (x) {
+                return '<span class="st-j-ok"><i class="fa-solid fa-check"></i>' + x + '</span>';
+            }).join('');
+            return '<div class="st-journey"><div class="st-j-title"><i class="fa-solid fa-route"></i>De pequeño hasta el final</div>' +
+                '<div class="st-j-steps">' + steps + '</div>' +
+                (end ? '<div class="st-j-end"><span>Al final tiene</span>' + end + '</div>' : '') + '</div>';
+        }
+
+        // Panel de configs (CONFIG. I / II / III + posiciones), estilo "Preparación Shinobi"
+        const CFG_SLOTS = 6, CFG_UNLOCKED = 5;
+        function configsHtml(p) {
+            const tabs = p.configs.map(function (c, i) {
+                return '<button type="button" class="st-cfg-tab' + (i === 0 ? ' active' : '') + '" data-cfg="' + i + '">' + c.name + '</button>';
+            }).join('');
+            return '<div class="st-cfg" data-cfg-root>' +
+                '<div class="st-cfg-head"><div class="st-cfg-title"><i class="fa-solid fa-diamond"></i><div><strong>PREPARACIÓN SHINOBI</strong><small>Prepara solo lo que necesitas antes del combate</small></div></div>' +
+                '<div class="st-cfg-tabs" role="tablist">' + tabs + '</div></div>' +
+                '<div class="st-cfg-slots"></div>' +
+                '<div class="st-cfg-detail"></div></div>';
+        }
+        function bindConfigs(p) {
+            const root = document.querySelector('[data-cfg-root]');
+            if (!root) return;
+            const slotsEl = root.querySelector('.st-cfg-slots');
+            const detailEl = root.querySelector('.st-cfg-detail');
+            const tabEls = root.querySelectorAll('.st-cfg-tab');
+            let cfg = 0, sel = 0;
+
+            function paint() {
+                const c = p.configs[cfg];
+                let html = '';
+                for (let i = 0; i < CFG_SLOTS; i++) {
+                    const s = c.slots[i];
+                    const locked = i >= CFG_UNLOCKED;
+                    if (locked) {
+                        html += '<button type="button" class="st-slot locked" disabled><span class="st-slot-n">' + (i + 1) + '</span><span class="st-slot-lock">BLOQ.</span></button>';
+                    } else if (s) {
+                        const m = typeMeta(s.t);
+                        html += '<button type="button" class="st-slot filled' + (i === sel ? ' sel' : '') + '" data-slot="' + i + '" style="--nc:' + m.color + '">' +
+                            '<span class="st-slot-n">' + (i + 1) + '</span><i class="fa-solid ' + s.icon + '"></i><span class="st-slot-name">' + s.n + '</span></button>';
+                    } else {
+                        html += '<button type="button" class="st-slot empty' + (i === sel ? ' sel' : '') + '" data-slot="' + i + '"><span class="st-slot-n">' + (i + 1) + '</span><span class="st-slot-plus">+</span></button>';
+                    }
+                }
+                slotsEl.innerHTML = html;
+
+                const s = c.slots[sel];
+                if (s) {
+                    const m = typeMeta(s.t);
+                    detailEl.innerHTML = '<div class="st-cfg-pos">POSICIÓN ' + (sel + 1) + ' · ' + c.label.toUpperCase() + '</div>' +
+                        '<div class="st-cfg-skill" style="--nc:' + m.color + '"><span class="st-j-dot"><i class="fa-solid ' + s.icon + '"></i></span>' +
+                        '<div><strong>' + s.n + '</strong><small>' + s.note + '</small></div>' +
+                        '<span class="st-mini" style="--nc:' + m.color + '"><i class="fa-solid ' + m.icon + '"></i>' + s.t + '</span></div>';
+                } else {
+                    detailEl.innerHTML = '<div class="st-cfg-pos">POSICIÓN ' + (sel + 1) + ' · SIN ASIGNAR</div><div class="st-cfg-none"><i class="fa-solid fa-diamond"></i><span>Posición libre en esta config.</span></div>';
+                }
+                tabEls.forEach(function (t, i) { t.classList.toggle('active', i === cfg); });
+            }
+
+            tabEls.forEach(function (t, i) {
+                t.addEventListener('click', function () { cfg = i; sel = 0; paint(); });
+            });
+            slotsEl.addEventListener('click', function (e) {
+                const b = e.target.closest('[data-slot]');
+                if (!b) return;
+                sel = +b.dataset.slot;
+                paint();
+            });
+            paint();
+        }
 
         function renderInfo(key) {
             const p = PRESETS[key];
@@ -821,168 +888,21 @@ pain: {
                 return '<li><i class="fa-solid fa-angle-right"></i><span class="st-ab-name">' + name + '</span>' +
                     (types ? '<span class="st-ab-tags">' + types + '</span>' : '') + '</li>';
             }).join('');
-            const cfgs = p.configs || [];
-                        const romanHtml = cfgs.length
-                ? '<div class="st-roman" role="group" aria-label="Preparación Shinobi">' +
-                  cfgs.map(function (c, i) {
-                      return '<button type="button" class="st-rbtn" aria-haspopup="dialog" title="Preparación Shinobi · Config. ' + ROMAN[i] + '">' + ROMAN[i] + '</button>';
-                  }).join('') + '</div>'
-                : '';
+            const journey = p.configs ? '' : journeyHtml(p);
+            const abilBlock = p.configs ? configsHtml(p) : '<ul>' + abil + '</ul>' + journey;
             document.getElementById('stInfo').innerHTML =
                 '<div class="st-info-head">' +
                     '<div class="st-info-avatar"><i class="fa-solid ' + p.icon + '"></i></div>' +
                     '<div><h3>' + p.name + '</h3><p>' + p.sub + '</p></div>' +
-                    '<div class="st-info-right"><span class="st-info-note" id="stInfoNote"><i class="fa-solid fa-pen"></i>Build modificada</span>' + romanHtml + '</div>' +
+                    '<div class="st-info-right"><span class="st-info-note" id="stInfoNote"><i class="fa-solid fa-pen"></i>Build modificada</span></div>' +
                 '</div>' +
                 '<dl class="st-info-grid">' +
                     '<div><dt><i class="fa-solid fa-fire-flame-curved"></i>Naturaleza</dt><dd>' + chips + '</dd></div>' +
-                    '<div><dt><i class="fa-solid fa-scroll"></i>Habilidades principales</dt><dd><ul>' + abil + '</ul></dd></div>' +
+                    '<div><dt><i class="fa-solid fa-scroll"></i>Habilidades principales</dt><dd>' + abilBlock + '</dd></div>' +
                     '<div><dt><i class="fa-solid fa-dna"></i>Kekkei Genkai</dt><dd>' + kekkeiHtml + '</dd></div>' +
                     '<div><dt><i class="fa-solid fa-people-group"></i>Clan</dt><dd>' + clanHtml + '</dd></div>' +
                 '</dl>';
-            bindCfg(p);
-        }
-
-        // ==========================================
-        // PREPARACIÓN SHINOBI (ventana centrada, estilo del juego)
-        // ==========================================
-        // Enlace a una técnica concreta (si no está aquí, va a la página de su elemento).
-        // Ninjutsu y demás disciplinas no tienen página: añade aquí el href cuando exista,
-        // por ejemplo 'Rasengan': 'ninjutsu.html#rasengan'
-        const JUTSU_LINKS = { 'Rasenshuriken': 'futon.html#rasenshuriken' };
-        const ROMAN = ['I', 'II', 'III'];
-        let gm = null;
-
-        // El Arsenal muestra solo las disciplinas que usa la config abierta
-        function gmArsenal(c) {
-            const out = [];
-            c.slots.forEach(function (s) { if (out.indexOf(s.d) === -1) out.push(s.d); });
-            return out;
-        }
-        function gmUnlocked(c) { return Math.max(3, c.slots.length); }
-        function slugJutsu(t) {
-            return (t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
-                .replace(/^[^:]*:\s*/, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-        }
-        // Elementos (Fuego, Tierra, Agua, Viento, Rayo): enlace automático a página#nombre-de-la-técnica.
-        // JUTSU_LINKS solo hace falta para casos especiales (otra página o un # distinto).
-        function gmHref(d, j) {
-            if (JUTSU_LINKS[j]) return JUTSU_LINKS[j];
-            return NATURE_LINKS[d] ? NATURE_LINKS[d] + '#' + slugJutsu(j) : '';
-        }
-
-        function gmBuild() {
-            const root = document.createElement('div');
-            root.className = 'gm-root';
-            root.innerHTML =
-                '<div class="gm-overlay"></div>' +
-                '<aside class="gm-drawer" role="dialog" aria-modal="true" aria-label="Preparación Shinobi">' +
-                    '<div class="gm-head">' +
-                        '<div class="gm-title"><span class="gm-logo"><i class="fa-solid fa-diamond"></i></span>' +
-                            '<div><strong>PREPARACIÓN SHINOBI</strong><small>Prepara solo lo que necesitas antes del combate</small></div></div>' +
-                        '<div class="gm-tabs"></div>' +
-                        '<button type="button" class="gm-close" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>' +
-                    '</div>' +
-                    '<div class="gm-who"></div>' +
-                    '<div class="gm-slots"></div>' +
-                    '<div class="gm-main">' +
-                        '<section class="gm-panel gm-arsenal"><div class="gm-ph"><span><i class="fa-solid fa-diamond"></i> ARSENAL DE JUTSUS</span><b class="gm-count"></b></div>' +
-                            '<input type="search" class="gm-search" placeholder="Buscar en arsenal..." aria-label="Buscar en arsenal">' +
-                            '<div class="gm-list"></div>' +
-                            '<div class="gm-foot gm-foot-l"></div></section>' +
-                        '<section class="gm-panel gm-detail"></section>' +
-                    '</div>' +
-                '</aside>';
-            document.body.appendChild(root);
-            gm = { root: root, p: null, ci: 0, si: 0, q: '' };
-
-            root.querySelector('.gm-overlay').addEventListener('click', gmClose);
-            root.querySelector('.gm-close').addEventListener('click', gmClose);
-            document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root.classList.contains('open')) gmClose(); });
-            root.querySelector('.gm-search').addEventListener('input', function (e) { gm.q = e.target.value; gmList(); });
-            root.addEventListener('click', function (e) {
-                const t = e.target.closest('[data-tab],[data-slot],[data-disc]');
-                if (!t) return;
-                if (t.dataset.tab !== undefined) { gm.ci = +t.dataset.tab; gm.si = 0; gmRender(); }
-                else if (t.dataset.slot !== undefined) { gm.si = +t.dataset.slot; gmRender(); }
-                else {
-                    const idx = gm.p.configs[gm.ci].slots.findIndex(function (s) { return s.d === t.dataset.disc; });
-                    if (idx !== -1) { gm.si = idx; gmRender(); }
-                }
-            });
-        }
-        function gmOpen(p, ci) {
-            if (!gm) gmBuild();
-            gm.p = p; gm.ci = ci; gm.si = 0; gm.q = '';
-            gm.root.querySelector('.gm-search').value = '';
-            gmRender();
-            gm.root.classList.add('open');
-            document.body.classList.add('gm-lock');
-            gm.root.querySelector('.gm-close').focus();
-        }
-        function gmClose() {
-            gm.root.classList.remove('open');
-            document.body.classList.remove('gm-lock');
-        }
-        function gmRender() {
-            const p = gm.p, c = p.configs[gm.ci], open = gmUnlocked(c);
-            gm.root.querySelector('.gm-who').innerHTML = '<i class="fa-solid ' + p.icon + '"></i><strong>' + p.name + '</strong><span>' + c.n + ' · ' + c.sub + '</span>';
-            gm.root.querySelector('.gm-tabs').innerHTML = p.configs.map(function (x, i) {
-                return '<button type="button" class="gm-tab' + (i === gm.ci ? ' on' : '') + '" data-tab="' + i + '">CONFIG. ' + ROMAN[i] + '</button>';
-            }).join('');
-            let h = '';
-            for (let i = 0; i < 6; i++) {
-                const s = c.slots[i], on = i === gm.si ? ' sel' : '';
-                if (i >= open) h += '<div class="gm-slot locked"><span class="gm-n">' + (i + 1) + '</span><em>BLOQ.</em></div>';
-                else if (s) h += '<button type="button" class="gm-slot' + on + '" data-slot="' + i + '"><span class="gm-n">' + (i + 1) + '</span>' + hexIcon(s.d) + '<em>' + s.d + '</em></button>';
-                else h += '<button type="button" class="gm-slot empty' + on + '" data-slot="' + i + '"><span class="gm-n">' + (i + 1) + '</span><b>+</b></button>';
-            }
-            gm.root.querySelector('.gm-slots').innerHTML = h;
-            gmList();
-            gmDetail();
-        }
-        function gmList() {
-            const c = gm.p.configs[gm.ci], q = gm.q.trim().toLowerCase(), arsenal = gmArsenal(c);
-            let h = '';
-            arsenal.forEach(function (d) {
-                const idx = c.slots.findIndex(function (s) { return s.d === d; });
-                const hay = (d + ' ' + c.slots[idx].j.join(' ')).toLowerCase();
-                if (q && hay.indexOf(q) === -1) return;
-                h += '<button type="button" class="gm-row' + (idx === gm.si ? ' on' : '') + (idx === -1 ? ' un' : '') + '" data-disc="' + d + '">' + hexIcon(d) +
-                     '<span><strong>' + d + '</strong><small>' + (idx === -1 ? 'Arsenal' : 'POSICIÓN ' + (idx + 1)) + '</small></span>' +
-                     (idx === -1 ? '' : '<i class="gm-dots">····</i>') + '</button>';
-            });
-            gm.root.querySelector('.gm-count').textContent = arsenal.length;
-            gm.root.querySelector('.gm-list').innerHTML = h || '<p class="gm-none">Sin resultados.</p>';
-            gm.root.querySelector('.gm-foot-l').textContent = 'Posición ' + (gm.si + 1) + ' seleccionada';
-        }
-        function gmDetail() {
-            const c = gm.p.configs[gm.ci], s = c.slots[gm.si], box = gm.root.querySelector('.gm-detail');
-            if (!s) {
-                box.innerHTML = '<div class="gm-ph gm-ph-pos"><span>POSICIÓN ' + (gm.si + 1) + '</span></div><small class="gm-un">SIN ASIGNAR</small>' +
-                    '<div class="gm-empty"><i></i><p>Esta posición está libre en esta configuración.</p></div>';
-                return;
-            }
-            const dl = NATURE_LINKS[s.d];
-            const name = dl ? '<a class="gm-dl" href="' + dl + '">' + s.d + ' <i class="fa-solid fa-arrow-up-right-from-square"></i></a>' : s.d;
-            let cards = '';
-            for (let i = 0; i < 4; i++) {
-                const L = 'ABCD'.charAt(i), j = s.j[i];
-                if (!j) { cards += '<div class="gm-j free"><span class="gm-l">' + L + '</span><strong>—</strong><small>LIBRE</small></div>'; continue; }
-                const href = gmHref(s.d, j);
-                cards += href
-                    ? '<a class="gm-j link" href="' + href + '"><span class="gm-l">' + L + '</span><strong>' + j + '</strong><small>VER TÉCNICA <i class="fa-solid fa-arrow-up-right-from-square"></i></small></a>'
-                    : '<div class="gm-j"><span class="gm-l">' + L + '</span><strong>' + j + '</strong><small>PREPARADO</small></div>';
-            }
-            box.innerHTML = '<div class="gm-ph gm-ph-pos"><span>POSICIÓN ' + (gm.si + 1) + '</span></div>' +
-                '<div class="gm-dhead">' + hexIcon(s.d) + '<span>' + name + '</span><b>' + s.j.length + '/4 PREPARADOS</b></div>' +
-                '<div class="gm-jgrid">' + cards + '</div>' +
-                '<div class="gm-foot">Pulsa una técnica con enlace para ver su página.</div>';
-        }
-        function bindCfg(p) {
-            document.querySelectorAll('#stInfo .st-rbtn').forEach(function (b, i) {
-                b.addEventListener('click', function () { gmOpen(p, i); });
-            });
+            if (p.configs) bindConfigs(p);
         }
 
         function applyPreset(key) {
