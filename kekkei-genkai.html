@@ -192,6 +192,58 @@
     };
 
     const J = {
+ "hyoton": [
+  {
+   "nombre": "Espejos de Hielo",
+   "jp": "Técnica NYDo",
+   "desc": "Levanta espejos de hielo alrededor del objetivo para atacarlo desde todos los ángulos.",
+   "video": "vid/espejosHielo.mp4"
+  },
+  {
+   "nombre": "Lanzas de Hielo",
+   "jp": "Técnica NYDo",
+   "desc": "Forma lanzas de hielo y las dispara contra los enemigos.",
+   "video": "vid/lanzashielo.mp4"
+  },
+  {
+   "nombre": "Picos de Hielo",
+   "jp": "Técnica NYDo",
+   "desc": "Hace brotar picos helados del suelo que atraviesan a quien esté encima.",
+   "video": "vid/picosHielo.mp4"
+  },
+  {
+   "nombre": "Prisión de Hielo",
+   "jp": "Técnica NYDo",
+   "desc": "Encierra al objetivo en una cárcel de hielo que lo deja inmovilizado.",
+   "video": "vid/prisionHielo.mp4"
+  }
+ ],
+ "shikotsumyaku": [
+  {
+   "nombre": "Danza del Sauce",
+   "jp": "Técnica NYDo",
+   "desc": "Hace brotar huesos del cuerpo para atravesar y empalar a los enemigos cercanos.",
+   "video": "vid/danzasauce.mp4"
+  },
+  {
+   "nombre": "Danza del Helecho",
+   "jp": "Técnica NYDo",
+   "desc": "Un bosque de huesos emerge del suelo y atraviesa todo lo que esté encima.",
+   "video": "vid/danzahelecho.mp4"
+  },
+  {
+   "nombre": "Danza del Alerce",
+   "jp": "Técnica NYDo",
+   "desc": "Cubre el cuerpo de espinas óseas que sirven como defensa y como arma.",
+   "video": "vid/danzaAlerce.mp4"
+  },
+  {
+   "nombre": "Hueso Dedo",
+   "jp": "Técnica NYDo",
+   "desc": "Dispara los huesos de los dedos como proyectiles a gran velocidad.",
+   "video": "vid/huesodedo.mp4"
+  }
+ ],
  "mokuton": [
   {
    "nombre": "Sepultura de Madera",
@@ -375,7 +427,7 @@
         { id: "futton",   k: "沸", nombre: "Futton",   es: "Elemento Vapor",       tipo: "elemental", combo: ["fuego","agua"],   color: "#bfe3ff",
           desc: "Produce vapor, niebla corrosiva y ataques de presión.", jutsus: J.joton },
         { id: "hyoton",   k: "氷", nombre: "Hyōton",   es: "Elemento Hielo",       tipo: "elemental", combo: ["agua","viento"],  color: "#8ad4ff",
-          desc: "Permite crear hielo, estructuras y proyectiles congelados.", jutsus: [] },
+          desc: "Permite crear hielo, estructuras y proyectiles congelados.", jutsus: J.hyoton },
         { id: "jiton",    k: "磁", nombre: "Jiton",    es: "Elemento Imán",        tipo: "elemental", combo: ["viento","tierra"], color: "#e7b66d",
           desc: "Manipulación magnética y control de arena de hierro.", aviso: J.jiton_aviso, jutsus: J.jiton },
         { id: "koton",    k: "鋼", nombre: "Kōton",    es: "Elemento Acero",       tipo: "elemental", combo: ["fuego","tierra"], color: "#9fb0c4",
@@ -396,7 +448,7 @@
           desc: "Permite desintegrar la materia mediante técnicas de partículas. Es una combinación superior al kekkei genkai normal.", jutsus: [] },
         { id: "shikotsumyaku", k: "骨", nombre: "Shikotsumyaku", es: "Pulso de Huesos", tipo: "hereditario", combo: [], color: "#f1ece0",
           desc: "Poder hereditario del clan Kaguya. A diferencia de los kekkei genkai elementales, es un poder corporal y no nace de combinar naturalezas.",
-          puntos: ["Manipulación de los huesos", "Creación de armas óseas", "Extracción de huesos para combatir", "Técnicas defensivas y ofensivas"], jutsus: [] }
+          puntos: ["Manipulación de los huesos", "Creación de armas óseas", "Extracción de huesos para combatir", "Técnicas defensivas y ofensivas"], jutsus: J.shikotsumyaku }
     ];
 
     const GRUPOS = [

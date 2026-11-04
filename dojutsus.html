@@ -359,6 +359,29 @@
             color: #cbd5e1;
         }
 
+        /* VIDEO DEL SUSANOO (usa el color del ninja seleccionado) */
+        .susanoo-video-box {
+            margin-top: 20px;
+            padding: 14px;
+            background: rgba(0, 0, 0, .35);
+            border: 1px solid var(--susanoo-color, #9351e8);
+            border-radius: 14px;
+            box-shadow: 0 0 20px var(--susanoo-glow, rgba(147, 81, 232, 0.3));
+        }
+        .susanoo-video-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 10px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+        .susanoo-video-title i { color: var(--susanoo-color, #9351e8); }
+        .susanoo-video-box .bya-video { max-width: 920px; }
+
         /* HABILIDADES DEL BYAKUGAN CON VIDEO (64 Palmas y Rotación) */
         .byakugan-ability-box[data-bya] {
             cursor: pointer;
@@ -1614,6 +1637,16 @@
 
                     <div class="susanoo-info-desc" id="susanooDesc" style="margin-top: 15px;">
                         Posee espadas onduladas gemelas y la capacidad de invocar meteoros devastadores en área.
+                    </div>
+
+                    <div class="susanoo-video-box">
+                        <h3 class="susanoo-video-title"><i class="fa-solid fa-circle-play"></i> Susanoo en acción</h3>
+                        <div class="bya-video">
+                            <video controls loop playsinline preload="metadata">
+                                <source src="vid/Susanoo.mp4" type="video/mp4">
+                                Tu navegador no soporta video.
+                            </video>
+                        </div>
                     </div>
                 </div>
             </article>
