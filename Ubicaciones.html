@@ -102,27 +102,21 @@
                 <div class="cmd"><code>/locate biome nydomod:myoboku_highlands</code><button type="button" data-copy="/locate biome nydomod:myoboku_highlands"><i class="fa-regular fa-copy"></i> Copiar</button></div>
                 <div class="ub-bioma">Se busca como: <b>Monte Myōboku</b></div>
             </article>
-            <article class="ub-card" style="--ub:#ff7a38">
-                <div class="ub-kanji" aria-hidden="true">葉</div>
-                <h3>Konoha</h3>
-                <p>Aldea de la Hoja. Su generación está asociada al Bosque de la Hoja Eterna.</p>
-                <div class="cmd"><code>/locate biome nydomod:eternal_leaf_forest</code><button type="button" data-copy="/locate biome nydomod:eternal_leaf_forest"><i class="fa-regular fa-copy"></i> Copiar</button></div>
-                <div class="ub-bioma">Se busca como: <b>Bosque de la Hoja Eterna</b></div>
-            </article>
-            <article class="ub-card" style="--ub:#ff263f">
-                <div class="ub-kanji" aria-hidden="true">暁</div>
-                <h3>Escondite de Akatsuki</h3>
-                <p>Está registrado como una generación especial del Bosque de la Hoja Eterna.</p>
-                <div class="cmd"><code>/locate biome nydomod:eternal_leaf_forest</code><button type="button" data-copy="/locate biome nydomod:eternal_leaf_forest"><i class="fa-regular fa-copy"></i> Copiar</button></div>
-                <div class="ub-bioma">Se busca como: <b>Bosque de la Hoja Eterna</b></div>
-            </article>
-            <article class="ub-card" style="--ub:#8ad4ff">
-                <div class="ub-kanji" aria-hidden="true">谷</div>
-                <h3>Valle del Fin</h3>
-                <p>También aparece como elemento de generación del Bosque de la Hoja Eterna.</p>
-                <div class="cmd"><code>/locate biome nydomod:eternal_leaf_forest</code><button type="button" data-copy="/locate biome nydomod:eternal_leaf_forest"><i class="fa-regular fa-copy"></i> Copiar</button></div>
-                <div class="ub-bioma">Se busca como: <b>Bosque de la Hoja Eterna</b></div>
-            </article>
+        </div>
+    </section>
+
+    <section class="nx-section" id="akatsuki">
+        <h2>Base de Akatsuki</h2>
+        <p class="nx-lead">El escondite de Akatsuki no tiene un comando propio para localizarlo. Así se ve su entrada y su base por dentro.</p>
+        <div class="ak-grid">
+            <figure class="ak-media" style="--ub:#ff263f">
+                <button type="button" class="ak-zoom" data-zoom="img" aria-label="Ampliar imagen de la entrada"><img src="img/EntradaAkatsuki.png" alt="Entrada al escondite de Akatsuki" loading="lazy"><span class="ak-zoom-ico"><i class="fa-solid fa-expand"></i></span></button>
+                <figcaption><span class="ub-kanji" aria-hidden="true">暁</span><div><b>Entrada</b><small>Escalera de piedra cubierta de musgo que da acceso a la base.</small></div></figcaption>
+            </figure>
+            <figure class="ak-media" style="--ub:#ff263f">
+                <div class="ak-vidwrap"><video controls loop playsinline preload="metadata"><source src="vid/Baseakatsuki1.mp4" type="video/mp4">Tu navegador no soporta video.</video><button type="button" class="ak-zoom-btn" data-zoom="video" aria-label="Ampliar video de la base"><i class="fa-solid fa-expand"></i></button></div>
+                <figcaption><span class="ub-kanji" aria-hidden="true">基</span><div><b>La base</b><small>Recorrido por el interior del escondite.</small></div></figcaption>
+            </figure>
         </div>
     </section>
 
@@ -176,6 +170,11 @@
     </footer>
 </main>
 
+<dialog class="ak-dlg" id="akDlg" aria-label="Vista ampliada">
+    <button type="button" class="ak-dlg-close" id="akDlgClose" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+    <div class="ak-dlg-body" id="akDlgBody"></div>
+</dialog>
+
 <script src="script.js"></script>
 <script src="busqueda.js"></script>
 <script>
@@ -199,6 +198,37 @@
         b.innerHTML = '<i class="fa-solid fa-check"></i> Copiado';
         setTimeout(() => { b.classList.remove("ok"); b.innerHTML = old; }, 1500);
     });
+})();
+</script>
+<script>
+(() => {
+    /* Ampliar imagen / video de Akatsuki */
+    const dlg = document.getElementById("akDlg"), body = document.getElementById("akDlgBody");
+    if (!dlg) return;
+    function cerrar() { const v = body.querySelector("video"); if (v) v.pause(); dlg.close(); }
+    document.addEventListener("click", (e) => {
+        const z = e.target.closest("[data-zoom]");
+        if (!z) return;
+        body.innerHTML = "";
+        if (z.dataset.zoom === "img") {
+            const src = z.querySelector("img");
+            const im = document.createElement("img");
+            im.src = src.src; im.alt = src.alt;
+            body.appendChild(im);
+        } else {
+            const orig = z.closest(".ak-vidwrap").querySelector("video");
+            const v = document.createElement("video");
+            v.src = orig.currentSrc || orig.querySelector("source").src;
+            v.controls = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+            try { v.currentTime = orig.currentTime; } catch (_) {}
+            orig.pause();
+            body.appendChild(v);
+        }
+        dlg.showModal();
+    });
+    document.getElementById("akDlgClose").addEventListener("click", cerrar);
+    dlg.addEventListener("click", (e) => { if (e.target === dlg || e.target === body) cerrar(); });
+    dlg.addEventListener("close", () => { body.innerHTML = ""; });
 })();
 </script>
 <script src="translate.js"></script>
