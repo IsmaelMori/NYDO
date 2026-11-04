@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubicaciones | NYDo Wiki</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="busqueda.css">
+    <link rel="stylesheet" href="paginas.css">
+    <link rel="stylesheet" href="ubicaciones.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="mobile-nav.css">
+</head>
+<body>
+
+<!-- ==========================================
+     HEADER GLOBAL - NYDo WIKI
+========================================== -->
+<header class="nydo-header">
+    <div class="topbar nydo-topbar">
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+
+        <div class="brand-description">
+            <strong>WIKI NO OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+
+        <!-- BUSCADOR GLOBAL INTEGRADO ESTÉTICAMENTE -->
+        <div class="wiki-search-wrap" id="wikiSearch">
+            <div class="wiki-search-box">
+                <i class="fa-solid fa-magnifying-glass wiki-search-icon"></i>
+                <input
+                    type="search"
+                    id="wikiSearchInput"
+                    placeholder="Buscar..."
+                    autocomplete="off"
+                    aria-label="Buscar en toda la wiki"
+                    aria-controls="wikiSearchResults"
+                    aria-expanded="false"
+                >
+                <button
+                    type="button"
+                    id="wikiSearchClear"
+                    aria-label="Limpiar búsqueda"
+                    style="display:none;"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div
+                id="wikiSearchResults"
+                class="wiki-search-results"
+                role="region"
+                aria-live="polite"
+            ></div>
+        </div>
+    </div>
+</header>
+<!-- FIN DEL HEADER GLOBAL -->
+
+<!-- FONDO DEL MENÚ MÓVIL (OVERLAY) -->
+<div class="page-overlay" id="pageOverlay"></div>
+
+<!-- =========================
+     MENÚ LATERAL (SIDEBAR)
+========================= -->
+<aside class="sidebar" id="sidebar" data-include="sidebar.html"></aside>
+
+<!-- =========================
+     CONTENIDO PRINCIPAL
+========================= -->
+
+<main class="nx-page">
+
+    <section class="nx-banner" id="inicio">
+        <h1>UBICA<span>CIONES</span></h1>
+        <p>Lugares y biomas que existen en el mod, y los comandos para llegar hasta ellos.</p>
+    </section>
+
+    <section class="nx-section" id="lugares">
+        <h2>Lugares que puedes buscar</h2>
+        <p class="nx-lead">Cada lugar tiene un bioma o una generación asociada. Copia el comando y pégalo en el chat del juego.</p>
+        <div class="ub-grid">
+            <article class="ub-card" style="--ub:#5fcf7a">
+                <div class="ub-kanji" aria-hidden="true">山</div>
+                <h3>Monte Myōboku</h3>
+                <p>Zona de entrenamiento de los sapos y relacionada con el Modo Sabio.</p>
+                <div class="cmd"><code>/locate biome nydomod:myoboku_highlands</code><button type="button" data-copy="/locate biome nydomod:myoboku_highlands"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+                <div class="ub-bioma">Se busca como: <b>Monte Myōboku</b></div>
+            </article>
+            <article class="ub-card" style="--ub:#ff7a38">
+                <div class="ub-kanji" aria-hidden="true">葉</div>
+                <h3>Konoha</h3>
+                <p>Aldea de la Hoja. Su generación está asociada al Bosque de la Hoja Eterna.</p>
+                <div class="cmd"><code>/locate biome nydomod:eternal_leaf_forest</code><button type="button" data-copy="/locate biome nydomod:eternal_leaf_forest"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+                <div class="ub-bioma">Se busca como: <b>Bosque de la Hoja Eterna</b></div>
+            </article>
+            <article class="ub-card" style="--ub:#ff263f">
+                <div class="ub-kanji" aria-hidden="true">暁</div>
+                <h3>Escondite de Akatsuki</h3>
+                <p>Está registrado como una generación especial del Bosque de la Hoja Eterna.</p>
+                <div class="cmd"><code>/locate biome nydomod:eternal_leaf_forest</code><button type="button" data-copy="/locate biome nydomod:eternal_leaf_forest"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+                <div class="ub-bioma">Se busca como: <b>Bosque de la Hoja Eterna</b></div>
+            </article>
+            <article class="ub-card" style="--ub:#8ad4ff">
+                <div class="ub-kanji" aria-hidden="true">谷</div>
+                <h3>Valle del Fin</h3>
+                <p>También aparece como elemento de generación del Bosque de la Hoja Eterna.</p>
+                <div class="cmd"><code>/locate biome nydomod:eternal_leaf_forest</code><button type="button" data-copy="/locate biome nydomod:eternal_leaf_forest"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+                <div class="ub-bioma">Se busca como: <b>Bosque de la Hoja Eterna</b></div>
+            </article>
+        </div>
+    </section>
+
+    <section class="nx-section" id="como-localizar">
+        <h2>Cómo localizar los biomas</h2>
+        <p class="nx-lead">Activa los trucos y escribe estos comandos.</p>
+
+        <div class="ub-steps lg" style="margin-bottom:18px">
+            <div class="ub-step"><span class="n">1</span><h3>Activa los trucos</h3><p>Abre el mundo con trucos activados, o permite los comandos para tu partida.</p></div>
+            <div class="ub-step"><span class="n">2</span><h3>Abre el chat</h3><p>Pulsa <kbd class="nx-key">T</kbd> o <kbd class="nx-key">/</kbd> para escribir el comando.</p></div>
+            <div class="ub-step"><span class="n">3</span><h3>Escribe el comando</h3><p>Elige la localización de la tabla. El juego te mostrará las coordenadas del bioma más cercano.</p></div>
+        </div>
+
+        <div class="ub-table lg">
+            <div class="ub-row ub-head"><span>Localización</span><span>Comando</span></div>
+            <div class="ub-row">
+                <div class="loc"><i aria-hidden="true">山</i>Monte Myōboku</div>
+                <div class="cmd"><code>/locate biome nydomod:myoboku_highlands</code><button type="button" data-copy="/locate biome nydomod:myoboku_highlands"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+            </div>
+            <div class="ub-row">
+                <div class="loc"><i aria-hidden="true">仙</i>Agujas del Sabio</div>
+                <div class="cmd"><code>/locate biome nydomod:sage_spires</code><button type="button" data-copy="/locate biome nydomod:sage_spires"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+            </div>
+            <div class="ub-row">
+                <div class="loc"><i aria-hidden="true">氷</i>Montañas congeladas</div>
+                <div class="cmd"><code>/locate biome nydomod:frozen_high_peaks</code><button type="button" data-copy="/locate biome nydomod:frozen_high_peaks"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+            </div>
+            <div class="ub-row">
+                <div class="loc"><i aria-hidden="true">道</i>Paso montañoso</div>
+                <div class="cmd"><code>/locate biome nydomod:snowy_mountain_pass</code><button type="button" data-copy="/locate biome nydomod:snowy_mountain_pass"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+            </div>
+            <div class="ub-row">
+                <div class="loc"><i aria-hidden="true">嶺</i>Cordilleras</div>
+                <div class="cmd"><code>/locate biome nydomod:thawing_ridges</code><button type="button" data-copy="/locate biome nydomod:thawing_ridges"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+            </div>
+            <div class="ub-row">
+                <div class="loc"><i aria-hidden="true">風</i>Montañas erosionadas</div>
+                <div class="cmd"><code>/locate biome nydomod:weathered_peaks</code><button type="button" data-copy="/locate biome nydomod:weathered_peaks"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+            </div>
+            <div class="ub-row">
+                <div class="loc"><i aria-hidden="true">葉</i>Bosque de la Hoja Eterna</div>
+                <div class="cmd"><code>/locate biome nydomod:eternal_leaf_forest</code><button type="button" data-copy="/locate biome nydomod:eternal_leaf_forest"><i class="fa-regular fa-copy"></i> Copiar</button></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="nx-footer">
+        <a href="index.html" class="brand-name">NYDo</a>
+        <p>Wiki no oficial del mod de Naruto para Minecraft.</p>
+        <a href="#inicio">Volver al inicio ↑</a>
+    </footer>
+</main>
+
+<script src="script.js"></script>
+<script src="busqueda.js"></script>
+<script>
+(() => {
+    /* Copiar comandos */
+    document.addEventListener("click", async (e) => {
+        const b = e.target.closest("button[data-copy]");
+        if (!b) return;
+        const txt = b.dataset.copy;
+        try {
+            await navigator.clipboard.writeText(txt);
+        } catch (err) {
+            const t = document.createElement("textarea");
+            t.value = txt; t.style.position = "fixed"; t.style.opacity = "0";
+            document.body.appendChild(t); t.select();
+            try { document.execCommand("copy"); } catch (e2) {}
+            t.remove();
+        }
+        const old = b.innerHTML;
+        b.classList.add("ok");
+        b.innerHTML = '<i class="fa-solid fa-check"></i> Copiado';
+        setTimeout(() => { b.classList.remove("ok"); b.innerHTML = old; }, 1500);
+    });
+})();
+</script>
+<script src="translate.js"></script>
+<script src="mobile-nav.js"></script>
+</body>
+</html>

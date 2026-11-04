@@ -225,6 +225,11 @@
     function placeLang() {
         var wrap = document.querySelector('.nydo-lang');
         if (!wrap) return;
+        // En móvil la posición (abajo a la izquierda) la maneja mobile-nav.css
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            wrap.style.top = wrap.style.left = wrap.style.right = '';
+            return;
+        }
         var burger = findBurger();
         if (!burger) {
             wrap.style.top = '16px';

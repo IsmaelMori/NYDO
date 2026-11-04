@@ -1,17 +1,41 @@
 /* ==========================================================
-   NAV INFERIOR MÓVIL (estilo TikTok + Liquid Glass iOS)
-   Cárgalo DESPUÉS de style.css en todas las páginas:
+   DOCK MÓVIL NYDo  ·  cristal 100 % transparente
+   Cárgalo DESPUÉS de style.css y busqueda.css:
    <link rel="stylesheet" href="mobile-nav.css">
+
+   Ajustes rápidos (variables):
+   --dock-bg    → relleno del cristal (sube el último número para
+                  que se vea menos transparente)
+   --dock-blur  → desenfoque del fondo (0px = transparencia total)
 ========================================================== */
 
+:root {
+    --dock-h: 68px;
+    --dock-bg: rgba(255, 255, 255, .025);
+    --dock-blur: 14px;
+    --dock-edge: rgba(255, 255, 255, .20);
+    --accent: 255, 56, 76;
+    --spring: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+/* ---------- Escritorio: lo propio del dock no se ve ---------- */
+.nav-link.nav-search,
+.nav-link .t-short,
+.dock-indicator,
+.dock-bubble { display: none; }
+
+/* ========================================================== */
 @media (max-width: 768px) {
 
-    /* El botón hamburguesa y la capa oscura ya no hacen falta */
     .menu-btn,
     .page-overlay { display: none !important; }
 
-    /* Espacio para que el dock no tape el contenido */
-    body { padding-bottom: calc(96px + env(safe-area-inset-bottom)); }
+    body { padding-bottom: calc(108px + env(safe-area-inset-bottom)); }
+
+    /* Etiquetas cortas en móvil */
+    .nav-link .t-full  { display: none; }
+    .nav-link .t-short { display: inline; }
+    .nav-link.nav-search { display: flex; }
 
     /* ---------- DOCK ---------- */
     .sidebar {
@@ -20,142 +44,339 @@
         right: 12px;
         bottom: calc(12px + env(safe-area-inset-bottom));
         width: auto;
-        height: 68px;
+        height: var(--dock-h);
         padding: 6px;
         flex-direction: row;
         align-items: center;
         overflow: visible;
         border-radius: 34px;
-        transform: none !important;           /* siempre visible */
-        animation: dockIn .7s cubic-bezier(.34,1.56,.64,1) both;
-        transition: transform .45s cubic-bezier(.34,1.2,.64,1),
-                    opacity .3s;
+        z-index: 1100;
+        transform: none;
+        will-change: transform;
+        animation: dockIn .8s var(--spring) backwards;
+        transition: transform .5s cubic-bezier(.34, 1.3, .64, 1),
+                    opacity .3s ease,
+                    box-shadow .3s ease;
 
-        /* LIQUID GLASS */
-        background: linear-gradient(
-            135deg,
-            rgba(255,255,255,.16),
-            rgba(255,255,255,.05) 45%,
-            rgba(255,255,255,.10)
-        );
-        -webkit-backdrop-filter: blur(24px) saturate(190%) brightness(1.08);
-        backdrop-filter: blur(24px) saturate(190%) brightness(1.08);
-        border: 1px solid rgba(255,255,255,.28);
+        /* CRISTAL TRANSPARENTE */
+        background: var(--dock-bg);
+        -webkit-backdrop-filter: blur(var(--dock-blur)) saturate(140%);
+        backdrop-filter: blur(var(--dock-blur)) saturate(140%);
+        border: 1px solid var(--dock-edge);
         box-shadow:
-            inset 0 1.5px 1px rgba(255,255,255,.45),   /* brillo superior */
-            inset 0 -1px 1px rgba(255,255,255,.12),
-            inset 0 0 18px rgba(255,255,255,.06),
-            0 12px 32px rgba(0,0,0,.45),
-            0 2px 6px rgba(0,0,0,.3);
+            inset 0 1px 0 rgba(255, 255, 255, .38),
+            inset 0 -1px 0 rgba(255, 255, 255, .08),
+            0 10px 30px rgba(0, 0, 0, .28);
     }
 
-    /* Reflejo especular que recorre el cristal */
+    /* Brillo superior (estático = barato) */
     .sidebar::before {
         content: "";
         position: absolute;
         inset: 0;
         border-radius: inherit;
         pointer-events: none;
-        background: linear-gradient(
-            115deg,
-            transparent 30%,
-            rgba(255,255,255,.18) 48%,
-            transparent 62%
-        );
-        background-size: 250% 100%;
-        animation: glassShine 6s ease-in-out infinite;
+        background: linear-gradient(180deg, rgba(255, 255, 255, .10), transparent 42%);
     }
 
-    /* Ocultar lo que sobra del sidebar de escritorio */
     .sidebar-header,
     .sidebar-footer,
     .nav-divider { display: none !important; }
 
-    /* Dock oculto al bajar scroll (lo activa el JS) */
+    /* Se esconde al bajar, vuelve al subir */
     .sidebar.dock-hidden {
-        transform: translateY(140%) !important;
+        transform: translateY(150%) !important;
         opacity: 0;
     }
 
-    /* ---------- ENLACES ---------- */
+    /* Mientras se desliza el dedo (mantener pulsado) */
+    .sidebar.scrubbing {
+        transform: scale(1.025) !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, .5),
+            0 0 0 1px rgba(var(--accent), .35),
+            0 14px 40px rgba(var(--accent), .22);
+    }
+    .sidebar.scrub-cancel {
+        transform: scale(.97) !important;
+        opacity: .55;
+    }
+
+    /* ---------- CONTENEDOR DE ENLACES ---------- */
     .navigation {
         position: relative;
+        display: flex;
         flex-direction: row;
-        gap: 4px;
+        gap: 2px;
         width: 100%;
         height: 100%;
+        padding: 0 2px;
         overflow-x: auto;
         overflow-y: hidden;
-        scroll-snap-type: x proximity;
+        overscroll-behavior-x: contain;
         scrollbar-width: none;
         -webkit-overflow-scrolling: touch;
+        touch-action: pan-x;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 14px, #000 calc(100% - 14px), transparent);
     }
     .navigation::-webkit-scrollbar { display: none; }
 
+    /* ---------- BURBUJA QUE SE DESLIZA ENTRE ENLACES ---------- */
+    .dock-indicator {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0;
+        border-radius: 28px;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0;
+        will-change: transform, width;
+        background: linear-gradient(160deg, rgba(var(--accent), .38), rgba(185, 12, 37, .12));
+        border: 1px solid rgba(255, 255, 255, .28);
+        box-shadow:
+            inset 0 1px 1px rgba(255, 255, 255, .5),
+            0 4px 18px rgba(var(--accent), .28);
+        transition: transform .55s var(--spring),
+                    width .55s var(--spring),
+                    opacity .25s ease;
+    }
+    .sidebar.scrubbing .dock-indicator {
+        transition-duration: .3s, .3s, .2s;
+    }
+
+    /* ---------- ENLACES ---------- */
     .nav-link {
         position: relative;
+        z-index: 1;
         flex: 0 0 auto;
-        min-width: 62px;
+        min-width: 58px;
         height: 100%;
         min-height: 0;
-        padding: 0 10px;
+        padding: 0 8px;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         gap: 4px;
         border-radius: 28px;
+        font-family: inherit;
         font-size: 10px;
         font-weight: 600;
         letter-spacing: .2px;
         white-space: nowrap;
-        color: rgba(255,255,255,.65);
-        scroll-snap-align: center;
+        color: rgba(255, 255, 255, .74);
+        text-shadow: 0 1px 8px rgba(0, 0, 0, .55);
+        background: transparent !important;
+        border: 1px solid transparent !important;
+        box-shadow: none !important;
         -webkit-tap-highlight-color: transparent;
-        transition:
-            color .3s,
-            background .35s,
-            transform .45s cubic-bezier(.34,1.56,.64,1),
-            box-shadow .35s;
+        -webkit-touch-callout: none;
+        -webkit-user-drag: none;
+        user-select: none;
+        animation: linkIn .55s var(--spring) backwards;
+        animation-delay: calc(var(--i, 0) * 45ms + 250ms);
+        transition: color .3s ease,
+                    transform .4s var(--spring);
     }
 
     .nav-link > i {
         width: auto;
         font-size: 20px;
-        transition: transform .45s cubic-bezier(.34,1.8,.64,1),
-                    filter .3s;
+        transform: scale(var(--s, 1));
+        filter: drop-shadow(0 1px 4px rgba(0, 0, 0, .5));
+        transition: transform .45s var(--spring), filter .3s ease;
     }
 
-    /* Sin el desplazamiento lateral del escritorio */
-    .nav-link:hover {
-        transform: none;
-        background: rgba(255,255,255,.06);
-        border-color: transparent;
-    }
+    .nav-link:hover { transform: none; }
 
     /* Efecto "gota" al presionar */
-    .nav-link:active {
-        transform: scale(.88);
-        background: rgba(255,255,255,.14);
+    .nav-link:active { transform: scale(.88); }
+
+    .nav-link.active,
+    .nav-link.is-on,
+    .nav-link.scrub-hover { color: #fff; }
+
+    .nav-link.active > i,
+    .nav-link.is-on > i {
+        transform: translateY(-1px) scale(calc(var(--s, 1) * 1.15));
+        filter: drop-shadow(0 0 7px rgba(255, 255, 255, .75));
+    }
+    .nav-link.active > i { animation: iconPop .7s var(--spring) .35s backwards; }
+
+    .nav-link.scrub-hover > i {
+        filter: drop-shadow(0 0 9px rgba(255, 255, 255, .9));
     }
 
-    /* ---------- ACTIVO: burbuja líquida ---------- */
-    .nav-link.active {
+    /* Al soltar sobre un destino */
+    .nav-link.lanzando > i { animation: launch .38s ease-out forwards; }
+
+    .nav-search { font: inherit; font-size: 10px; font-weight: 600; cursor: pointer; }
+
+    /* ---------- GLOBO FLOTANTE AL DESLIZAR ---------- */
+    .dock-bubble {
+        display: block;
+        position: fixed;
+        left: 0;
+        bottom: calc(100px + env(safe-area-inset-bottom));
+        z-index: 1300;
+        pointer-events: none;
+        will-change: transform;
+    }
+    .dock-bubble .in {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 22px;
         color: #fff;
-        border-color: rgba(255,255,255,.35);
-        background: linear-gradient(
-            160deg,
-            rgba(255,70,90,.55),
-            rgba(185,12,37,.30)
-        );
-        box-shadow:
-            inset 0 1.5px 1px rgba(255,255,255,.55),
-            inset 0 -6px 12px rgba(255,255,255,.08),
-            0 4px 16px rgba(255,38,63,.45);
-        animation: bubblePop .55s cubic-bezier(.34,1.56,.64,1);
+        font-size: 14px;
+        font-weight: 700;
+        white-space: nowrap;
+        text-shadow: 0 1px 8px rgba(0, 0, 0, .5);
+        background: rgba(20, 24, 36, .30);
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        backdrop-filter: blur(18px) saturate(160%);
+        border: 1px solid rgba(255, 255, 255, .28);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .4), 0 10px 28px rgba(0, 0, 0, .35);
+        opacity: 0;
+        transform: translateY(14px) scale(.7);
+        transition: opacity .15s ease, transform .35s var(--spring);
+    }
+    .dock-bubble.show .in { opacity: 1; transform: none; }
+    .dock-bubble i { font-size: 20px; color: #ff5265; }
+
+    /* ==================================================
+       BUSCADOR EN CELULAR (píldora flotante sobre el dock)
+    ================================================== */
+    #wikiSearch.wiki-search-floating {
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: calc(var(--kb, 0px) + 92px + env(safe-area-inset-bottom));
+        width: auto;
+        max-width: none;
+        margin: 0;
+        z-index: 1250;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(22px) scale(.95);
+        transform-origin: 50% 100%;
+        transition: transform .5s var(--spring),
+                    opacity .25s ease,
+                    bottom .3s ease,
+                    visibility 0s linear .3s;
+    }
+    body.search-open #wikiSearch.wiki-search-floating {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: none;
+        transition-delay: 0s;
+    }
+    body.kb-open #wikiSearch.wiki-search-floating {
+        bottom: calc(var(--kb, 0px) + 12px);
+    }
+    /* Con el teclado abierto el dock se aparta */
+    body.kb-open .sidebar {
+        transform: translateY(150%) !important;
+        opacity: 0;
     }
 
-    .nav-link.active > i {
-        transform: translateY(-1px) scale(1.18);
-        filter: drop-shadow(0 0 6px rgba(255,255,255,.7));
+    #wikiSearch.wiki-search-floating .wiki-search-box {
+        height: 50px;
+        min-height: 50px;
+        padding: 0 8px 0 18px;
+        gap: 12px;
+        background: rgba(16, 20, 32, .34) !important;
+        -webkit-backdrop-filter: blur(var(--dock-blur)) saturate(150%);
+        backdrop-filter: blur(var(--dock-blur)) saturate(150%);
+        border: 1px solid rgba(255, 255, 255, .24) !important;
+        box-shadow:
+            inset 0 1px 0 rgba(255, 255, 255, .35),
+            0 10px 30px rgba(0, 0, 0, .3);
+    }
+    #wikiSearch.wiki-search-floating .wiki-search-icon { font-size: 16px; }
+
+    /* 16px evita el zoom automático de iOS al enfocar */
+    #wikiSearch.wiki-search-floating #wikiSearchInput {
+        height: 48px;
+        font-size: 16px;
+        color: #fff;
+    }
+    #wikiSearch.wiki-search-floating #wikiSearchClear {
+        width: 34px;
+        height: 34px;
+        font-size: 15px;
+        background: rgba(255, 255, 255, .1);
+    }
+
+    /* Los resultados se abren HACIA ARRIBA */
+    #wikiSearch.wiki-search-floating #wikiSearchResults {
+        top: auto !important;
+        bottom: calc(100% + 8px) !important;
+        left: 0 !important;
+        right: 0 !important;
+        max-height: min(46vh, 360px) !important;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 20px;
+        background: rgba(14, 18, 28, .72) !important;
+        -webkit-backdrop-filter: blur(20px) saturate(170%);
+        backdrop-filter: blur(20px) saturate(170%);
+        transform-origin: 50% 100%;
+        animation: sheetUp .35s var(--spring);
+    }
+    body.kb-open #wikiSearch.wiki-search-floating #wikiSearchResults {
+        max-height: min(32vh, 260px) !important;
+    }
+    #wikiSearch.wiki-search-floating .wiki-search-result { padding: 12px 18px; }
+    #wikiSearch.wiki-search-floating .wiki-search-result-title { font-size: 14px; }
+    #wikiSearch.wiki-search-floating .wiki-search-result-description { font-size: 12px; }
+
+    /* ==================================================
+       TRADUCTOR: abajo a la izquierda, encima del dock
+    ================================================== */
+    .nydo-lang {
+        top: auto !important;
+        right: auto !important;
+        left: 12px !important;
+        bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+        transition: bottom .5s cubic-bezier(.34, 1.3, .64, 1), opacity .25s ease;
+        animation: dockIn .8s var(--spring) .5s backwards;
+    }
+    body.dock-away .nydo-lang { bottom: calc(16px + env(safe-area-inset-bottom)) !important; }
+    body.search-open .nydo-lang,
+    body.scrubbing .nydo-lang { opacity: 0; pointer-events: none; }
+
+    .nydo-lang-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        background: rgba(10, 14, 24, .35) !important;
+        -webkit-backdrop-filter: blur(var(--dock-blur)) saturate(150%);
+        backdrop-filter: blur(var(--dock-blur)) saturate(150%);
+        border-color: rgba(255, 255, 255, .26) !important;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .3), 0 8px 22px rgba(0, 0, 0, .3);
+    }
+    .nydo-lang-btn:active { transform: scale(.92); }
+
+    /* El menú se abre hacia arriba */
+    .nydo-lang-menu {
+        top: auto !important;
+        bottom: calc(100% + 10px);
+        right: auto !important;
+        left: 0;
+        background: rgba(10, 14, 24, .62) !important;
+        -webkit-backdrop-filter: blur(18px) saturate(160%);
+        backdrop-filter: blur(18px) saturate(160%);
+        transform-origin: 0 100%;
+        animation: sheetUp .35s var(--spring);
     }
 }
 
@@ -164,19 +385,29 @@
     from { transform: translateY(160%) scale(.9); opacity: 0; }
     to   { transform: translateY(0) scale(1);     opacity: 1; }
 }
-
-@keyframes bubblePop {
-    0%   { transform: scale(.85, 1.1); }
-    45%  { transform: scale(1.12, .92); }
-    75%  { transform: scale(.97, 1.03); }
-    100% { transform: scale(1); }
+@keyframes linkIn {
+    from { transform: translateY(24px) scale(.6); opacity: 0; }
+    to   { transform: none;                       opacity: 1; }
 }
-
-@keyframes glassShine {
-    0%, 55% { background-position: 150% 0; }
-    100%    { background-position: -100% 0; }
+@keyframes iconPop {
+    0%   { transform: translateY(-1px) scale(.7); }
+    50%  { transform: translateY(-5px) scale(1.4); }
+    100% { transform: translateY(-1px) scale(1.15); }
+}
+@keyframes launch {
+    0%   { transform: scale(1.15); opacity: 1; }
+    100% { transform: scale(2.2);  opacity: 0; }
+}
+@keyframes sheetUp {
+    from { transform: translateY(12px) scale(.94); opacity: 0; }
+    to   { transform: none;                         opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .sidebar, .sidebar::before, .nav-link, .nav-link.active { animation: none !important; }
+    .sidebar, .nav-link, .nav-link > i, .dock-indicator, .dock-bubble .in,
+    .nydo-lang, #wikiSearch.wiki-search-floating,
+    #wikiSearch.wiki-search-floating #wikiSearchResults, .nydo-lang-menu {
+        animation: none !important;
+        transition-duration: .01ms !important;
+    }
 }

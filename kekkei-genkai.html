@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kekkei Genkai | NYDo Wiki</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="busqueda.css">
+    <link rel="stylesheet" href="paginas.css">
+    <link rel="stylesheet" href="kekkei.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="mobile-nav.css">
+</head>
+<body>
+
+<!-- ==========================================
+     HEADER GLOBAL - NYDo WIKI
+========================================== -->
+<header class="nydo-header">
+    <div class="topbar nydo-topbar">
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+        >
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+
+        <div class="brand-description">
+            <strong>WIKI NO OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+
+        <!-- BUSCADOR GLOBAL INTEGRADO ESTÉTICAMENTE -->
+        <div class="wiki-search-wrap" id="wikiSearch">
+            <div class="wiki-search-box">
+                <i class="fa-solid fa-magnifying-glass wiki-search-icon"></i>
+                <input
+                    type="search"
+                    id="wikiSearchInput"
+                    placeholder="Buscar..."
+                    autocomplete="off"
+                    aria-label="Buscar en toda la wiki"
+                    aria-controls="wikiSearchResults"
+                    aria-expanded="false"
+                >
+                <button
+                    type="button"
+                    id="wikiSearchClear"
+                    aria-label="Limpiar búsqueda"
+                    style="display:none;"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div
+                id="wikiSearchResults"
+                class="wiki-search-results"
+                role="region"
+                aria-live="polite"
+            ></div>
+        </div>
+    </div>
+</header>
+<!-- FIN DEL HEADER GLOBAL -->
+
+<!-- FONDO DEL MENÚ MÓVIL (OVERLAY) -->
+<div class="page-overlay" id="pageOverlay"></div>
+
+<!-- =========================
+     MENÚ LATERAL (SIDEBAR)
+========================= -->
+<aside class="sidebar" id="sidebar" data-include="sidebar.html"></aside>
+
+<!-- =========================
+     CONTENIDO PRINCIPAL
+========================= -->
+
+<main class="nx-page">
+
+    <!-- BANNER -->
+    <section class="nx-banner" id="inicio">
+        <a href="jutsus.html" class="nx-back lg"><i class="fa-solid fa-arrow-left"></i> Artes Shinobi</a>
+        <h1>KEKKEI <span>GENKAI</span></h1>
+        <p>
+            Todos los kekkei genkai del mod y las naturalezas que debes combinar para
+            conseguirlos. Mira cómo chocan los elementos y toca una tarjeta para ver sus técnicas.
+        </p>
+
+        <div class="kg-filters" id="kgFilters" role="group" aria-label="Filtrar kekkei genkai"></div>
+    </section>
+
+    <!-- GUÍA DE ADN -->
+    <section class="nx-section" id="adn">
+        <h2>Cómo inyectarte ADN</h2>
+        <p class="nx-lead">Un kekkei genkai también se puede conseguir con ADN. Necesitas dos cosas: el ADN y una jeringa vacía.</p>
+
+        <div class="adn-box lg">
+            <div class="adn-steps">
+                <div class="adn-step">
+                    <div class="adn-icon"><i class="fa-solid fa-dna"></i></div>
+                    <span class="n">1</span>
+                    <h3>Ten el ADN</h3>
+                    <p>Consigue el ADN del kekkei genkai que quieres obtener.</p>
+                </div>
+                <div class="adn-step">
+                    <div class="adn-icon"><i class="fa-solid fa-syringe"></i></div>
+                    <span class="n">2</span>
+                    <h3>Ten una jeringa vacía</h3>
+                    <p>Necesitas una jeringa vacía en tu inventario para cargar el ADN.</p>
+                </div>
+                <div class="adn-step">
+                    <div class="adn-icon"><i class="fa-solid fa-computer-mouse"></i></div>
+                    <span class="n">3</span>
+                    <h3>Inyéctatelo</h3>
+                    <p>Con la jeringa en la mano, mantén Shift y haz clic derecho para inyectarte el ADN.</p>
+                    <div class="adn-keys"><kbd class="nx-key">Shift</kbd> + <kbd class="nx-key">Clic derecho</kbd></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GRUPOS (generados por script) -->
+    <div id="kgGroups"></div>
+
+    <!-- ÁRBOL -->
+    <section class="nx-section" id="arbol">
+        <h2>Árbol de naturalezas</h2>
+        <p class="nx-lead">Así se ve en el juego. Cada kekkei genkai está conectado a las naturalezas que lo forman.</p>
+        <figure class="tree-fig lg">
+            <img src="img/arbol.png" alt="Árbol de naturalezas del mod NYDo con las cinco naturalezas básicas, Yin y los kekkei genkai conectados" loading="lazy">
+            <figcaption>Despertada, disponible o bloqueada: el color del borde indica en qué estado está cada naturaleza.</figcaption>
+        </figure>
+    </section>
+
+    <footer class="nx-footer">
+        <a href="index.html" class="brand-name">NYDo</a>
+        <p>Wiki no oficial del mod de Naruto para Minecraft.</p>
+        <a href="#inicio">Volver al inicio ↑</a>
+    </footer>
+</main>
+
+<!-- DETALLE -->
+<dialog class="kg-dialog" id="kgDialog" aria-labelledby="kgDlgTitle">
+    <button type="button" class="kg-close" id="kgDlgClose" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+    <div id="kgDlgStage"></div>
+    <div class="kg-dialog-body">
+        <h2 id="kgDlgTitle"></h2>
+        <p class="kg-formula" id="kgDlgFormula"></p>
+        <p class="kg-desc" id="kgDlgDesc"></p>
+        <div id="kgDlgAviso"></div>
+        <div class="kg-techs" id="kgDlgTechs"></div>
+    </div>
+</dialog>
+
+<!-- MINI VENTANA DE VIDEO -->
+<dialog class="vid-dialog" id="vidDialog" aria-labelledby="vidTitle">
+    <button type="button" class="kg-close" id="vidClose" aria-label="Cerrar video"><i class="fa-solid fa-xmark"></i></button>
+    <div class="vid-head"><h3 id="vidTitle"></h3><span id="vidJp"></span></div>
+    <div class="vid-wrap" id="vidWrap">
+        <video id="vidPlayer" controls loop playsinline preload="none"></video>
+        <div class="vid-msg">No se pudo cargar el video. Revisa que el archivo exista en la carpeta vid/.</div>
+    </div>
+    <p class="vid-desc" id="vidDesc"></p>
+</dialog>
+
+<script src="script.js" defer></script>
+<script src="busqueda.js" defer></script>
+<script>
+(() => {
+    /* ============================================================
+       DATOS
+       Para añadir un kekkei genkai agrega un objeto a KG.
+       combo: claves de ELEM (2 = fusión, 3 = Kekkei Tōta).
+       jutsus: { nombre, jp, desc, video }  (videos en la carpeta vid/)
+       ============================================================ */
+    const ELEM = {
+        fuego:  { n: "Fuego",  k: "火", c: "#ff4d3d" },
+        agua:   { n: "Agua",   k: "水", c: "#4f9dff" },
+        viento: { n: "Viento", k: "風", c: "#4fe3b0" },
+        tierra: { n: "Tierra", k: "土", c: "#d98a4a" },
+        rayo:   { n: "Rayo",   k: "雷", c: "#ffd23f" },
+        yin:    { n: "Yin",    k: "陰", c: "#b8a6e0" }
+    };
+
+    const J = {
+ "mokuton": [
+  {
+   "nombre": "Sepultura de Madera",
+   "jp": "Técnica NYDo",
+   "desc": "Estructura de madera que aprisiona y entierra al objetivo bajo troncos.",
+   "video": "vid/sepulturama.mp4"
+  },
+  {
+   "nombre": "Prisión de Cuatro Pilares",
+   "jp": "Mokuton: Shichūrō no Jutsu",
+   "desc": "Cuatro pilares de madera surgen del suelo y forman una celda que encierra al objetivo.",
+   "video": "vid/prisionma.mp4"
+  },
+  {
+   "nombre": "Casa de Cuatro Pilares",
+   "jp": "Técnica NYDo",
+   "desc": "Levanta una casa de madera a partir de cuatro pilares, útil como refugio.",
+   "video": "vid/madera-casa.mp4"
+  },
+  {
+   "nombre": "Jutsu del Gran Bosque",
+   "jp": "Mokuton: Jukai Kōtan",
+   "desc": "Hace crecer un bosque entero de árboles a partir del chakra del usuario, cubriendo una zona amplia.",
+   "video": "vid/jutsugranbos.mp4"
+  },
+  {
+   "nombre": "Golem de Madera",
+   "jp": "Técnica NYDo",
+   "desc": "Da forma a un gigante de madera que combate al lado del usuario.",
+   "video": "vid/golemma.mp4"
+  }
+ ],
+ "jiton": [
+  {
+   "nombre": "Ráfaga de Balas de Arena",
+   "jp": "Técnica NYDo",
+   "desc": "Dispara una ráfaga de proyectiles de arena comprimida contra los enemigos.",
+   "video": "vid/balasIman.mp4"
+  },
+  {
+   "nombre": "Escudo de Arena",
+   "jp": "Suna no Tate",
+   "desc": "La arena se interpone y forma una barrera que protege al usuario de los ataques.",
+   "video": "vid/escudoIman.mp4"
+  },
+  {
+   "nombre": "Atadura de Arena",
+   "jp": "Técnica NYDo",
+   "desc": "La arena envuelve al objetivo y lo inmoviliza.",
+   "video": "vid/ataduraIman.mp4"
+  },
+  {
+   "nombre": "Reunión de Arena",
+   "jp": "Técnica NYDo",
+   "desc": "Concentra la arena dispersa alrededor del usuario para dejarla lista para usar.",
+   "video": "vid/reunionIman.mp4"
+  },
+  {
+   "nombre": "Levitación de Arena",
+   "jp": "Técnica NYDo",
+   "desc": "El usuario se eleva sobre una plataforma de arena y se desplaza por el aire.",
+   "video": "vid/levitacionIman.mp4"
+  }
+ ],
+ "jiton_aviso": "Cuando obtienes el elemento Imán, te dan una calabaza. Debes equiparla primero para poder manejar la arena.",
+ "bakuton": [
+  {
+   "nombre": "Golondrinas de ruptura",
+   "jp": "Técnica NYDo",
+   "desc": "Lanza una carga de chakra comprimido que detona al impactar.",
+   "video": "vid/C1.mp4"
+  },
+  {
+   "nombre": "Clon Explosivo",
+   "jp": "Técnica NYDo",
+   "desc": "Un clon que estalla al ser tocado, dañando a todo lo que esté cerca.",
+   "video": "vid/clonEsplo.mp4"
+  },
+  {
+   "nombre": "Soberano Descendente",
+   "jp": "Técnica NYDo",
+   "desc": "Un clon que estalla al ser tocado, dañando a todo lo que esté cerca.",
+   "video": "vid/C3.mp4"
+  },
+  {
+   "nombre": "C1 Nido Arañas",
+   "jp": "Técnica NYDo",
+   "desc": "Un clon que estalla al ser tocado, dañando a todo lo que esté cerca.",
+   "video": "vid/C1araña.mp4"
+  },
+  {
+   "nombre": "C4 Karura-Floracion hueca",
+   "jp": "Técnica NYDo",
+   "desc": "Un clon que estalla al ser tocado, dañando a todo lo que esté cerca.",
+   "video": "vid/C4.mp4"
+  },
+  {
+   "nombre": "Dragon de doble Forma",
+   "jp": "Técnica NYDo",
+   "desc": "Libera una detonación en el cuerpo del usuario que empuja y daña a los enemigos cercanos.",
+   "video": "vid/C2.mp4"
+  }
+ ],
+ "yoton": [
+  {
+   "nombre": "camino de Lava",
+   "jp": "Técnica NYDo",
+   "desc": "Dispara una masa de lava que quema y funde al impactar.",
+   "video": "vid/calceIgneo.mp4"
+  },
+  {
+   "nombre": "Muro de Lava",
+   "jp": "Técnica NYDo",
+   "desc": "Levanta una pared de roca fundida que bloquea el paso y quema al contacto.",
+   "video": "vid/diquebasaltico.mp4"
+  },
+  {
+   "nombre": "forja de escoria",
+   "jp": "Técnica NYDo",
+   "desc": "No disponible.",
+   "video": "vid/forgeescoria.mp4"
+  },
+  {
+   "nombre": "Fractura Volcanica",
+   "jp": "Técnica NYDo",
+   "desc": "Hace Fracturar tu lava.",
+   "video": "vid/fracturavolcanica.mp4"
+  }
+ ],
+ "garasuton": [
+  {
+   "nombre": "Lanza de Vidrio",
+   "jp": "Técnica NYDo",
+   "desc": "Forma una lanza de vidrio afilado y la dispara contra el objetivo.",
+   "video": "vid/rayodivinoVi.mp4"
+  },
+  {
+   "nombre": "Escudo de Vidrio",
+   "jp": "Técnica NYDo",
+   "desc": "Levanta una barrera de vidrio que detiene los ataques del enemigo.",
+   "video": "vid/escudoVidrio.mp4"
+  },
+  {
+   "nombre": "Prision de Vidrio",
+   "jp": "Técnica NYDo",
+   "desc": "Levanta una barrera de vidrio que detiene los ataques del enemigo.",
+   "video": "vid/prisionVi.mp4"
+  },
+  {
+   "nombre": "Lluvia de Cristales",
+   "jp": "Técnica NYDo",
+   "desc": "Hace caer una lluvia de esquirlas de vidrio sobre una zona amplia.",
+   "video": "vid/caminodivinoVi.mp4"
+  }
+ ],
+ "joton": [
+  {
+   "nombre": "Nube de Vapor",
+   "jp": "Técnica NYDo",
+   "desc": "Libera una densa nube de vapor que oculta al usuario y quema a quien la cruce.",
+   "video": "vid/nieblaCoro.mp4"
+  },
+  {
+   "nombre": "Explosión de Vapor",
+   "jp": "Técnica NYDo",
+   "desc": "Expulsa una ráfaga de vapor a presión que empuja y daña a los enemigos.",
+   "video": "vid/descargaPre.mp4"
+  },
+  {
+   "nombre": "Fuerza Imparable",
+   "jp": "Técnica NYDo",
+   "desc": "Concentra el vapor en un chorro fino y letal que atraviesa al objetivo.",
+   "video": "vid/fuerzasinrival.mp4"
+  }
+ ]
+};
+
+    const KG = [
+        { id: "bakuton",  k: "爆", nombre: "Bakuton",  es: "Elemento Explosivo",   tipo: "elemental", combo: ["tierra","rayo"],  color: "#ffb347",
+          desc: "Permite crear arcilla explosiva, esculturas, arañas, aves y dragones explosivos.", jutsus: J.bakuton },
+        { id: "futton",   k: "沸", nombre: "Futton",   es: "Elemento Vapor",       tipo: "elemental", combo: ["fuego","agua"],   color: "#bfe3ff",
+          desc: "Produce vapor, niebla corrosiva y ataques de presión.", jutsus: J.joton },
+        { id: "hyoton",   k: "氷", nombre: "Hyōton",   es: "Elemento Hielo",       tipo: "elemental", combo: ["agua","viento"],  color: "#8ad4ff",
+          desc: "Permite crear hielo, estructuras y proyectiles congelados.", jutsus: [] },
+        { id: "jiton",    k: "磁", nombre: "Jiton",    es: "Elemento Imán",        tipo: "elemental", combo: ["viento","tierra"], color: "#e7b66d",
+          desc: "Manipulación magnética y control de arena de hierro.", aviso: J.jiton_aviso, jutsus: J.jiton },
+        { id: "koton",    k: "鋼", nombre: "Kōton",    es: "Elemento Acero",       tipo: "elemental", combo: ["fuego","tierra"], color: "#9fb0c4",
+          desc: "Endurecimiento corporal, armadura, cuchillas y proyectiles metálicos.", jutsus: [] },
+        { id: "meiton",   k: "冥", nombre: "Meiton",   es: "Elemento Oscuridad",   tipo: "elemental", combo: ["agua","yin"],     color: "#9b4dff",
+          desc: "Absorbe chakra de ataques enemigos y permite devolverlo mediante energía oscura.", jutsus: [] },
+        { id: "mokuton",  k: "木", nombre: "Mokuton",  es: "Elemento Madera",      tipo: "elemental", combo: ["agua","tierra"],  color: "#5fcf7a",
+          desc: "Crea madera, raíces, construcciones y técnicas de inmovilización.", jutsus: J.mokuton },
+        { id: "ranton",   k: "嵐", nombre: "Ranton",   es: "Elemento Tormenta",    tipo: "elemental", combo: ["agua","rayo"],    color: "#b79cff",
+          desc: "Produce ataques de energía eléctrica dirigidos y haces de luz.", jutsus: [] },
+        { id: "shakuton", k: "灼", nombre: "Shakuton", es: "Elemento Calcinación", tipo: "elemental", combo: ["fuego","viento"], color: "#ff5240",
+          desc: "Crea pequeños soles que acumulan calor y desecan al enemigo.", jutsus: [] },
+        { id: "shoton",   k: "晶", nombre: "Shōton",   es: "Elemento Cristal",     tipo: "elemental", combo: ["rayo","viento"],  color: "#8ff0e0",
+          desc: "Convierte materia en cristales y permite crear estructuras cristalinas.", jutsus: J.garasuton },
+        { id: "yoton",    k: "熔", nombre: "Yōton",    es: "Elemento Lava",        tipo: "elemental", combo: ["fuego","tierra"], color: "#ff7a38",
+          desc: "Manipula lava y roca fundida para atacar y controlar el terreno.", jutsus: J.yoton },
+        { id: "jinton",   k: "塵", nombre: "Jinton",   es: "Elemento Polvo",       tipo: "tota",      combo: ["fuego","tierra","viento"], color: "#d6c7ff",
+          desc: "Permite desintegrar la materia mediante técnicas de partículas. Es una combinación superior al kekkei genkai normal.", jutsus: [] },
+        { id: "shikotsumyaku", k: "骨", nombre: "Shikotsumyaku", es: "Pulso de Huesos", tipo: "hereditario", combo: [], color: "#f1ece0",
+          desc: "Poder hereditario del clan Kaguya. A diferencia de los kekkei genkai elementales, es un poder corporal y no nace de combinar naturalezas.",
+          puntos: ["Manipulación de los huesos", "Creación de armas óseas", "Extracción de huesos para combatir", "Técnicas defensivas y ofensivas"], jutsus: [] }
+    ];
+
+    const GRUPOS = [
+        { tipo: "elemental",   titulo: "Kekkei genkai elementales", lead: "Nacen de unir dos naturalezas. Mira cuáles chocan para formar cada uno." },
+        { tipo: "tota",        titulo: "Kekkei Tōta", lead: "Unen tres naturalezas: una combinación superior al kekkei genkai normal." },
+        { tipo: "hereditario", titulo: "Poder hereditario", lead: "No se forma con elementos: se hereda por clan." }
+    ];
+
+    /* ============================================================
+       UTILIDADES
+       ============================================================ */
+    const $ = (s, r = document) => r.querySelector(s);
+    function el(tag, cls, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+    const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    function formulaHTML(kg) {
+        if (!kg.combo.length) return `<span class="el-pill" style="--ec:${kg.color}"><i>血</i>Hereditario</span>`;
+        return kg.combo.map((id) => {
+            const e = ELEM[id];
+            return `<span class="el-pill" style="--ec:${e.c}"><i>${e.k}</i>${e.n}</span>`;
+        }).join('<span class="op">+</span>');
+    }
+
+    /* Escenario animado: las naturalezas llegan, chocan y nace el kekkei genkai */
+    function stageHTML(kg) {
+        if (kg.tipo === "hereditario") {
+            const huesos = [[-70,-14,60,.0],[-44,-8,84,.15],[-18,-3,104,.3],[10,4,92,.45],[38,9,76,.6],[64,15,56,.75]]
+                .map(([x,a,h,d]) => `<span class="bone" style="--x:${x}px;--a:${a}deg;--h:${h}px;--d:${d}s"></span>`).join("");
+            return `<div class="stage bones" style="--kg:${kg.color}">${huesos}<div class="result">${kg.k}</div></div>`;
+        }
+        const tres = kg.combo.length === 3;
+        const clases = ["a", "b", "c"];
+        const orbes = kg.combo.map((id, i) => `<div class="orb ${clases[i]}" style="--ec:${ELEM[id].c}">${ELEM[id].k}</div>`).join("");
+        const chispas = Array.from({ length: 6 }, (_, i) => `<span class="spark" style="--r:${i * 60}deg;--len:${54 + (i % 3) * 14}px"></span>`).join("");
+        const nombres = kg.combo.map((id) => ELEM[id].n).join(" + ");
+        return `<div class="stage${tres ? " three" : ""}" style="--kg:${kg.color}">
+            ${orbes}
+            <div class="flash"></div><div class="ring"></div><div class="ring r2"></div>
+            ${chispas}
+            <div class="result">${kg.k}</div>
+            <div class="tag">${nombres}</div>
+            <div class="tag res">${esc(kg.nombre)}</div>
+        </div>`;
+    }
+
+    /* Anima solo lo que está en pantalla */
+    const io = "IntersectionObserver" in window
+        ? new IntersectionObserver((list) => list.forEach((en) => en.target.classList.toggle("on", en.isIntersecting)), { threshold: 0.2 })
+        : null;
+    function vigilar(raiz) { raiz.querySelectorAll(".stage").forEach((s) => (io ? io.observe(s) : s.classList.add("on"))); }
+
+    /* ============================================================
+       FILTROS
+       ============================================================ */
+    const filtro = { tipo: "todos", elem: null };
+    const barra = $("#kgFilters");
+
+    function chip(txt, attrs, color, kanji) {
+        const b = el("button", "kg-chip", (kanji ? `<span class="k">${kanji}</span>` : "") + esc(txt));
+        b.type = "button";
+        b.setAttribute("aria-pressed", "false");
+        if (color) b.style.setProperty("--c", color);
+        Object.entries(attrs).forEach(([k, v]) => (b.dataset[k] = v));
+        barra.appendChild(b);
+        return b;
+    }
+    chip("Todos", { tipo: "todos" }).setAttribute("aria-pressed", "true");
+    chip("Elementales", { tipo: "elemental" });
+    chip("Kekkei Tōta", { tipo: "tota" });
+    chip("Hereditario", { tipo: "hereditario" });
+    barra.appendChild(el("span", "kg-filter-sep"));
+    Object.entries(ELEM).forEach(([id, e]) => chip(e.n, { elem: id }, e.c, e.k));
+
+    barra.addEventListener("click", (ev) => {
+        const b = ev.target.closest(".kg-chip");
+        if (!b) return;
+        if (b.dataset.tipo) filtro.tipo = b.dataset.tipo;
+        if (b.dataset.elem) filtro.elem = filtro.elem === b.dataset.elem ? null : b.dataset.elem;
+        barra.querySelectorAll(".kg-chip").forEach((c) => {
+            const on = c.dataset.tipo ? c.dataset.tipo === filtro.tipo : c.dataset.elem === filtro.elem;
+            c.setAttribute("aria-pressed", String(on));
+        });
+        aplicarFiltro();
+    });
+
+    function aplicarFiltro() {
+        document.querySelectorAll(".kg-group").forEach((g) => {
+            let visibles = 0;
+            g.querySelectorAll(".kg-card").forEach((c) => {
+                const kg = KG.find((x) => x.id === c.dataset.id);
+                const okTipo = filtro.tipo === "todos" || kg.tipo === filtro.tipo;
+                const okElem = !filtro.elem || kg.combo.includes(filtro.elem);
+                c.hidden = !(okTipo && okElem);
+                if (!c.hidden) visibles++;
+            });
+            g.hidden = visibles === 0;
+        });
+    }
+
+    /* ============================================================
+       TARJETAS
+       ============================================================ */
+    const cont = $("#kgGroups");
+    GRUPOS.forEach((g) => {
+        const lista = KG.filter((k) => k.tipo === g.tipo);
+        const sec = el("section", "nx-section kg-group");
+        sec.id = "g-" + g.tipo;
+        sec.innerHTML = `<h2>${g.titulo}</h2><p class="nx-lead">${g.lead}</p>`;
+        const grid = el("div", "kg-grid" + (g.tipo === "hereditario" ? " wide" : ""));
+        lista.forEach((kg) => {
+            const card = el("button", "kg-card" + (kg.tipo === "hereditario" ? " hereditary" : ""));
+            card.type = "button";
+            card.dataset.id = kg.id;
+            card.id = kg.id;
+            card.style.setProperty("--kg", kg.color);
+            card.setAttribute("aria-label", `${kg.nombre}, ${kg.es}. Ver detalles`);
+            const badge = kg.tipo === "tota" ? `<span class="kg-badge">Kekkei Tōta</span>` : kg.tipo === "hereditario" ? `<span class="kg-badge">Clan Kaguya</span>` : "";
+            const puntos = kg.puntos ? `<ul class="kg-bullets">${kg.puntos.map((p) => `<li>${esc(p)}</li>`).join("")}</ul>` : "";
+            card.innerHTML = `${stageHTML(kg)}
+                <div class="kg-body">
+                    <div class="kg-name"><h3>${esc(kg.nombre)}</h3><small>${esc(kg.es)}</small></div>
+                    ${badge}
+                    ${kg.combo.length ? `<div class="kg-formula">${formulaHTML(kg)}</div>` : ""}
+                    <p class="kg-desc">${esc(kg.desc)}</p>
+                    ${puntos}
+                    <span class="kg-more">${kg.jutsus.length ? `Ver ${kg.jutsus.length} técnicas` : "Ver detalles"} <i class="fa-solid fa-arrow-right"></i></span>
+                </div>`;
+            card.addEventListener("click", () => abrir(kg.id, card));
+            grid.appendChild(card);
+        });
+        sec.appendChild(grid);
+        cont.appendChild(sec);
+    });
+    vigilar(cont);
+
+    /* ============================================================
+       DETALLE (con videos que se cargan solo al abrir)
+       ============================================================ */
+    const dlg = $("#kgDialog");
+    let origen = null;
+
+    /* Mini ventana de video: el archivo solo se descarga al pulsar "Ver video" */
+    const vdlg = $("#vidDialog"), vwrap = $("#vidWrap"), vplayer = $("#vidPlayer");
+
+    function verVideo(j, color) {
+        vdlg.style.setProperty("--kg", color);
+        $("#vidTitle").textContent = j.nombre;
+        $("#vidJp").textContent = j.jp || "";
+        $("#vidDesc").textContent = j.desc || "";
+        vwrap.classList.remove("error");
+        vplayer.onerror = () => vwrap.classList.add("error");
+        vplayer.src = j.video;
+        if (!vdlg.open) vdlg.showModal();
+        const p = vplayer.play();
+        if (p && p.catch) p.catch(() => {});
+    }
+    function cerrarVideo() { vdlg.close(); }
+    vdlg.addEventListener("close", () => {
+        vplayer.pause();
+        vplayer.onerror = null;
+        vplayer.removeAttribute("src");
+        vplayer.load();
+    });
+    $("#vidClose").addEventListener("click", cerrarVideo);
+    vdlg.addEventListener("click", (e) => { if (e.target === vdlg) cerrarVideo(); });
+
+    function abrir(id, desdeEl) {
+        const kg = KG.find((k) => k.id === id);
+        if (!kg) return;
+        origen = desdeEl || null;
+        dlg.style.setProperty("--kg", kg.color);
+        $("#kgDlgStage").innerHTML = stageHTML(kg);
+        $("#kgDlgTitle").innerHTML = `${esc(kg.nombre)}<small>${esc(kg.es)}</small>`;
+        const f = $("#kgDlgFormula");
+        f.innerHTML = kg.combo.length ? formulaHTML(kg) : "";
+        f.hidden = !kg.combo.length;
+        $("#kgDlgDesc").textContent = kg.desc;
+        $("#kgDlgAviso").innerHTML = kg.aviso ? `<div class="kg-aviso"><i class="fa-solid fa-circle-info"></i><span>${esc(kg.aviso)}</span></div>` : "";
+
+        const t = $("#kgDlgTechs");
+        t.innerHTML = "";
+        if (kg.jutsus.length) {
+            t.appendChild(el("h3", "", "Técnicas"));
+            kg.jutsus.forEach((j) => {
+                const row = el("div", "kg-tech");
+                row.innerHTML = `<div><h4>${esc(j.nombre)}</h4><span class="jp">${esc(j.jp || "")}</span><p>${esc(j.desc || "")}</p></div>
+                    <button type="button" class="vid-btn" aria-label="Ver video de ${esc(j.nombre)}"><i class="fa-solid fa-play"></i> Ver video</button>`;
+                row.querySelector(".vid-btn").addEventListener("click", () => verVideo(j, kg.color));
+                t.appendChild(row);
+            });
+        } else {
+            t.appendChild(el("div", "kg-empty", kg.tipo === "hereditario" ? "Las técnicas de este poder todavía no están registradas." : "Todavía no hay técnicas registradas para este kekkei genkai."));
+        }
+        if (!dlg.open) dlg.showModal();
+        dlg.scrollTop = 0;
+        vigilar(dlg);
+        dlg.querySelectorAll(".stage").forEach((s) => s.classList.add("on"));
+        history.replaceState(null, "", "#" + id);
+    }
+
+    function cerrar() { dlg.close(); }
+    dlg.addEventListener("close", () => {
+        if (vdlg.open) vdlg.close();
+        history.replaceState(null, "", location.pathname + location.search);
+        if (origen) origen.focus();
+    });
+    $("#kgDlgClose").addEventListener("click", cerrar);
+    dlg.addEventListener("click", (e) => { if (e.target === dlg) cerrar(); });   /* clic fuera */
+
+    /* Abre directo si llegas desde jutsus.html#mokuton */
+    function porHash() {
+        const id = location.hash.slice(1);
+        if (id && KG.some((k) => k.id === id)) abrir(id, document.getElementById(id));
+    }
+    porHash();
+    window.addEventListener("hashchange", porHash);
+})();
+</script>
+<script src="translate.js"></script>
+<script src="mobile-nav.js"></script>
+</body>
+</html>

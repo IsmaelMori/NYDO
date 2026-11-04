@@ -1,0 +1,246 @@
+/* =====================================================
+   KEKKEI.CSS — página de Kekkei Genkai
+   Versión ligera: sin desenfoques de fondo (backdrop-filter),
+   animaciones solo con transform/opacity y pausadas fuera de pantalla.
+===================================================== */
+
+/* ---------- FILTROS ---------- */
+.kg-filters { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 26px; }
+.kg-chip {
+    display: inline-flex; align-items: center; gap: 7px; padding: 8px 15px;
+    border-radius: 50px; font-size: 12px; font-weight: 600; color: #cbd5e1;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14);
+    transition: background .2s, border-color .2s, color .2s;
+}
+.kg-chip:hover { background: rgba(255,255,255,.1); }
+.kg-chip[aria-pressed="true"] { color: #fff; background: rgba(255,255,255,.16); border-color: var(--c, rgba(255,255,255,.5)); }
+.kg-chip .k { font-size: 14px; color: var(--c, #fff); }
+.kg-filter-sep { width: 1px; background: rgba(255,255,255,.14); margin: 4px 6px; }
+
+/* ---------- GUÍA DE ADN ---------- */
+.adn-box { padding: 28px; }
+.adn-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; }
+.adn-step { padding: 18px; border-radius: 18px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); }
+.adn-step .n { display: grid; place-items: center; width: 30px; height: 30px; margin-bottom: 12px; border-radius: 50%; font-weight: 800; font-size: 13px; color: #fff; background: linear-gradient(135deg, #ff263f, #b90c25); }
+.adn-step h3 { font-size: 15px; margin-bottom: 6px; }
+.adn-step p { font-size: 12.5px; line-height: 1.65; color: #aeb7c8; }
+.adn-keys { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 12px; color: #aeb7c8; }
+.adn-icon { font-size: 22px; margin-bottom: 10px; color: #ff6375; }
+
+/* ---------- GRUPOS Y TARJETAS ---------- */
+.kg-group[hidden], .kg-card[hidden] { display: none; }
+.kg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 18px; }
+.kg-grid.wide { grid-template-columns: 1fr; }
+
+.kg-card {
+    --kg: #fff;
+    display: flex; flex-direction: column; overflow: hidden; text-align: left;
+    padding: 0; color: inherit; border-radius: 22px;
+    background: radial-gradient(90% 60% at 50% 0%, color-mix(in srgb, var(--kg) 18%, transparent), transparent 70%), #121722;
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 10px 28px rgba(0,0,0,.3);
+    transition: transform .2s ease, border-color .2s ease;
+}
+.kg-card:hover, .kg-card:focus-visible { transform: translateY(-3px); border-color: var(--kg); outline: 0; }
+.kg-body { padding: 4px 20px 20px; }
+.kg-name { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.kg-name h3 { font-size: 21px; }
+.kg-name small { color: var(--kg); font-size: 12px; font-weight: 700; }
+.kg-badge { display: inline-block; margin-top: 6px; padding: 3px 10px; border-radius: 50px; font-size: 10.5px; font-weight: 700; color: var(--kg); border: 1px solid var(--kg); }
+.kg-formula { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 12px 0 10px; font-size: 11.5px; color: #aeb7c8; }
+.kg-formula .op { color: #7f8aa0; font-weight: 700; }
+.el-pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px 3px 3px; border-radius: 50px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); font-weight: 600; color: #e9edf6; }
+.el-pill i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; font-style: normal; font-size: 12px; color: #10131c; background: var(--ec); }
+.kg-desc { font-size: 12.5px; line-height: 1.65; color: #b6bfd0; }
+.kg-more { display: inline-flex; align-items: center; gap: 7px; margin-top: 14px; font-size: 12px; font-weight: 700; color: var(--kg); }
+.kg-more i { transition: transform .2s; }
+.kg-card:hover .kg-more i { transform: translateX(4px); }
+
+/* Tarjeta hereditaria (ancha) */
+.kg-card.hereditary { flex-direction: row; align-items: stretch; }
+.kg-card.hereditary .stage { flex: 0 0 min(42%, 380px); height: auto; min-height: 220px; border-bottom: 0; border-right: 1px solid rgba(255,255,255,.08); }
+.kg-card.hereditary .kg-body { flex: 1; padding: 22px 24px; }
+.kg-bullets { margin: 12px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; }
+.kg-bullets li { font-size: 12.5px; color: #cdd4e2; padding: 8px 12px; border-radius: 12px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); }
+.kg-bullets li::before { content: "骨"; margin-right: 8px; color: var(--kg); font-size: 11px; }
+
+/* ====================================================
+   ESCENARIO DE LA FUSIÓN (solo transform y opacity)
+==================================================== */
+.stage {
+    --dur: 6s;
+    --dist: 90px; --dist: 29cqw;
+    position: relative; container-type: inline-size; height: 165px; overflow: hidden;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+    background: radial-gradient(60% 90% at 50% 50%, color-mix(in srgb, var(--kg) 12%, transparent), transparent 75%), rgba(0,0,0,.2);
+}
+.stage .orb, .stage .result, .stage .ring, .stage .flash, .stage .spark { position: absolute; left: 50%; top: 50%; pointer-events: none; }
+.stage .orb {
+    --sx: 0px; --sy: 0px;
+    width: 44px; height: 44px; display: grid; place-items: center;
+    border-radius: 50%; font-size: 21px; font-weight: 700; color: #11141d;
+    background: radial-gradient(circle at 35% 28%, rgba(255,255,255,.85), var(--ec) 55%);
+    box-shadow: 0 0 20px var(--ec);
+    opacity: 0; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy)));
+    animation: fuse var(--dur) cubic-bezier(.55,.05,.75,.4) infinite;
+}
+.stage .orb.a { --sx: calc(var(--dist) * -1); }
+.stage .orb.b { --sx: var(--dist); }
+.stage .orb.c { --sy: -58px; }
+.stage.three .orb.a { --sx: calc(var(--dist) * -.9); --sy: 34px; }
+.stage.three .orb.b { --sx: calc(var(--dist) * .9); --sy: 34px; }
+
+@keyframes fuse {
+    0%        { opacity: 0; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(.5); }
+    10%, 24%  { opacity: 1; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy))) scale(1); }
+    38%       { opacity: 1; transform: translate(calc(-50% + var(--sx) * .55), calc(-50% + var(--sy) * .55)) scale(1.04); }
+    46%       { opacity: 1; transform: translate(-50%, -50%) scale(.7); }
+    49%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.2); }
+}
+
+.stage .flash {
+    width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, var(--kg) 40%, transparent 70%);
+    opacity: 0; animation: flash var(--dur) ease-out infinite;
+}
+@keyframes flash { 0%, 44% { opacity: 0; transform: scale(.2); } 47% { opacity: 1; transform: scale(1.5); } 62%, 100% { opacity: 0; transform: scale(2.4); } }
+
+.stage .ring {
+    width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%;
+    border: 2px solid var(--kg); opacity: 0; animation: ring var(--dur) ease-out infinite;
+}
+.stage .ring.r2 { animation-delay: .22s; border-color: rgba(255,255,255,.7); }
+@keyframes ring { 0%, 45% { opacity: 0; transform: scale(.2); } 48% { opacity: .95; } 75%, 100% { opacity: 0; transform: scale(3.3); } }
+
+.stage .spark {
+    width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%;
+    background: var(--kg); opacity: 0; animation: spark var(--dur) ease-out infinite;
+}
+@keyframes spark {
+    0%, 45%   { opacity: 0; transform: rotate(var(--r)) translateX(0) scale(1); }
+    48%       { opacity: 1; }
+    72%, 100% { opacity: 0; transform: rotate(var(--r)) translateX(var(--len, 62px)) scale(.3); }
+}
+
+.stage .result {
+    width: 64px; height: 64px; display: grid; place-items: center;
+    border-radius: 22px; font-size: 32px; font-weight: 700; color: #fff;
+    background: radial-gradient(circle at 32% 25%, rgba(255,255,255,.5), color-mix(in srgb, var(--kg) 80%, black) 65%);
+    border: 1px solid rgba(255,255,255,.45);
+    box-shadow: 0 0 28px var(--kg);
+    text-shadow: 0 2px 6px rgba(0,0,0,.45);
+    opacity: 0; transform: translate(-50%, -50%) scale(0);
+    animation: born var(--dur) cubic-bezier(.2,.9,.3,1) infinite;
+}
+@keyframes born {
+    0%, 46%   { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+    54%       { opacity: 1; transform: translate(-50%, -50%) scale(1.25); }
+    60%, 90%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    97%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+}
+
+.stage .tag {
+    position: absolute; bottom: 10px; left: 0; right: 0; text-align: center;
+    font-size: 11px; font-weight: 700; color: #e9edf6; opacity: 0;
+    animation: tag var(--dur) ease infinite;
+}
+@keyframes tag { 0%, 4% { opacity: 0; } 12%, 40% { opacity: .85; } 48%, 100% { opacity: 0; } }
+.stage .tag.res { color: var(--kg); font-weight: 800; animation-name: tagres; }
+@keyframes tagres { 0%, 55% { opacity: 0; } 62%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
+
+/* Fuera de pantalla: pausado (lo activa el script) */
+.stage:not(.on) * { animation-play-state: paused !important; }
+
+/* ---------- Huesos (Shikotsumyaku) ---------- */
+.stage.bones .bone {
+    position: absolute; bottom: -4px; left: calc(50% + var(--x)); width: 12px; height: var(--h);
+    margin-left: -6px; transform-origin: bottom center; transform: rotate(var(--a)) scaleY(0);
+    background: linear-gradient(90deg, #cfc9bb, #fffdf4 45%, #cfc9bb);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    animation: grow 4.5s cubic-bezier(.2,.9,.3,1.2) infinite; animation-delay: var(--d);
+}
+@keyframes grow { 0%, 8% { transform: rotate(var(--a)) scaleY(0); } 22%, 72% { transform: rotate(var(--a)) scaleY(1); } 90%, 100% { transform: rotate(var(--a)) scaleY(0); } }
+.stage.bones .result { animation: none; opacity: 1; transform: translate(-50%, -62%) scale(1); top: 42%; }
+
+/* ====================================================
+   VENTANAS (centradas)
+   Se fuerza position/inset/margin porque el reset global del sitio
+   suele quitar el margin:auto que centra un <dialog>.
+==================================================== */
+.kg-dialog, .vid-dialog {
+    --kg: #fff;
+    position: fixed; inset: 0; margin: auto; padding: 0;
+    color: #f4f5fa; background: #0e121c;
+    border: 1px solid rgba(255,255,255,.2);
+    overscroll-behavior: contain;
+}
+.kg-dialog::backdrop, .vid-dialog::backdrop { background: rgba(4,6,12,.75); }
+.kg-dialog[open], .vid-dialog[open] { animation: pop .2s ease-out; }
+@keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.97); } }
+body:has(dialog[open]) { overflow: hidden; }
+
+/* Detalle del kekkei genkai */
+.kg-dialog {
+    width: min(880px, calc(100vw - 24px)); height: fit-content; max-height: calc(100vh - 28px); max-height: calc(100dvh - 28px);
+    overflow: auto; border-radius: 26px;
+    background: radial-gradient(80% 40% at 50% 0%, color-mix(in srgb, var(--kg) 18%, transparent), transparent 70%), #0e121c;
+    box-shadow: 0 24px 70px rgba(0,0,0,.6);
+}
+.kg-dialog .stage { height: 200px; }
+.kg-dialog .stage .result { width: 78px; height: 78px; font-size: 40px; }
+.kg-dialog-body { padding: 22px 28px 28px; }
+.kg-dialog-body h2 { font-size: 28px; }
+.kg-dialog-body h2 small { margin-left: 10px; font-size: 14px; color: var(--kg); }
+.kg-close { position: absolute; top: 14px; right: 14px; z-index: 5; display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: rgba(20,24,36,.85); color: #fff; cursor: pointer; }
+.kg-close:hover { background: rgba(60,66,84,.95); }
+.kg-aviso { display: flex; gap: 10px; margin: 14px 0 0; padding: 12px 14px; border-radius: 14px; font-size: 12.5px; line-height: 1.6; color: #f6e3b8; background: rgba(231,182,109,.12); border: 1px solid rgba(231,182,109,.35); }
+.kg-techs { margin-top: 22px; display: grid; gap: 12px; }
+.kg-techs h3 { font-size: 15px; }
+.kg-tech { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 16px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); }
+.kg-tech > div { min-width: 0; }
+.kg-tech h4 { font-size: 15px; margin-bottom: 2px; }
+.kg-tech .jp { display: block; font-size: 11px; color: var(--kg); font-weight: 700; margin-bottom: 8px; }
+.kg-tech p { font-size: 12.5px; line-height: 1.65; color: #b6bfd0; }
+.kg-empty { padding: 18px; text-align: center; font-size: 13px; color: #a5adbd; border-radius: 16px; border: 1px dashed rgba(255,255,255,.18); }
+.vid-btn { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 18px; font: inherit; font-size: 12.5px; font-weight: 700; color: #fff; cursor: pointer; border-radius: 999px; background: color-mix(in srgb, var(--kg) 20%, transparent); border: 1px solid var(--kg); transition: background .2s; }
+.vid-btn:hover, .vid-btn:focus-visible { outline: 0; background: color-mix(in srgb, var(--kg) 38%, transparent); }
+.vid-btn i { font-size: 11px; color: var(--kg); }
+
+/* Mini ventana de video */
+.vid-dialog {
+    width: min(560px, calc(100vw - 24px)); height: fit-content; overflow: hidden;
+    border-radius: 20px; border-color: var(--kg);
+    box-shadow: 0 24px 70px rgba(0,0,0,.7);
+}
+.vid-head { padding: 14px 60px 10px 18px; }
+.vid-head h3 { font-size: 16px; line-height: 1.3; }
+.vid-head span { display: block; margin-top: 2px; font-size: 11px; font-weight: 700; color: var(--kg); }
+.vid-wrap { position: relative; background: #000; }
+.vid-wrap video { display: block; width: 100%; max-height: 68vh; max-height: 68dvh; background: #000; }
+.vid-msg { position: absolute; inset: 0; display: none; place-items: center; padding: 16px; text-align: center; font-size: 13px; color: #dfe5f0; background: rgba(0,0,0,.75); }
+.vid-wrap.error .vid-msg { display: grid; }
+.vid-desc { padding: 12px 18px 16px; font-size: 12.5px; line-height: 1.65; color: #b6bfd0; }
+
+/* ---------- ÁRBOL DE NATURALEZAS ---------- */
+.tree-fig { margin: 0; padding: 14px; overflow: hidden; }
+.tree-fig img { display: block; width: 100%; height: auto; border-radius: 14px; }
+.tree-fig figcaption { padding: 12px 6px 2px; font-size: 12px; color: #a5adbd; line-height: 1.6; }
+
+/* ---------- MÓVIL ---------- */
+@media (max-width: 720px) {
+    .kg-card.hereditary { flex-direction: column; }
+    .kg-card.hereditary .stage { flex-basis: auto; min-height: 165px; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .kg-tech { flex-direction: column; align-items: stretch; }
+    .vid-btn { justify-content: center; min-height: 44px; }
+    .kg-dialog-body { padding: 18px 18px 22px; }
+    .adn-box { padding: 18px; }
+}
+
+/* ---------- MOVIMIENTO REDUCIDO ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .stage .orb, .stage .ring, .stage .flash, .stage .spark, .stage .tag:not(.res) { display: none; }
+    .stage .result { animation: none; opacity: 1; transform: translate(-50%, -50%); }
+    .stage .tag.res { animation: none; opacity: 1; }
+    .stage.bones .bone { animation: none; transform: rotate(var(--a)) scaleY(1); }
+    .kg-dialog[open], .vid-dialog[open], .kg-card, .kg-chip { animation: none; transition: none; }
+}

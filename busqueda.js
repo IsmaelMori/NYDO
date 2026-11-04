@@ -28,6 +28,7 @@
         { archivo: "bijus.html",    nombre: "Bijus" },
         { archivo: "descargas.html",    nombre: "Descarga" },
         { archivo: "Comandos.html",    nombre: "Comandos" },
+        { archivo: "Ubicaciones.html", nombre: "Ubicaciones" },
         // { archivo: "nueva-pagina.html", nombre: "Nueva página" },
     ];
 

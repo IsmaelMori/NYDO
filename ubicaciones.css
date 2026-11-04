@@ -1,0 +1,70 @@
+/* =====================================================
+   UBICACIONES.CSS — lugares y biomas del mod
+===================================================== */
+.ub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+
+.ub-card {
+    --ub: #e7b66d;
+    position: relative; display: flex; flex-direction: column; gap: 10px; padding: 22px; overflow: hidden;
+    border-radius: 26px; color: inherit;
+    background-color: rgba(255,255,255,.03);
+    background-image:
+        radial-gradient(90% 60% at 15% 0%, color-mix(in srgb, var(--ub) 22%, transparent), transparent 70%),
+        linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.012) 50%, rgba(255,255,255,.05));
+    border: 1px solid rgba(255,255,255,.15);
+    box-shadow: 0 18px 46px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.34), inset 0 -1px 0 rgba(255,255,255,.05);
+    -webkit-backdrop-filter: blur(22px) saturate(180%); backdrop-filter: blur(22px) saturate(180%);
+    transition: transform .25s ease, border-color .25s ease;
+}
+.ub-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--ub) 65%, transparent); }
+.ub-kanji {
+    display: grid; place-items: center; width: 58px; height: 58px; border-radius: 20px;
+    font-size: 30px; font-weight: 700; color: #fff;
+    background: radial-gradient(circle at 32% 25%, rgba(255,255,255,.5), color-mix(in srgb, var(--ub) 80%, black) 62%);
+    border: 1px solid rgba(255,255,255,.45);
+    box-shadow: 0 0 22px color-mix(in srgb, var(--ub) 55%, transparent), inset 0 2px 0 rgba(255,255,255,.5);
+    text-shadow: 0 2px 6px rgba(0,0,0,.45);
+}
+.ub-card h3 { font-size: 19px; letter-spacing: -.2px; }
+.ub-card p { font-size: 12.5px; line-height: 1.65; color: #b6bfd0; }
+.ub-bioma { margin-top: auto; padding-top: 6px; font-size: 11.5px; color: #aeb7c8; }
+.ub-bioma b { color: var(--ub); }
+
+/* Comando copiable */
+.cmd {
+    display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 8px 8px 14px;
+    border-radius: 14px; background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.12);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,.35);
+}
+.cmd code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; font: 600 12px/1.4 Consolas, "Courier New", monospace; color: #f6e3b8; scrollbar-width: none; }
+.cmd code::-webkit-scrollbar { display: none; }
+.cmd button {
+    flex-shrink: 0; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 10px;
+    font-size: 11.5px; font-weight: 700; color: #fff;
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+    transition: background .2s;
+}
+.cmd button:hover { background: rgba(255,255,255,.2); }
+.cmd button.ok { background: rgba(95,207,122,.25); border-color: rgba(95,207,122,.6); }
+
+/* Pasos */
+.ub-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; padding: 24px; }
+.ub-step { padding: 16px; border-radius: 18px; background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.1); box-shadow: inset 0 1px 0 rgba(255,255,255,.16); }
+.ub-step .n { display: grid; place-items: center; width: 28px; height: 28px; margin-bottom: 10px; border-radius: 50%; font-weight: 800; font-size: 12px; background: linear-gradient(135deg, #ff263f, #b90c25); box-shadow: 0 0 14px rgba(255,38,63,.45); }
+.ub-step h3 { font-size: 14px; margin-bottom: 5px; }
+.ub-step p { font-size: 12.5px; line-height: 1.6; color: #aeb7c8; }
+
+/* Tabla de biomas */
+.ub-table { padding: 8px; overflow: hidden; }
+.ub-row { display: grid; grid-template-columns: minmax(150px, 1fr) minmax(0, 2fr); gap: 14px; align-items: center; padding: 12px 14px; border-radius: 16px; }
+.ub-row + .ub-row { border-top: 1px solid rgba(255,255,255,.07); border-radius: 0 0 16px 16px; }
+.ub-row:hover { background: rgba(255,255,255,.04); }
+.ub-row .loc { display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700; }
+.ub-row .loc i { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 10px; font-style: normal; font-size: 15px; color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); }
+.ub-head { font-size: 11px; color: #8d98aa; font-weight: 700; padding: 10px 14px 6px; }
+
+@media (max-width: 700px) {
+    .ub-row { grid-template-columns: 1fr; gap: 8px; }
+    .ub-steps { padding: 16px; }
+}
