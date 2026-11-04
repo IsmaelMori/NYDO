@@ -18,6 +18,33 @@
     --spring: cubic-bezier(.34, 1.56, .64, 1);
 }
 
+/* ==========================================================
+   RENDIMIENTO DEL MENÚ LATERAL (hamburguesa)
+   El menú se abría con DOS desenfoques a pantalla completa
+   (la capa oscura y el propio panel) encima de una página que
+   ya tiene decenas de tarjetas de cristal. El navegador tenía que
+   volver a desenfocar todo en cada fotograma de la animación.
+   Aquí se sustituyen por fondos oscuros: se ve casi igual, pero
+   es mucho más ligero.
+========================================================== */
+.page-overlay {
+    background: rgba(0, 0, 0, .66);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    transition: opacity .25s ease, visibility .25s ease;
+}
+
+.sidebar {
+    background: linear-gradient(145deg, rgba(25, 20, 31, .96), rgba(8, 11, 19, .95));
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    will-change: transform;
+    contain: layout paint;
+}
+
+/* Evita el salto de la página al ocultar el scroll con el menú abierto */
+html { scrollbar-gutter: stable; }
+
 /* ---------- Escritorio: lo propio del dock no se ve ---------- */
 .nav-link.nav-search,
 .nav-link .t-short,
@@ -51,6 +78,7 @@
         overflow: visible;
         border-radius: 34px;
         z-index: 1100;
+        contain: none;
         transform: none;
         will-change: transform;
         animation: dockIn .8s var(--spring) backwards;

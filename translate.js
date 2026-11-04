@@ -261,8 +261,15 @@
         setTimeout(placeLang, 300);   // por si la hamburguesa se crea después
         setTimeout(placeLang, 1200);
         window.addEventListener('load', placeLang);
-        window.addEventListener('resize', placeLang);
-        window.addEventListener('scroll', placeLang, { passive: true });
+        // Una sola recolocación por fotograma (antes se ejecutaba en cada evento de scroll)
+        var pending = false;
+        function placeSoon() {
+            if (pending) return;
+            pending = true;
+            requestAnimationFrame(function () { pending = false; placeLang(); });
+        }
+        window.addEventListener('resize', placeSoon);
+        window.addEventListener('scroll', placeSoon, { passive: true });
 
         if (current !== PAGE_LANG) loadGoogle(); // en español no se carga nada extra
     }

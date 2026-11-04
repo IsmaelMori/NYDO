@@ -400,10 +400,24 @@
         return true;
     }
 
-    /* El sidebar se inyecta con data-include: esperamos a que aparezca */
-    if (!iniciar()) {
+    /* El sidebar se inyecta con data-include: esperamos a que aparezca.
+       En pantallas anchas el dock NO se activa (no se crea nada ni se
+       registra ningún observador), así el escritorio queda intacto. */
+    function arrancar() {
+        if (iniciar()) return;
         const obs = new MutationObserver(() => { if (iniciar()) obs.disconnect(); });
         obs.observe(document.documentElement, { childList: true, subtree: true });
         setTimeout(() => obs.disconnect(), 15000);
+    }
+
+    if (movil.matches) {
+        arrancar();
+    } else {
+        const alEstrechar = (e) => {
+            if (!e.matches) return;
+            movil.removeEventListener("change", alEstrechar);
+            arrancar();
+        };
+        movil.addEventListener("change", alEstrechar);
     }
 })();
