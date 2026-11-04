@@ -82,7 +82,7 @@
     background: radial-gradient(circle at 35% 28%, rgba(255,255,255,.85), var(--ec) 55%);
     box-shadow: 0 0 20px var(--ec);
     opacity: 0; transform: translate(calc(-50% + var(--sx)), calc(-50% + var(--sy)));
-    animation: fuse var(--dur) cubic-bezier(.55,.05,.75,.4) infinite;
+    animation: fuse var(--dur) cubic-bezier(.55,.05,.75,.4) 1 forwards;
 }
 .stage .orb.a { --sx: calc(var(--dist) * -1); }
 .stage .orb.b { --sx: var(--dist); }
@@ -101,20 +101,20 @@
 .stage .flash {
     width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%;
     background: radial-gradient(circle, #fff 0%, var(--kg) 40%, transparent 70%);
-    opacity: 0; animation: flash var(--dur) ease-out infinite;
+    opacity: 0; animation: flash var(--dur) ease-out 1 forwards;
 }
 @keyframes flash { 0%, 44% { opacity: 0; transform: scale(.2); } 47% { opacity: 1; transform: scale(1.5); } 62%, 100% { opacity: 0; transform: scale(2.4); } }
 
 .stage .ring {
     width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%;
-    border: 2px solid var(--kg); opacity: 0; animation: ring var(--dur) ease-out infinite;
+    border: 2px solid var(--kg); opacity: 0; animation: ring var(--dur) ease-out 1 forwards;
 }
 .stage .ring.r2 { animation-delay: .22s; border-color: rgba(255,255,255,.7); }
 @keyframes ring { 0%, 45% { opacity: 0; transform: scale(.2); } 48% { opacity: .95; } 75%, 100% { opacity: 0; transform: scale(3.3); } }
 
 .stage .spark {
     width: 5px; height: 5px; margin: -2.5px 0 0 -2.5px; border-radius: 50%;
-    background: var(--kg); opacity: 0; animation: spark var(--dur) ease-out infinite;
+    background: var(--kg); opacity: 0; animation: spark var(--dur) ease-out 1 forwards;
 }
 @keyframes spark {
     0%, 45%   { opacity: 0; transform: rotate(var(--r)) translateX(0) scale(1); }
@@ -130,23 +130,22 @@
     box-shadow: 0 0 28px var(--kg);
     text-shadow: 0 2px 6px rgba(0,0,0,.45);
     opacity: 0; transform: translate(-50%, -50%) scale(0);
-    animation: born var(--dur) cubic-bezier(.2,.9,.3,1) infinite;
+    animation: born var(--dur) cubic-bezier(.2,.9,.3,1) 1 forwards;
 }
 @keyframes born {
     0%, 46%   { opacity: 0; transform: translate(-50%, -50%) scale(0); }
     54%       { opacity: 1; transform: translate(-50%, -50%) scale(1.25); }
-    60%, 90%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-    97%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1); }
+    60%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
 .stage .tag {
     position: absolute; bottom: 10px; left: 0; right: 0; text-align: center;
     font-size: 11px; font-weight: 700; color: #e9edf6; opacity: 0;
-    animation: tag var(--dur) ease infinite;
+    animation: tag var(--dur) ease 1 forwards;
 }
 @keyframes tag { 0%, 4% { opacity: 0; } 12%, 40% { opacity: .85; } 48%, 100% { opacity: 0; } }
 .stage .tag.res { color: var(--kg); font-weight: 800; animation-name: tagres; }
-@keyframes tagres { 0%, 55% { opacity: 0; } 62%, 90% { opacity: 1; } 97%, 100% { opacity: 0; } }
+@keyframes tagres { 0%, 55% { opacity: 0; } 62%, 100% { opacity: 1; } }
 
 /* Fuera de pantalla: pausado (lo activa el script) */
 .stage:not(.on) * { animation-play-state: paused !important; }
