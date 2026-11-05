@@ -1,5 +1,6 @@
 /* =========================================================
    translate.js  -  Selector de idioma para NYDo Wiki
+   Posición: siempre abajo a la izquierda (PC y móvil)
    Idiomas: Español (original), English, Português, Français
    Usa el traductor de Google en segundo plano, pero con un
    selector propio que combina con el diseño de la wiki.
@@ -92,11 +93,12 @@
         }).join('\n');
 
         var css = [
-            '.nydo-lang{position:fixed;top:16px;right:16px;z-index:9999;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif}',
+            '.nydo-lang{position:fixed;left:max(16px,env(safe-area-inset-left,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));top:auto;right:auto;z-index:9999;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;transition:opacity .25s ease,transform .25s ease}',
+            '.nydo-lang.nydo-lang--away{opacity:0;pointer-events:none;transform:translateX(-14px)}',
             '.nydo-lang-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;border:1px solid rgba(255,138,31,.55);background:rgba(10,14,24,.92);color:#fff;font-size:13px;font-weight:800;letter-spacing:1px;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.45);transition:transform .2s ease,border-color .2s ease}',
             '.nydo-lang-btn:hover,.nydo-lang-btn:focus-visible{transform:translateY(-2px);border-color:#ff8a1f;outline:none}',
             '.nydo-lang-btn i{color:#ff8a1f;font-size:15px}',
-            '.nydo-lang-menu{position:absolute;right:0;top:calc(100% + 10px);min-width:170px;margin:0;padding:6px;list-style:none;border-radius:14px;border:1px solid rgba(255,138,31,.35);background:rgba(10,14,24,.97);box-shadow:0 14px 34px rgba(0,0,0,.55)}',
+            '.nydo-lang-menu{position:absolute;left:0;right:auto;top:auto;bottom:calc(100% + 10px);min-width:170px;margin:0;padding:6px;list-style:none;border-radius:14px;border:1px solid rgba(255,138,31,.35);background:rgba(10,14,24,.97);box-shadow:0 14px 34px rgba(0,0,0,.55)}',
             '.nydo-lang-menu[hidden]{display:none}',
             '.nydo-lang-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:0;border-radius:10px;background:transparent;color:#f4f5fa;font-size:14px;text-align:left;cursor:pointer}',
             '.nydo-lang-menu button:hover,.nydo-lang-menu button:focus-visible{background:rgba(255,138,31,.16);outline:none}',
@@ -205,47 +207,40 @@
         }, true);
     }
 
-    /* ---------- Colocar el botón junto a la hamburguesa ---------- */
-    function findBurger() {
-        var sels = [
-            '#menuBtn', '#menu-btn', '#hamburger', '#openBtn', '#menuToggle', '#sidebarToggle',
-            '.hamburger', '.menu-btn', '.menu-toggle', '.menu-button', '.open-btn', '.sidebar-toggle',
-            'button[aria-label*="brir"]', 'button[aria-label*="pen"]'
-        ];
-        for (var i = 0; i < sels.length; i++) {
-            var el = document.querySelector(sels[i]);
-            if (el && el.id !== 'closeBtn' && !el.closest('.sidebar-header, .sidebar, #sidebar')) {
-                var r = el.getBoundingClientRect();
-                if (r.width > 0) return el;
-            }
-        }
-        return null;
-    }
+    /* ---------- Posición fija: abajo a la izquierda ----------
+       En móvil, mobile-nav.css lo sube por encima del dock.
+       En PC, si el menú lateral se abre sobre esa esquina,
+       el botón se aparta mientras el menú está abierto. */
+    var sawClosed = false;
 
-    function placeLang() {
+    function syncSidebar() {
         var wrap = document.querySelector('.nydo-lang');
         if (!wrap) return;
-        // En móvil la posición (abajo a la izquierda) la maneja mobile-nav.css
-        if (window.matchMedia('(max-width: 768px)').matches) {
-            wrap.style.top = wrap.style.left = wrap.style.right = '';
-            return;
-        }
-        var burger = findBurger();
-        if (!burger) {
-            wrap.style.top = '16px';
-            wrap.style.right = '16px';
-            wrap.style.left = 'auto';
-            return;
-        }
+        var sb = document.getElementById('sidebar') || document.querySelector('.sidebar');
+        var away = false;
 
-        var r = burger.getBoundingClientRect();
-        var gap = 10, w = wrap.offsetWidth, h = wrap.offsetHeight;
-        wrap.style.top = (r.top + (r.height - h) / 2) + 'px';
+        if (sb && !window.matchMedia('(max-width: 768px)').matches) {
+            var r = sb.getBoundingClientRect();
+            var visible = r.width > 0 && r.right > 8 && r.left < window.innerWidth * 0.5;
+            if (!visible) sawClosed = true;       // el menú es desplegable
+            away = visible && sawClosed;          // si siempre está visible, no se oculta nada
+        }
+        wrap.classList.toggle('nydo-lang--away', away);
+    }
 
-        // A la derecha de la hamburguesa; si no cabe, a la izquierda
-        var left = (r.right + gap + w <= window.innerWidth - 8) ? r.right + gap : r.left - gap - w;
-        wrap.style.left = Math.max(8, left) + 'px';
-        wrap.style.right = 'auto';
+    function bindSidebarWatch() {
+        document.addEventListener('click', function () {
+            setTimeout(syncSidebar, 30);
+            setTimeout(syncSidebar, 380);
+        }, true);
+        document.addEventListener('transitionend', function (e) {
+            var t = e.target;
+            if (t && t.id === 'sidebar' || (t && t.classList && t.classList.contains('sidebar'))) syncSidebar();
+        }, true);
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') setTimeout(syncSidebar, 380);
+        });
+        window.addEventListener('resize', syncSidebar);
     }
 
     /* ---------- Inicio ---------- */
@@ -257,19 +252,11 @@
         markNoTranslate();
         buildUI(current);
 
-        placeLang();
-        setTimeout(placeLang, 300);   // por si la hamburguesa se crea después
-        setTimeout(placeLang, 1200);
-        window.addEventListener('load', placeLang);
-        // Una sola recolocación por fotograma (antes se ejecutaba en cada evento de scroll)
-        var pending = false;
-        function placeSoon() {
-            if (pending) return;
-            pending = true;
-            requestAnimationFrame(function () { pending = false; placeLang(); });
-        }
-        window.addEventListener('resize', placeSoon);
-        window.addEventListener('scroll', placeSoon, { passive: true });
+        bindSidebarWatch();
+        syncSidebar();
+        setTimeout(syncSidebar, 400);    // el sidebar se inyecta con fetch
+        setTimeout(syncSidebar, 1500);
+        window.addEventListener('load', syncSidebar);
 
         if (current !== PAGE_LANG) loadGoogle(); // en español no se carga nada extra
     }
