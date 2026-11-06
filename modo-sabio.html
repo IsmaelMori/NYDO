@@ -302,6 +302,9 @@
                                 <li>La invocación inversa te lleva a <strong>Snowy Mountain Pass</strong>.</li>
                             </ol>
 
+                            <!-- VIDEO: teletransporte del sapo a Snowy Mountain Pass -->
+                            <div class="vid" data-video="vid/cartaSapo.mp4" data-poster="img/cartaSapo-poster.jpg" data-title="El sapo te teletransporta a Snowy Mountain Pass"></div>
+
                             <h4 class="mini">Recorre a pie los seis biomas · mínimo 30 s en cada uno, en este orden</h4>
                             <ol class="route">
                                 <li><span>Frozen High Peaks</span></li>
@@ -314,9 +317,6 @@
 
                             <p class="note"><i class="fa-solid fa-person-walking"></i>Teletransportarte a las coordenadas <strong>no registra</strong> la exploración: hay que caminar.</p>
                             <p>Después usa la carta para encontrar el santuario y habla con <strong>Fukasaku</strong>, el Maestro Sapo.</p>
-
-                            <!-- VIDEO: carta del sapo -->
-                            <div class="vid" data-video="vid/cartaSapo.mp4" data-poster="img/cartaSapo-poster.jpg" data-title="La carta del sapo y el viaje a Snowy"></div>
 
                             <div class="tip"><i class="fa-solid fa-lightbulb"></i><span>Si pierdes el mapa o necesitas volver a Snowy, visita a Jiraiya.</span></div>
                         </div>
@@ -345,7 +345,7 @@
                 <div class="sec-head reveal">
                     <span class="eyebrow">Fase 4</span>
                     <h2>Las pruebas de Fukasaku</h2>
-                    <p>Cuatro pruebas de entrenamiento. Haz clic en cada una para ver sus objetivos.</p>
+                    <p>Cuatro pruebas de entrenamiento. Haz clic en cada una para ver sus objetivos. En las pruebas 3 y 4 el terreno debe estar sin musgo.</p>
                 </div>
 
                 <div class="trials">
@@ -395,26 +395,27 @@
                     <p>
                         Tanto los tres guardianes como Gama no Ishin usan las mismas tres formas.
                         Derrotarlos a golpes <strong>no basta</strong>: el mod exige registrar cada esquiva
-                        y su contraataque.
+                        y su contraataque. Y antes de todo, el terreno debe estar <strong>libre de musgo</strong>
+                        o el sapo no aparecerá.
                     </p>
                 </div>
 
                 <!-- Cómo colocarse en el 3x3 -->
                 <div class="glass spot reveal">
-                    <div class="spot-grid" role="img" aria-label="Esquema del 3×3: estás en la celda central mirando al norte, rodeado de bloques de musgo">
+                    <div class="spot-grid" role="img" aria-label="Esquema: estás en el centro mirando al norte y los siguientes 24 bloques al frente están libres de musgo">
                         <span class="north" translate="no"><i class="fa-solid fa-arrow-up"></i>N</span>
-                        <span class="cell"></span><span class="cell"></span><span class="cell"></span>
-                        <span class="cell"></span><span class="cell me"><i class="fa-solid fa-person"></i></span><span class="cell"></span>
-                        <span class="cell"></span><span class="cell"></span><span class="cell"></span>
+                        <span class="lane"><b>24</b><small>bloques sin musgo</small></span>
+                        <span class="cell me"><i class="fa-solid fa-person"></i></span>
                     </div>
                     <div class="spot-text">
-                        <span class="eyebrow">Posición</span>
-                        <h3>Párate en el centro, mirando al norte</h3>
+                        <span class="eyebrow">Antes de invocar</span>
+                        <h3>Prepara el terreno: sin musgo al frente</h3>
                         <ol class="rules num">
-                            <li>Colócate en el <strong>centro</strong> del 3×3.</li>
-                            <li>Mira hacia el <strong>norte</strong>.</li>
-                            <li>Rompe los <strong>bloques de musgo</strong>.</li>
+                            <li>Párate en el <strong>centro</strong> del patio.</li>
+                            <li>Gira para mirar hacia el <strong>norte</strong>.</li>
+                            <li>En los siguientes <strong>24 bloques</strong> no debe haber <strong>bloques de musgo</strong>: rómpelos todos.</li>
                         </ol>
+                        <p class="note"><i class="fa-solid fa-triangle-exclamation"></i>Si queda musgo, el guardián no aparece y el mod muestra un error pidiendo romper todos los bloques de musgo.</p>
                     </div>
                 </div>
 
@@ -479,7 +480,8 @@
                     <div class="glass duel reveal" id="prueba-3">
                         <h3><span class="t-ic sm"><i class="fa-solid fa-shield-halved"></i></span>Prueba 3 · Deber del guardián sapo</h3>
                         <ol class="rules num">
-                            <li>Ve al centro del patio y agáchate sobre el sello central <strong>5 s</strong> para aceptar el duelo.</li>
+                            <li>Ve al centro del patio, mira al norte y deja <strong>24 bloques sin musgo</strong> al frente.</li>
+                            <li>Agáchate sobre el sello central <strong>5 s</strong> para aceptar el duelo.</li>
                             <li>Enfréntate a los guardianes de <strong>Piedra</strong>, <strong>Torrente</strong> y <strong>Aguja</strong>.</li>
                             <li>Esquiva cada ataque anunciado y golpea dentro de <strong>6 s</strong>.</li>
                             <li>Aprende las tres formas y derrota a los tres guardianes.</li>
@@ -490,7 +492,8 @@
                     <div class="glass duel reveal" id="prueba-4">
                         <h3><span class="t-ic sm"><i class="fa-solid fa-frog"></i></span>Prueba 4 · Juicio del Campeón Ancestral</h3>
                         <ol class="rules num">
-                            <li>Vuelve al patio de Kumite y agáchate sobre el sello central <strong>5 s</strong>.</li>
+                            <li>Vuelve al patio de Kumite, mira al norte y comprueba que los <strong>24 bloques</strong> al frente no tengan musgo.</li>
+                            <li>Agáchate sobre el sello central <strong>5 s</strong>.</li>
                             <li>Invoca a <strong>Gama no Ishin</strong>, el Campeón Ancestral.</li>
                             <li>Reconoce sus tres formas: Piedra, Torrente y Aguja.</li>
                             <li>Esquiva y contraataca cada una, y derrótalo.</li>
@@ -500,7 +503,7 @@
                 </div>
 
                 <!-- VIDEO: esquivas -->
-                <div class="vid reveal" data-video="vid/3x3.mp4" data-poster="img/solucion-3x3-poster.jpg" data-title="Esquivas y contraataques de las tres formas"></div>
+                <div class="vid reveal" data-video="vid/3x3.mp4" data-poster="img/solucion-3x3-poster.jpg" data-title="Solución 3×3: musgo, esquivas y contraataques"></div>
             </section>
 
             <!-- ================= ACTIVACIÓN ================= -->
@@ -544,7 +547,7 @@
                 </div>
 
                 <!-- VIDEO: activación -->
-                <div class="vid reveal" data-video="vid/modosabio.mp4" data-poster="img/activacion-sabio-poster.jpg" data-title="Activación del Modo Sabio en NYDo Mod R18"></div>
+                <div class="vid reveal" data-video="vid/modosabio.mp4" data-poster="img/activacion-sabio-poster.jpg" data-title="Activación del Modo Sabio"></div>
             </section>
 
             <!-- ================= HABILIDADES ================= -->
