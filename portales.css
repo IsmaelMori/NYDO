@@ -1,0 +1,330 @@
+/* ==========================================================
+   PORTALES TEMÁTICOS · Modo Sabio y Marca de Maldición
+   Efecto "Liquid Glass" (estilo iOS) + animaciones ligeras.
+   Solo se animan transform y opacity (GPU) y las animaciones
+   se pausan cuando la tarjeta no está en pantalla.
+========================================================== */
+
+.portal {
+    /* tema por defecto (Modo Sabio): ámbar + verde natural */
+    --t1: 240, 160, 75;
+    --t2: 108, 230, 160;
+    --mx: 50%;
+    --my: 0%;
+    --rx: 0deg;
+    --ry: 0deg;
+
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+    padding: 26px 28px;
+    overflow: hidden;
+    isolation: isolate;
+    color: #f4f5fa;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 26px;
+    -webkit-tap-highlight-color: transparent;
+    transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+    transition: transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease;
+    box-shadow:
+        0 14px 34px rgba(0, 0, 0, .45),
+        0 0 0 1px rgba(255, 255, 255, .10),
+        inset 0 1px 0 rgba(255, 255, 255, .45),
+        inset 0 -1px 0 rgba(255, 255, 255, .06),
+        inset 0 0 28px rgba(var(--t1), .10);
+}
+
+.portal-curse {
+    --t1: 168, 85, 247;
+    --t2: 255, 59, 110;
+}
+
+.portal-gates {
+    --t1: 255, 98, 64;
+    --t2: 70, 225, 160;
+}
+.feature-grid + .subheading { margin-top: 28px; }
+
+/* etiqueta "Próximamente" */
+.portal .portal-tags .soon-tag { background: rgba(var(--t1), .22); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 0 0 1px rgba(var(--t1), .5); }
+.portal .soon-tag i { animation: portalSpin 5s linear infinite; }
+.portal-soon .portal-orb { filter: saturate(.9); }
+
+.sage-grid > .portal { grid-column: 1 / -1; }
+.sage-grid > .sage-card:last-child:nth-child(even) { grid-column: 1 / -1; }
+.sealing-list + .subheading,
+.portal-wrap { margin-top: 22px; }
+
+/* ---------- Fondo líquido (manchas de color que se mueven) ---------- */
+.portal-fx {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    pointer-events: none;
+    background: linear-gradient(145deg, #0d1219, #090b11);
+}
+.portal-fx::before,
+.portal-fx::after {
+    content: "";
+    position: absolute;
+    width: 62%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    will-change: transform;
+}
+.portal-fx::before {
+    top: -55%;
+    left: -8%;
+    background: radial-gradient(circle, rgba(var(--t1), .75), transparent 66%);
+    animation: portalBlobA 11s ease-in-out infinite alternate;
+}
+.portal-fx::after {
+    bottom: -70%;
+    right: -6%;
+    background: radial-gradient(circle, rgba(var(--t2), .55), transparent 66%);
+    animation: portalBlobB 13s ease-in-out infinite alternate;
+}
+
+/* partículas: espora / ascua */
+.portal-fx i {
+    position: absolute;
+    bottom: -12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(var(--t2), .95);
+    box-shadow: 0 0 10px 2px rgba(var(--t2), .7);
+    opacity: 0;
+    animation: portalRise 7s linear infinite;
+}
+.portal-fx i:nth-child(1) { left: 8%;  animation-delay: 0s;   animation-duration: 7s; }
+.portal-fx i:nth-child(2) { left: 22%; animation-delay: 2.4s; width: 4px; height: 4px; animation-duration: 8.5s; }
+.portal-fx i:nth-child(3) { left: 41%; animation-delay: 1.1s; animation-duration: 9s; }
+.portal-fx i:nth-child(4) { left: 58%; animation-delay: 3.6s; width: 4px; height: 4px; animation-duration: 7.5s; }
+.portal-fx i:nth-child(5) { left: 74%; animation-delay: .6s;  animation-duration: 8s; }
+.portal-fx i:nth-child(6) { left: 90%; animation-delay: 2.9s; width: 5px; height: 5px; animation-duration: 9.5s; }
+.portal-curse .portal-fx i { border-radius: 2px; width: 3px; height: 14px; background: rgba(var(--t2), .95); box-shadow: 0 0 10px 2px rgba(var(--t1), .8); }
+.portal-curse .portal-fx i:nth-child(2n) { height: 9px; }
+
+/* ---------- Cristal líquido ---------- */
+.portal-glass {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    border-radius: inherit;
+    background:
+        linear-gradient(135deg, rgba(var(--t1), .16) 0%, rgba(255, 255, 255, .05) 42%, rgba(var(--t2), .10) 100%);
+    -webkit-backdrop-filter: blur(16px) saturate(190%) brightness(1.08);
+    backdrop-filter: blur(16px) saturate(190%) brightness(1.08);
+}
+
+/* brillo especular que sigue al puntero + barrido de luz */
+.portal::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background:
+        radial-gradient(260px circle at var(--mx) var(--my), rgba(255, 255, 255, .30), transparent 60%),
+        linear-gradient(180deg, rgba(255, 255, 255, .16), transparent 34%);
+    opacity: .55;
+    transition: opacity .35s ease;
+}
+.portal::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    bottom: -20%;
+    left: -40%;
+    width: 30%;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .28), transparent);
+    transform: translateX(0) skewX(-18deg);
+    opacity: 0;
+}
+
+/* ---------- Kanji de fondo ---------- */
+.portal-kanji {
+    position: absolute;
+    right: 150px;
+    top: 50%;
+    z-index: -1;
+    font-family: 'Cinzel', serif;
+    font-size: 170px;
+    line-height: 1;
+    font-weight: 900;
+    color: rgba(var(--t1), .10);
+    pointer-events: none;
+    transform: translateY(-50%) rotate(-8deg);
+    transition: transform .6s cubic-bezier(.2, .8, .2, 1), color .4s;
+}
+
+/* ---------- Orbe del icono ---------- */
+.portal-orb {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 78px;
+    height: 78px;
+    font-size: 34px;
+    font-weight: 900;
+    color: #fff;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 30% 25%, rgba(255, 255, 255, .55), transparent 45%),
+        linear-gradient(145deg, rgba(var(--t1), .85), rgba(var(--t2), .55));
+    box-shadow:
+        0 8px 22px rgba(var(--t1), .45),
+        inset 0 2px 3px rgba(255, 255, 255, .6),
+        inset 0 -6px 12px rgba(0, 0, 0, .25);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, .4);
+    animation: portalFloat 5s ease-in-out infinite;
+}
+.portal-orb::before {
+    content: "";
+    position: absolute;
+    inset: -9px;
+    border-radius: 50%;
+    border: 1px dashed rgba(var(--t1), .65);
+    animation: portalSpin 14s linear infinite;
+}
+.portal-curse .portal-orb::before {
+    border-style: solid;
+    border-color: rgba(var(--t2), .75);
+    animation: portalPulse 2.2s ease-out infinite;
+}
+
+/* ---------- Texto ---------- */
+.portal .portal-body { min-width: 0; }
+.portal .portal-eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgb(var(--t2));
+}
+.portal .portal-body h3 {
+    margin: 0 0 8px;
+    font-size: 22px;
+    line-height: 1.2;
+    color: #fff;
+    text-shadow: 0 2px 14px rgba(var(--t1), .45);
+}
+.portal .portal-body p {
+    margin: 0;
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: rgba(236, 240, 250, .78);
+}
+.portal .portal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.portal .portal-tags span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .09);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 0 0 1px rgba(255, 255, 255, .08);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+.portal .portal-tags i { color: rgb(var(--t2)); font-size: 10.5px; }
+
+/* ---------- Botón ---------- */
+.portal .portal-go {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 22px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #fff;
+    white-space: nowrap;
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(var(--t1), .9), rgba(var(--t2), .7));
+    box-shadow:
+        0 8px 20px rgba(var(--t1), .4),
+        inset 0 1px 0 rgba(255, 255, 255, .6),
+        inset 0 -2px 6px rgba(0, 0, 0, .2);
+    text-shadow: 0 1px 4px rgba(0, 0, 0, .35);
+    transition: transform .3s cubic-bezier(.2, .8, .2, 1), box-shadow .3s;
+}
+.portal .portal-go i { transition: transform .3s ease; }
+
+/* ---------- Interacción ---------- */
+@media (hover: hover) {
+    .portal:hover {
+        box-shadow:
+            0 22px 48px rgba(0, 0, 0, .55),
+            0 0 36px rgba(var(--t1), .35),
+            0 0 0 1px rgba(255, 255, 255, .22),
+            inset 0 1px 0 rgba(255, 255, 255, .6),
+            inset 0 -1px 0 rgba(255, 255, 255, .1),
+            inset 0 0 34px rgba(var(--t1), .16);
+    }
+    .portal:hover::before { opacity: 1; }
+    .portal:hover::after { animation: portalSheen 1.1s ease forwards; }
+    .portal:hover .portal-kanji { transform: translateY(-50%) rotate(0deg) scale(1.08); color: rgba(var(--t1), .17); }
+    .portal:hover .portal-go { transform: translateX(3px) scale(1.04); }
+    .portal:hover .portal-go i { transform: translateX(5px); }
+}
+.portal:active { transition-duration: .12s; transform: perspective(900px) scale(.985); }
+.portal:focus-visible { outline: 2px solid rgb(var(--t2)); outline-offset: 3px; }
+
+/* ---------- Entrada y pausa fuera de pantalla ---------- */
+.portals-ready .portal { opacity: 0; translate: 0 22px; }
+.portals-ready .portal.is-in { opacity: 1; translate: 0 0; transition: opacity .7s ease, translate .7s cubic-bezier(.2, .8, .2, 1), transform .35s cubic-bezier(.2, .8, .2, 1), box-shadow .35s ease; }
+.portals-ready .portal:not(.is-in) *,
+.portals-ready .portal:not(.is-in) .portal-fx::before,
+.portals-ready .portal:not(.is-in) .portal-fx::after { animation-play-state: paused !important; }
+
+/* ---------- Animaciones ---------- */
+@keyframes portalBlobA { to { transform: translate3d(38%, 22%, 0) scale(1.15); } }
+@keyframes portalBlobB { to { transform: translate3d(-42%, -18%, 0) scale(1.2); } }
+@keyframes portalRise {
+    0%   { transform: translate3d(0, 0, 0); opacity: 0; }
+    12%  { opacity: .9; }
+    100% { transform: translate3d(14px, -190px, 0); opacity: 0; }
+}
+@keyframes portalFloat { 50% { transform: translateY(-5px); } }
+@keyframes portalSpin { to { transform: rotate(360deg); } }
+@keyframes portalPulse {
+    0%   { transform: scale(.92); opacity: .9; }
+    100% { transform: scale(1.35); opacity: 0; }
+}
+@keyframes portalSheen {
+    0%   { transform: translateX(0) skewX(-18deg); opacity: 0; }
+    20%  { opacity: 1; }
+    100% { transform: translateX(520%) skewX(-18deg); opacity: 0; }
+}
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 720px) {
+    .portal { grid-template-columns: auto minmax(0, 1fr); gap: 16px; padding: 20px 18px; border-radius: 22px; }
+    .portal-orb { width: 58px; height: 58px; font-size: 26px; }
+    .portal .portal-body h3 { font-size: 19px; }
+    .portal .portal-go { grid-column: 1 / -1; justify-content: center; }
+    .portal-kanji { right: -6px; font-size: 120px; }
+    .sage-grid > .sage-card:last-child:nth-child(even) { grid-column: auto; }
+}
+
+/* Reducir movimiento / sin blur si el dispositivo no lo soporta */
+@media (prefers-reduced-motion: reduce) {
+    .portal, .portal *, .portal::before, .portal::after { animation: none !important; transition: none !important; }
+    .portals-ready .portal { opacity: 1; translate: 0 0; }
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .portal-glass { background: rgba(20, 24, 36, .8); }
+}

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="jutsus.css">
     <link rel="stylesheet" href="busqueda.css">
+    <link rel="stylesheet" href="portales.css">
 
     <!-- ICONOS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
@@ -190,25 +191,6 @@
         }
         .kg-teaser-go i { transition: transform .25s ease; }
         .kg-teaser:hover .kg-teaser-go i { transform: translateX(4px); }
-
-        /* ---------- MODO SABIO DE LOS SAPOS (enlace) ---------- */
-        a.sage-card.sage-link {
-            display: block;
-            color: inherit;
-            text-decoration: none;
-            cursor: pointer;
-            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-        }
-        a.sage-card.sage-link:hover,
-        a.sage-card.sage-link:focus-visible {
-            transform: translateY(-3px);
-            outline: 0;
-            border-color: #f0a04b;
-            box-shadow: 0 10px 26px rgba(0, 0, 0, .45), 0 0 18px rgba(240, 160, 75, .35);
-        }
-        .sage-more { display: inline-flex; align-items: center; gap: 7px; margin-top: 12px; font-size: 12.5px; font-weight: 700; color: #f0a04b; }
-        .sage-more i { transition: transform .25s ease; }
-        a.sage-card.sage-link:hover .sage-more i { transform: translateX(4px); }
 
         /* ---------- RESPONSIVO ---------- */
         @media (max-width: 720px) {
@@ -517,6 +499,28 @@
                     <p>Potencia, resistencia y control corporal.</p>
                 </div>
             </div>
+
+            <h3 class="subheading portal-wrap">Técnicas especiales</h3>
+
+            <a href="ocho-puertas.html" class="portal portal-gates portal-soon" aria-label="Las Ocho Puertas: próximamente">
+                <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="portal-glass" aria-hidden="true"></span>
+                <span class="portal-kanji" aria-hidden="true" translate="no">門</span>
+                <div class="portal-orb" aria-hidden="true" translate="no">門</div>
+                <div class="portal-body">
+                    <span class="portal-eyebrow">Taijutsu · Límite del cuerpo</span>
+                    <h3>Las Ocho Puertas</h3>
+                    <p>
+                        Ocho puertas internas que limitan el chakra del cuerpo.
+                        Abrirlas multiplica la fuerza y la velocidad, pero con
+                        un riesgo enorme para quien las usa.
+                    </p>
+                    <div class="portal-tags">
+                        <span class="soon-tag"><i class="fa-solid fa-hourglass-half"></i>Próximamente</span>
+                    </div>
+                </div>
+                <span class="portal-go">Ver página <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
         </article>
 
         <!-- GENJUTSU -->
@@ -570,15 +574,25 @@
             <h3 class="subheading">Modos sabios conocidos</h3>
 
             <div class="sage-grid">
-                <a href="modo-sabio.html" class="sage-card sage-link" aria-label="Modo Sabio de los Sapos: ver guía">
-                    <div class="sage-symbol">仙</div>
-                    <h3>Modo Sabio de los Sapos</h3>
-                    <p>
-                        Se aprende mediante el entrenamiento relacionado
-                        con los sapos del Monte Myōboku. Permite utilizar
-                        energía natural y mejorar las capacidades de combate.
-                    </p>
-                    <span class="sage-more">Ver guía y habilidades <i class="fa-solid fa-arrow-right"></i></span>
+                <a href="modo-sabio.html" class="portal portal-sage" aria-label="Modo Sabio de los Sapos: ver guía y habilidades">
+                    <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span class="portal-glass" aria-hidden="true"></span>
+                    <span class="portal-kanji" aria-hidden="true" translate="no">仙</span>
+                    <div class="portal-orb" aria-hidden="true" translate="no">仙</div>
+                    <div class="portal-body">
+                        <span class="portal-eyebrow">Senjutsu · Monte Myōboku</span>
+                        <h3>Modo Sabio de los Sapos</h3>
+                        <p>
+                            Se aprende mediante el entrenamiento relacionado
+                            con los sapos del Monte Myōboku. Permite utilizar
+                            energía natural y mejorar las capacidades de combate.
+                        </p>
+                        <div class="portal-tags">
+                            <span><i class="fa-solid fa-route"></i>Cómo obtenerlo</span>
+                            <span><i class="fa-solid fa-leaf"></i>Habilidades</span>
+                        </div>
+                    </div>
+                    <span class="portal-go">Ver guía <i class="fa-solid fa-arrow-right"></i></span>
                 </a>
 
                 <div class="sage-card">
@@ -718,6 +732,27 @@
                     </div>
                 </div>
             </div>
+
+            <h3 class="subheading portal-wrap">Sellos malditos</h3>
+
+            <a href="marca-maldicion.html" class="portal portal-curse portal-soon" aria-label="Marca de Maldición: próximamente">
+                <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="portal-glass" aria-hidden="true"></span>
+                <span class="portal-kanji" aria-hidden="true" translate="no">呪</span>
+                <div class="portal-orb" aria-hidden="true" translate="no">呪</div>
+                <div class="portal-body">
+                    <span class="portal-eyebrow">Sello maldito</span>
+                    <h3>Marca de Maldición</h3>
+                    <p>
+                        Un sello que otorga un enorme poder a cambio de un
+                        precio. La guía y sus habilidades llegarán pronto.
+                    </p>
+                    <div class="portal-tags">
+                        <span class="soon-tag"><i class="fa-solid fa-hourglass-half"></i>Próximamente</span>
+                    </div>
+                </div>
+                <span class="portal-go">Ver página <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
 
             <p class="note">
                 Nota: el Hiraishin aparece aquí por su relación con
@@ -872,6 +907,7 @@
 })();
 </script>
 
+<script src="portales.js" defer></script>
 <script src="translate.js" defer></script>
 <script src="mobile-nav.js" defer></script>
 </body>

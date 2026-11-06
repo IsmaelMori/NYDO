@@ -1,0 +1,68 @@
+/* ==========================================================================
+   MARCA DE MALDICIÓN · NYDo WIKI
+   Se carga DESPUÉS de modo-sabio.css: cambia solo la paleta (dorado → morado/carmesí).
+   ========================================================================== */
+
+body.curse {
+    --bg: #0a0610;
+    --gold: #c77dff;
+    --gold-soft: #e5b8ff;
+    --amber: #e0457b;
+    --toad: #ff7a9c;
+    --danger: #ff4d6d;
+    --text: #f3ebf8;
+    --muted: #c9bad3;
+    --faint: #9d8aab;
+}
+
+.curse .bg {
+    background:
+        radial-gradient(60% 42% at 12% 6%,  rgba(199, 125, 255, .22), transparent 70%),
+        radial-gradient(46% 38% at 92% 26%, rgba(224, 69, 123, .14), transparent 70%),
+        radial-gradient(56% 44% at 8% 82%,  rgba(120, 60, 200, .16), transparent 70%),
+        radial-gradient(48% 40% at 88% 96%, rgba(255, 60, 100, .11), transparent 70%),
+        linear-gradient(180deg, #100a18, #08050d);
+}
+
+/* Textos oscuros sobre los degradados de color */
+.curse .brand-symbol,
+.curse .seal,
+.curse .req-ic, .curse .t-ic, .curse .a-ic, .curse .f-ic,
+.curse .phase-n,
+.curse .btn.primary { color: #1a0620; }
+
+/* Cristal: tinte morado en lugar del dorado fijo */
+.curse .glass {
+    background:
+        linear-gradient(145deg, rgba(255, 255, 255, .13), rgba(255, 255, 255, .035) 42%, rgba(199, 125, 255, .07)),
+        rgba(18, 11, 26, .55);
+}
+.curse .hero-card {
+    background:
+        radial-gradient(70% 90% at 50% 0%, rgba(199, 125, 255, .24), transparent 70%),
+        linear-gradient(145deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .03) 45%, rgba(224, 69, 123, .08)),
+        rgba(18, 11, 26, .5);
+}
+.curse .top { background: rgba(12, 7, 18, .66); }
+.curse .brand-symbol { background: linear-gradient(135deg, var(--gold-soft), var(--gold) 60%, var(--amber)); box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 0 18px rgba(199,125,255,.45); }
+.curse .seal {
+    background: radial-gradient(circle at 34% 28%, #f6dcff, var(--gold) 58%, var(--amber));
+    box-shadow: inset 0 2px 3px rgba(255,255,255,.7), inset 0 -4px 10px rgba(120,30,110,.45), 0 0 44px rgba(199,125,255,.55);
+}
+.curse .hero-card h1 span { background: linear-gradient(180deg, #f6dcff, var(--gold) 55%, var(--amber)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.curse .btn.primary { background: linear-gradient(160deg, #f6dcff, var(--gold) 55%, var(--amber)); box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 26px -8px rgba(199,125,255,.55); }
+.curse .req-ic, .curse .t-ic, .curse .a-ic, .curse .f-ic { background: linear-gradient(145deg, var(--gold-soft), var(--gold) 55%, var(--amber)); box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 16px -4px rgba(199,125,255,.5); }
+.curse .phase-n { background: radial-gradient(circle at 35% 30%, #f6dcff, var(--gold) 60%, var(--amber)); box-shadow: inset 0 1px 2px rgba(255,255,255,.7), 0 0 22px rgba(199,125,255,.45); }
+.curse .phase::before { background: linear-gradient(180deg, rgba(199,125,255,.55), rgba(199,125,255,.05)); }
+.curse .chips a.on { background: linear-gradient(160deg, rgba(199,125,255,.30), rgba(224,69,123,.10)); box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 4px 14px -4px rgba(199,125,255,.4); }
+.curse .note { background: rgba(199, 125, 255, .09); border-color: rgba(199, 125, 255, .26); }
+.curse .footer { border-top-color: rgba(199, 125, 255, .24); }
+.curse .footer .up { border-color: rgba(199, 125, 255, .32); }
+.curse .rules:not(.num) li::before { box-shadow: 0 0 10px rgba(199, 125, 255, .7); }
+
+@media (hover: hover) {
+    .curse .glass.ability:hover {
+        border-color: rgba(199, 125, 255, .5);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 18px 40px -14px rgba(0,0,0,.7), 0 0 26px -6px rgba(199,125,255,.4);
+    }
+}
