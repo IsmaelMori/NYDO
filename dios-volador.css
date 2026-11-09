@@ -1,0 +1,128 @@
+/* =========================================================
+   DIOS DEL TRUENO VOLADOR · Hiraishin no Jutsu
+   Tema: Destello Amarillo de Konoha (negro azulado + dorado
+   relámpago + naranja de la capa de llamas)
+========================================================= */
+
+.dv-body {
+    --gold: #ffd54a;
+    --gold-soft: #f2d08f;
+    --flame: #ff7a1a;
+    --flame-deep: #e5301a;
+    --ink: #070a12;
+    --ink-2: #0d1220;
+    --card: rgba(16, 21, 34, .82);
+    --text: #eee7d2;
+    --muted: #a9b0c0;
+    --line: rgba(255, 213, 74, .22);
+    background:
+        radial-gradient(900px 500px at 85% -5%, rgba(255, 213, 74, .10), transparent 60%),
+        radial-gradient(700px 500px at 0% 30%, rgba(255, 122, 26, .07), transparent 60%),
+        var(--ink);
+    color: var(--text);
+}
+
+.dv-page { position: relative; max-width: 1080px; margin: 0 auto; padding: 0 18px 60px; }
+
+/* ---------- HEADER (igual que jutsus) ---------- */
+.nydo-header { position: sticky; top: 0; z-index: 1000; }
+.topbar { background: rgba(8, 11, 18, .78) !important; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255, 213, 74, .3); }
+
+/* ---------- HERO ---------- */
+.dv-hero {
+    position: relative;
+    margin-top: 22px;
+    padding: 56px 34px 48px;
+    overflow: hidden;
+    isolation: isolate;
+    text-align: center;
+    background:
+        radial-gradient(60% 120% at 50% 0%, rgba(255, 213, 74, .18), transparent 65%),
+        linear-gradient(160deg, #141a2c, #080b14);
+    border: 1px solid var(--line);
+    border-radius: 26px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+.dv-hero::before {              /* franja de llamas de la capa */
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 14px;
+    background: repeating-linear-gradient(115deg, var(--flame-deep) 0 18px, var(--flame) 18px 36px, var(--gold) 36px 54px);
+    clip-path: polygon(0 100%, 3% 30%, 6% 100%, 9% 20%, 12% 100%, 15% 35%, 18% 100%, 21% 20%, 24% 100%, 27% 35%, 30% 100%, 33% 20%, 36% 100%, 39% 35%, 42% 100%, 45% 20%, 48% 100%, 51% 35%, 54% 100%, 57% 20%, 60% 100%, 63% 35%, 66% 100%, 69% 20%, 72% 100%, 75% 35%, 78% 100%, 81% 20%, 84% 100%, 87% 35%, 90% 100%, 93% 20%, 96% 100%, 100% 30%, 100% 100%);
+    z-index: -1;
+}
+.dv-kanji {
+    position: absolute;
+    inset: 50% auto auto 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(120px, 26vw, 300px);
+    font-weight: 900;
+    letter-spacing: .05em;
+    white-space: nowrap;
+    color: rgba(255, 213, 74, .06);
+    pointer-events: none;
+    user-select: none;
+    z-index: -1;
+}
+.dv-bolt { position: absolute; top: 0; width: 3px; height: 100%; background: linear-gradient(transparent, var(--gold), transparent); opacity: 0; filter: drop-shadow(0 0 8px var(--gold)); z-index: -1; animation: dv-bolt 6s infinite; }
+.dv-bolt:nth-of-type(1) { left: 14%; transform: skewX(-18deg); animation-delay: .4s; }
+.dv-bolt:nth-of-type(2) { left: 52%; transform: skewX(14deg); animation-delay: 2.6s; }
+.dv-bolt:nth-of-type(3) { left: 86%; transform: skewX(-12deg); animation-delay: 4.3s; }
+@keyframes dv-bolt { 0%, 92%, 100% { opacity: 0; } 94% { opacity: .85; } 96% { opacity: .1; } 98% { opacity: .7; } }
+
+.dv-eyebrow { display: inline-block; padding: 6px 16px; font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); background: rgba(255, 213, 74, .08); border: 1px solid var(--line); border-radius: 999px; }
+.dv-hero h1 { margin: 18px 0 10px; font-size: clamp(32px, 6vw, 58px); line-height: 1.08; color: #fff; text-shadow: 0 0 28px rgba(255, 213, 74, .35); }
+.dv-hero h1 span { background: linear-gradient(90deg, var(--gold), var(--flame)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.dv-hero p { max-width: 640px; margin: 0 auto; font-size: 15px; line-height: 1.75; color: var(--muted); }
+.dv-back { display: inline-flex; align-items: center; gap: 8px; margin: 22px 0 0; font-size: 13px; font-weight: 700; color: var(--gold-soft); text-decoration: none; }
+.dv-back:hover { color: #fff; }
+
+/* ---------- SECCIONES ---------- */
+.dv-section { margin-top: 34px; scroll-margin-top: 90px; }
+.dv-title { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; font-size: 25px; color: #fff; }
+.dv-title::before { content: ""; width: 6px; height: 28px; border-radius: 3px; background: linear-gradient(var(--gold), var(--flame)); box-shadow: 0 0 14px rgba(255, 213, 74, .5); }
+
+/* ---------- PASOS ---------- */
+.dv-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; counter-reset: paso; }
+.dv-step { position: relative; padding: 26px 22px 22px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; counter-increment: paso; transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.dv-step:hover { transform: translateY(-4px); border-color: var(--gold); box-shadow: 0 14px 34px rgba(0, 0, 0, .45), 0 0 22px rgba(255, 213, 74, .15); }
+.dv-step::before { content: counter(paso); position: absolute; top: -16px; left: 20px; display: grid; place-items: center; width: 34px; height: 34px; font-weight: 900; color: #1a1300; background: linear-gradient(135deg, var(--gold), var(--flame)); border-radius: 10px; transform: rotate(45deg); box-shadow: 0 0 16px rgba(255, 213, 74, .5); }
+.dv-step::after { content: none; }
+.dv-step i { font-size: 26px; color: var(--gold); }
+.dv-step h3 { margin: 12px 0 6px; font-size: 17px; color: #fff; }
+.dv-step p { margin: 0; font-size: 13px; line-height: 1.65; color: var(--muted); }
+.dv-step b { color: var(--gold-soft); }
+
+/* ---------- HABILIDADES ---------- */
+.dv-skill { display: grid; grid-template-columns: 1.15fr 1fr; gap: 0; margin-bottom: 22px; overflow: hidden; background: var(--card); border: 1px solid var(--line); border-radius: 24px; box-shadow: 0 16px 44px rgba(0, 0, 0, .4); }
+.dv-skill:nth-child(even) { grid-template-columns: 1fr 1.15fr; }
+.dv-skill:nth-child(even) .dv-video { order: 2; }
+.dv-video { position: relative; background: #000; min-height: 230px; }
+.dv-video video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.dv-video::after { content: ""; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255, 213, 74, .25); }
+.dv-skill-body { display: flex; flex-direction: column; justify-content: center; padding: 30px 28px; }
+.dv-num { font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--flame); }
+.dv-skill-body h3 { margin: 6px 0 10px; font-size: 24px; color: #fff; }
+.dv-skill-body p { margin: 0 0 14px; font-size: 14px; line-height: 1.75; color: var(--muted); }
+.dv-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.dv-tags span { display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px; font-size: 11px; font-weight: 700; color: var(--gold); background: rgba(255, 213, 74, .08); border: 1px solid var(--line); border-radius: 999px; }
+
+kbd { display: inline-grid; place-items: center; min-width: 28px; padding: 3px 9px; font: 800 13px/1.2 ui-monospace, Consolas, monospace; color: #1a1300; background: linear-gradient(180deg, #ffe58a, var(--gold)); border-radius: 7px; box-shadow: 0 3px 0 #a07d00, 0 0 12px rgba(255, 213, 74, .35); }
+
+/* ---------- RESUMEN / NOTA ---------- */
+.dv-note { margin-top: 30px; padding: 18px 22px; font-size: 13px; line-height: 1.7; color: var(--muted); background: rgba(255, 213, 74, .05); border-left: 4px solid var(--gold); border-radius: 0 14px 14px 0; }
+.dv-footer { margin-top: 40px; text-align: center; font-size: 13px; color: var(--muted); }
+.dv-footer a { color: var(--gold-soft); text-decoration: none; }
+.dv-footer a:hover { color: #fff; }
+
+/* ---------- RESPONSIVO ---------- */
+@media (max-width: 800px) {
+    .dv-skill, .dv-skill:nth-child(even) { grid-template-columns: 1fr; }
+    .dv-skill:nth-child(even) .dv-video { order: 0; }
+    .dv-hero { padding: 44px 20px 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .dv-bolt { animation: none; }
+    * { transition: none !important; }
+}

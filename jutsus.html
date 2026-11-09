@@ -101,7 +101,7 @@
         .category-nav a:hover { transform: translateY(-2px); }
 
         /* ---------- TARJETAS DE ELEMENTOS ---------- */
-        .element-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+        .element-grid { grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; }
         .element-card { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
         .element-card:hover { transform: translateY(-4px); }
         .element-card.ninja { --ninja: #4fb3ff; }
@@ -163,7 +163,8 @@
         .kg-teaser-eyebrow { display: block; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--c); }
         .kg-teaser h3 { margin: 4px 0 6px; font-size: 23px; line-height: 1.2; color: #fff; }
         .kg-teaser p { margin: 0; font-size: 13px; line-height: 1.65; color: #b6bfd0; }
-        .kg-glyphs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+        .portal-kg { margin-top: 8px; }
+        .kg-glyphs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
         .kg-glyphs span {
             display: grid;
             place-items: center;
@@ -357,46 +358,71 @@
             <h3 class="subheading">Las cinco naturalezas básicas y el Ninjutsu</h3>
 
             <div class="element-grid">
-                <a href="katon.html" class="element-card fire">
-                    <span class="element-symbol">火</span>
-                    <h3>Katon</h3>
-                    <span class="element-name">Elemento Fuego</span>
-                    <p>Permite generar y controlar técnicas basadas en el fuego.</p>
+                <a href="katon.html" class="portal portal-card portal-fire" aria-label="Katon: Elemento Fuego">
+                    <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span class="portal-glass" aria-hidden="true"></span>
+                    <span class="portal-kanji" aria-hidden="true" translate="no">火</span>
+                    <div class="portal-orb" aria-hidden="true" translate="no">火</div>
+                    <div class="portal-body">
+                        <span class="portal-eyebrow">Elemento Fuego</span>
+                        <h3>Katon</h3>
+                        <p>Permite generar y controlar técnicas basadas en el fuego.</p>
+                    </div>
                 </a>
-
-                <a href="futon.html" class="element-card wind">
-                    <span class="element-symbol">風</span>
-                    <h3>Fūton</h3>
-                    <span class="element-name">Elemento Viento</span>
-                    <p>Utiliza el viento para cortar, impulsar y potenciar ataques.</p>
+                <a href="futon.html" class="portal portal-card portal-wind" aria-label="Fūton: Elemento Viento">
+                    <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span class="portal-glass" aria-hidden="true"></span>
+                    <span class="portal-kanji" aria-hidden="true" translate="no">風</span>
+                    <div class="portal-orb" aria-hidden="true" translate="no">風</div>
+                    <div class="portal-body">
+                        <span class="portal-eyebrow">Elemento Viento</span>
+                        <h3>Fūton</h3>
+                        <p>Utiliza el viento para cortar, impulsar y potenciar ataques.</p>
+                    </div>
                 </a>
-
-                <a href="raiton.html" class="element-card lightning">
-                    <span class="element-symbol">雷</span>
-                    <h3>Raiton</h3>
-                    <span class="element-name">Elemento Rayo</span>
-                    <p>Concentra chakra eléctrico en ataques rápidos y penetrantes.</p>
+                <a href="raiton.html" class="portal portal-card portal-lightning" aria-label="Raiton: Elemento Rayo">
+                    <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span class="portal-glass" aria-hidden="true"></span>
+                    <span class="portal-kanji" aria-hidden="true" translate="no">雷</span>
+                    <div class="portal-orb" aria-hidden="true" translate="no">雷</div>
+                    <div class="portal-body">
+                        <span class="portal-eyebrow">Elemento Rayo</span>
+                        <h3>Raiton</h3>
+                        <p>Concentra chakra eléctrico en ataques rápidos y penetrantes.</p>
+                    </div>
                 </a>
-
-                <a href="doton.html" class="element-card earth">
-                    <span class="element-symbol">土</span>
-                    <h3>Doton</h3>
-                    <span class="element-name">Elemento Tierra</span>
-                    <p>Permite manipular la tierra para crear defensas y ataques.</p>
+                <a href="doton.html" class="portal portal-card portal-earth" aria-label="Doton: Elemento Tierra">
+                    <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span class="portal-glass" aria-hidden="true"></span>
+                    <span class="portal-kanji" aria-hidden="true" translate="no">土</span>
+                    <div class="portal-orb" aria-hidden="true" translate="no">土</div>
+                    <div class="portal-body">
+                        <span class="portal-eyebrow">Elemento Tierra</span>
+                        <h3>Doton</h3>
+                        <p>Permite manipular la tierra para crear defensas y ataques.</p>
+                    </div>
                 </a>
-
-                <a href="suiton.html" class="element-card water">
-                    <span class="element-symbol">水</span>
-                    <h3>Suiton</h3>
-                    <span class="element-name">Elemento Agua</span>
-                    <p>Permite crear y controlar agua en diferentes formas.</p>
+                <a href="suiton.html" class="portal portal-card portal-water" aria-label="Suiton: Elemento Agua">
+                    <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span class="portal-glass" aria-hidden="true"></span>
+                    <span class="portal-kanji" aria-hidden="true" translate="no">水</span>
+                    <div class="portal-orb" aria-hidden="true" translate="no">水</div>
+                    <div class="portal-body">
+                        <span class="portal-eyebrow">Elemento Agua</span>
+                        <h3>Suiton</h3>
+                        <p>Permite crear y controlar agua en diferentes formas.</p>
+                    </div>
                 </a>
-
-                <a href="ninjutsu.html" class="element-card ninja">
-                    <span class="element-symbol"><img src="img/ninjutsu.png" alt="Ninjutsu" width="46" height="46" loading="lazy" decoding="async"></span>
-                    <h3>Ninjutsu</h3>
-                    <span class="element-name">No es un elemento</span>
-                    <p>Rasengan, clones de sombra, Dios del Trueno Volador y jutsu de sustitución.</p>
+                <a href="ninjutsu.html" class="portal portal-card portal-ninja" aria-label="Ninjutsu: No es un elemento">
+                    <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                    <span class="portal-glass" aria-hidden="true"></span>
+                    <span class="portal-kanji" aria-hidden="true" translate="no">忍</span>
+                    <div class="portal-orb" aria-hidden="true" translate="no"><img src="img/ninjutsu.png" alt="" width="36" height="36" loading="lazy" decoding="async"></div>
+                    <div class="portal-body">
+                        <span class="portal-eyebrow">No es un elemento</span>
+                        <h3>Ninjutsu</h3>
+                        <p>Rasengan, clones de sombra, Dios del Trueno Volador y jutsu de sustitución.</p>
+                    </div>
                 </a>
             </div>
 
@@ -427,11 +453,13 @@
             </p>
 
             <!-- ÚNICO BOTÓN HACIA KEKKEI GENKAI -->
-            <a href="kekkei-genkai.html" class="kg-teaser" aria-label="Ver todos los Kekkei Genkai y sus combinaciones">
-                <span class="kg-teaser-icon"><i class="fa-solid fa-dna"></i></span>
-
-                <span class="kg-teaser-text">
-                    <span class="kg-teaser-eyebrow">Poderes de sangre</span>
+            <a href="kekkei-genkai.html" class="portal portal-kg" aria-label="Ver todos los Kekkei Genkai y sus combinaciones">
+                <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="portal-glass" aria-hidden="true"></span>
+                <span class="portal-kanji" aria-hidden="true" translate="no">血</span>
+                <div class="portal-orb" aria-hidden="true"><i class="fa-solid fa-dna"></i></div>
+                <div class="portal-body">
+                    <span class="portal-eyebrow">Poderes de sangre</span>
                     <h3>Kekkei Genkai</h3>
                     <p>
                         Madera, hielo, lava, tormenta, imán, explosivo y más.
@@ -439,18 +467,17 @@
                         cómo inyectarte ADN y sus técnicas en video.
                     </p>
                     <span class="kg-glyphs" aria-hidden="true">
-                        <span style="--g:#5fcf7a">木</span>
-                        <span style="--g:#8ad4ff">氷</span>
-                        <span style="--g:#ff7a38">熔</span>
-                        <span style="--g:#b79cff">嵐</span>
-                        <span style="--g:#e7b66d">磁</span>
-                        <span style="--g:#ffb347">爆</span>
-                        <span style="--g:#d6c7ff">塵</span>
-                        <span style="--g:#f1ece0">骨</span>
+                        <span style="--g:#5fcf7a" translate="no">木</span>
+                        <span style="--g:#8ad4ff" translate="no">氷</span>
+                        <span style="--g:#ff7a38" translate="no">熔</span>
+                        <span style="--g:#b79cff" translate="no">嵐</span>
+                        <span style="--g:#e7b66d" translate="no">磁</span>
+                        <span style="--g:#ffb347" translate="no">爆</span>
+                        <span style="--g:#d6c7ff" translate="no">塵</span>
+                        <span style="--g:#f1ece0" translate="no">骨</span>
                     </span>
-                </span>
-
-                <span class="kg-teaser-go">Explorar <i class="fa-solid fa-arrow-right"></i></span>
+                </div>
+                <span class="portal-go">Explorar <i class="fa-solid fa-arrow-right"></i></span>
             </a>
 
             <p class="note">
@@ -682,24 +709,7 @@
             <h3 class="subheading">Técnicas y habilidades destacadas</h3>
 
             <div class="sealing-list">
-                <div class="sealing-card">
-                    <div class="sealing-icon">
-                        <i class="fa-solid fa-location-crosshairs"></i>
-                    </div>
-                    <div>
-                        <span class="tag">Minato Namikaze</span>
-                        <h3>Hiraishin no Jutsu</h3>
-                        <p>
-                            Técnica de desplazamiento espacio-temporal
-                            que permite a Minato trasladarse instantáneamente
-                            a una ubicación marcada previamente. Utiliza
-                            fórmulas de marcado especiales, relacionadas
-                            con el sellado, aunque técnicamente se clasifica
-                            como ninjutsu espacio-temporal.
-                        </p>
-                    </div>
-                </div>
-
+                
                 <div class="sealing-card">
                     <div class="sealing-icon">
                         <i class="fa-solid fa-skull"></i>
@@ -732,6 +742,29 @@
                     </div>
                 </div>
             </div>
+
+            <h3 class="subheading portal-wrap">Técnica espacio-temporal</h3>
+
+            <a href="dios-volador.html" class="portal portal-hiraishin" aria-label="Dios del Trueno Volador: ver guía y habilidades">
+                <span class="portal-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <span class="portal-glass" aria-hidden="true"></span>
+                <span class="portal-kanji" aria-hidden="true" translate="no">飛</span>
+                <div class="portal-orb" aria-hidden="true" translate="no">雷</div>
+                <div class="portal-body">
+                    <span class="portal-eyebrow">Hiraishin no Jutsu · Minato Namikaze</span>
+                    <h3>Dios del Trueno Volador</h3>
+                    <p>
+                        Técnica de desplazamiento espacio-temporal que permite
+                        trasladarse al instante a una ubicación marcada. Consigue
+                        el kunai y equípalo en Preparaciones para obtener 3 habilidades.
+                    </p>
+                    <div class="portal-tags">
+                        <span><i class="fa-solid fa-route"></i>Cómo obtenerlo</span>
+                        <span><i class="fa-solid fa-bolt"></i>3 habilidades</span>
+                    </div>
+                </div>
+                <span class="portal-go">Ver guía <i class="fa-solid fa-arrow-right"></i></span>
+            </a>
 
             <h3 class="subheading portal-wrap">Sellos malditos</h3>
 

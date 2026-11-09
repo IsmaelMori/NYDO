@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dios del Trueno Volador | NYDo Wiki</title>
+
+    <!-- CSS GENERAL -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="busqueda.css">
+    <link rel="stylesheet" href="mobile-nav.css">
+    <link rel="stylesheet" href="dios-volador.css">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body class="dv-body">
+
+<!-- HEADER GLOBAL -->
+<header class="nydo-header">
+    <div class="topbar nydo-topbar">
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="Abrir menú" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <a href="index.html#inicio" class="brand">
+            <span class="brand-symbol">木</span>
+            <span class="brand-name">NYDo</span>
+        </a>
+
+        <div class="brand-description">
+            <strong>WIKI NO OFICIAL</strong>
+            <span>Mod de Naruto para Minecraft</span>
+        </div>
+
+        <div class="wiki-search-wrap" id="wikiSearch">
+            <div class="wiki-search-box">
+                <i class="fa-solid fa-magnifying-glass wiki-search-icon"></i>
+                <input type="search" id="wikiSearchInput" placeholder="Buscar..." autocomplete="off"
+                       aria-label="Buscar en toda la wiki" aria-controls="wikiSearchResults" aria-expanded="false">
+                <button type="button" id="wikiSearchClear" aria-label="Limpiar búsqueda" style="display:none;">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div id="wikiSearchResults" class="wiki-search-results" role="region" aria-live="polite"></div>
+        </div>
+    </div>
+</header>
+
+<div class="page-overlay" id="pageOverlay"></div>
+<aside class="sidebar" id="sidebar" data-include="sidebar.html"></aside>
+
+<main class="dv-page">
+
+    <!-- HERO -->
+    <section class="dv-hero" id="inicio">
+        <span class="dv-kanji" aria-hidden="true" translate="no">飛雷神</span>
+        <span class="dv-bolt" aria-hidden="true"></span>
+        <span class="dv-bolt" aria-hidden="true"></span>
+        <span class="dv-bolt" aria-hidden="true"></span>
+
+        <span class="dv-eyebrow">Hiraishin no Jutsu · Minato Namikaze</span>
+        <h1>Dios del <span>Trueno Volador</span></h1>
+        <p>
+            Marca, lanza y aparece donde quieras. El kunai Dios Volador
+            te da tres habilidades espacio-temporales: teletransportarte
+            al impacto, dejar seis marcas a tu alrededor y saltar a una
+            marca ya activa.
+        </p>
+        <a href="jutsus.html#fuinjutsu" class="dv-back"><i class="fa-solid fa-arrow-left"></i> Volver a Jutsus</a>
+    </section>
+
+    <!-- CÓMO OBTENERLO -->
+    <section class="dv-section" id="obtener">
+        <h2 class="dv-title">Cómo obtenerlo</h2>
+        <div class="dv-steps">
+            <div class="dv-step">
+                <i class="fa-solid fa-location-crosshairs"></i>
+                <h3>Consigue el kunai</h3>
+                <p>Obtén el kunai <b>Dios Volador</b>. Es el objeto que desbloquea toda la técnica.</p>
+            </div>
+            <div class="dv-step">
+                <i class="fa-solid fa-scroll"></i>
+                <h3>Ve a Preparaciones</h3>
+                <p>Abre el menú de <b>Preparaciones</b> con el kunai ya en tu poder.</p>
+            </div>
+            <div class="dv-step">
+                <i class="fa-solid fa-bolt"></i>
+                <h3>Equípalo</h3>
+                <p>Equipa el Dios Volador y obtendrás <b>3 habilidades</b> nuevas, que ves a continuación.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HABILIDADES -->
+    <section class="dv-section" id="habilidades">
+        <h2 class="dv-title">Las 3 habilidades</h2>
+
+        <!-- 1 -->
+        <article class="dv-skill">
+            <div class="dv-video">
+                <video src="vid/dios volador .mp4" controls loop muted playsinline preload="metadata"></video>
+            </div>
+            <div class="dv-skill-body">
+                <span class="dv-num">Habilidad 1</span>
+                <h3>Dios Volador</h3>
+                <p>
+                    Lanza el kunai y, en cuanto impacte, te teletransportas
+                    al punto exacto donde cayó. Útil para cruzar distancias,
+                    escapar o caer sobre tu objetivo.
+                </p>
+                <div class="dv-tags">
+                    <span><i class="fa-solid fa-bullseye"></i>Lanzar kunai</span>
+                    <span><i class="fa-solid fa-bolt"></i>TP al impactar</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="dv-skill">
+            <div class="dv-video">
+                <video src="vid/marcasHiraishin.mp4" controls loop muted playsinline preload="metadata"></video>
+            </div>
+            <div class="dv-skill-body">
+                <span class="dv-num">Habilidad 2</span>
+                <h3>Marcas Hiraishin</h3>
+                <p>
+                    Deja <b>6 kunais</b> en el lugar donde estás parado. Con la
+                    tecla <kbd>F</kbd> cambias de uno a otro, del primero al sexto,
+                    para elegir cuál marca usar.
+                </p>
+                <div class="dv-tags">
+                    <span><i class="fa-solid fa-location-dot"></i>6 marcas</span>
+                    <span><i class="fa-regular fa-keyboard"></i>F: cambiar marca</span>
+                </div>
+
+            </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="dv-skill">
+            <div class="dv-video">
+                <video src="vid/marcaHiraishiVivi.mp4" controls loop muted playsinline preload="metadata"></video>
+            </div>
+            <div class="dv-skill-body">
+                <span class="dv-num">Habilidad 3</span>
+                <h3>Marca Hiraishin Vivi</h3>
+                <p>
+                    Cuando tienes activa la marca de la habilidad anterior,
+                    puedes teletransportarte a esa marca <b>una sola vez</b>.
+                </p>
+                <div class="dv-tags">
+                    <span><i class="fa-solid fa-link"></i>Requiere marca activa</span>
+                    <span><i class="fa-solid fa-1"></i>1 uso</span>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <p class="dv-note">
+        Nota: el Hiraishin se clasifica como ninjutsu espacio-temporal,
+        aunque usa fórmulas de marcado relacionadas con el sellado.
+    </p>
+
+    <footer class="dv-footer">
+        <a href="index.html" class="brand-name">NYDo</a>
+        <p>El conocimiento de las artes shinobi comienza aquí.</p>
+        <a href="#inicio">Volver arriba ↑</a>
+    </footer>
+</main>
+
+<script src="script.js" defer></script>
+<script src="busqueda.js" defer></script>
+<script src="translate.js" defer></script>
+<script src="mobile-nav.js" defer></script>
+</body>
+</html>

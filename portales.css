@@ -42,6 +42,42 @@
     --t2: 255, 59, 110;
 }
 
+.portal-hiraishin {
+    --t1: 255, 213, 74;
+    --t2: 255, 122, 26;
+}
+
+.portal-kg {
+    --t1: 155, 77, 255;
+    --t2: 95, 207, 122;
+}
+
+.portal-fire      { --t1: 255, 98, 94;   --t2: 255, 179, 71; }
+.portal-wind      { --t1: 128, 219, 162; --t2: 160, 235, 255; }
+.portal-lightning { --t1: 241, 211, 94;  --t2: 120, 190, 255; }
+.portal-earth     { --t1: 214, 164, 119; --t2: 150, 105, 60; }
+.portal-water     { --t1: 101, 186, 255; --t2: 80, 230, 220; }
+.portal-ninja     { --t1: 79, 179, 255;  --t2: 155, 77, 255; }
+
+/* ---------- Variante tarjeta (elementos y ninjutsu) ---------- */
+.portal.portal-card {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 14px;
+    padding: 26px 18px 24px;
+    text-align: center;
+    border-radius: 22px;
+}
+.portal-card .portal-orb { width: 66px; height: 66px; font-size: 30px; }
+.portal-card .portal-orb img { width: 36px; height: 36px; image-rendering: pixelated; filter: brightness(3.2) contrast(1.1); }
+.portal.portal-card .portal-kanji { right: -8px; top: auto; bottom: -26px; font-size: 130px; transform: rotate(-8deg); }
+.portal-card .portal-body h3 { font-size: 20px; margin-bottom: 6px; }
+.portal-card .portal-body p { font-size: 12px; line-height: 1.65; }
+.portal-card .portal-fx i:nth-child(n+4) { display: none; }
+@media (hover: hover) {
+    .portal.portal-card:hover .portal-kanji { transform: rotate(0deg) scale(1.1); }
+}
+
 .portal-gates {
     --t1: 255, 98, 64;
     --t2: 70, 225, 160;
