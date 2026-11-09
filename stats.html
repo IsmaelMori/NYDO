@@ -77,12 +77,12 @@
                     <div><i class="fa-solid fa-coins"></i><strong>240</strong><small>puntos totales</small></div>
                     <div><i class="fa-solid fa-layer-group"></i><strong>120</strong><small>máx. por rama</small></div>
                     <div><i class="fa-solid fa-sitemap"></i><strong>8</strong><small>ramas</small></div>
-                    <div><i class="fa-solid fa-user-ninja"></i><strong>10</strong><small>builds</small></div>
+                    <div><i class="fa-solid fa-user-ninja"></i><strong>15</strong><small>builds</small></div>
                 </div>
             </section>
 
             <section class="st-presets-bar st-glass" id="builds" aria-label="Builds de personajes">
-                <h2 class="st-sr-only">Builds de personajes: Equilibrada, Naruto, Minato, Kakashi, Itachi, Sasuke, Might Guy, Sakura, Tsunade y Jiraiya</h2>
+                <h2 class="st-sr-only">Builds de personajes: Equilibrada, Naruto, Minato, Kakashi, Itachi, Sasuke, Might Guy, Sakura, Tsunade, Jiraiya, Neji, Hinata y Gaara</h2>
                 <span class="st-presets-label"><i class="fa-solid fa-user-ninja"></i> Cargar build</span>
                 <div class="st-presets" id="stPresets" role="group" aria-label="Builds de personajes"></div>
                 <article id="build-equilibrada" class="st-sr-only"><h3>Equilibrada</h3><p>Build versátil, sin especialización. Naturaleza: Libre. Habilidades principales: Jutsus básicos de todas las ramas; Reserva de chakra estable; Se adapta a cualquier estilo de combate. Kekkei Genkai: Ninguno (depende del clan que elijas). Clan: Sin clan / a elección. Build de Equilibrada: Ninjutsu 30, Taijutsu 30, Genjutsu 30, Control de chakra 30, Vitalidad 30, Defensa 30, Agilidad 30, Medicina ninja 30.</p></article>
@@ -90,6 +90,9 @@
                 <article id="build-kakashi" class="st-sr-only"><h3>Kakashi Hatake</h3><p>El ninja que copia mil técnicas. Naturaleza: Rayo, Tierra, Agua, Fuego, Viento. Habilidades principales: Raikiri / Chidori; Kamui; Copia de jutsus con el Sharingan; Ninken no Jutsu (invocación). Kekkei Genkai: Sharingan (trasplantado); Mangekyō Sharingan. Clan: Hatake. Build de Kakashi Hatake: Ninjutsu 70, Taijutsu 40, Genjutsu 15, Control de chakra 35, Vitalidad 20, Defensa 15, Agilidad 45.</p></article>
                 <article id="build-itachi" class="st-sr-only"><h3>Itachi Uchiha</h3><p>Maestro del genjutsu. Naturaleza: Fuego, Yin. Habilidades principales: Tsukuyomi; Amaterasu; Susanoo (Espada de Totsuka y Espejo de Yata); Katon: Gōkakyū no Jutsu. Kekkei Genkai: Sharingan; Mangekyō Sharingan. Clan: Uchiha. Build de Itachi Uchiha: Ninjutsu 50, Taijutsu 10, Genjutsu 100, Control de chakra 40, Vitalidad 10, Defensa 5, Agilidad 25.</p></article>
                 <article id="build-sasuke" class="st-sr-only"><h3>Sasuke Uchiha</h3><p>El vengador del clan Uchiha. Naturaleza: Fuego, Rayo, Yin, Yang. Habilidades principales: Chidori / Kirin; Amaterasu; Susanoo; Katon: Gōkakyū no Jutsu. Kekkei Genkai: Sharingan; Mangekyō Sharingan Eterno; Rinnegan. Clan: Uchiha. Build de Sasuke Uchiha: Ninjutsu 74, Taijutsu 35, Genjutsu 21, Control de chakra 35, Vitalidad 15, Defensa 10, Agilidad 50.</p></article>
+                <article id="build-neji" class="st-sr-only"><h3>Neji Hyūga</h3><p>Prodigio del clan Hyūga · Maestro del Puño Suave. Naturaleza: Ninguna conocida. Habilidades principales: Jūken (Puño Suave); Hakke Rokujūyon Shō; Hakke Kaiten; Hakke Kūshō; Byakugan. Kekkei Genkai: Byakugan. Clan: Hyūga. Build de Neji Hyūga: Ninjutsu 35, Taijutsu 85, Genjutsu 0, Control de chakra 40, Vitalidad 20, Defensa 10, Agilidad 50.</p></article>
+                <article id="build-hinata" class="st-sr-only"><h3>Hinata Hyūga</h3><p>Heredera del clan Hyūga · Equipo 8. Naturaleza: Fuego, Rayo. Habilidades principales: Jūken (Puño Suave); Juho Sōshiken (Puños de León Gemelos); Hakke Rokujūyon Shō; Hakke Kūshō; Byakugan. Kekkei Genkai: Byakugan. Clan: Hyūga. Build de Hinata Hyūga: Ninjutsu 50, Taijutsu 75, Genjutsu 0, Control de chakra 65, Vitalidad 15, Defensa 10, Agilidad 25.</p></article>
+                <article id="build-gaara" class="st-sr-only"><h3>Gaara</h3><p>Quinto Kazekage · Jinchūriki del Ichibi. Naturaleza: Viento, Tierra, Rayo. Habilidades principales: Suna no Tate (Escudo de Arena); Suna no Yoroi (Armadura de Arena); Sabaku Kyū / Sabaku Sōsō; Shukaku (Jinchūriki del Ichibi). Kekkei Genkai: Jiton (Elemento Imán, según la novela Gaara Hiden). Clan: Sin clan. Build de Gaara: Ninjutsu 75, Taijutsu 10, Genjutsu 0, Control de chakra 50, Vitalidad 35, Defensa 50, Agilidad 20.</p></article>
             </section>
 
             <div class="st-layout">
@@ -463,6 +466,53 @@ pain: {
                 ],
                 
                 kekkei: [{ t: 'Ninguno' }],
+                clan: { t: 'Sin clan', href: '' }
+            },
+            // Databook 3 (Nin 4 · Tai 4.5 · Gen 2 · Int 3 · Fue 2.5 · Vel 4.5 · Res 3.5 · Sellos 3 = 27)
+            neji: {
+                name: 'Neji Hyūga', icon: 'fa-eye',
+                sub: 'Prodigio del clan Hyūga · Maestro del Puño Suave',
+                points: { nin: 35, tai: 85, gen: 0, chk: 40, vit: 20, def: 10, agi: 50, med: 0 },
+                nature: ['Ninguna conocida'],
+                abilities: [
+                    { n: 'Jūken (Puño Suave)', t: ['Taijutsu'] },
+                    { n: 'Hakke Rokujūyon Shō (Ocho Trigramas: 64 Palmas)', t: ['Taijutsu'] },
+                    { n: 'Hakke Kaiten (Rotación de los Ocho Trigramas)', t: ['Taijutsu'] },
+                    { n: 'Hakke Kūshō (Palma de Vacío)', t: ['Taijutsu'] },
+                    { n: 'Byakugan', t: ['Dōjutsu'] }
+                ],
+                kekkei: [{ t: 'Byakugan', href: 'dojutsus.html#byakugan' }],
+                clan: { t: 'Hyūga', href: '' }
+            },
+            // Databook 3 (Nin 3 · Tai 3.5 · Gen 2.5 · Int 3.5 · Fue 1.5 · Vel 2.5 · Res 2 · Sellos 3 = 21.5)
+            hinata: {
+                name: 'Hinata Hyūga', icon: 'fa-hand-holding-heart',
+                sub: 'Heredera del clan Hyūga · Equipo 8',
+                points: { nin: 50, tai: 75, gen: 0, chk: 65, vit: 15, def: 10, agi: 25, med: 0 },
+                nature: ['Fuego', 'Rayo'],
+                abilities: [
+                    { n: 'Jūken (Puño Suave)', t: ['Taijutsu'] },
+                    { n: 'Juho Sōshiken (Pasos Suaves: Puños de León Gemelos)', t: ['Taijutsu'] },
+                    { n: 'Hakke Rokujūyon Shō (Ocho Trigramas: 64 Palmas)', t: ['Taijutsu'] },
+                    { n: 'Hakke Kūshō (Palma de Vacío)', t: ['Taijutsu'] },
+                    { n: 'Byakugan', t: ['Dōjutsu'] }
+                ],
+                kekkei: [{ t: 'Byakugan', href: 'dojutsus.html#byakugan' }],
+                clan: { t: 'Hyūga', href: '' }
+            },
+            // Databook 3 (Nin 5 · Tai 2 · Gen 3.5 · Int 4 · Fue 2.5 · Vel 3 · Res 5 · Sellos 4 = 29)
+            gaara: {
+                name: 'Gaara', icon: 'fa-hourglass-half',
+                sub: 'Quinto Kazekage · Jinchūriki del Ichibi',
+                points: { nin: 75, tai: 10, gen: 0, chk: 50, vit: 35, def: 50, agi: 20, med: 0 },
+                nature: ['Viento', 'Tierra', 'Rayo'],
+                abilities: [
+                    { n: 'Suna no Tate (Escudo de Arena)', t: ['Ninjutsu'] },
+                    { n: 'Suna no Yoroi (Armadura de Arena)', t: ['Ninjutsu'] },
+                    { n: 'Sabaku Kyū / Sabaku Sōsō (Ataúd y Funeral del Desierto)', t: ['Ninjutsu'] },
+                    { n: 'Shukaku (Jinchūriki del Ichibi)', t: ['Jinchūriki'] }
+                ],
+                kekkei: [{ t: 'Jiton (Elemento Imán) · según la novela Gaara Hiden', href: 'kekkei-genkai.html#jiton' }],
                 clan: { t: 'Sin clan', href: '' }
             }
         };
