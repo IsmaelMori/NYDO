@@ -735,6 +735,7 @@ details[open] > summary .chev { transform: rotate(180deg); }
 .stat-link .tx { flex: 1; min-width: 0; }
 .stat-link strong { display: block; font-size: 19px; }
 .stat-link small { color: var(--muted); font-size: 13.5px; }
+.stats-grid .stat-link:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .stat-link .go { color: var(--gold); transition: transform .3s var(--spring); }
 .stat-link:hover .go { transform: translateX(5px); }
 
