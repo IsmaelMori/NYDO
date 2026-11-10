@@ -308,6 +308,134 @@
             .pack-all { flex-direction: column; align-items: stretch; }
             .pack-all .glass-btn { width: 100%; }
         }
+
+        /* =====================================================
+           INTERACTIVIDAD
+        ===================================================== */
+        html { scroll-behavior: smooth; }
+        section[id] { scroll-margin-top: 80px; }
+
+        /* Aparición al hacer scroll */
+        .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
+        .reveal.visible { opacity: 1; transform: none; }
+
+        /* Foco de luz que sigue al cursor + inclinación 3D */
+        .download-grid .wiki-card, .glass.pack-card, .glass.step, .glass.pack-all {
+            --mx: 50%; --my: 50%;
+            transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+            will-change: transform;
+        }
+        .download-grid .wiki-card::before, .glass.pack-card::before {
+            content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            opacity: 0; transition: opacity .3s ease;
+            background: radial-gradient(260px circle at var(--mx) var(--my), rgba(255,255,255,.20), transparent 60%);
+        }
+        .download-grid .wiki-card:hover::before, .glass.pack-card:hover::before { opacity: 1; }
+        .download-grid .wiki-card { position: relative; overflow: hidden; }
+        .download-grid .wiki-card > * { position: relative; z-index: 1; }
+        .download-grid .wiki-card:hover, .glass.pack-card:hover { border-color: rgba(255,255,255,.38); }
+
+        /* Resalta la versión Ism */
+        .download-grid .wiki-card.ism { border-color: rgba(255,200,90,.45); }
+        .download-grid .wiki-card.ism:hover { box-shadow: 0 20px 60px rgba(255,190,60,.22), inset 0 1.5px 0 rgba(255,255,255,.45); }
+
+        /* Lista de características desplegable */
+        .feature-toggle {
+            display: inline-flex; align-items: center; gap: 8px; margin: 0 0 12px; padding: 6px 14px;
+            border-radius: 999px; border: 1px solid rgba(255,255,255,.2); background: rgba(255,255,255,.07);
+            color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+            transition: background .2s;
+        }
+        .feature-toggle:hover { background: rgba(255,255,255,.16); }
+        .feature-toggle i { transition: transform .3s ease; font-size: 11px; }
+        .feature-toggle[aria-expanded="true"] i { transform: rotate(180deg); }
+        .feature-list.collapsible { max-height: 0; overflow: hidden; margin-bottom: 0; opacity: 0; transition: max-height .4s ease, opacity .3s ease, margin .3s ease; }
+        .feature-list.collapsible.open { max-height: 260px; opacity: 1; margin-bottom: 18px; }
+
+        /* Menú rápido: sección activa */
+        .quick-nav a.active { background: rgba(255,38,63,.35); border-color: rgba(255,255,255,.4); }
+
+        /* Barra de progreso de la instalación */
+        .progress-wrap { max-width: 900px; margin: 0 auto 22px; padding: 16px 22px; }
+        .progress-top { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+        .progress-bar { height: 8px; border-radius: 999px; background: rgba(255,255,255,.12); overflow: hidden; }
+        .progress-fill { height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, #ff263f, #ffc65a); transition: width .5s ease; }
+        .progress-reset { background: none; border: none; color: var(--muted); font-size: 11px; cursor: pointer; font-family: inherit; text-decoration: underline; }
+
+        /* Pasos marcables */
+        .glass.step { cursor: pointer; }
+        .glass.step:hover { transform: translateX(6px); }
+        .glass.step .step-num { transition: background .3s, transform .3s; }
+        .glass.step.done { opacity: .7; border-color: rgba(80,220,140,.5); }
+        .glass.step.done .step-num {
+            background: linear-gradient(135deg, rgba(60,200,120,.7), rgba(255,255,255,.1));
+            transform: scale(1.08);
+        }
+        .glass.step.done h3 { text-decoration: line-through; text-decoration-color: rgba(255,255,255,.4); }
+        .step-hint { text-align: center; color: var(--muted); font-size: 12px; margin-bottom: 14px; }
+
+        /* Código copiable */
+        .step code.copyable, .pack-all code.copyable { cursor: copy; transition: background .2s, border-color .2s; }
+        .step code.copyable:hover, .pack-all code.copyable:hover { background: rgba(255,38,63,.3); border-color: rgba(255,255,255,.4); }
+        .step code.copyable::after { content: "\f0c5"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 10px; margin-left: 8px; opacity: .6; }
+
+        /* Notificación flotante */
+        .nydo-toast {
+            position: fixed; left: 50%; bottom: 28px; z-index: 9999;
+            transform: translate(-50%, 30px); opacity: 0; pointer-events: none;
+            display: flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: 999px;
+            color: #fff; font-size: 13px; font-weight: 700; max-width: calc(100vw - 32px);
+            background: rgba(20,22,34,.82); border: 1px solid rgba(255,255,255,.25);
+            -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+            box-shadow: 0 12px 40px rgba(0,0,0,.45);
+            transition: opacity .3s ease, transform .3s ease;
+        }
+        .nydo-toast.show { opacity: 1; transform: translate(-50%, 0); }
+        .nydo-toast i { color: #5be39a; }
+
+        /* Efecto onda en botones */
+        .glass-btn, .explore-btn { position: relative; overflow: hidden; }
+        .ripple {
+            position: absolute; border-radius: 50%; pointer-events: none; transform: scale(0);
+            background: rgba(255,255,255,.4); animation: ripple .6s ease-out forwards;
+        }
+        @keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+        /* Volver arriba */
+        .to-top {
+            position: fixed; right: 20px; bottom: 24px; z-index: 900; width: 46px; height: 46px;
+            display: grid; place-items: center; border-radius: 50%; color: #fff; cursor: pointer;
+            background: linear-gradient(135deg, rgba(255,38,63,.55), rgba(255,255,255,.1));
+            border: 1px solid rgba(255,255,255,.3); box-shadow: 0 8px 24px rgba(0,0,0,.35);
+            -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+            opacity: 0; transform: translateY(20px); pointer-events: none; transition: all .3s ease;
+        }
+        .to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+        .to-top:hover { transform: translateY(-4px); }
+
+        /* Fecha de última actualización */
+        .update-line {
+            display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+            margin: 0 0 14px; font-size: 12px; font-weight: 600; color: var(--muted);
+        }
+        .update-line i { color: #5be39a; }
+        .update-line .rel { color: #fff; font-weight: 700; }
+        .update-line.loading { opacity: .6; }
+        .update-line.loading i { animation: spin 1s linear infinite; }
+        .update-line.unknown i { color: var(--muted); }
+        .badge.new { background: rgba(60,200,120,.18); border-color: rgba(90,230,150,.5); animation: pulseNew 2s ease-in-out infinite; }
+        .badge.new i { color: #5be39a; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulseNew { 50% { box-shadow: 0 0 14px rgba(90,230,150,.45); } }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .ripple { display: none; }
+        }
+        @media (hover: none) {
+            .glass.step:hover { transform: none; }
+        }
     </style>
 <link rel="stylesheet" href="mobile-nav.css">
 </head>
@@ -357,7 +485,7 @@
             <div class="wiki-grid download-grid">
 
                 <!-- NYDO 5.6 -->
-                <div class="wiki-card">
+                <div class="wiki-card" data-fecha="">
                     <div>
                         <i class="fa-solid fa-file-arrow-down"></i>
                         <h3>NYDo Mod - Versión 5.6</h3>
@@ -383,11 +511,11 @@
                     </div>
                 </div>
 
-                <!-- NYDO R18 -->
-                <div class="wiki-card">
+                <!-- NYDO ISM -->
+                <div class="wiki-card ism" data-fecha="">
                     <div>
                         <i class="fa-solid fa-star"></i>
-                        <h3>NYDO R18</h3>
+                        <h3>NYDo Ism</h3>
                         <div class="badge-row">
                             <span class="badge gold"><i class="fa-solid fa-lock-open"></i> Todo desbloqueado</span>
                             <span class="badge gold"><i class="fa-solid fa-wand-magic-sparkles"></i> Todos los modos</span>
@@ -401,9 +529,9 @@
                     </div>
                     <div>
                         <span class="download-note">Versión mejorada · Todo desbloqueado</span>
-                        <a href="https://github.com/IsmaelMori/NYDO/releases/download/5.5/NYDO_R18_Corregido_ISma.jar" class="explore-btn" rel="noopener noreferrer" aria-label="Descargar NYDO R18">
+                        <a href="https://github.com/IsmaelMori/NYDO/releases/download/5.5/NYDO_R18_Corregido_ISma.jar" class="explore-btn" rel="noopener noreferrer" aria-label="Descargar NYDo Ism">
                             <span class="button-symbol" style="font-size: 18px;">木</span>
-                            <span>Descargar NYDO R18</span>
+                            <span>Descargar NYDo Ism</span>
                             <i class="fa-solid fa-download"></i>
                         </a>
                     </div>
@@ -419,6 +547,15 @@
                 <h2>Cómo instalar el mod</h2>
                 <p>Sigue estos pasos en orden y estarás jugando en pocos minutos.</p>
             </div>
+
+            <div class="glass progress-wrap" id="installProgress">
+                <div class="progress-top">
+                    <span><i class="fa-solid fa-list-check"></i> Tu progreso: <span id="progressText">0 de 5 pasos</span></span>
+                    <button type="button" class="progress-reset" id="progressReset">Reiniciar</button>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            </div>
+            <p class="step-hint"><i class="fa-regular fa-hand-pointer"></i> Toca un paso para marcarlo como hecho</p>
 
             <div class="steps">
 
@@ -535,7 +672,7 @@
                     <div>
                         <i class="fa-solid fa-file-arrow-down"></i>
                         <h3>NYDo (cualquier versión)</h3>
-                        <p>El mod principal. Elige la v5.6 o la R18 con todo desbloqueado.</p>
+                        <p>El mod principal. Elige la v5.6 o la versión Ism con todo desbloqueado.</p>
                     </div>
                     <a class="glass-btn" href="#descargas">
                         <i class="fa-solid fa-download"></i> Ir a las descargas
@@ -569,5 +706,262 @@
     <script src="script.js"></script>
     <script src="translate.js"></script>
 <script src="mobile-nav.js"></script>
+
+<script>
+(() => {
+    "use strict";
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+
+    /* ---------- Notificación ---------- */
+    const toast = document.createElement("div");
+    toast.className = "nydo-toast";
+    toast.setAttribute("role", "status");
+    document.body.appendChild(toast);
+    let toastTimer;
+    function showToast(msg, icon = "fa-circle-check") {
+        toast.innerHTML = '<i class="fa-solid ' + icon + '"></i><span></span>';
+        toast.lastChild.textContent = msg;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+    }
+
+    /* ---------- Aparición al hacer scroll ---------- */
+    const revealEls = $$(".section-heading, .download-grid .wiki-card, .progress-wrap, .step, .pack-card, .pack-all");
+    revealEls.forEach((el, i) => {
+        el.classList.add("reveal");
+        el.style.transitionDelay = (i % 4) * 70 + "ms";
+    });
+    if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.12 });
+        revealEls.forEach(el => io.observe(el));
+    } else {
+        revealEls.forEach(el => el.classList.add("visible"));
+    }
+
+    /* ---------- Foco de luz + inclinación 3D (solo con ratón) ---------- */
+    if (window.matchMedia("(hover: hover)").matches) {
+        $$(".download-grid .wiki-card, .glass.pack-card").forEach(card => {
+            card.addEventListener("mousemove", e => {
+                const r = card.getBoundingClientRect();
+                const x = e.clientX - r.left, y = e.clientY - r.top;
+                card.style.setProperty("--mx", x + "px");
+                card.style.setProperty("--my", y + "px");
+                const rx = ((y / r.height) - 0.5) * -6;
+                const ry = ((x / r.width) - 0.5) * 6;
+                card.style.transform = "perspective(900px) rotateX(" + rx + "deg) rotateY(" + ry + "deg) translateY(-4px)";
+            });
+            card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+        });
+    }
+
+    /* ---------- Lista de características desplegable ---------- */
+    $$(".download-grid .feature-list").forEach(list => {
+        list.classList.add("collapsible", "open");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "feature-toggle";
+        btn.setAttribute("aria-expanded", "true");
+        btn.innerHTML = '<span>Novedades</span><i class="fa-solid fa-chevron-down"></i>';
+        list.parentNode.insertBefore(btn, list);
+        btn.addEventListener("click", () => {
+            const open = list.classList.toggle("open");
+            btn.setAttribute("aria-expanded", open);
+        });
+    });
+
+    /* ---------- Menú rápido: sección activa ---------- */
+    const navLinks = $$(".quick-nav a");
+    const sections = navLinks.map(a => $(a.getAttribute("href"))).filter(Boolean);
+    if ("IntersectionObserver" in window && sections.length) {
+        const so = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+                }
+            });
+        }, { rootMargin: "-40% 0px -55% 0px" });
+        sections.forEach(s => so.observe(s));
+    }
+
+    /* ---------- Pasos de instalación con progreso guardado ---------- */
+    const steps = $$(".glass.step");
+    const KEY = "nydo-install-steps";
+    const fill = $("#progressFill"), text = $("#progressText");
+    let saved = [];
+    try { saved = JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) {}
+
+    function updateProgress(announce) {
+        const done = steps.filter(s => s.classList.contains("done")).length;
+        fill.style.width = (done / steps.length * 100) + "%";
+        text.textContent = done + " de " + steps.length + " pasos";
+        try { localStorage.setItem(KEY, JSON.stringify(steps.map((s, i) => s.classList.contains("done") ? i : -1).filter(i => i >= 0))); } catch (e) {}
+        if (announce && done === steps.length) showToast("¡Todo listo! Abre Minecraft y a jugar 🥷");
+    }
+    steps.forEach((step, i) => {
+        step.tabIndex = 0;
+        step.setAttribute("role", "checkbox");
+        if (saved.includes(i)) step.classList.add("done");
+        step.setAttribute("aria-checked", step.classList.contains("done"));
+        const toggle = () => {
+            step.classList.toggle("done");
+            step.setAttribute("aria-checked", step.classList.contains("done"));
+            updateProgress(true);
+        };
+        step.addEventListener("click", e => {
+            if (e.target.closest("a, code")) return; /* no marcar al pulsar enlaces o copiar */
+            toggle();
+        });
+        step.addEventListener("keydown", e => {
+            if ((e.key === "Enter" || e.key === " ") && e.target === step) { e.preventDefault(); toggle(); }
+        });
+    });
+    $("#progressReset").addEventListener("click", () => {
+        steps.forEach(s => { s.classList.remove("done"); s.setAttribute("aria-checked", "false"); });
+        updateProgress(false);
+        showToast("Progreso reiniciado", "fa-rotate-left");
+    });
+    updateProgress(false);
+
+    /* ---------- Clic para copiar rutas ---------- */
+    $$(".step code, .pack-all code").forEach(code => {
+        const t = code.textContent.trim();
+        if (!/%|^\./.test(t)) return;
+        code.classList.add("copyable");
+        code.title = "Clic para copiar";
+        code.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(t);
+                showToast("Copiado: " + t, "fa-copy");
+            } catch (e) {
+                showToast("No se pudo copiar, hazlo manualmente", "fa-triangle-exclamation");
+            }
+        });
+    });
+
+    /* ---------- Aviso al descargar ---------- */
+    $$(".download-grid .explore-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const nombre = btn.getAttribute("aria-label") || "el mod";
+            showToast(nombre.replace("Descargar", "Descargando") + "…", "fa-download");
+            setTimeout(() => { if ($("#instalar")) showToast("Siguiente: sigue la guía de instalación", "fa-arrow-down"); }, 3000);
+        });
+    });
+
+    /* ---------- Efecto onda en botones ---------- */
+    document.addEventListener("pointerdown", e => {
+        const b = e.target.closest(".glass-btn, .explore-btn");
+        if (!b) return;
+        const r = b.getBoundingClientRect(), size = Math.max(r.width, r.height);
+        const span = document.createElement("span");
+        span.className = "ripple";
+        span.style.cssText = "width:" + size + "px;height:" + size + "px;left:" + (e.clientX - r.left - size / 2) + "px;top:" + (e.clientY - r.top - size / 2) + "px";
+        b.appendChild(span);
+        setTimeout(() => span.remove(), 650);
+    });
+
+
+    /* ---------- Última actualización (leída desde GitHub Releases) ---------- */
+    (function fechasDeActualizacion() {
+        const REPO = "IsmaelMori/NYDO";
+        const CACHE_KEY = "nydo-releases-cache";
+        const CACHE_MS = 60 * 60 * 1000; /* 1 hora, para no agotar el límite de la API */
+        const meses = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+
+        const tarjetas = $$(".download-grid .wiki-card").map(card => {
+            const a = $("a.explore-btn", card);
+            if (!a) return null;
+            const partes = new URL(a.href).pathname.split("/");
+            const linea = document.createElement("div");
+            linea.className = "update-line loading";
+            linea.innerHTML = '<i class="fa-solid fa-spinner"></i><span>Consultando última actualización…</span>';
+            const badges = $(".badge-row", card);
+            badges.parentNode.insertBefore(linea, badges.nextSibling);
+            return { card, linea, badges, archivo: decodeURIComponent(partes.pop()), tag: decodeURIComponent(partes.pop()) };
+        }).filter(Boolean);
+
+        function formatear(fecha) {
+            const dias = Math.floor((Date.now() - fecha.getTime()) / 86400000);
+            let rel;
+            if (dias <= 0) rel = "hoy";
+            else if (dias === 1) rel = "ayer";
+            else if (dias < 30) rel = "hace " + dias + " días";
+            else if (dias < 365) { const m = Math.floor(dias / 30); rel = "hace " + m + (m === 1 ? " mes" : " meses"); }
+            else { const y = Math.floor(dias / 365); rel = "hace " + y + (y === 1 ? " año" : " años"); }
+            const abs = fecha.getDate() + " " + meses[fecha.getMonth()] + " " + fecha.getFullYear();
+            return { rel, abs, dias };
+        }
+
+        function pintar(t, fecha) {
+            const f = formatear(fecha);
+            t.linea.className = "update-line";
+            t.linea.innerHTML = '<i class="fa-solid fa-clock-rotate-left"></i><span>Última actualización:</span><span class="rel"></span><span></span>';
+            t.linea.children[2].textContent = f.rel;
+            t.linea.children[3].textContent = "· " + f.abs;
+            t.linea.title = fecha.toLocaleString("es");
+            if (f.dias <= 14 && !$(".badge.new", t.badges)) {
+                const b = document.createElement("span");
+                b.className = "badge new";
+                b.innerHTML = '<i class="fa-solid fa-sparkles"></i> Reciente';
+                t.badges.prepend(b);
+            }
+        }
+
+        function sinDatos(t) {
+            /* Si GitHub no responde, usa la fecha manual data-fecha="AAAA-MM-DD" si existe */
+            const manual = t.card.dataset.fecha;
+            const d = manual ? new Date(manual + "T12:00:00") : null;
+            if (d && !isNaN(d)) return pintar(t, d);
+            t.linea.className = "update-line unknown";
+            t.linea.innerHTML = '<i class="fa-solid fa-clock-rotate-left"></i><span>Fecha de actualización no disponible</span>';
+        }
+
+        function aplicar(releases) {
+            tarjetas.forEach(t => {
+                const rel = releases.find(r => r.tag_name === t.tag) ||
+                            releases.find(r => (r.assets || []).some(a => a.name === t.archivo));
+                if (!rel) return sinDatos(t);
+                const asset = (rel.assets || []).find(a => a.name === t.archivo);
+                const iso = (asset && asset.updated_at) || rel.published_at || rel.created_at;
+                const fecha = iso ? new Date(iso) : null;
+                fecha && !isNaN(fecha) ? pintar(t, fecha) : sinDatos(t);
+            });
+        }
+
+        async function cargar() {
+            try {
+                const c = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+                if (c && Date.now() - c.t < CACHE_MS) return aplicar(c.d);
+            } catch (e) {}
+            try {
+                const r = await fetch("https://api.github.com/repos/" + REPO + "/releases?per_page=30",
+                                      { headers: { Accept: "application/vnd.github+json" } });
+                if (!r.ok) throw new Error(r.status);
+                const datos = await r.json();
+                try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), d: datos })); } catch (e) {}
+                aplicar(datos);
+            } catch (e) {
+                tarjetas.forEach(sinDatos);
+            }
+        }
+        cargar();
+    })();
+
+    /* ---------- Volver arriba ---------- */
+    const top = document.createElement("button");
+    top.className = "to-top";
+    top.type = "button";
+    top.setAttribute("aria-label", "Volver arriba");
+    top.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
+    document.body.appendChild(top);
+    top.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    window.addEventListener("scroll", () => top.classList.toggle("show", window.scrollY > 500), { passive: true });
+})();
+</script>
 </body>
 </html>
