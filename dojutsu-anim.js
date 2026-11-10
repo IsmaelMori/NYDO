@@ -34,6 +34,8 @@
         'transform:translate(-50%,-50%) scale(.2);opacity:0;pointer-events:none}',
         '.dj-eyes.burst .dj-burst{animation:djBurst 1s ease-out}',
         '@keyframes djBurst{0%{opacity:.95;transform:translate(-50%,-50%) scale(.2)}100%{opacity:0;transform:translate(-50%,-50%) scale(12)}}',
+        '.dj-eyes.mounted{position:static;top:auto;right:auto;width:min(340px,100%);margin:0 auto}',
+        '.dj-eyes.mounted .dj-label{font-size:12px}',
         '@media (min-width:901px){.jutsu-panel.dj-has .panel-heading{padding-right:300px}}',
         '@media (max-width:900px){.dj-eyes{position:static;margin:0 auto 1.4rem;width:min(260px,100%)}}'
     ].join('\n');
@@ -59,7 +61,8 @@
         { id: 'mangekyo',  seq: ['sharingan3', 'ms'] },
         { id: 'eternal',   seq: ['ms', 'ems'] },
         { id: 'susanoo',   seq: ['ems'] },
-        { id: 'rinnegan',  seq: ['ems', 'rinnegan'] }
+        /* mount: los ojos se colocan en su propia sección en vez de flotar sobre el banner */
+        { id: 'rinnegan',  seq: ['ems', 'rinnegan'], mount: '#rinneganEyes' }
     ];
 
     /* ---------- SVG helpers ---------- */
@@ -271,8 +274,16 @@
             box.appendChild(row);
             box.appendChild(label);
 
-            panel.classList.add('dj-has');
-            panel.insertBefore(box, panel.firstChild);
+            var host = cfg.mount ? document.querySelector(cfg.mount) : null;
+            var target = panel;
+            if (host) {
+                box.classList.add('mounted');
+                host.appendChild(box);
+                target = host;
+            } else {
+                panel.classList.add('dj-has');
+                panel.insertBefore(box, panel.firstChild);
+            }
 
             applyStage(box, cfg.seq[0]);
 
@@ -280,7 +291,7 @@
                 box.classList.remove('dormant');
                 applyStage(box, cfg.seq[cfg.seq.length - 1]);
             } else {
-                items.push({ panel: panel, box: box, seq: cfg.seq });
+                items.push({ panel: target, box: box, seq: cfg.seq });
             }
         });
 
