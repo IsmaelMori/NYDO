@@ -56,11 +56,11 @@
 
     /* secciones → secuencia de etapas (la primera es el estado dormido) */
     var CONFIG = [
-        { id: 'byakugan',  seq: ['normal', 'byakugan'] },
-        { id: 'sharingan', seq: ['normal', 'sharingan3'] },
-        { id: 'mangekyo',  seq: ['sharingan3', 'ms'] },
-        { id: 'eternal',   seq: ['ms', 'ems'] },
-        { id: 'susanoo',   seq: ['ems'] },
+        { id: 'byakugan',  seq: ['normal', 'byakugan'], mount: '#byakuganEyes' },
+        { id: 'sharingan', seq: ['normal', 'sharingan3'], mount: '#sharinganEyes' },
+        { id: 'mangekyo',  seq: ['sharingan3', 'ms'], mount: '#mangekyoEyes' },
+        { id: 'eternal',   seq: ['ms', 'ems'], mount: '#eternalEyes' },
+        { id: 'susanoo',   seq: ['ems'], mount: '#susanooEyes' },
         /* mount: los ojos se colocan en su propia sección en vez de flotar sobre el banner */
         { id: 'rinnegan',  seq: ['ems', 'rinnegan'], mount: '#rinneganEyes' }
     ];
