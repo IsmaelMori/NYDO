@@ -296,29 +296,10 @@
            NYDo ISM — TARJETA PREMIUM + CRÉDITOS
         ===================================================== */
         .download-grid .wiki-card.ism {
-            background:
-                radial-gradient(120% 80% at 100% 0%, rgba(255,190,60,.20), transparent 55%),
-                radial-gradient(90% 70% at 0% 100%, rgba(255,38,63,.14), transparent 60%),
-                linear-gradient(135deg, rgba(255,255,255,.16), rgba(255,255,255,.03) 45%, rgba(255,255,255,.08));
-            border: 1px solid rgba(255,200,90,.55);
-            box-shadow:
-                0 20px 60px rgba(255,170,40,.16),
-                inset 0 1.5px 0 rgba(255,235,190,.55),
-                inset 0 0 34px rgba(255,200,90,.07);
-        }
-        .download-grid .wiki-card.ism h3 {
-            background: linear-gradient(90deg, #fff 0%, #ffd77a 60%, #ffb347 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-        }
-        .download-grid .wiki-card.ism > div:first-of-type > i:first-child {
-            color: #ffc65a;
-            filter: drop-shadow(0 0 12px rgba(255,190,60,.55));
+            border: 1px solid rgba(255,255,255,.22);
         }
 
-        /* Cinta superior */
+        /* Etiqueta discreta de comunidad */
         .ism-ribbon {
             position: absolute !important;
             top: 18px;
@@ -330,13 +311,15 @@
             padding: 5px 12px;
             border-radius: 999px;
             font-size: 10px;
-            font-weight: 800;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            color: #2a1a00;
-            background: linear-gradient(135deg, #ffe08a, #ffb347);
-            box-shadow: 0 6px 18px rgba(255,170,40,.35), inset 0 1px 0 rgba(255,255,255,.7);
+            font-weight: 700;
+            letter-spacing: .04em;
+            color: #fff;
+            background: rgba(255,255,255,.10);
+            border: 1px solid rgba(255,255,255,.22);
+            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
         }
+        .ism-ribbon i { color: var(--red-light); font-size: 10px; margin: 0; }
 
         /* Flujo: original -> versión Ism */
         .ism-flow {
@@ -370,15 +353,14 @@
             overflow-wrap: anywhere;
         }
         .ism-flow .node.final {
-            background: linear-gradient(135deg, rgba(255,200,90,.22), rgba(255,255,255,.05));
-            border-color: rgba(255,200,90,.5);
+            background: linear-gradient(135deg, rgba(255,38,63,.22), rgba(255,255,255,.05));
+            border-color: rgba(255,255,255,.3);
         }
-        .ism-flow .node.final small { color: #ffd77a; }
+        .ism-flow .node.final small { color: var(--red-light); }
         .ism-flow .arrow {
             align-self: center;
-            color: #ffc65a;
+            color: var(--red-light);
             font-size: 14px;
-            filter: drop-shadow(0 0 8px rgba(255,190,60,.5));
         }
 
         /* Panel de créditos */
@@ -453,16 +435,6 @@
         }
         .ism-credit .fixes i { color: #5be39a; font-size: 10px; margin: 0; }
 
-        /* Botón dorado de la versión Ism */
-        .download-grid .wiki-card.ism .explore-btn {
-            background: linear-gradient(135deg, rgba(255,200,90,.55), rgba(255,38,63,.35));
-            border: 1px solid rgba(255,220,140,.6);
-            box-shadow: 0 10px 28px rgba(255,170,40,.28), inset 0 1px 0 rgba(255,255,255,.5);
-        }
-        .download-grid .wiki-card.ism .explore-btn:hover {
-            box-shadow: 0 14px 38px rgba(255,170,40,.45), inset 0 1px 0 rgba(255,255,255,.6);
-        }
-
         @media (max-width: 480px) {
             .ism-flow { flex-direction: column; }
             .ism-flow .arrow { transform: rotate(90deg); }
@@ -514,8 +486,8 @@
         .download-grid .wiki-card:hover, .glass.pack-card:hover { border-color: rgba(255,255,255,.38); }
 
         /* Resalta la versión Ism */
-        .download-grid .wiki-card.ism { border-color: rgba(255,200,90,.45); }
-        .download-grid .wiki-card.ism:hover { box-shadow: 0 20px 60px rgba(255,190,60,.22), inset 0 1.5px 0 rgba(255,255,255,.45); }
+        .download-grid .wiki-card.ism { border-color: rgba(255,255,255,.20); }
+        .download-grid .wiki-card.ism:hover { box-shadow: 0 20px 60px rgba(255,38,63,.18), inset 0 1.5px 0 rgba(255,255,255,.45); }
 
         /* Lista de características desplegable */
         .feature-toggle {
@@ -691,16 +663,17 @@
 
                 <!-- NYDO ISM -->
                 <div class="wiki-card ism" data-fecha="">
-                    <span class="ism-ribbon"><i class="fa-solid fa-crown"></i> Versión mejorada</span>
+                    <span class="ism-ribbon"><i class="fa-solid fa-users"></i> Versión de la comunidad</span>
                     <div>
                         <i class="fa-solid fa-star"></i>
                         <h3>NYDo Ism</h3>
                         <div class="badge-row">
-                            <span class="badge gold"><i class="fa-solid fa-lock-open"></i> Todo desbloqueado</span>
-                            <span class="badge gold"><i class="fa-solid fa-wand-magic-sparkles"></i> Todos los modos</span>
-                            <span class="badge gold"><i class="fa-solid fa-bug-slash"></i> Sin bugs</span>
+                            <span class="badge"><i class="fa-solid fa-gift"></i> Gratis</span>
+                            <span class="badge"><i class="fa-solid fa-lock-open"></i> Todo desbloqueado</span>
+                            <span class="badge"><i class="fa-solid fa-wand-magic-sparkles"></i> Todos los modos</span>
+                            <span class="badge"><i class="fa-solid fa-bug-slash"></i> Sin bugs</span>
                         </div>
-                        <p>Versión mejorada con todo el contenido disponible desde el primer minuto, ideal si quieres probar el mod sin límites y con una experiencia estable.</p>
+                        <p>Versión corregida y gratuita con todo el contenido disponible desde el primer minuto, ideal si quieres probar el mod sin límites y con una experiencia estable.</p>
 
                         <div class="ism-flow" aria-label="Origen de la versión">
                             <div class="node">
@@ -733,7 +706,7 @@
                         </ul>
                     </div>
                     <div>
-                        <span class="download-note">Versión mejorada · Todo desbloqueado · Sin bugs</span>
+                        <span class="download-note">Gratis · Todo desbloqueado · Sin bugs</span>
                         <a href="https://github.com/IsmaelMori/NYDO/releases/download/5.5/NYDO_R1sm4_Uzumaki_Yin_Cadenas_FIX2.jar" class="explore-btn" rel="noopener noreferrer" aria-label="Descargar NYDo Ism">
                             <span class="button-symbol" style="font-size: 18px;">木</span>
                             <span>Descargar NYDo Ism</span>
